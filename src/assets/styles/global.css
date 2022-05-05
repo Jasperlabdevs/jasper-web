@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+  border-color: #E3E6ED ;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,500;1,700&family=DM+Serif+Display&display=swap');
+
+
+p,
+h6,
+* {
+  @apply text-sm text-black;
+}
+a{
+  @apply text-primary
+}
+
+.logo{
+  font-family: 'DM Serif Display', serif;
+  @apply text-primary font-semibold
+}
+
+small,
+sup,
+sub,
+.footnote {
+  @apply text-xs text-black;
+  font-weight: 400;
+}
+
+h1 {
+  @apply text-3xl text-black;
+}
+
+h2 {
+  @apply text-2xl text-black;
+  line-height: 36px;
+}
+
+h3 {
+  @apply text-xl text-black;
+}
+
+h4 {
+  @apply text-lg text-black;
+}
+
+h5 {
+  @apply text-base text-black;
+}
+
+.container {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+
+/* Tablet */
+
+@media screen and (min-width: 768px) {
+  p,
+  h6 {
+    @apply text-base;
+  }
+
+  h1 {
+    @apply text-6xl;
+  }
+
+  h2 {
+    @apply text-5xl;
+  }
+
+  h3 {
+    @apply text-4xl;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+
+  h5 {
+    @apply text-lg;
+  }
+
+  .banner{
+    margin-top: 130px;
+  }
+}
+
+/* Desktop */
+
+@media screen and (min-width: 1025px) {
+  h1 {
+    @apply text-7xl;
+  }
+
+  h2 {
+    @apply text-6xl;
+  }
+
+  h3 {
+    @apply text-5xl;
+  }
+
+  h4 {
+    @apply text-2xl;
+    font-weight: 400;
+  }
+
+  h5 {
+    @apply text-lg;
+  }
+
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* .banner{
+    margin-top: 130px;
+  } */
+}
