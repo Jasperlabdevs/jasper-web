@@ -1,0 +1,17 @@
+.spinner {
+	display: block;
+	width: 34px;
+	height: 34px;
+    margin: auto;
+	background: transparent;
+	box-sizing: border-box;
+	border-top: 4px solid white;
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-bottom: 4px solid transparent;
+	border-radius: 100%;
+	animation: spin 0.6s ease-out infinite;
+}
+@keyframes spin {
+	100% {transform: rotate(360deg)}
+}
