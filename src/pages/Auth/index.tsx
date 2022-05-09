@@ -9,10 +9,10 @@ const Auth = () => {
             <div className="bg-faded hidden lg:block" >
             </div>
             <div className="p-6 w-screen lg:w-auto md:p-10 md:px-16" >
-                <header className="flex justify-between items-center" >
-                    <h4 className="logo" >Jasper</h4>
+                <header className="flex justify-center md:justify-between items-center" >
+                    <h4 className="logo text-xl" >Jasper</h4>
                     { location.pathname !== '/login' ?
-                    <p className="text-grey_text" >Already have an account? <span><Link to='/login' >Sign In</Link></span> </p>
+                    <p className="text-grey_text md:block hidden" >Already have an account? <span><Link to='/login' >Sign In</Link></span> </p>
                     : <p className="text-grey_text" >New here? <span><Link to='/register' >Register</Link></span> </p>
                     
                     }
