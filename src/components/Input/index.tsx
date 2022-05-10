@@ -18,13 +18,13 @@ type SelectType ={
   onChange?:any;
 }
 
-const Input = ({label, register, name, type="text", required, placeholder}:InputType) =>{
+const Input = ({label="", register, name, type="text", required, placeholder}:InputType) =>{
 
     const[visibility, setVisibility] = useState(false)
 
     return(
         <div className="relative">
-            <label className="mb-4 text-label_text" >{label}</label><br />
+            {label.length > 1 && <><label className="mb-4 text-label_text" >{label}</label><br /></>}
             <input className="p-4 mt-2 mb-8 border rounded-md w-full" placeholder={placeholder} type={!visibility ? type : 'text'} {...register(name, { required })} />
             {
                 type === "password" && <span className="cursor-pointer text-light_grey_text absolute top-12 right-4" onClick={() =>setVisibility(!visibility)} >{visibility ? "Hide" : "Show"}</span>
@@ -34,10 +34,10 @@ const Input = ({label, register, name, type="text", required, placeholder}:Input
     )
 }
 
-export const Select = forwardRef(({ onChange, name,  label, placeholder, list}:SelectType, ref:any) => (
+export const Select = forwardRef(({ onChange, name,  label="", placeholder, list}:SelectType, ref:any) => (
     <div className="relative">
-      <label className="mb-4 text-label_text" >{label}</label><br />
-      <span className="z-10 absolute top-12 right-4" >
+      {label.length > 1 && <><label className="mb-4 text-label_text" >{label}</label><br /></>}
+      <span className={`z-10 absolute top-7 right-4 ${label.length > 1 && ' top-11 '} `} >
         {SVG.arrow_down}
       </span>
       <select className=" relative p-4 text-text-icon_background mt-2 mb-8 border rounded-md w-full" name={name} ref={ref} onChange={onChange}>
