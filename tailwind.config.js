@@ -11,6 +11,7 @@ module.exports = {
         white: "#E5E5E5",
         light_grey_text: "#A4ADC6",
         grey_text: "#8390B2",
+        label_text: "#7483A9",
         dark_grey_text: "#333C52",
         border: "#E3E6ED",
         icon_background: "#C3C9DA",

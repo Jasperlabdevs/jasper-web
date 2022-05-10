@@ -277,3 +277,31 @@ export const posts = [
         comments: 30
     },
 ]
+
+export const communityTypeList = [
+    {
+        id:1,
+        option: 'Residential Community',
+        value: 'residential_community',
+    },
+    {
+        id:2,
+        option: 'Hospitality & Events',
+        value: 'hospitality_events',
+    },
+    {
+        id:3,
+        option: 'Workplace / Office',
+        value: 'workplace_office',
+    },
+    {
+        id:4,
+        option: 'School',
+        value: 'school',
+    },
+    {
+        id:5,
+        option: 'Other',
+        value: 'other',
+    },
+] 

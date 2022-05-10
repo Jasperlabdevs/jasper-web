@@ -13,12 +13,16 @@ const Auth = () => {
                     <h4 className="logo text-xl" >Jasper</h4>
                     { location.pathname !== '/login' ?
                     <p className="text-grey_text md:block hidden" >Already have an account? <span><Link to='/login' >Sign In</Link></span> </p>
-                    : <p className="text-grey_text" >New here? <span><Link to='/register' >Register</Link></span> </p>
+                    : <p className="text-grey_text  md:block hidden" >New here? <span><Link to='/register' >Register</Link></span> </p>
                     
                     }
                 </header>
                 <div>
                     <Outlet />
+                    { location.pathname !== '/login' ?
+                    <p className="text-grey_text md:hidden mt-10 text-center" >Already have an account? <span><Link to='/login' >Sign In</Link></span> </p>
+                    : <p className="text-grey_text  md:hidden mt-10 text-center" >New here? <span><Link to='/register' >Register</Link></span> </p>
+                    }
                 </div>
 
             </div>

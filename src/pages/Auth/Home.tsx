@@ -41,7 +41,6 @@ const Home = () => {
                     ))
                 }
             </div>
-            <p className="text-grey_text mt-20 md:hidden" >Already have an account? <span><Link to='/login' >Sign In</Link></span> </p>
         </div>
     )
 }
