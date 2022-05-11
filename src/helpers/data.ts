@@ -135,6 +135,10 @@ export const checklistData:ChecklistDataType[] = [
         id: 5,
         name: 'Landloard'
     },
+    {
+        id: 6,
+        name: 'Guest'
+    },
 ]
 
 

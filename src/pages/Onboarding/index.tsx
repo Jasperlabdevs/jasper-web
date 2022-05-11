@@ -2,6 +2,7 @@ import Button from "components/Button"
 import SVGs from "helpers/SVGs"
 import { useState } from "react"
 import CommunityDetails from "./CommunityDetails"
+import UserOnboarding from "./UserOnboarding"
 
 const Onboarding = () => {
 
@@ -25,6 +26,9 @@ const Onboarding = () => {
     const goForward = () => {
         if (activeStep < 3) setActiveStep(activeStep + 1)
     }
+    const goBack = () => {
+        if (activeStep > 1) setActiveStep(activeStep - 1)
+    }
 
 
     return(
@@ -42,10 +46,14 @@ const Onboarding = () => {
             </div>
             <div>
                {activeStep ===1 && <CommunityDetails />}
-               {activeStep ===2 && <CommunityDetails />}
+               {activeStep ===2 && <UserOnboarding />}
                {activeStep ===3 && <CommunityDetails />}
             </div>
-            <Button onClick={goForward} title="Continue" type="button" />
+            <div className="flex gap-4">
+                <Button onClick={goForward} title="Continue" type="button" />
+                <Button onClick={goBack} title="Back to previous page" type="button" secondary />
+                
+            </div>
         </div>
     )
 }
