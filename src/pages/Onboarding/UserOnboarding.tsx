@@ -6,8 +6,8 @@ const UserOnboarding = () => {
 
     return(
         <div>
-            <h2 className="mt-10" >Community Details</h2>
-            <p >Fill your community details</p>
+            <h2 className="mt-10" >User Onboarding</h2>
+            <p >Select Inofrmation you'd like to capture on onboarding of your users.</p>
 
             <h4 className="mt-10" > Select User Type To Collect</h4>
             <p>This allows you to segment your member database</p>

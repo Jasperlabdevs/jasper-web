@@ -51,7 +51,9 @@ const Onboarding = () => {
             </div>
             <div className="flex gap-4">
                 <Button onClick={goForward} title="Continue" type="button" />
-                <Button onClick={goBack} title="Back to previous page" type="button" secondary />
+                {
+                    activeStep > 1 && <Button onClick={goBack} title="Back to previous page" type="button" secondary />
+                }
                 
             </div>
         </div>
