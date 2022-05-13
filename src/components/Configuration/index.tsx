@@ -10,9 +10,9 @@ type ConfigurationProp = {
 const Configuration = ({title, description, hasCheckList}:ConfigurationProp) => {
     return(
         <div className="config">
-            <div className="texts">
-                <h3>{title}</h3>
-                <p>{description}</p>
+            <div className="texts ">
+                <p className="!text-black mb-2" >{title}</p>
+                <p className="text-sm" >{description}</p>
                 { hasCheckList && 
                 <div className="checklist">
                     {
@@ -26,7 +26,7 @@ const Configuration = ({title, description, hasCheckList}:ConfigurationProp) => 
                 </div>
                 }
             </div>
-            <label className="switch">
+            <label className="switch mt-4">
                 <input type="checkbox" defaultChecked />
                 <span className="slider round"></span>
             </label>

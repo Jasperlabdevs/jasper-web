@@ -6,19 +6,12 @@
     width: 100%;
     margin: 3.2rem 0;
 }
-.config h3{
-    margin-top: 0;
-    font-size: large;
-    margin-bottom: .4rem;
-    font-weight: 300;
-}
+
 .config .texts{
     width: 80%;
 }
 
-.config p{
-    margin-top: .3rem;
-}
+
 
 .config .checklist{
     
@@ -27,13 +20,15 @@
     display: flex;
     word-wrap: normal;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 5px;
 }
 .config .checkbox{
-    width: 125px;
+    width: 145px;
     margin-right: 50px;
 
 }
+
+
 
 @media only screen and (min-width: 1200px) {
 

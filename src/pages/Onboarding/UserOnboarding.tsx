@@ -5,11 +5,11 @@ const UserOnboarding = () => {
 
 
     return(
-        <div>
-            <h2 className="mt-10" >User Onboarding</h2>
+        <div className="mt-10 ">
+            <h4 >User Onboarding</h4>
             <p >Select Inofrmation you'd like to capture on onboarding of your users.</p>
 
-            <h4 className="mt-10" > Select User Type To Collect</h4>
+            <h5 className="mt-10" > Select User Type To Collect</h5>
             <p>This allows you to segment your member database</p>
 
 

@@ -16,10 +16,10 @@ const CommunityDetails = () => {
 
     return(
         <div className="mt-10" >
-            <h2>Community Details</h2>
+            <h4>Community Account</h4>
             <p className="text-grey_text" >Fill your community details</p>
 
-            <form className="mt-14"  onSubmit={handleSubmit(onSubmit)}>
+            <form className="mt-14 "   onSubmit={handleSubmit(onSubmit)}>
                 <Input 
                     placeholder="Enter your community name" 
                     name="community_name" 

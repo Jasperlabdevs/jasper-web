@@ -34,6 +34,9 @@ module.exports = {
         'sans': ['DM Sans', 'sans-serif'] ,
         'sans-display': ['DM Serif Display', 'sans-serif'] ,
       },
+      transitionProperty: {
+        'width': 'width'
+      },
     },
   },
   plugins: [],
