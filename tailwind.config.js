@@ -15,6 +15,8 @@ module.exports = {
         dark_grey_text: "#333C52",
         border: "#E3E6ED",
         icon_background: "#C3C9DA",
+        faded_red: "#FFECEB",
+        faded_yellow: "#FFF3E6",
       },
       fontSize: {
         tiny: ["10px", { lineHeight: "14px" }],

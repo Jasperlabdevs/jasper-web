@@ -5,7 +5,7 @@ import Home from 'pages/Auth/Home';
 import Login from 'pages/Auth/Login';
 import Register from 'pages/Auth/Register';
 import Onboarding from 'pages/Onboarding';
-import CommunityDetails from 'pages/Onboarding/CommunityDetails';
+import Dashboard from 'pages/Dashboard';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
 
         </Route>
         <Route path='/onboarding' element={<Onboarding/>} />
+        <Route path='/dashboard' element={<Dashboard/>} />
       </Routes>
     </BrowserRouter>
     </div>

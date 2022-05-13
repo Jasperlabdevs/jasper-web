@@ -35,7 +35,7 @@ const Input = ({label="", register, name, type="text", required, placeholder}:In
 }
 
 export const Select = forwardRef(({ onChange, name,  label="", placeholder, list}:SelectType, ref:any) => (
-    <div className="relative">
+    <div className="relative min-w-[120px]">
       {label.length > 1 && <><label className="mb-4 text-label_text" >{label}</label><br /></>}
       <span className={`z-10 absolute top-7 right-4 ${label.length > 1 && ' top-11 '} `} >
         {SVG.arrow_down}
