@@ -28,12 +28,12 @@ const Register = () => {
     }
     
     return(
-        <div className="register text-center mt-24">
+        <div className="register text-center mt-20">
         <h3>Welcome to Jasper</h3>
-        <p className="text-grey_text my-4" >Kindly fill in the following information to get started</p>
-        <hr className="w-1/2 mx-auto my-6" />
+        <p className="text-grey_text my-4" >Kindly fill in the following information <br /> to get started</p>
+        <hr className="w-2/3 mx-auto my-12" />
 
-        <form className="text-left mt-20 max-w-[450px] mx-auto" onSubmit={handleSubmit(onSubmit)}>
+        <form className="text-left mt-10 max-w-[450px] mx-auto relative" onSubmit={handleSubmit(onSubmit)}>
             {
                 currentPage === "first" ? 
                 <>
