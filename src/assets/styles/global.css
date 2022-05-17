@@ -50,7 +50,7 @@ sub,
 }
 
 h1 {
-  @apply text-3xl text-black;
+  @apply text-5xl text-black font-bold;
 }
 
 h2 {
@@ -69,6 +69,7 @@ h4 {
 
 h5 {
   @apply text-base text-black;
+  font-weight: 500;
 }
 
 .container {
@@ -158,6 +159,7 @@ input:checked + .slider {
 
   h5 {
     @apply text-lg;
+    
   }
 
   .banner{

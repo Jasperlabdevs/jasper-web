@@ -1,11 +1,36 @@
 import Header from "components/Header"
 import { Select } from "components/Input";
-import React from 'react';
+import React, { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import NotificationCard from "./NotificationCard";
 
 
 const Dashboard = () => {
+
+    const [activeTab, setActiveTab] = useState(1)
+
+    const notifTabs =[
+        {
+            id:1,
+            name: 'All',
+        },
+        {
+            id:2,
+            name: 'Access Requests',
+        },
+        {
+            id:3,
+            name: 'Payment',
+        },
+        {
+            id:4,
+            name: 'Issues',
+        },
+        {
+            id:5,
+            name: 'Post Requests',
+        },
+    ]
 
     const stats = [
         {
@@ -77,16 +102,15 @@ const Dashboard = () => {
         <div>
             <Header />
 
-            <div className="p-4 mt-10" >
-                <div>
+            <div className="py-4 px-10 mt-10 lg:pt-0 pr-0 lg:mt-0 flex gap-10" >
+                <div className="grow pt-10 pr-10 lg:pr-0" >
+                    <h5>Welcome Back, Emmanuel</h5>
+                    <p className="text-lg" >Here's what is foing on at Lawoke Estate</p>
 
-                    <h4>Welcome Back, Emmanuel</h4>
-                    <p>Here's what is foing on at Lawoke Estate</p>
-
-                    <div className="flex flex-col md:flex-row gap-6 mt-16" >
+                    <div className="flex flex-col md:flex-row gap-6 mt-12" >
                         {
                             stats.map((data:any)=>(
-                                <div className="border w-full rounded-xl h-fit min-h-20 p-6" >
+                                <div key={data.id} className="border w-full rounded-xl h-fit min-h-20 p-6" >
                                     <p className="uppercase" >{data.title}</p>
                                     <h1 className="mt-8">{data.stat}</h1>
                                 </div>
@@ -94,13 +118,13 @@ const Dashboard = () => {
                         }
                     </div>
 
-                    <div className="my-8" >
+                    <div className="my-8 mt-14" >
                         <div className="flex justify-between items-center" >
                             <h4>Access Overview</h4>
                             <Select 
                                 placeholder="Weekly"
                                 label=""
-                                list={[]} name={undefined}                        />
+                                list={[]} name={undefined}  />
 
                         </div>
                         <div className="h-[400px]" >
@@ -125,10 +149,24 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                <aside className="" >
-                    <NotificationCard />
-                    <NotificationCard type="warning" />
-                    <NotificationCard type="notif" />
+                <aside className="w-[500px] border-l border-[#EFF1F5] py-10 hidden lg:block" >
+                    <h4 className="px-10 mb-6" >Notifications</h4>
+                    <div className="flex px-10 border-b border-[#EFF1F5]" >
+                        {
+                            notifTabs.map((data:any) =>(
+                                <div key={data.id} onClick={()=>setActiveTab(data.id)} className={`text-grey_text px-2 py-1.5 cursor-pointer ${data.id === activeTab && 'text-black border-b border-primary'} `} >
+                                    {data.name}
+                                </div>
+                            ) )
+                        }
+                    </div>
+
+                    <div className=" py-5" >
+                        <NotificationCard />
+                        <NotificationCard type="warning" />
+                        <NotificationCard type="notif" />
+                    </div>
+
 
                 </aside>
 

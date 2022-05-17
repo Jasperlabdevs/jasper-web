@@ -2,7 +2,7 @@ import SVGs from "helpers/SVGs"
 
 const Header = () => {
     return(
-        <div className="py-3 px-4 flex items-center justify-between border-b border-[#F3F4F4]">
+        <div className="py-3 px-10 flex items-center justify-between border-b border-[#F3F4F4]">
             <div className="flex items-center gap-4">
                 {SVGs.hamburger}
                 <h4 className="font-sans-display text-primary" >Jasper</h4>
