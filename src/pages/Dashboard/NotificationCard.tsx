@@ -11,7 +11,7 @@ const NotificationCard = ({type}:NotificationType) => {
             <div className="flex gap-6" >
                 <div className={`rounded-xl bg-faded w-14 h-14  ${type === 'warning' && 'bg-faded_red'} ${type === 'notif' && 'bg-faded_yellow'} `} ></div>
                 <div>
-                    <p className="font-semibold !text-black" >
+                    <p className="font-medium !text-black" >
                         Multiple Access Request
                     </p>
                     <p className="!text-black py-1 text-sm" >

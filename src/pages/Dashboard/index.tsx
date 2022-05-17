@@ -1,12 +1,17 @@
+import Button from "components/Button";
 import Header from "components/Header"
 import { Select } from "components/Input";
+import Modal from "components/Modal";
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import NotificationCard from "./NotificationCard";
+import WelcomeImage from 'assets/images/welcome-image.png'
 
 
 const Dashboard = () => {
 
+    const navigate = useNavigate()
     const [activeTab, setActiveTab] = useState(1)
 
     const notifTabs =[
@@ -100,8 +105,22 @@ const Dashboard = () => {
 
     return(
         <div>
+            <Modal>
+                <div className="bg-[#2D4379] p-16 relative overflow-hidden" >
+                    <p className="text-white text-4xl font-light" >Welcome aboard, <br /> Chidnma</p>
+                    <p className="mt-8" >Let's get you up to speed</p>
+                    <div className="absolute w-60 h-60 bottom-0 right-10" >
+                        <img src={WelcomeImage} alt="welcome" />
+                    </div>
+                </div>
+                <div className=" p-16" >
+                    <p className="text-black" >Complete your community's on registeration on Jasper to <br /> get started</p>
+                    <div className="w-44 mt-10" >
+                        <Button onClick={()=>navigate('/onboarding')} title="Get Started" type="button" />
+                    </div>
+                </div>
+            </Modal>
             <Header />
-
             <div className="py-4 px-10 mt-10 lg:pt-0 pr-0 lg:mt-0 flex gap-10" >
                 <div className="grow pt-10 pr-10 lg:pr-0" >
                     <h5>Welcome Back, Emmanuel</h5>
@@ -120,7 +139,7 @@ const Dashboard = () => {
 
                     <div className="my-8 mt-14" >
                         <div className="flex justify-between items-center" >
-                            <h4>Access Overview</h4>
+                            <h5>Access Overview</h5>
                             <Select 
                                 placeholder="Weekly"
                                 label=""
