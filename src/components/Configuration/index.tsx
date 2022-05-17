@@ -9,12 +9,12 @@ type ConfigurationProp = {
 
 const Configuration = ({title, description, hasCheckList}:ConfigurationProp) => {
     return(
-        <div className="config">
+        <div className="config my-10">
             <div className="texts ">
-                <p className="!text-black mb-2" >{title}</p>
+                <p className="!text-black mb-2 text-base" >{title}</p>
                 <p className="text-sm" >{description}</p>
                 { hasCheckList && 
-                <div className="checklist">
+                <div className="checklist mt-4">
                     {
                         checklistData.map(data => (
                             <label key={data.id} className="checkbox">{data.name}
@@ -26,7 +26,7 @@ const Configuration = ({title, description, hasCheckList}:ConfigurationProp) => 
                 </div>
                 }
             </div>
-            <label className="switch mt-4">
+            <label className="switch mt-2">
                 <input type="checkbox" defaultChecked />
                 <span className="slider round"></span>
             </label>

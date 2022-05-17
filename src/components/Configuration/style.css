@@ -4,7 +4,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 3.2rem 0;
 }
 
 .config .texts{
@@ -15,8 +14,6 @@
 
 .config .checklist{
     
-    margin-top: 1.5rem;
-    margin-bottom: 1.7rem;
     display: flex;
     word-wrap: normal;
     flex-wrap: wrap;

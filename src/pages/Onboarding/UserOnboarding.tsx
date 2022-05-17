@@ -5,7 +5,7 @@ const UserOnboarding = () => {
 
 
     return(
-        <div className="mt-10 ">
+        <div className="mt-14 ">
             <h4 >User Onboarding</h4>
             <p >Select Inofrmation you'd like to capture on onboarding of your users.</p>
 
