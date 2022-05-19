@@ -13,6 +13,7 @@ import UserOnboarding from 'components/UserOnboading';
 import AccessConfig from 'components/AccesConfig';
 import CommunityDetails from 'components/CommunityDetails';
 import Account from 'components/Account';
+import PushNotifications from 'components/PushNotifications';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path='/settings/access_rules' element={<AccessConfig/>}  /> 
             <Route path='/settings/community_account' element={<CommunityDetails/>}  /> 
             <Route path='/settings/admin_account' element={<Account/>}  /> 
+            <Route path='/settings/push_notifications' element={<PushNotifications/>}  /> 
         </Route> 
         <Route path='/onboarding' element={<Onboarding/>} />
         <Route path='/dashboard' element={<Dashboard/>} >

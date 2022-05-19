@@ -4,13 +4,49 @@ import { useForm } from "react-hook-form"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { useState } from "react"
+import Modal from "components/Modal"
+import { useNavigate } from "react-router-dom"
 
 const Account =() =>{
 
     const { register, handleSubmit } = useForm()
     const [ phoneInput, setPhoneInput ] = useState('+234')
+    const [ modal, toggleModal ] = useState(false)
+
+    const navigate = useNavigate()
+
     return(
         <div className="mt-14 max-w-4xl">
+            
+            <Modal show={modal} toggleClose={()=>toggleModal(false)} >
+                <div className="p-8" >
+                    <p className="text-black mb-10" >Update Password</p>
+                    <form>
+                    <Input 
+                        placeholder="Enter your old password" 
+                        name="old_passowrd" 
+                        label="Old Password" 
+                        register={register} 
+                        required />
+                    <Input 
+                        placeholder="Enter your New Password" 
+                        name="new_password" 
+                        label="New password" 
+                        register={register} 
+                        required />
+                    <Input 
+                        placeholder="Repeat your new password" 
+                        name="repeat_new_password" 
+                        label="Repeat new Password" 
+                        register={register} 
+                        required />
+                    <div className="w-fit float-right mb-8" >
+                        <Button  title="Save Password" />
+                    </div>
+                </form>
+                </div>
+            </Modal>
+            
             <h4>Community Account</h4>
             <p >Make changes to your account settings here</p>
 
@@ -52,7 +88,7 @@ const Account =() =>{
                     </div>
 
                     <div className="grow max-w-xs -mt-10">
-                        <Button title="Update Password" other  />
+                        <Button title="Update Password" type="button" onClick={()=>toggleModal(true)} other  />
 
                     </div>
                 </div>
@@ -63,7 +99,7 @@ const Account =() =>{
                     </div>
 
                     <div className="grow max-w-xs -mt-10">
-                        <Button title="Log Out" other  />
+                        <Button title="Log Out" type="button" onClick={()=> navigate('/login')} other  />
 
                     </div>
                 </div>

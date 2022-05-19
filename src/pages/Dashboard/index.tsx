@@ -110,7 +110,7 @@ const Dashboard = () => {
     return(
         <div>
             {user === 'new' && 
-                <Modal>
+                <Modal show={user === 'new'} >
                     <div className="bg-[#2D4379] p-16 relative overflow-hidden" >
                         <p className="text-white text-4xl font-light" >Welcome aboard, <br /> Chidnma</p>
                         <p className="mt-8" >Let's get you up to speed</p>
