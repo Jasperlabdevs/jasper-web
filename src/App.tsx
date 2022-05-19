@@ -24,6 +24,7 @@ function App() {
         </Route>
         <Route path='/onboarding' element={<Onboarding/>} />
         <Route path='/dashboard' element={<Dashboard/>} />
+        <Route path='/dashboard/:user' element={<Dashboard/>} />
       </Routes>
     </BrowserRouter>
     </div>

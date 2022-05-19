@@ -23,7 +23,7 @@ const CommunityDetails = () => {
     },[country])
 
     return(
-        <div className="mt-14" >
+        <div className="mt-14 max-w-4xl" >
             <h4>Community Account</h4>
             <p className="text-grey_text mt-2" >Fill your community details</p>
             <p className="invisible -mb-12 h-10" >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque, quam! Magnam vitae molestiae sequi beatae vero dolorum omnis ratione eveniet repudiandae, fugit commodi illum minima maiores amet, laborum culpa optio.</p>
@@ -36,7 +36,7 @@ const CommunityDetails = () => {
                     register={register} 
                     required />
 
-                <label className="text-label_text" >Your Phone Number</label>
+                <label className="text-label_text" >Community Address</label>
                 <div className="grid grid-cols-2 gap-x-6 " >
                     <Select 
                         placeholder="Country" 

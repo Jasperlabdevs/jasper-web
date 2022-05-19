@@ -6,6 +6,7 @@ import UserOnboarding from "./UserOnboarding"
 import { steps, goForward, goBack } from "./Steps"
 import AccessConfig from "components/AccesConfig"
 import { useNavigate } from "react-router-dom"
+import SuccessPage from "components/SuccessPage"
 
 const Onboarding = () => {
 
@@ -31,6 +32,7 @@ const Onboarding = () => {
 
     return(
         <div className="py-4 px-10 lg:p-0 relative" >
+             {activeStep > 3 && <SuccessPage message={'Account created Successfully'} />}
             <div className="relative flex justify-between max-w-[500px] mx-auto mt-5 lg:hidden">
                 {
                     steps.map((data:any) => (
@@ -69,6 +71,7 @@ const Onboarding = () => {
                 <div  className="lg:mx-20 min-w-5xl lg:pl-[350px]">
                     {activeStep ===1 && <CommunityDetails />}
                     {activeStep ===2 && <UserOnboarding />}
+                   
                     {activeStep ===3 && <AccessConfig />}
             
                     <div className="flex gap-4 lg:max-w-lg lg:mt-20 mb-20">

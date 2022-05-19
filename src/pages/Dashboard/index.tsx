@@ -3,16 +3,20 @@ import Header from "components/Header"
 import { Select } from "components/Input";
 import Modal from "components/Modal";
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import NotificationCard from "./NotificationCard";
 import WelcomeImage from 'assets/images/welcome-image.png'
-
+import gate from 'assets/images/gate.png'
+import rename from 'assets/images/rename.png'
+import users from 'assets/images/users.png'
 
 const Dashboard = () => {
 
     const navigate = useNavigate()
     const [activeTab, setActiveTab] = useState(1)
+
+    let { user } = useParams();
 
     const notifTabs =[
         {
@@ -42,19 +46,19 @@ const Dashboard = () => {
             id:1,
             title: 'number of users',
             stat: 100,
-            image:''
+            image:users
         },
         {
             id:2,
             title: 'active gates',
             stat: 2,
-            image:''
+            image: gate
         },
         {
             id:3,
             title: 'message credit balance',
             stat: 88,
-            image:''
+            image:rename
         },
     ]
 
@@ -105,21 +109,23 @@ const Dashboard = () => {
 
     return(
         <div>
-            <Modal>
-                <div className="bg-[#2D4379] p-16 relative overflow-hidden" >
-                    <p className="text-white text-4xl font-light" >Welcome aboard, <br /> Chidnma</p>
-                    <p className="mt-8" >Let's get you up to speed</p>
-                    <div className="absolute w-60 h-60 bottom-0 right-10" >
-                        <img src={WelcomeImage} alt="welcome" />
+            {user === 'new' && 
+                <Modal>
+                    <div className="bg-[#2D4379] p-16 relative overflow-hidden" >
+                        <p className="text-white text-4xl font-light" >Welcome aboard, <br /> Chidnma</p>
+                        <p className="mt-8" >Let's get you up to speed</p>
+                        <div className="absolute w-60 h-60 bottom-0 right-10" >
+                            <img src={WelcomeImage} alt="welcome" />
+                        </div>
                     </div>
-                </div>
-                <div className=" p-16" >
-                    <p className="text-black" >Complete your community's on registeration on Jasper to <br /> get started</p>
-                    <div className="w-44 mt-10" >
-                        <Button onClick={()=>navigate('/onboarding')} title="Get Started" type="button" />
+                    <div className=" p-16" >
+                        <p className="text-black" >Complete your community's on registeration on Jasper to <br /> get started</p>
+                        <div className="w-44 mt-10" >
+                            <Button onClick={()=>navigate('/onboarding')} title="Get Started" type="button" />
+                        </div>
                     </div>
-                </div>
-            </Modal>
+                </Modal>
+            }
             <Header />
             <div className="py-4 px-10 mt-10 lg:pt-0 pr-0 lg:mt-0 flex gap-10" >
                 <div className="grow pt-10 pr-10 lg:pr-0" >
@@ -129,9 +135,14 @@ const Dashboard = () => {
                     <div className="flex flex-col md:flex-row gap-6 mt-12" >
                         {
                             stats.map((data:any)=>(
-                                <div key={data.id} className="border w-full rounded-xl h-fit min-h-20 p-6" >
-                                    <p className="uppercase" >{data.title}</p>
-                                    <h1 className="mt-8">{data.stat}</h1>
+                                <div key={data.id} className="relative border w-full rounded-xl h-fit min-h-20 p-6" >
+                                    <div>
+                                        <p className="uppercase" >{data.title}</p>
+                                        <h1 className="mt-8">{data.stat}</h1>
+                                    </div>
+                                    <div className="absolute h-28 right-10 bottom-2 md:h-20 md:right-2 lg:h-28" >
+                                        <img src={data.image} className='w-full h-full' alt="" />
+                                    </div>
                                 </div>
                             ))
                         }

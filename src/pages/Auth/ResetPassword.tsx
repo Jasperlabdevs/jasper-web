@@ -1,5 +1,6 @@
 import Button from "components/Button"
 import Input from "components/Input"
+import SuccessPage from "components/SuccessPage"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 
