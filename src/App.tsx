@@ -8,6 +8,11 @@ import ForgotPassword from 'pages/Auth/ForgotPassword'
 import Onboarding from 'pages/Onboarding';
 import Dashboard from 'pages/Dashboard';
 import ResetPassword from 'pages/Auth/ResetPassword';
+import Settings from 'pages/Settings';
+import UserOnboarding from 'components/UserOnboading';
+import AccessConfig from 'components/AccesConfig';
+import CommunityDetails from 'components/CommunityDetails';
+import Account from 'components/Account';
 
 function App() {
   return (
@@ -22,9 +27,17 @@ function App() {
             <Route path='/reset_password' element={<ResetPassword />} />
 
         </Route>
+        <Route element={<Settings />} >
+            <Route path='/settings/onboarding' element={<UserOnboarding/>}  /> 
+            <Route path='/settings/access_rules' element={<AccessConfig/>}  /> 
+            <Route path='/settings/community_account' element={<CommunityDetails/>}  /> 
+            <Route path='/settings/admin_account' element={<Account/>}  /> 
+        </Route> 
         <Route path='/onboarding' element={<Onboarding/>} />
-        <Route path='/dashboard' element={<Dashboard/>} />
+        <Route path='/dashboard' element={<Dashboard/>} >
         <Route path='/dashboard/:user' element={<Dashboard/>} />
+
+        </Route>
       </Routes>
     </BrowserRouter>
     </div>

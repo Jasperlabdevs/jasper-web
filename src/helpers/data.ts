@@ -49,6 +49,34 @@ export const headerData:HeaderDataType[] = [
     },
 
 ]
+export const settingsHeaderData:HeaderDataType[] = [
+    {
+        id: 1,
+        title: "Onboarding",
+        link:'onboarding'
+    },
+    {
+        id:2,
+        title: 'Access Rules',
+        link: 'access_rules'
+    },
+    {
+        id: 3,
+        title: "Community Account",
+        link: 'community_account'
+    },
+    {
+        id:4,
+        title: 'Admin Account',
+        link: 'admin_account'
+    },
+    {
+        id: 5,
+        title: "Push Notifications",
+        link: 'push_notifications'
+    }
+
+]
 export const communityHeaderData:HeaderDataType[] = [
     {
         id: 1,

@@ -13,7 +13,7 @@ const UserOnboarding = () => {
             <p>This allows you to segment your member database</p>
 
 
-            <div className="flex gap-4 flex-wrap mt-8 mb-6" >
+            <div className="grid grid-cols-2 lg:grid-cols-3 max-w-xl gap-4 flex-wrap mt-8 mb-6" >
                 {
                     checklistData.map((data:any)=>(
                         <article key={data.id} className={data.label}>

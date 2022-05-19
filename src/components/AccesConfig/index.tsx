@@ -21,7 +21,7 @@ const AccessConfig =()=>{
                     }
                    
                     <h5 className='py-4 -mb-10 md:mb-0' >Select additional Information you'd like to capture before granting access.</h5>
-                    <table className='w-full'>
+                    <table className='w-full max-w-5xl'>
                         <thead className='invisible md:visible' >
                             <tr className='text-grey_text border-b ' >
                                 <th className='text-left text-grey_text py-4' >Addition Information</th>

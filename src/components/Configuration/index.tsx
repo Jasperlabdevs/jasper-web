@@ -9,7 +9,7 @@ type ConfigurationProp = {
 
 const Configuration = ({title, description, hasCheckList}:ConfigurationProp) => {
     return(
-        <div className="config my-10">
+        <div className="config my-10 max-w-5xl ">
             <div className="texts ">
                 <p className="!text-black mb-2 text-base" >{title}</p>
                 <p className="text-sm" >{description}</p>
