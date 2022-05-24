@@ -15,6 +15,9 @@ module.exports = {
         dark_grey_text: "#333C52",
         border: "#E3E6ED",
         icon_background: "#C3C9DA",
+        faded_red: "#FFECEB",
+        faded_yellow: "#FFF3E6",
+        transparent: "rgba(7, 13, 43, 0.75)"
       },
       fontSize: {
         tiny: ["10px", { lineHeight: "14px" }],
@@ -33,6 +36,9 @@ module.exports = {
       fontFamily: {
         'sans': ['DM Sans', 'sans-serif'] ,
         'sans-display': ['DM Serif Display', 'sans-serif'] ,
+      },
+      transitionProperty: {
+        'width': 'width'
       },
     },
   },

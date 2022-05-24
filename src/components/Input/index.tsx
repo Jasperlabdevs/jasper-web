@@ -16,15 +16,16 @@ type SelectType ={
   label:string;
   placeholder?: string;
   onChange?:any;
+  defaultValue?:any
 }
 
-const Input = ({label, register, name, type="text", required, placeholder}:InputType) =>{
+const Input = ({label="", register, name, type="text", required, placeholder}:InputType) =>{
 
     const[visibility, setVisibility] = useState(false)
 
     return(
         <div className="relative">
-            <label className="mb-4 text-label_text" >{label}</label><br />
+            {label.length > 1 && <><label className="mb-4 lg:text-label_text " >{label}</label><br /></>}
             <input className="p-4 mt-2 mb-8 border rounded-md w-full" placeholder={placeholder} type={!visibility ? type : 'text'} {...register(name, { required })} />
             {
                 type === "password" && <span className="cursor-pointer text-light_grey_text absolute top-12 right-4" onClick={() =>setVisibility(!visibility)} >{visibility ? "Hide" : "Show"}</span>
@@ -34,17 +35,20 @@ const Input = ({label, register, name, type="text", required, placeholder}:Input
     )
 }
 
-export const Select = forwardRef(({ onChange, name,  label, placeholder, list}:SelectType, ref:any) => (
-    <div className="relative">
-      <label className="mb-4 text-label_text" >{label}</label><br />
-      <span className="z-10 absolute top-12 right-4" >
+export const Select = forwardRef(({ onChange, name,  label="", placeholder, list, defaultValue=""}:SelectType, ref:any) => (
+    <div className="relative min-w-[120px]">
+      {label.length > 1 && <><label className="mb-4 lg:text-label_text" >{label}</label><br /></>}
+      { (label.length > 1) ? <span className="z-10 absolute top-12 right-4 ">
         {SVG.arrow_down}
-      </span>
-      <select className=" relative p-4 text-text-icon_background mt-2 mb-8 border rounded-md w-full" name={name} ref={ref} onChange={onChange}>
+      </span> : <span className="z-10 absolute top-7 right-4 " >
+        {SVG.arrow_down}
+      </span> } 
+      
+      <select className=" relative p-4 text-text-icon_background mt-2 mb-8 border rounded-md w-full" defaultValue={defaultValue} name={name} ref={ref} onChange={onChange}>
         <option hidden >{placeholder}</option>
         {
           list.map((data:any) => (
-            <option key={data.id} value={data.value}>{data.option}</option>
+            <option key={data.id || data} value={data.value || data}>{data.option || data}</option>
           ))
         }
       </select>
@@ -53,7 +57,7 @@ export const Select = forwardRef(({ onChange, name,  label, placeholder, list}:S
 
 
   export const Checkbox = ({label, name, register, required}:InputType) => (
-    <label className="checkbox_container text-label_text"  > <div dangerouslySetInnerHTML={{ __html: label }}></div>
+    <label className="checkbox_container lg:text-label_text"  > <div dangerouslySetInnerHTML={{ __html: label }}></div>
       <input type="checkbox"  {...register(name, { required })} />
       <span className="checkmark"></span>
     </label>

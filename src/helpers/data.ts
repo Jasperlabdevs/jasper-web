@@ -49,6 +49,34 @@ export const headerData:HeaderDataType[] = [
     },
 
 ]
+export const settingsHeaderData:HeaderDataType[] = [
+    {
+        id: 1,
+        title: "Onboarding",
+        link:'onboarding'
+    },
+    {
+        id:2,
+        title: 'Access Rules',
+        link: 'access_rules'
+    },
+    {
+        id: 3,
+        title: "Community Account",
+        link: 'community_account'
+    },
+    {
+        id:4,
+        title: 'Admin Account',
+        link: 'admin_account'
+    },
+    {
+        id: 5,
+        title: "Push Notifications",
+        link: 'push_notifications'
+    }
+
+]
 export const communityHeaderData:HeaderDataType[] = [
     {
         id: 1,
@@ -135,8 +163,162 @@ export const checklistData:ChecklistDataType[] = [
         id: 5,
         name: 'Landloard'
     },
+    {
+        id: 6,
+        name: 'Guest'
+    },
 ]
 
+export const NigeriaStates = [
+        {
+          "name": "Abia",
+          "shortCode": "AB"
+        },
+        {
+          "name": "Abuja Federal Capital Territory",
+          "shortCode": "FC"
+        },
+        {
+          "name": "Adamawa",
+          "shortCode": "AD"
+        },
+        {
+          "name": "Akwa Ibom",
+          "shortCode": "AK"
+        },
+        {
+          "name": "Anambra",
+          "shortCode": "AN"
+        },
+        {
+          "name": "Bauchi",
+          "shortCode": "BA"
+        },
+        {
+          "name": "Bayelsa",
+          "shortCode": "BY"
+        },
+        {
+          "name": "Benue",
+          "shortCode": "BE"
+        },
+        {
+          "name": "Borno",
+          "shortCode": "BO"
+        },
+        {
+          "name": "Cross River",
+          "shortCode": "CR"
+        },
+        {
+          "name": "Delta",
+          "shortCode": "DE"
+        },
+        {
+          "name": "Ebonyi",
+          "shortCode": "EB"
+        },
+        {
+          "name": "Edo",
+          "shortCode": "ED"
+        },
+        {
+          "name": "Ekiti",
+          "shortCode": "EK"
+        },
+        {
+          "name": "Enugu",
+          "shortCode": "EN"
+        },
+        {
+          "name": "Gombe",
+          "shortCode": "GO"
+        },
+        {
+          "name": "Imo",
+          "shortCode": "IM"
+        },
+        {
+          "name": "Jigawa",
+          "shortCode": "JI"
+        },
+        {
+          "name": "Kaduna",
+          "shortCode": "KD"
+        },
+        {
+          "name": "Kano",
+          "shortCode": "KN"
+        },
+        {
+          "name": "Katsina",
+          "shortCode": "KT"
+        },
+        {
+          "name": "Kebbi",
+          "shortCode": "KE"
+        },
+        {
+          "name": "Kogi",
+          "shortCode": "KO"
+        },
+        {
+          "name": "Kwara",
+          "shortCode": "KW"
+        },
+        {
+          "name": "Lagos",
+          "shortCode": "LA"
+        },
+        {
+          "name": "Nassarawa",
+          "shortCode": "NA"
+        },
+        {
+          "name": "Niger",
+          "shortCode": "NI"
+        },
+        {
+          "name": "Ogun",
+          "shortCode": "OG"
+        },
+        {
+          "name": "Ondo",
+          "shortCode": "ON"
+        },
+        {
+          "name": "Osun",
+          "shortCode": "OS"
+        },
+        {
+          "name": "Oyo",
+          "shortCode": "OY"
+        },
+        {
+          "name": "Plateau",
+          "shortCode": "PL"
+        },
+        {
+          "name": "Rivers",
+          "shortCode": "RI"
+        },
+        {
+          "name": "Sokoto",
+          "shortCode": "SO"
+        },
+        {
+          "name": "Taraba",
+          "shortCode": "TA"
+        },
+        {
+          "name": "Yobe",
+          "shortCode": "YO"
+        },
+        {
+          "name": "Zamfara",
+          "shortCode": "ZA"
+        }
+]
 
 export const configurationData:ConfigurationDataType[] = [
     {
