@@ -7,6 +7,8 @@
   border-color: #C3C9DA ;
 }
 
+
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,500;1,700&family=DM+Serif+Display&display=swap');
 
 input::placeholder {
@@ -211,6 +213,10 @@ input:checked + .slider {
 /* Desktop */
 
 @media screen and (min-width: 1025px) {
+  .move-left{
+    margin-left: 50vw
+  }
+  
   h1 {
     @apply text-7xl;
   }

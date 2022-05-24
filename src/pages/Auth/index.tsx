@@ -6,11 +6,11 @@ const Auth = () => {
     
 
     return(
-        <div className="grid lg:grid-cols-2 h-full">
-            <div className="bg-faded hidden lg:block min-h-screen float-left" >
-                <img src={BG} alt="bg" className="h-full w-full object-cover" />
+        <div className="grid relative w-screen h-full">
+            <div className="bg-faded fixed w-1/2 hidden lg:block min-h-screen float-left" >
+                <img src={BG} alt="bg" className="h-screen w-full object-cover" />
             </div>
-            <div className="p-6 w-screen lg:w-auto md:p-10 md:px-16 h-full overflow-y-auto " >
+            <div className="p-6 move-left md:p-10 md:px-16 h-full overflow-y-auto " >
                 <header className="flex justify-center md:justify-between items-center" >
                     <h4 className="logo text-xl" >Jasper</h4>
                     { location.pathname !== '/login' ?

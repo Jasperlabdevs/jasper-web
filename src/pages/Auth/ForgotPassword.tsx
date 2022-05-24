@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     }
 
     return(
-        <div className="login text-center mt-24 lg:mt-52">
+        <div className="login text-center mt-24 lg:mt-20">
             <h3>Forgot password</h3>
             <p className="text-grey_text my-4" >Enter the email address associated with you account.</p>
             <hr className="w-2/3 mx-auto my-12" />
