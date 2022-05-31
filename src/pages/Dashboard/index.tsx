@@ -151,10 +151,10 @@ const Dashboard = () => {
                     <div className="my-8 mt-14" >
                         <div className="flex justify-between items-center" >
                             <h5>Access Overview</h5>
-                            <Select 
+                            {/* <Select 
                                 placeholder="Weekly"
                                 label=""
-                                list={[]} name={undefined}  />
+                                list={[]} name={undefined}  /> */}
 
                         </div>
                         <div className="h-[400px]" >

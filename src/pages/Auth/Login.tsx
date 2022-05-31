@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import Button from "components/Button"
 import Input from "components/Input"
 import { useState } from "react"
@@ -7,7 +8,7 @@ import { Link } from "react-router-dom"
 const Login = () => {
 
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: {errors} } = useForm()
     const [ loading, setLoading ] = useState(false)
 
     const onSubmit = (data:any) => {
@@ -15,6 +16,8 @@ const Login = () => {
         console.log(data)
     }
 
+
+    
     return(
         <div className="login text-center mt-24 lg:mt-20">
             <h3>Welcome Back!</h3>
@@ -27,7 +30,9 @@ const Login = () => {
                     name="email" 
                     label="Email" 
                     register={register} 
-                    required />
+                    options={{ required: true, pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g } }
+                    error={errors.email && "Please enter a correct email address"}
+                />
 
                 <Input 
                     name="password" 
@@ -35,7 +40,9 @@ const Login = () => {
                     type="password" 
                     label="Password" 
                     register={register} 
-                    required />
+                    options={{required : true, minLength: 8 }}
+                    error={errors.password && "Password must be at least 6 characters"}
+                />
                     
                 <p className="-mt-6 absolute right-0 cursor-pointer text-grey_text hover:text-primary" > <Link to='/forgot_password'>Forget password?</Link> </p>
 

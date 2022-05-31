@@ -27,19 +27,19 @@ const Account =() =>{
                         name="old_passowrd" 
                         label="Old Password" 
                         register={register} 
-                        required />
+                        options={{}} />
                     <Input 
                         placeholder="Enter your New Password" 
                         name="new_password" 
                         label="New password" 
                         register={register} 
-                        required />
+                        options={{}} />
                     <Input 
                         placeholder="Repeat your new password" 
                         name="repeat_new_password" 
                         label="Repeat new Password" 
                         register={register} 
-                        required />
+                        options={{}} />
                     <div className="w-fit float-right mb-8" >
                         <Button  title="Save Password" />
                     </div>
@@ -71,7 +71,7 @@ const Account =() =>{
                             name="full_name" 
                             label="Admin Name" 
                             register={register} 
-                            required />
+                            options={{}} />
 
                         <label className="text-label_text" >Your Phone Number</label>
                         <PhoneInput

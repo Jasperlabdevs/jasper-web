@@ -43,15 +43,15 @@ const CommunityDetails = () => {
                     name="community_name" 
                     label="Community Name" 
                     register={register} 
-                    required />
+                    options={{}}/>
 
                 <label className="text-label_text" >Community Address</label>
                 <div className="grid grid-cols-2 gap-x-6 " >
-                    <Select 
+                    {/* <Select 
                         placeholder="Country" 
                         name="country" 
                         label="" 
-                        onChange={(event:any)=>setCountry(event.target.value)}
+                        
                         list={countryList}
                          />
                     <Select 
@@ -59,19 +59,19 @@ const CommunityDetails = () => {
                         name="State/Province" 
                         label="" 
                         list={stateProvince}
-                         />
+                         /> */}
                     <Input 
                         placeholder="City" 
                         name="city" 
                         label="" 
                         register={register} 
-                        required />
+                        options={{}}/>
                     <Input 
                         placeholder="Address" 
                         name="address" 
                         label="" 
                         register={register} 
-                        required />
+                        options={{}}/>
                 </div>
 
                 <Input 
@@ -79,7 +79,7 @@ const CommunityDetails = () => {
                     name="security_company" 
                     label="Security Company" 
                     register={register} 
-                    required />
+                    options={{}}/>
 
                 <label className="text-label_text" >Community Contact Phone Number</label>
                 <PhoneInput
@@ -95,19 +95,19 @@ const CommunityDetails = () => {
                             name="community_email" 
                             label="Community Email address" 
                             register={register} 
-                            required={false} />
+                            options={{}} />
                         <Input 
                             placeholder="Enter your Bank name" 
                             name="bank_name" 
                             label="Bank Name" 
                             register={register} 
-                            required={false} />
+                            options={{}} />
                         <Input 
                             placeholder="Enter your account number" 
                             name="bank_account_number" 
                             label="Bank Account Number" 
                             register={register} 
-                            required={false} />
+                            options={{}} />
 
                     <hr className="relative -left-10 w-screen mt-16 " />
 

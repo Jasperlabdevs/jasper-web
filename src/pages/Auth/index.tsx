@@ -1,8 +1,18 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import BG from 'assets/images/bg-image.png'
+import { useDispatch } from "react-redux"
+import { get_community_types } from "store/actions/communityTypes"
+import { useEffect } from "react";
+
 const Auth = () => {
 
     const location = useLocation()
+
+    const dispatch:any = useDispatch()
+
+    useEffect(()=> {
+        dispatch(get_community_types())
+    },[])
     
 
     return(

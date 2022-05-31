@@ -17,6 +17,7 @@ module.exports = {
         icon_background: "#C3C9DA",
         faded_red: "#FFECEB",
         faded_yellow: "#FFF3E6",
+        red: "#ed1c24",
         transparent: "rgba(7, 13, 43, 0.75)"
       },
       fontSize: {

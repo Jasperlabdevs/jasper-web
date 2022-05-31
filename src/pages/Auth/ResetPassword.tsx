@@ -27,7 +27,7 @@ const ResetPassword = () => {
                         type="password" 
                         label="New Password" 
                         register={register} 
-                        required />
+                        options={[]} />
 
                      <Input 
                         name="confirm_password" 
@@ -35,7 +35,7 @@ const ResetPassword = () => {
                         type="password" 
                         label="Confirm Password" 
                         register={register} 
-                        required />
+                        options={[]} />
             
 
                 <Button title="Create Password" loading={loading} />

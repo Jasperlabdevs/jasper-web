@@ -29,7 +29,7 @@ const ForgotPassword = () => {
                     name="email" 
                     label="Email" 
                     register={register} 
-                    required />
+                    options={{}} />
 
                 <Button title="Continue" loading={loading} />
             </form>
