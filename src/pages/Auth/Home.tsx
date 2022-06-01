@@ -18,7 +18,7 @@ const Home = () => {
         // },
     ]
     return(
-        <div className="md:mt-40 mt-16 mx-auto text-center w-full md:min-w-[430px] max-w-[620px] ">
+        <div className="md:mt-40 mt-16 mx-auto text-center w-full md:min-w-3xl max-w-4xl ">
             <h3>Hey there! Welcome to Jasper</h3>
             <p className="text-grey_text mt-3" >Kindly select your appropraite role to get started</p>
             <hr className="mt-10 w-2/3 mx-auto"  />

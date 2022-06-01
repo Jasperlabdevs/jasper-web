@@ -29,7 +29,7 @@ const Auth = () => {
                     
                     }
                 </header>
-                <div >
+                <div className="max-w-[370px] md:w-[400px] mx-auto" >
                     <Outlet />
                     { location.pathname !== '/login' ?
                     <p className="text-grey_text md:hidden text-center mt-10" >Already have an account? <span className=" font-bold" ><Link to='/login' >Sign In</Link></span> </p>

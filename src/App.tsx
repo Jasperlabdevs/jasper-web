@@ -14,6 +14,10 @@ import AccessConfig from 'components/AccesConfig';
 import CommunityDetails from 'components/CommunityDetails';
 import Account from 'components/Account';
 import PushNotifications from 'components/PushNotifications';
+import Verification from 'pages/Auth/Verification';
+import GateAuth from 'pages/GateAuth';
+import GateVerification from 'pages/GateAuth/GateVerification';
+import GateLogin from 'pages/GateAuth/GateLogin';
 
 function App() {
   return (
@@ -26,7 +30,12 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/forgot_password' element={<ForgotPassword />} />
             <Route path='/reset_password' element={<ResetPassword />} />
+            <Route path='/verification' element={<Verification />} />
 
+        </Route>
+        <Route element={<GateAuth/>} >
+            <Route path='/gate_auth' element={<GateLogin/>}/>
+            <Route path='/gate_auth/verification' element={<GateVerification/>} />
         </Route>
         <Route element={<Settings />} >
             <Route path='/settings/onboarding' element={<UserOnboarding/>}  /> 

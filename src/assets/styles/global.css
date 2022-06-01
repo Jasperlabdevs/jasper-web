@@ -25,7 +25,7 @@ select *{
   border-bottom: 1px solid #ccc
 }
 
-p,
+p,span,
 h6,
 * {
   @apply text-sm text-black;
@@ -66,7 +66,7 @@ h3 {
 
 h4 {
   @apply text-xl text-black;
-  font-weight: 600
+  font-weight: 400
 }
 
 h5 {
@@ -230,8 +230,8 @@ input:checked + .slider {
   }
 
   h4 {
-    @apply text-2xl font-bold;
-    font-weight: 500;
+    @apply text-2xl font-medium;
+    font-weight: 400;
   }
 
   h5 {
@@ -444,4 +444,12 @@ input:checked + .slider:before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
