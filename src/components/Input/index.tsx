@@ -8,7 +8,8 @@ type InputType ={
     options:any;
     label:string;
     placeholder?: string;
-    error?:string
+    error?:string;
+    disabled?:boolean
 }
 
 type SelectType ={
@@ -21,14 +22,14 @@ type SelectType ={
   defaultValue?:any
 }
 
-const Input = ({label="", register, name, type="text", placeholder, options, error=''}:InputType) =>{
+const Input = ({label="", register, name, type="text", disabled=false, placeholder, options, error=''}:InputType) =>{
 
     const[visibility, setVisibility] = useState(false)
 
     return(
         <div className="relative">
             {label.length > 1 && <><label className="mb-4 lg:text-label_text " >{label}</label><br /></>}
-            <input className="p-4 mt-2 mb-8 border rounded-md w-full" placeholder={placeholder} type={!visibility ? type : 'text'} {...register(name, { ...options })} />
+            <input disabled={disabled} className="p-4 mt-2 mb-8 border rounded-md w-full" placeholder={placeholder} type={!visibility ? type : 'text'} {...register(name, { ...options })} />
             {
                 type === "password" && <span className="cursor-pointer text-light_grey_text absolute top-12 right-4" onClick={() =>setVisibility(!visibility)} >{visibility ? "Hide" : "Show"}</span>
             }
@@ -68,7 +69,7 @@ export const Select = ({ register, options, name,  label="", placeholder, list, 
     </label>
   )
 
-  export const Date = ({label, name, register, placeholder, options, error=''}:InputType) => (
+  export const Date = ({label, name, register, placeholder,  options, error=''}:InputType) => (
         <div className="relative">
             {label.length > 1 && <><label className="mb-4 lg:text-label_text " >{label}</label><br /></>}
             <input type='date' className="p-4 mt-2 mb-8 border rounded-md w-full max-w-lg" placeholder={placeholder} {...register(name, { ...options })} />

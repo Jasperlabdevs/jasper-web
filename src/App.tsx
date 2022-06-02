@@ -24,6 +24,7 @@ import RecurringAccess from 'pages/GrantAccess/RecurringAccess';
 import EventAccess from 'pages/GrantAccess/EventAccess';
 import MultipleAccess from 'pages/GrantAccess/MultipleAccess';
 import AccessHistory from 'pages/GrantAccess/AccessHistory';
+import VisitorDetails from 'pages/GrantAccess/VisitorDeatils';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             <Route path='/grant_access/event_access' element={<EventAccess/>}  /> 
             <Route path='/grant_access/multiple_access' element={<MultipleAccess/>}  /> 
             <Route path='/grant_access/access_history' element={<AccessHistory/>}  /> 
+            <Route path='/grant_access/access_history/visitor_details' element={<VisitorDetails/>}  /> 
             
         </Route> 
         <Route path='/onboarding' element={<Onboarding/>} />
