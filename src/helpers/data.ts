@@ -24,15 +24,17 @@ export const headerData:HeaderDataType[] = [
     {
         id: 1,
         title: "Dashboard",
+        link:'/dashboard'
     },
     {
         id:2,
         title: 'Settings',
-        link: '/'
+        link: '/settings'
     },
     {
         id: 3,
-        title: "Grant Access"
+        title: "Grant Access",
+        link:'/grant_access'
     },
     {
         id:4,
@@ -41,11 +43,13 @@ export const headerData:HeaderDataType[] = [
     },
     {
         id: 5,
-        title: "Message Credits"
+        title: "Message Credits",
+        link:'/message_credits'
     },
     {
         id:6,
-        title: 'Gates'
+        title: 'Gates',
+        link: '/gates'
     },
 
 ]

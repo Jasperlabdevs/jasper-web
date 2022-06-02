@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Auth from 'pages/Auth';
 import Home from 'pages/Auth/Home';
 import Login from 'pages/Auth/Login';
@@ -45,6 +45,7 @@ function App() {
             <Route path='/gate_auth/verification' element={<GateVerification/>} />
         </Route>
         <Route element={<Settings />} >
+            <Route path='/settings' element={<Navigate to="/settings/onboarding" replace />} />
             <Route path='/settings/onboarding' element={<UserOnboarding/>}  /> 
             <Route path='/settings/access_rules' element={<AccessConfig/>}  /> 
             <Route path='/settings/community_account' element={<CommunityDetails/>}  /> 
@@ -52,6 +53,7 @@ function App() {
             <Route path='/settings/push_notifications' element={<PushNotifications/>}  /> 
         </Route> 
         <Route element={<GrantAccess />} >
+            <Route path='/grant_access' element={<Navigate to="/grant_access/one_time_access" replace />} />
             <Route path='/grant_access/one_time_access' element={<OneTimeAccess/>}  /> 
             <Route path='/grant_access/recurring_access' element={<RecurringAccess/>}  /> 
             <Route path='/grant_access/event_access' element={<EventAccess/>}  /> 
