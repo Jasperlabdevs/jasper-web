@@ -1,7 +1,7 @@
 import "./style.css"
 
 type ButtonType = {
-    title:string;
+    title:string | any;
     type?:"submit" | "button" | "reset" | undefined;
     loading?:boolean;
     secondary?:boolean;

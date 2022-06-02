@@ -25,6 +25,7 @@ import EventAccess from 'pages/GrantAccess/EventAccess';
 import MultipleAccess from 'pages/GrantAccess/MultipleAccess';
 import AccessHistory from 'pages/GrantAccess/AccessHistory';
 import VisitorDetails from 'pages/GrantAccess/VisitorDeatils';
+import Gates from 'pages/Gates';
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
             <Route path='/grant_access/access_history/visitor_details' element={<VisitorDetails/>}  /> 
             
         </Route> 
+        <Route path='gates' element={<Gates />} />
         <Route path='/onboarding' element={<Onboarding/>} />
         <Route path='/dashboard' element={<Dashboard/>} >
         <Route path='/dashboard/:user' element={<Dashboard/>} />
