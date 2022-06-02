@@ -50,7 +50,7 @@ export const Select = ({ register, options, name,  label="", placeholder, list, 
       </span> } 
       
       <select {...register(name, {...options})} className=" relative p-4 text-text-icon_background mt-2 mb-8 border rounded-md w-full" defaultValue={defaultValue} name={name} >
-        <option hidden >{placeholder}</option>
+        <option hidden value="" >{placeholder}</option>
         {
           list.map((data:any) => (
             <option key={data.id || data} value={data.id || data}>{data.name || data}</option>
@@ -66,6 +66,17 @@ export const Select = ({ register, options, name,  label="", placeholder, list, 
       <input type="checkbox"  {...register(name )} />
       <span className="checkmark"></span>
     </label>
+  )
+
+  export const Date = ({label, name, register, placeholder, options, error=''}:InputType) => (
+        <div className="relative">
+            {label.length > 1 && <><label className="mb-4 lg:text-label_text " >{label}</label><br /></>}
+            <input type='date' className="p-4 mt-2 mb-8 border rounded-md w-full max-w-lg" placeholder={placeholder} {...register(name, { ...options })} />
+            <p className="text-red text-xs -mt-7" >
+              {error}
+            </p>
+            <br />
+        </div>
   )
 
 export default Input

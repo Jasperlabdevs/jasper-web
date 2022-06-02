@@ -77,6 +77,34 @@ export const settingsHeaderData:HeaderDataType[] = [
     }
 
 ]
+export const accessHeaderData:HeaderDataType[] = [
+    {
+        id: 1,
+        title: "One Time Access",
+        link:'one_time_access'
+    },
+    {
+        id:2,
+        title: 'Reccuring Access',
+        link: 'recurring_access'
+    },
+    {
+        id: 3,
+        title: "Event Access",
+        link: 'event_access'
+    },
+    {
+        id:4,
+        title: 'Multiple Access',
+        link: 'multiple_access'
+    },
+    {
+        id: 5,
+        title: "Access History",
+        link: 'access_history'
+    }
+
+]
 export const communityHeaderData:HeaderDataType[] = [
     {
         id: 1,

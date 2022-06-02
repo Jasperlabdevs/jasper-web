@@ -18,6 +18,11 @@ import Verification from 'pages/Auth/Verification';
 import GateAuth from 'pages/GateAuth';
 import GateVerification from 'pages/GateAuth/GateVerification';
 import GateLogin from 'pages/GateAuth/GateLogin';
+import GrantAccess from 'pages/GrantAccess';
+import OneTimeAccess from 'pages/GrantAccess/OneTimeAccess';
+import RecurringAccess from 'pages/GrantAccess/RecurringAccess';
+import EventAccess from 'pages/GrantAccess/EventAccess';
+import MultipleAccess from 'pages/GrantAccess/MultipleAccess';
 
 function App() {
   return (
@@ -43,6 +48,13 @@ function App() {
             <Route path='/settings/community_account' element={<CommunityDetails/>}  /> 
             <Route path='/settings/admin_account' element={<Account/>}  /> 
             <Route path='/settings/push_notifications' element={<PushNotifications/>}  /> 
+        </Route> 
+        <Route element={<GrantAccess />} >
+            <Route path='/grant_access/one_time_access' element={<OneTimeAccess/>}  /> 
+            <Route path='/grant_access/recurring_access' element={<RecurringAccess/>}  /> 
+            <Route path='/grant_access/event_access' element={<EventAccess/>}  /> 
+            <Route path='/grant_access/multiple_access' element={<MultipleAccess/>}  /> 
+            
         </Route> 
         <Route path='/onboarding' element={<Onboarding/>} />
         <Route path='/dashboard' element={<Dashboard/>} >

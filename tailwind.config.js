@@ -18,6 +18,7 @@ module.exports = {
         faded_red: "#FFECEB",
         faded_yellow: "#FFF3E6",
         red: "#ed1c24",
+        peach: "#FF8168",
         transparent: "rgba(7, 13, 43, 0.75)"
       },
       fontSize: {
