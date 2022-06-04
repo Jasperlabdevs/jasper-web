@@ -1,10 +1,8 @@
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      colors:{
+      colors: {
         primary: "#0083FF",
         faded: "#E5F3FF",
         black: "#070D2B",
@@ -19,10 +17,10 @@ module.exports = {
         faded_yellow: "#FFF3E6",
         red: "#F14A0E",
         peach: "#FF8168",
-        yellow:"#FFAB4C",
+        yellow: "#FFAB4C",
         green: "#54C3A1",
         faded_green: "#E1F4EE",
-        transparent: "rgba(7, 13, 43, 0.75)"
+        transparent: "rgba(7, 13, 43, 0.75)",
       },
       fontSize: {
         tiny: ["8px", { lineHeight: "10px" }],
@@ -39,13 +37,13 @@ module.exports = {
         "7xl": ["58px", { lineHeight: "70px" }],
       },
       fontFamily: {
-        'sans': ['DM Sans', 'sans-serif'] ,
-        'sans-display': ['DM Serif Display', 'sans-serif'] ,
+        sans: ["DM Sans", "sans-serif"],
+        "sans-display": ["DM Serif Display", "sans-serif"],
       },
       transitionProperty: {
-        'width': 'width'
+        width: "width",
       },
     },
   },
   plugins: [],
-}
+};

@@ -1,8 +1,6 @@
 declare namespace globalThis {
-    interface DefaultRootState {
-        communityTypes: any,
-        messages: any,
-    }
-
-    
+  interface DefaultRootState {
+    communityTypes: any;
+    messages: any;
+  }
 }

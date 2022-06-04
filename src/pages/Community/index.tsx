@@ -1,13 +1,13 @@
 import Header from "components/Header";
 import SubHeader from "components/SubHeader";
-import { accessHeaderData } from "helpers/data";
+import { communityHeaderData } from "helpers/data";
 import { Outlet } from "react-router-dom";
 
-const GrantAccess = () => {
+const Community = () => {
   return (
     <div>
       <Header />
-      <SubHeader headerData={accessHeaderData} head="Grant Access" />
+      <SubHeader headerData={communityHeaderData} head="Community" />
       <div className="px-10 overflow-x-hidden">
         <Outlet />
       </div>
@@ -15,4 +15,4 @@ const GrantAccess = () => {
   );
 };
 
-export default GrantAccess;
+export default Community;

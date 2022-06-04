@@ -2,45 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-
-*{
-  border-color: #C3C9DA ;
+* {
+  border-color: #c3c9da;
 }
 
-
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,500;1,700&family=DM+Serif+Display&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,500;1,700&family=DM+Serif+Display&display=swap");
 
 input::placeholder {
-  @apply text-icon_background
+  @apply text-icon_background;
 }
 
 select {
   appearance: none;
   outline: none;
 }
-select *{
+select * {
   padding: 1rem auto;
-  color: #2D4379;
-  border-bottom: 1px solid #ccc
+  color: #2d4379;
+  border-bottom: 1px solid #ccc;
 }
 
-p,span,
+p,
+span,
 h6,
 * {
   @apply text-sm text-black;
 }
-a{
-  @apply text-primary
+a {
+  @apply text-primary;
 }
 
-p{
-  @apply text-grey_text
+p {
+  @apply text-grey_text;
 }
 
-.logo{
-  font-family: 'DM Serif Display', serif;
-  @apply text-primary font-medium 
+.logo {
+  font-family: "DM Serif Display", serif;
+  @apply text-primary font-medium;
 }
 
 small,
@@ -66,7 +64,7 @@ h3 {
 
 h4 {
   @apply text-xl text-black;
-  font-weight: 400
+  font-weight: 400;
 }
 
 h5 {
@@ -79,19 +77,19 @@ h5 {
   padding-right: 16px;
 }
 
-.PhoneInput{
+.PhoneInput {
   overflow: hidden;
   @apply mt-2 mb-8 border rounded-md w-full;
 }
 
-.PhoneInput .PhoneInputCountry{
-  background-color: #E3E6ED;
+.PhoneInput .PhoneInputCountry {
+  background-color: #e3e6ed;
   @apply p-5 gap-5;
 }
 
-.PhoneInput input{
+.PhoneInput input {
   outline: none;
-  @apply p-4 outline-hidden
+  @apply p-4 outline-hidden;
 }
 
 .switch {
@@ -115,8 +113,8 @@ h5 {
   right: -8px;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -127,12 +125,12 @@ h5 {
   left: 3px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
- @apply bg-primary
+  @apply bg-primary;
 }
 
 /* Tablet */
@@ -161,10 +159,9 @@ input:checked + .slider {
 
   h5 {
     @apply text-lg;
-    
   }
 
-  .banner{
+  .banner {
     margin-top: 130px;
   }
 
@@ -174,13 +171,13 @@ input:checked + .slider {
     width: 60px;
     height: 34px;
   }
-  
+
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -189,10 +186,10 @@ input:checked + .slider {
     right: 0;
     bottom: 0;
     background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "";
@@ -201,22 +198,22 @@ input:checked + .slider {
     left: 4px;
     bottom: 4px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
-  
+
   input:checked + .slider {
-   @apply bg-primary
+    @apply bg-primary;
   }
 }
 
 /* Desktop */
 
 @media screen and (min-width: 1025px) {
-  .move-left{
-    margin-left: 50vw
+  .move-left {
+    margin-left: 50vw;
   }
-  
+
   h1 {
     @apply text-7xl;
   }
@@ -248,8 +245,6 @@ input:checked + .slider {
   } */
 }
 
-
-
 /* Customize the label (the container) */
 .checkbox_container {
   display: block;
@@ -280,18 +275,18 @@ input:checked + .slider {
   left: 0;
   height: 20px;
   width: 20px;
-  border: 1px solid #C3C9DA;
+  border: 1px solid #c3c9da;
   border-radius: 5px;
 }
 
 /* On mouse-over, add a grey background color */
 .checkbox_container:hover input ~ .checkmark {
-  background-color: #C3C9DA;
+  background-color: #c3c9da;
 }
 
 /* When the checkbox is checked, add a blue background */
 .checkbox_container input:checked ~ .checkmark {
-  @apply bg-primary border-none
+  @apply bg-primary border-none;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -319,14 +314,12 @@ input:checked + .slider {
   transform: rotate(45deg);
 }
 
-
-
 article {
   position: relative;
   width: fit;
   box-sizing: border-box;
   border-radius: 4px;
-  @apply border-primary border bg-faded
+  @apply border-primary border bg-faded;
 }
 
 article div {
@@ -337,7 +330,7 @@ article div {
   align-items: center;
   line-height: 25px;
   padding: 10px 20px;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
 article input {
@@ -350,16 +343,12 @@ article input {
   cursor: pointer;
 }
 
-input[type=checkbox]:checked ~ div {
-  @apply bg-primary 
+input[type="checkbox"]:checked ~ div {
+  @apply bg-primary;
 }
-input[type=checkbox]:checked ~ div span {
-  @apply text-white 
+input[type="checkbox"]:checked ~ div span {
+  @apply text-white;
 }
-
-
-
-
 
 /* input:focus + .slider {
   box-shadow: 0 0 1px $primary;
@@ -378,7 +367,6 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
 
 .checkbox {
   display: block;
@@ -400,7 +388,6 @@ input:checked + .slider:before {
   width: 0;
 }
 
-
 .checkmark {
   position: absolute;
   top: 0;
@@ -408,19 +395,16 @@ input:checked + .slider:before {
   height: 18px;
   width: 18px;
   border-radius: 4px;
-  @apply border-primary border
+  @apply border-primary border;
 }
-
 
 .checkbox:hover input ~ .checkmark {
   background-color: #ccc;
 }
 
-
 .checkbox input:checked ~ .checkmark {
-  @apply bg-primary
+  @apply bg-primary;
 }
-
 
 .checkmark:after {
   content: "";
@@ -428,11 +412,9 @@ input:checked + .slider:before {
   display: none;
 }
 
-
 .checkbox input:checked ~ .checkmark:after {
   display: block;
 }
-
 
 .checkbox .checkmark:after {
   left: 5px;
@@ -446,9 +428,8 @@ input:checked + .slider:before {
   transform: rotate(45deg);
 }
 
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button{
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
