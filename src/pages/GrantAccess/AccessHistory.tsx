@@ -25,25 +25,25 @@ const AccessHistory = () => {
 
   const headersAll = [
     "Visitor's Name",
-    'Event Name',
-    'Status',
-    'Access Name',
-    'Gate',
-    'Code',
-    'Phone Number',
-    'Date/Time Generated',
-    'More'
- ]
+    "Event Name",
+    "Status",
+    "Access Name",
+    "Gate",
+    "Code",
+    "Phone Number",
+    "Date/Time Generated",
+    "More",
+  ];
   const headersMultiple = [
     "Visitor's Name",
-    'Phone Number',
-    'Status',
-    'Access Type',
-    'Gate',
-    'Event',
-    'Date/Time Generated',
-    'More'
- ]
+    "Phone Number",
+    "Status",
+    "Access Type",
+    "Gate",
+    "Event",
+    "Date/Time Generated",
+    "More",
+  ];
 
   const view = () => {
     navigate("/grant_access/access_history/visitor_details");
@@ -51,14 +51,14 @@ const AccessHistory = () => {
   return (
     <div className="mt-10 ">
       <div className="flex justify-between items-center">
-          <h4>
-            Members{" "}
-            <span className="text-white bg-primary rounded-full px-3 text-xs">
-              30
-            </span>{" "}
-          </h4>
-          <SearchFilter />
-        </div>
+        <h4>
+          Members{" "}
+          <span className="text-white bg-primary rounded-full px-3 text-xs">
+            30
+          </span>{" "}
+        </h4>
+        <SearchFilter />
+      </div>
 
       <div className="my-6 flex w-fit border-b border-[#EFF1F5]">
         {tabs.map((data: any) => (
@@ -77,19 +77,19 @@ const AccessHistory = () => {
       {activeTab === 1 && (
         <table className="w-full ">
           <thead className="">
-              <TableHeader headers= {headersAll} />
+            <TableHeader headers={headersAll} />
           </thead>
           <tbody>
             {TableContent.map((data) => (
               <tr className="border-b border-[#C3C9DA]">
-                <TableColumn td='Kofi Emma' />
-                <TableColumn td='N/A' />
-                <TableColumn td='Generated' type="status" />
-                <TableColumn td='One-Time Access' />
-                <TableColumn td='3123' />
-                <TableColumn td='3123' />
-                <TableColumn td='088090809' />
-                <TableColumn td='15th Feb, 2022 - 12:00pm' />
+                <TableColumn td="Kofi Emma" />
+                <TableColumn td="N/A" />
+                <TableColumn td="Generated" type="status" />
+                <TableColumn td="One-Time Access" />
+                <TableColumn td="3123" />
+                <TableColumn td="3123" />
+                <TableColumn td="088090809" />
+                <TableColumn td="15th Feb, 2022 - 12:00pm" />
                 <TableColumn td={SVGs.dots} />
               </tr>
             ))}
@@ -101,19 +101,19 @@ const AccessHistory = () => {
           <Filter />
           <table className="w-full ">
             <thead className="">
-              <TableHeader headers= {headersMultiple} />
+              <TableHeader headers={headersMultiple} />
             </thead>
             <tbody>
               {TableContent.map((data) => (
                 <tr className="border-b border-[#C3C9DA]">
-                  <TableColumn td='Kofi Emma' />
-                  <TableColumn td='N/A' />
-                  <TableColumn td='Generated' type="status" />
-                  <TableColumn td='One-Time Access' />
-                  <TableColumn td='3123' />
-                  <TableColumn td='088090809' />
-                  <TableColumn td='15th Feb, 2022 - 12:00pm' />
-                  <TableColumn td='View' buttonType="tertiary" type="button" />
+                  <TableColumn td="Kofi Emma" />
+                  <TableColumn td="N/A" />
+                  <TableColumn td="Generated" type="status" />
+                  <TableColumn td="One-Time Access" />
+                  <TableColumn td="3123" />
+                  <TableColumn td="088090809" />
+                  <TableColumn td="15th Feb, 2022 - 12:00pm" />
+                  <TableColumn td="View" buttonType="tertiary" type="button" />
                 </tr>
               ))}
             </tbody>

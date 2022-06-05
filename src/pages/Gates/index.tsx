@@ -6,18 +6,16 @@ import img from "assets/images/gate.png";
 import { TableColumn, TableHeader } from "components/Table";
 
 const Gates = () => {
-
   const headers = [
     "Gates",
-    'Gate PIN',
-    'Phone Number',
-    'Date added',
-    'Status',
-    '',
-    '',
-    ''
- ]
-
+    "Gate PIN",
+    "Phone Number",
+    "Date added",
+    "Status",
+    "",
+    "",
+    "",
+  ];
 
   return (
     <div>
@@ -51,22 +49,28 @@ const Gates = () => {
       <div className="px-10 py-10">
         <table className="w-full ">
           <thead className="">
-            <TableHeader headers= {headers} />
+            <TableHeader headers={headers} />
           </thead>
           <tbody>
             {TableContent.map((data) => (
               <tr className="border-b border-[#C3C9DA]">
-                  <TableColumn td={<span>
-                    Entry
-                  </span>} type='user' image={img} />
+                <TableColumn td={<span>Entry</span>} type="user" image={img} />
 
-                  <TableColumn td='AS12' />
-                  <TableColumn td='One-Time Access' />
-                  <TableColumn td='3123' />
-                  <TableColumn td='Generated' type="status" />
-                  <TableColumn td='Edit' type='button' buttonType='smallSecondary' />
-                  <TableColumn td='Disable' type='button' buttonType='smallPrimary' />
-                  <TableColumn td='View Nested Gate' />
+                <TableColumn td="AS12" />
+                <TableColumn td="One-Time Access" />
+                <TableColumn td="3123" />
+                <TableColumn td="Generated" type="status" />
+                <TableColumn
+                  td="Edit"
+                  type="button"
+                  buttonType="smallSecondary"
+                />
+                <TableColumn
+                  td="Disable"
+                  type="button"
+                  buttonType="smallPrimary"
+                />
+                <TableColumn td="View Nested Gate" />
               </tr>
             ))}
           </tbody>

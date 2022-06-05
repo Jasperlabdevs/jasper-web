@@ -44,10 +44,7 @@ function App() {
           </Route>
           <Route path="gate_auth" element={<GateAuth />}>
             <Route index element={<GateLogin />} />
-            <Route
-              path="verification"
-              element={<GateVerification />}
-            />
+            <Route path="verification" element={<GateVerification />} />
           </Route>
           <Route path="settings" element={<Settings />}>
             <Route
@@ -56,52 +53,27 @@ function App() {
             />
             <Route path="onboarding" element={<UserOnboarding />} />
             <Route path="access_rules" element={<AccessConfig />} />
-            <Route
-              path="community_account"
-              element={<CommunityDetails />}
-            />
+            <Route path="community_account" element={<CommunityDetails />} />
             <Route path="admin_account" element={<Account />} />
-            <Route
-              path="push_notifications"
-              element={<PushNotifications />}
-            />
+            <Route path="push_notifications" element={<PushNotifications />} />
           </Route>
           <Route path="grant_access" element={<GrantAccess />}>
             <Route
               index
               element={<Navigate to="/grant_access/one_time_access" replace />}
             />
-            <Route
-              path="one_time_access"
-              element={<OneTimeAccess />}
-            />
-            <Route
-              path="recurring_access"
-              element={<RecurringAccess />}
-            />
-            <Route
-              path="event_access"
-              element={<EventAccess />}
-            />
-            <Route
-              path="multiple_access"
-              element={<MultipleAccess />}
-            />
-            <Route
-              path="access_history"
-              element={<AccessHistory />}
-            >
-            </Route>
+            <Route path="one_time_access" element={<OneTimeAccess />} />
+            <Route path="recurring_access" element={<RecurringAccess />} />
+            <Route path="event_access" element={<EventAccess />} />
+            <Route path="multiple_access" element={<MultipleAccess />} />
+            <Route path="access_history" element={<AccessHistory />}></Route>
             <Route
               path="access_history/visitor_details"
               element={<VisitorDetails />}
             />
           </Route>
           <Route path="community" element={<Community />}>
-            <Route
-              index
-              element={<Navigate to="members" replace />}
-            />
+            <Route index element={<Navigate to="members" replace />} />
             <Route path="members" element={<Members />} />
           </Route>
           <Route path="gates" element={<Gates />} />
