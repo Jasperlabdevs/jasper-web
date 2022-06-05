@@ -1,14 +1,14 @@
 import Button from "components/Button";
-import { Select } from "components/Input";
+import Filter from "components/Filters";
+import SearchFilter from "components/SearchFilter";
+import { TableColumn, TableHeader } from "components/Table";
 import { TableContent } from "helpers/data";
 import SVGs from "helpers/SVGs";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 const AccessHistory = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const { register } = useForm();
 
   const navigate = useNavigate();
 
@@ -23,12 +23,42 @@ const AccessHistory = () => {
     },
   ];
 
+  const headersAll = [
+    "Visitor's Name",
+    'Event Name',
+    'Status',
+    'Access Name',
+    'Gate',
+    'Code',
+    'Phone Number',
+    'Date/Time Generated',
+    'More'
+ ]
+  const headersMultiple = [
+    "Visitor's Name",
+    'Phone Number',
+    'Status',
+    'Access Type',
+    'Gate',
+    'Event',
+    'Date/Time Generated',
+    'More'
+ ]
+
   const view = () => {
     navigate("/grant_access/access_history/visitor_details");
   };
   return (
     <div className="mt-10 ">
-      <h4>Access History</h4>
+      <div className="flex justify-between items-center">
+          <h4>
+            Members{" "}
+            <span className="text-white bg-primary rounded-full px-3 text-xs">
+              30
+            </span>{" "}
+          </h4>
+          <SearchFilter />
+        </div>
 
       <div className="my-6 flex w-fit border-b border-[#EFF1F5]">
         {tabs.map((data: any) => (
@@ -47,48 +77,20 @@ const AccessHistory = () => {
       {activeTab === 1 && (
         <table className="w-full ">
           <thead className="">
-            <tr className="text-grey_text border-b border-[#C3C9DA] bg-[#F9F9FB]">
-              <th className="px-4  text-left text-grey_text py-4">
-                Visitor's Name
-              </th>
-              <th className="text-left text-grey_text">Event Name</th>
-              <th className="text-left text-grey_text">Status</th>
-              <th className="text-left text-grey_text">Access Type</th>
-              <th className="text-left text-grey_text">Gate</th>
-              <th className="text-left text-grey_text">Code</th>
-              <th className="text-left text-grey_text">Phone Number</th>
-              <th className="text-left text-grey_text">Date/Time Generated</th>
-              <th className="text-left text-grey_text">More</th>
-            </tr>
+              <TableHeader headers= {headersAll} />
           </thead>
           <tbody>
             {TableContent.map((data) => (
               <tr className="border-b border-[#C3C9DA]">
-                <td className="text-left pl-4">Kofi Emma</td>
-                <td className="text-left">N/A</td>
-                <td
-                  className={`p-2 px-4 my-4 w-fit rounded-full flex justify-center 
-                                                    ${
-                                                      true &&
-                                                      "bg-faded_yellow text-yellow"
-                                                    }
-                                                    ${
-                                                      false &&
-                                                      "bg-faded_red text-red"
-                                                    }
-                                                    ${
-                                                      false &&
-                                                      "bg-faded_green text-green"
-                                                    } `}
-                >
-                  Generated
-                </td>
-                <td className="text-left">One-Time Access</td>
-                <td className="text-left">1232</td>
-                <td className="text-left">1232</td>
-                <td className="text-left">08012345678</td>
-                <td className="text-left">15th Fed, 2022 - 12:00pm</td>
-                <td className="pl-4">{SVGs.dots}</td>
+                <TableColumn td='Kofi Emma' />
+                <TableColumn td='N/A' />
+                <TableColumn td='Generated' type="status" />
+                <TableColumn td='One-Time Access' />
+                <TableColumn td='3123' />
+                <TableColumn td='3123' />
+                <TableColumn td='088090809' />
+                <TableColumn td='15th Feb, 2022 - 12:00pm' />
+                <TableColumn td={SVGs.dots} />
               </tr>
             ))}
           </tbody>
@@ -96,81 +98,22 @@ const AccessHistory = () => {
       )}
       {activeTab === 2 && (
         <>
-          <div className="flex gap-6">
-            <div className="w-lg">
-              <Select
-                name="gate"
-                register={register}
-                options={{ required: true }}
-                placeholder="Access Type"
-                label=""
-                list={[]}
-              />
-            </div>
-            <div className="w-lg">
-              <Select
-                name="gate"
-                register={register}
-                options={{ required: true }}
-                placeholder="Status"
-                label=""
-                list={[]}
-              />
-            </div>
-            <div className="w-lg">
-              <Select
-                name="gate"
-                register={register}
-                options={{ required: true }}
-                placeholder="Gate"
-                label=""
-                list={[]}
-              />
-            </div>
-          </div>
+          <Filter />
           <table className="w-full ">
             <thead className="">
-              <tr className="text-grey_text border-b border-[#C3C9DA] bg-[#F9F9FB]">
-                <th className="px-4  text-left text-grey_text py-4">
-                  Visitor's Name
-                </th>
-                <th className="text-left text-grey_text">Phone Number</th>
-                <th className="text-left text-grey_text">Status</th>
-                <th className="text-left text-grey_text">Access Type</th>
-                <th className="text-left text-grey_text">Gate</th>
-                <th className="text-left text-grey_text">Event</th>
-                <th className="text-left text-grey_text">
-                  Date/Time Generated
-                </th>
-                <th className="text-left text-grey_text">More</th>
-              </tr>
+              <TableHeader headers= {headersMultiple} />
             </thead>
             <tbody>
               {TableContent.map((data) => (
                 <tr className="border-b border-[#C3C9DA]">
-                  <td className="text-left pl-4">Kofi Emma</td>
-                  <td className="text-left">N/A</td>
-                  <td
-                    className={`p-2 px-4 my-4 w-fit rounded-full flex justify-center 
-                                            ${
-                                              true &&
-                                              "bg-faded_yellow text-yellow"
-                                            }
-                                            ${false && "bg-faded_red text-red"}
-                                            ${
-                                              false &&
-                                              "bg-faded_green text-green"
-                                            } `}
-                  >
-                    Generated
-                  </td>
-                  <td className="text-left">One-Time Access</td>
-                  <td className="text-left">1232</td>
-                  <td className="text-left">08012345678</td>
-                  <td className="text-left">15th Fed, 2022 - 12:00pm</td>
-                  <td className="">
-                    <Button onClick={view} tertiary title="View" />
-                  </td>
+                  <TableColumn td='Kofi Emma' />
+                  <TableColumn td='N/A' />
+                  <TableColumn td='Generated' type="status" />
+                  <TableColumn td='One-Time Access' />
+                  <TableColumn td='3123' />
+                  <TableColumn td='088090809' />
+                  <TableColumn td='15th Feb, 2022 - 12:00pm' />
+                  <TableColumn td='View' buttonType="tertiary" type="button" />
                 </tr>
               ))}
             </tbody>

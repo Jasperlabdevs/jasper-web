@@ -42,71 +42,72 @@ function App() {
             <Route path="/reset_password" element={<ResetPassword />} />
             <Route path="/verification" element={<Verification />} />
           </Route>
-          <Route element={<GateAuth />}>
-            <Route path="/gate_auth" element={<GateLogin />} />
+          <Route path="gate_auth" element={<GateAuth />}>
+            <Route index element={<GateLogin />} />
             <Route
-              path="/gate_auth/verification"
+              path="verification"
               element={<GateVerification />}
             />
           </Route>
-          <Route element={<Settings />}>
+          <Route path="settings" element={<Settings />}>
             <Route
-              path="/settings"
+              index
               element={<Navigate to="/settings/onboarding" replace />}
             />
-            <Route path="/settings/onboarding" element={<UserOnboarding />} />
-            <Route path="/settings/access_rules" element={<AccessConfig />} />
+            <Route path="onboarding" element={<UserOnboarding />} />
+            <Route path="access_rules" element={<AccessConfig />} />
             <Route
-              path="/settings/community_account"
+              path="community_account"
               element={<CommunityDetails />}
             />
-            <Route path="/settings/admin_account" element={<Account />} />
+            <Route path="admin_account" element={<Account />} />
             <Route
-              path="/settings/push_notifications"
+              path="push_notifications"
               element={<PushNotifications />}
             />
           </Route>
-          <Route element={<GrantAccess />}>
+          <Route path="grant_access" element={<GrantAccess />}>
             <Route
-              path="/grant_access"
+              index
               element={<Navigate to="/grant_access/one_time_access" replace />}
             />
             <Route
-              path="/grant_access/one_time_access"
+              path="one_time_access"
               element={<OneTimeAccess />}
             />
             <Route
-              path="/grant_access/recurring_access"
+              path="recurring_access"
               element={<RecurringAccess />}
             />
             <Route
-              path="/grant_access/event_access"
+              path="event_access"
               element={<EventAccess />}
             />
             <Route
-              path="/grant_access/multiple_access"
+              path="multiple_access"
               element={<MultipleAccess />}
             />
             <Route
-              path="/grant_access/access_history"
+              path="access_history"
               element={<AccessHistory />}
-            />
+            >
+            </Route>
             <Route
-              path="/grant_access/access_history/visitor_details"
+              path="access_history/visitor_details"
               element={<VisitorDetails />}
             />
           </Route>
-          <Route element={<Community />}>
+          <Route path="community" element={<Community />}>
             <Route
-              path="/community"
-              element={<Navigate to="/community/members" replace />}
+              index
+              element={<Navigate to="members" replace />}
             />
-            <Route path="/community/members" element={<Members />} />
+            <Route path="members" element={<Members />} />
           </Route>
           <Route path="gates" element={<Gates />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="/dashboard/:user" element={<Dashboard />} />
+          <Route path="onboarding" element={<Onboarding />} />
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route path="dashboard/:user" element={<Dashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>

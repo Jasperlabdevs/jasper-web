@@ -16,7 +16,7 @@ const SearchFilter = () => {
         <Button
           title={
             <span className="flex items-center justify-center gap-2 text-[#fff]">
-              {SVGs.toggles} Filter{" "}
+              {SVGs.filter_white} Filter{" "}
             </span>
           }
         />
