@@ -42,7 +42,7 @@ function App() {
             <Route path="/reset_password" element={<ResetPassword />} />
             <Route path="/verification" element={<Verification />} />
           </Route>
-          <Route path="gate_auth" element={<GateAuth />}>
+          {/* <Route path="gate_auth" element={<GateAuth />}>
             <Route index element={<GateLogin />} />
             <Route path="verification" element={<GateVerification />} />
           </Route>
@@ -80,7 +80,7 @@ function App() {
           <Route path="onboarding" element={<Onboarding />} />
           <Route path="dashboard" element={<Dashboard />}>
             <Route path="dashboard/:user" element={<Dashboard />} />
-          </Route>
+          </Route> */}
         </Routes>
       </BrowserRouter>
     </div>

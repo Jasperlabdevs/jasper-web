@@ -3,6 +3,7 @@ import Input from "components/Input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet"
 
 const ForgotPassword = () => {
   const { register, handleSubmit } = useForm();
@@ -18,6 +19,13 @@ const ForgotPassword = () => {
 
   return (
     <div className="login text-center mt-24 lg:mt-20">
+
+        <Helmet>
+            <title>Forgotten your password? | Jasper</title>
+            <meta name="description" content="Have you forgotten your password?" />
+        </Helmet>
+
+
       <h3>Forgot password</h3>
       <p className="text-grey_text my-4">
         Enter the email address associated with you account.

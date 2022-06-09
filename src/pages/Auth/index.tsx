@@ -3,6 +3,7 @@ import BG from "assets/images/bg-image.png";
 import { useDispatch } from "react-redux";
 import { get_community_types } from "store/actions/communityTypes";
 import { useEffect } from "react";
+import {Helmet} from "react-helmet";
 
 const Auth = () => {
   const location = useLocation();
@@ -15,6 +16,12 @@ const Auth = () => {
 
   return (
     <div className="grid relative w-screen h-full">
+
+        <Helmet>
+            <title>Jasper</title>
+            <meta name="description" content="Jasper" />
+        </Helmet>
+
       <div className="bg-faded fixed w-1/2 hidden lg:block min-h-screen float-left">
         <img src={BG} alt="bg" className="h-screen w-full object-cover" />
       </div>

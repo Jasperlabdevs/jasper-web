@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet"
 
 const Register = () => {
   const communityTypes = useSelector((state) => state.communityTypes);
@@ -61,6 +62,12 @@ const Register = () => {
 
   return (
     <div className="register text-center mt-20">
+
+        <Helmet>
+            <title>Join Jasper | Jasper</title>
+            <meta name="description" content="Create an account with Jasper" />
+        </Helmet>
+
       <h3>Welcome to Jasper</h3>
       <p className="text-grey_text my-4">
         Kindly fill in the following information <br /> to get started

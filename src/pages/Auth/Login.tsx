@@ -4,6 +4,7 @@ import Input from "components/Input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 const Login = () => {
   const {
@@ -20,6 +21,13 @@ const Login = () => {
 
   return (
     <div className="login text-center mt-24 lg:mt-20">
+
+      <Helmet>
+            <title>Sign in to Jasper | Jasper</title>
+            <meta name="description" content="Sing in to your account in Jasper" />
+        </Helmet>
+
+
       <h3>Welcome Back!</h3>
       <p className="text-grey_text my-4">
         We've missed you. Sign In to access <br /> your account
