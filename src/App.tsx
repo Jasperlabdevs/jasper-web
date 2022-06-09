@@ -28,6 +28,7 @@ import VisitorDetails from "pages/GrantAccess/VisitorDeatils";
 import Gates from "pages/Gates";
 import Community from "pages/Community";
 import Members from "pages/Community/Members";
+import NotFound from "components/NotFound";
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />}>
             <Route path="dashboard/:user" element={<Dashboard />} />
           </Route> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
