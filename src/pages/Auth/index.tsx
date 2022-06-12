@@ -28,6 +28,7 @@ const Auth = () => {
       <div className="p-6 move-left md:p-10 md:px-16 h-full overflow-y-auto ">
         <header className="flex justify-center md:justify-between items-center">
           <h4 className="logo text-xl">Jasper</h4>
+          
           {location.pathname !== "/login" ? (
             <p className="text-grey_text md:block hidden">
               Already have an account?{" "}

@@ -1,12 +1,21 @@
 /* eslint-disable no-useless-escape */
 import Button from "components/Button";
 import Input from "components/Input";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {Helmet} from "react-helmet";
+import { useDispatch } from "react-redux";
+import authentication from "services/authentication";
+import { setUser } from "store/actions/user";
+import { store } from "store";
+
+export const dispatchStore = store.dispatch as typeof store.dispatch | Dispatch<any>
 
 const Login = () => {
+  const [err, setErr] = useState("");
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -14,7 +23,19 @@ const Login = () => {
   } = useForm();
   const [loading, setLoading] = useState(false);
 
+  const failedCB = (data:any) => {
+    setLoading(false)
+    setErr(data)
+  }
+
+  const successCB = (data:any) =>{
+    dispatchStore(setUser(data))
+    navigate('/dashboard')
+  }
+  
   const onSubmit = (data: any) => {
+
+    authentication.Login(data, successCB, failedCB)
     setLoading(true);
     console.log(data);
   };
@@ -33,6 +54,10 @@ const Login = () => {
         We've missed you. Sign In to access <br /> your account
       </p>
       <hr className="w-2/3 mx-auto my-12" />
+
+      { !!err && <div className="bg-faded_red w-full text-center p-4 mb-4 rounded-md" >
+          <p className="text-red text-xs ">{err}</p>
+        </div>}
 
       <form
         className="text-left mt-10 max-w-[450px] mx-auto relative"

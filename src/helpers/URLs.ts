@@ -1,8 +1,8 @@
 const baseUrl = " https://jasper-api-staging.herokuapp.com/api/v1/";
 const URL = {
-  registerManager: baseUrl + "community_manager_register",
-  login: baseUrl + "signin",
-  logout: baseUrl + "logout",
+  registerManager: baseUrl + "community_manager_register/",
+  login: baseUrl + "signin/",
+  logout: baseUrl + "logout/",
 
   communityTypes: baseUrl + "community/community_type/",
 

@@ -29,6 +29,7 @@ import Gates from "pages/Gates";
 import Community from "pages/Community";
 import Members from "pages/Community/Members";
 import NotFound from "components/NotFound";
+import ValidateEmail from "pages/Auth/validateEmail";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             <Route path="/forgot_password" element={<ForgotPassword />} />
             <Route path="/reset_password" element={<ResetPassword />} />
             <Route path="/verification" element={<Verification />} />
+            <Route path="/validate_email" element={<ValidateEmail />} />
           </Route>
           {/* <Route path="gate_auth" element={<GateAuth />}>
             <Route index element={<GateLogin />} />
@@ -79,9 +81,10 @@ function App() {
           </Route>
           <Route path="gates" element={<Gates />} />
           <Route path="onboarding" element={<Onboarding />} />
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route path="dashboard/:user" element={<Dashboard />} />
-          </Route> */}
+        */}
+        <Route path="dashboard" element={<Dashboard />}>
+          <Route path="dashboard/:user" element={<Dashboard />} />
+        </Route> 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

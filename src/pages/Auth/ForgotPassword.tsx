@@ -4,17 +4,31 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet"
+import authentication from "services/authentication";
 
 const ForgotPassword = () => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit = (data: any) => {
-    setLoading(true);
-    console.log(data);
+  const [err, setErr ] = useState('')
+  const [notif, setNotif] = useState('')
 
-    navigate("../reset_password");
+  const successCB = (data:any) => {
+    setLoading(false)
+    console.log(data.message)
+    setNotif(data.message)
+  }
+  const failedCB = (data:any) => {
+    setLoading(false)
+    setErr(data)
+  }
+
+  const onSubmit = (data: any) => {
+    setErr('')
+    setLoading(true)
+    authentication.ForgetPassword(data, successCB, failedCB)
+
   };
 
   return (
@@ -32,20 +46,26 @@ const ForgotPassword = () => {
       </p>
       <hr className="w-2/3 mx-auto my-12" />
 
-      <form
-        className="text-left mt-14 max-w-[450px] mx-auto relative"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Input
-          placeholder="Enter your email"
-          name="email"
-          label="Email"
-          register={register}
-          options={{}}
-        />
+      { (!!err || !!notif) && <div className={` ${ !!notif && 'bg-faded_yellow text-yellow' } ${ !!err && 'bg-faded_red text-red ' }   w-full text-center p-4 mb-4 rounded-md`} >
+          <p className={` ${ !!notif && 'text-yellow' } ${ !!err && 'text-red ' }   text-xs`}>{err || notif}</p>
+        </div>}
 
-        <Button title="Continue" loading={loading} />
-      </form>
+      { !!!notif && 
+        <form
+          className="text-left mt-14 max-w-[450px] mx-auto relative"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Input
+            placeholder="Enter your email"
+            name="email"
+            label="Email"
+            register={register}
+            options={{}}
+          />
+
+          <Button title="Continue" loading={loading} />
+        </form>
+      }
     </div>
   );
 };

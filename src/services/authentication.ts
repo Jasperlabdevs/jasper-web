@@ -15,7 +15,12 @@ class Authentication {
         cb(res);
       })
       .catch((err) => {
-        failedCb(err.message);
+        console.log(err)
+        if(!!err.response.data.message){
+          failedCb(err.response.data.message);
+        } else{
+          failedCb(err.response.data.detail)
+        }
       });
   }
 
@@ -27,9 +32,50 @@ class Authentication {
         cb(res.data);
       })
       .catch((err) => {
-        failedCb(err.message);
+        console.log(err)
+        if(!!err.response.data.message){
+          failedCb(err.response.data.message);
+        } else{
+          failedCb(err.response.data)
+        }
       });
   }
+      
+      ForgetPassword(data:any, cb:any, failedCb:any){
+        axios
+          .post(URL.forgotPassword,{ ...data }, { timeout: 100000 })
+          .then((res) => {
+            cb(res.data);
+          })
+          .catch((err) => {
+            console.log(err)
+            if(!!err.response.data.message){
+              failedCb(err.response.data.message);
+            } else{
+              failedCb(err.response.data)
+            }
+          });
+      }
+
+      ResetPassword(data:any, token:any, cb:any, failedCb:any){
+        axios
+          .post(URL.resetPassword, { ...data }, {params: { token: token} })
+          .then((res) => {
+            cb(res.data);
+          })
+          .catch((err) => {
+            console.log(err)
+            if(!!err.response.data.message){
+              failedCb(err.response.data.message);
+            } else{
+              failedCb(err.response.data)
+            }
+          });
+      }
+
+      ValidateEmail(token:any, uid:any){
+        return axios.get(URL.validateEmail, {params: {token: token, uid: uid}})
+      }
 
   Logout() {
     axios.post(URL.logout, { timeout: 100000 }).then((res) => {

@@ -7,9 +7,14 @@ import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet"
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "store/actions/user";
+import authentication from "services/authentication";
 
 const Register = () => {
   const communityTypes = useSelector((state) => state.communityTypes);
+  const dispatch = useDispatch()
 
   const tabs = ["first", "second"];
   const {
@@ -23,7 +28,10 @@ const Register = () => {
   const [communityType, setCommunityType] = useState(communityTypes);
   const [phoneInput, setPhoneInput] = useState("");
 
+  const [notif, setNotif] = useState('')
+
   const [err, setErr] = useState("");
+  const navigate = useNavigate()
 
   const watchFields = watch([
     "first_name",
@@ -33,16 +41,44 @@ const Register = () => {
     "community_type",
   ]);
 
+  const failedCB = (data) => {
+    setLoading(false)
+
+    if(!!data.detail){
+      return setErr(data.detail)
+    }
+    console.log(data)
+    let error =''
+    Object.values(data).map(el => (
+      error = error + "\n" + el
+    ))
+
+    setErr(error)
+  }
+
+  const successCB = (data) =>{
+    setNotif(`
+      Registeration Complete!! Kindly log into your email ${data.email} to verify your account.
+    `)
+
+  }
+
   const onSubmit = (data) => {
+    setErr('')
+    if( data.password !== data.confirm_password ){
+      setErr('Your Passwords do not match!!')
+      return null
+    }
+
     setLoading(true);
 
-    data.phone = phoneInput;
+    data.phone_number = phoneInput;
+    
+    authentication.Register(data, successCB, failedCB)
+
     console.log(data);
   };
 
-  useEffect(() => {
-    console.log(watchFields);
-  }, [watchFields]);
 
   useEffect(() => {
     setCommunityType(communityTypes);
@@ -50,12 +86,15 @@ const Register = () => {
 
   const next = () => {
     setErr("");
-    let res = true;
+    let res;
     watchFields.map((el) => {
       if (el === undefined || el.length < 1 || el === false) {
-        res = false;
+        setErr('Please complete the form before you continue')
+        return res = false;
       }
+      return res = true
     });
+    setErr("");
 
     return !!res && setCurrentPage(tabs[1]);
   };
@@ -74,13 +113,17 @@ const Register = () => {
       </p>
       <hr className="w-2/3 mx-auto my-12" />
 
+      { (!!err || !!notif) && <div className={` ${ !!notif && 'bg-faded_yellow text-yellow' } ${ !!err && 'bg-faded_red text-red ' }   w-full text-center p-4 mb-4 rounded-md`} >
+          <p className={` ${ !!notif && 'text-yellow' } ${ !!err && 'text-red ' }   text-xs`}>{err || notif}</p>
+        </div>}
+
+      { !!!notif && 
       <form
         className="text-left mt-10 max-w-[450px] mx-auto relative"
         onSubmit={handleSubmit(onSubmit)}
       >
         {currentPage === "first" ? (
           <>
-            <p className="text-red text-xs mb-4">{err}</p>
             <Input
               placeholder="Enter your first name"
               name="first_name"
@@ -108,7 +151,7 @@ const Register = () => {
 
             <Input
               placeholder="Enter your community email"
-              name="community_email"
+              name="email"
               label="Community Email"
               register={register}
               error={
@@ -144,9 +187,9 @@ const Register = () => {
               type="password"
               label="Create Password"
               register={register}
-              options={{ required: true, minLength: 6 }}
+              options={{ required: true, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/}}
               error={
-                errors.password && "Password must be at least 6 characters"
+                errors.password && "Password must be at least 8 characters; must contain 1 uppercase, 1 lowercase and 1 number"
               }
             />
 
@@ -159,7 +202,7 @@ const Register = () => {
               options={{ required: true, minLength: 6 }}
               error={
                 errors.confirm_password &&
-                "Password must be at least 6 characters"
+                "Password must be at least 8 characters; must contain 1 uppercase, 1 lowercase and 1 number"
               }
             />
 
@@ -167,6 +210,7 @@ const Register = () => {
           </>
         )}
       </form>
+      }
     </div>
   );
 };
