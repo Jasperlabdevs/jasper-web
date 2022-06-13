@@ -30,7 +30,7 @@ const Login = () => {
 
   const successCB = (data:any) =>{
     dispatchStore(setUser(data))
-    navigate('/dashboard')
+    navigate('/dashboard/new')
   }
   
   const onSubmit = (data: any) => {

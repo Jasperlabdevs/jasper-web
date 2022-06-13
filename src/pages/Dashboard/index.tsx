@@ -129,7 +129,7 @@ const Dashboard = () => {
           </div>
           <div className=" p-16">
             <p className="text-black">
-              Complete your community's on registeration on Jasper to <br /> get
+              Complete your community's on registration on Jasper to <br /> get
               started
             </p>
             <div className="w-44 mt-10">

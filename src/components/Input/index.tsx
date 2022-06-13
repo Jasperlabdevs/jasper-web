@@ -6,7 +6,7 @@ type InputType = {
   type?: String;
   register: any;
   options: any;
-  label: string;
+  label: string | any;
   placeholder?: string;
   error?: string;
   disabled?: boolean;
@@ -109,7 +109,7 @@ export const Select = (
 export const Checkbox = ({ label, name, register }: InputType) => (
   <label className="checkbox_container lg:text-label_text">
     {" "}
-    <div dangerouslySetInnerHTML={{ __html: label }}></div>
+    <div >{label}</div>
     <input type="checkbox" {...register(name)} />
     <span className="checkmark"></span>
   </label>

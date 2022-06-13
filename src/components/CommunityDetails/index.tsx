@@ -99,6 +99,7 @@ const CommunityDetails = () => {
         <PhoneInput
           placeholder="Enter phone number"
           value={phoneInput}
+          defaultCountry='NG'
           onChange={() => setPhoneInput("")}
         />
 

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "store/actions/user";
 import authentication from "services/authentication";
+import PDF from './../../assets/pdf/JASPER_TERMS_CONDITIONS_OF_SERVICE_AND_PRIVACY_POLICY.pdf'
 
 const Register = () => {
   const communityTypes = useSelector((state) => state.communityTypes);
@@ -58,7 +59,7 @@ const Register = () => {
 
   const successCB = (data) =>{
     setNotif(`
-      Registeration Complete!! Kindly log into your email ${data.email} to verify your account.
+      Registration Complete!! Kindly log into your email ${data.email} to verify your account.
     `)
 
   }
@@ -173,7 +174,7 @@ const Register = () => {
             <Checkbox
               name="agreement"
               register={register}
-              label="I agree to the <a href='/' className='text-primary' >terms of service</a> and <a className='text-primary' href='/' >privacy policy</a> "
+              label={<>I agree to the <a href={PDF} target='blank' className='text-primary' >terms of service and privacy policy</a></>}
               options={{ required: true }}
             />
 
