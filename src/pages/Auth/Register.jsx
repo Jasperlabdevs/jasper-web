@@ -1,10 +1,8 @@
 /* eslint-disable no-useless-escape */
 import Button from "components/Button";
-import Input, { Checkbox, Select } from "components/Input";
+import Input, { Checkbox, Select, PhoneInput } from "components/Input";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import { set, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet"
 import { useNavigate } from "react-router-dom";
@@ -72,10 +70,8 @@ const Register = () => {
     }
 
     setLoading(true);
-
-    data.phone_number = phoneInput;
     
-    authentication.Register(data, successCB, failedCB)
+    // authentication.Register(data, successCB, failedCB)
 
     console.log(data);
   };
@@ -93,9 +89,9 @@ const Register = () => {
         setErr('Please complete the form before you continue')
         return res = false;
       }
+      setErr('')
       return res = true
     });
-    setErr("");
 
     return !!res && setCurrentPage(tabs[1]);
   };
@@ -141,13 +137,14 @@ const Register = () => {
               error={errors.last_name && "Please enter your last name"}
               options={{ required: true }}
             />
-
-            <label className="text-label_text">Your Phone Number</label>
             <PhoneInput
-              placeholder="Enter phone number"
-              value={phoneInput}
-              defaultCountry="NG"
-              onChange={setPhoneInput}
+              placeholder="Enter your phone number"
+              name="phone_number"
+              label="Your Phone number"
+              type='tel'
+              register={register}
+              error={errors.last_name && "Please enter a correct phone number"}
+              options={{ required: true, minLength: 6, maxLenght: 11, pattern: "^[0-9]*$" }}
             />
 
             <Input
