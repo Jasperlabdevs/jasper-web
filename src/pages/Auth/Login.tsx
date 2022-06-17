@@ -87,7 +87,7 @@ const Login = () => {
 
         <p className="-mt-6 absolute right-0 cursor-pointer text-grey_text hover:text-primary">
           {" "}
-          <Link to="/forgot_password">Forget password?</Link>{" "}
+          <Link to="/forgot_password">Forgot password?</Link>{" "}
         </p>
 
         <Button title="Sign In" loading={loading} />

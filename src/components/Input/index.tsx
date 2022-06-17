@@ -62,6 +62,31 @@ const Input = ({
     </div>
   );
 };
+export const PhoneInput = ({
+  label = "",
+  register,
+  name,
+  type = "text",
+  placeholder,
+  options,
+  error = "",
+}: InputType) => {
+  const [visibility, setVisibility] = useState(false);
+
+  return (
+    <div className="relative">
+            {label.length > 1 && <><label className="mb-4 lg:text-label_text " >{label}</label><br /></>}
+            <div className="flex items-center  mt-2 mb-4 border rounded-md overflow-hidden" >
+              <span className="bg-border p-4 " >+234</span>
+              <input  className=" w-full py-4 pl-4 outline-none " placeholder={placeholder} type='tel' maxLength='11'  {...register(name, { ...options })} />
+
+            </div>
+
+      <p className="text-red text-xs -mt-7">{error}</p>
+      <br />
+    </div>
+  );
+};
 
 export const Select = (
   {

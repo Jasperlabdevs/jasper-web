@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet"
 import authentication from "services/authentication";
 
 const ForgotPassword = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState:{errors} } = useForm();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -60,7 +60,11 @@ const ForgotPassword = () => {
             name="email"
             label="Email"
             register={register}
-            options={{}}
+            options={{
+              required: true,
+              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+            }}
+            error={errors.email && "Please enter a correct email address"}
           />
 
           <Button title="Continue" loading={loading} />
