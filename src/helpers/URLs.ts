@@ -14,6 +14,8 @@ const URL = {
 
   editProfile: baseUrl + "me/",
   getUser: baseUrl + "me/",
+
+  community: baseUrl + "community/"
 };
 
 export default URL;
