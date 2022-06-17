@@ -1,15 +1,13 @@
-import Input, { Select } from "components/Input";
+import Input, { Select, PhoneInput } from "components/Input";
 import { useForm } from "react-hook-form";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
 import { useEffect, useState } from "react";
 import country_data from "helpers/country_data.json";
 import { useLocation } from "react-router-dom";
 import Button from "components/Button";
 
 const CommunityDetails = () => {
-  const { register, handleSubmit } = useForm();
-  const [phoneInput, setPhoneInput] = useState("");
+  const { register, handleSubmit, formState: {errors} } = useForm();
+
   const [country, setCountry] = useState("Nigeria");
   const [stateProvince, setStateProvince] = useState<any>([]);
 
@@ -48,7 +46,7 @@ const CommunityDetails = () => {
       <form className="mt-14 " onSubmit={handleSubmit(onSubmit)}>
         <Input
           placeholder="Enter your community name"
-          name="community_name"
+          name="name"
           label="Community Name"
           register={register}
           options={{}}
@@ -56,19 +54,20 @@ const CommunityDetails = () => {
 
         <label className="text-label_text">Community Address</label>
         <div className="grid grid-cols-2 gap-x-6 ">
-          {/* <Select 
-                        placeholder="Country" 
-                        name="country" 
-                        label="" 
-                        
-                        list={countryList}
-                         />
-                    <Select 
-                        placeholder="State/Province" 
-                        name="State/Province" 
-                        label="" 
-                        list={stateProvince}
-                         /> */}
+          <Select 
+            placeholder="Country"
+            name="country"
+            label=""
+            list={countryList} 
+            register={register}                         
+            />
+            <Select 
+            placeholder="State/Province"
+            name="State/Province"
+            label=""
+            list={stateProvince} 
+            register={register}                         
+            />
           <Input
             placeholder="City"
             name="city"
@@ -77,8 +76,8 @@ const CommunityDetails = () => {
             options={{}}
           />
           <Input
-            placeholder="Address"
-            name="address"
+            placeholder="Street Name and number"
+            name="street_name"
             label=""
             register={register}
             options={{}}
@@ -87,21 +86,21 @@ const CommunityDetails = () => {
 
         <Input
           placeholder="Enter your security company's name"
-          name="security_company"
+          name="security_company_name"
           label="Security Company"
           register={register}
           options={{}}
         />
 
-        <label className="text-label_text">
-          Community Contact Phone Number
-        </label>
         <PhoneInput
-          placeholder="Enter phone number"
-          value={phoneInput}
-          defaultCountry='NG'
-          onChange={() => setPhoneInput("")}
-        />
+          placeholder="Enter community phone number"
+          name="phone_number"
+          label="Community Contact Phone Number"
+          type='tel'
+          register={register}
+          error={errors.last_name && "Please enter a correct phone number"}
+          options={{ required: true, minLength: 6, maxLenght: 11, pattern: "^[0-9]*$" }} 
+           />
 
         {location.pathname === "/settings/community_account" && (
           <>

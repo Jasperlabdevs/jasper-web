@@ -22,9 +22,6 @@ const UserOnboarding = () => {
           </article>
         ))}
       </div>
-      <a href="#" className="underline">
-        See more options
-      </a>
       <Configuration
         title="Collect Member Addresses"
         description="Home addresses will be collected from community members during member onboarding"

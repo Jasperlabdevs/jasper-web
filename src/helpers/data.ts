@@ -416,28 +416,24 @@ export const TableContent = [
     id: 1,
     additionalInfomation: "Visitor Company",
     requried: "Requried",
-    show: "show",
     select: true,
   },
   {
     id: 2,
     additionalInfomation: "Visitor Type",
     requried: "Requried",
-    show: "show",
     select: true,
   },
   {
     id: 3,
     additionalInfomation: "Visitor Department",
     requried: "Requried",
-    show: "show",
     select: true,
   },
   {
     id: 2,
     additionalInfomation: "Reason for visiting",
     requried: "Not Requried",
-    show: "Do not Show",
     select: false,
   },
 ];
