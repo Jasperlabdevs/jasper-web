@@ -6,7 +6,11 @@ import { useLocation } from "react-router-dom";
 import Button from "components/Button";
 
 const CommunityDetails = () => {
-  const { register, handleSubmit, formState: {errors} } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [country, setCountry] = useState("Nigeria");
   const [stateProvince, setStateProvince] = useState<any>([]);
@@ -54,20 +58,20 @@ const CommunityDetails = () => {
 
         <label className="text-label_text">Community Address</label>
         <div className="grid grid-cols-2 gap-x-6 ">
-          <Select 
+          <Select
             placeholder="Country"
             name="country"
             label=""
-            list={countryList} 
-            register={register}                         
-            />
-            <Select 
+            list={countryList}
+            register={register}
+          />
+          <Select
             placeholder="State/Province"
             name="State/Province"
             label=""
-            list={stateProvince} 
-            register={register}                         
-            />
+            list={stateProvince}
+            register={register}
+          />
           <Input
             placeholder="City"
             name="city"
@@ -96,11 +100,16 @@ const CommunityDetails = () => {
           placeholder="Enter community phone number"
           name="phone_number"
           label="Community Contact Phone Number"
-          type='tel'
+          type="tel"
           register={register}
           error={errors.last_name && "Please enter a correct phone number"}
-          options={{ required: true, minLength: 6, maxLenght: 11, pattern: "^[0-9]*$" }} 
-           />
+          options={{
+            required: true,
+            minLength: 6,
+            maxLenght: 11,
+            pattern: "^[0-9]*$",
+          }}
+        />
 
         {location.pathname === "/settings/community_account" && (
           <>

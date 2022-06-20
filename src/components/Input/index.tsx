@@ -10,6 +10,7 @@ type InputType = {
   placeholder?: string;
   error?: string;
   disabled?: boolean;
+  value?: String;
 };
 
 type SelectType = {
@@ -19,7 +20,7 @@ type SelectType = {
   placeholder?: string;
   options?: any;
   register: any;
-  defaultValue?: any;
+  value?: any;
 };
 
 const Input = ({
@@ -31,6 +32,7 @@ const Input = ({
   placeholder,
   options,
   error = "",
+  value= ""
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
 
@@ -46,6 +48,7 @@ const Input = ({
         disabled={disabled}
         className="p-4 mt-2 mb-8 border rounded-md w-full"
         placeholder={placeholder}
+        defaultValue={value || ''}
         type={!visibility ? type : "text"}
         {...register(name, { ...options })}
       />
@@ -69,18 +72,30 @@ export const PhoneInput = ({
   type = "text",
   placeholder,
   options,
+  value= '',
   error = "",
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
 
   return (
     <div className="relative">
-            {label.length > 1 && <><label className="mb-4 lg:text-label_text " >{label}</label><br /></>}
-            <div className="flex items-center  mt-2 mb-4 border rounded-md overflow-hidden" >
-              <span className="bg-border p-4 " >+234</span>
-              <input  className=" w-full py-4 pl-4 outline-none " placeholder={placeholder} type='tel' maxLength='11'  {...register(name, { ...options })} />
-
-            </div>
+      {label.length > 1 && (
+        <>
+          <label className="mb-4 lg:text-label_text ">{label}</label>
+          <br />
+        </>
+      )}
+      <div className="flex items-center  mt-2 mb-8 border rounded-md overflow-hidden">
+        <span className="bg-border p-4 tracking-wide">+234</span>
+        <input
+          className=" w-full py-4 pl-4 outline-none "
+          placeholder={placeholder}
+          defaultValue={ value || '' }
+          type="tel"
+          maxLength="11"
+          {...register(name, { ...options })}
+        />
+      </div>
 
       <p className="text-red text-xs -mt-7">{error}</p>
       <br />
@@ -96,7 +111,7 @@ export const Select = (
     label = "",
     placeholder,
     list,
-    defaultValue = "",
+    value = "",
   }: SelectType,
   ref: any
 ) => (
@@ -116,7 +131,7 @@ export const Select = (
     <select
       {...register(name, { ...options })}
       className=" relative p-4 text-text-icon_background mt-2 mb-8 border rounded-md w-full"
-      defaultValue={defaultValue}
+      defaultValue={value}
       name={name}
     >
       <option hidden value="">
@@ -134,7 +149,7 @@ export const Select = (
 export const Checkbox = ({ label, name, register }: InputType) => (
   <label className="checkbox_container lg:text-label_text">
     {" "}
-    <div >{label}</div>
+    <div>{label}</div>
     <input type="checkbox" {...register(name)} />
     <span className="checkmark"></span>
   </label>

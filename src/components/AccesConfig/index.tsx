@@ -29,7 +29,7 @@ const AccessConfig = () => {
                 Addition Information
               </th>
               <th className=" text-grey_text">Make Required</th>
-            
+
               <th className="text-left text-grey_text">Select</th>
             </tr>
           </thead>

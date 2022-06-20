@@ -31,11 +31,10 @@ const Onboarding = () => {
 
   return (
     <div className="py-4 px-10 lg:p-0 relative">
-
-        <Helmet>
-            <title>Complete Onboarding | Jasper</title>
-            <meta name="description" content="Onboard your community with Jasper" />
-        </Helmet>
+      <Helmet>
+        <title>Complete Onboarding | Jasper</title>
+        <meta name="description" content="Onboard your community with Jasper" />
+      </Helmet>
 
       {activeStep > 3 && (
         <SuccessPage message={"Account created Successfully"} />

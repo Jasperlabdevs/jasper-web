@@ -303,8 +303,8 @@ input:checked + .slider {
 
 /* Style the checkmark/indicator */
 .checkbox_container .checkmark:after {
-  left: 8px;
-  top: 5px;
+  left: 7px;
+  top: 3.7px;
   width: 5px;
   height: 10px;
   border: solid white;

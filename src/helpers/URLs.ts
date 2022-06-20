@@ -15,7 +15,12 @@ const URL = {
   editProfile: baseUrl + "me/",
   getUser: baseUrl + "me/",
 
-  community: baseUrl + "community/"
+  community: baseUrl + "community/",
+  gate: baseUrl + 'gate/',
+  communityGate: baseUrl + 'community_gates/',
+
+  toggleGate: baseUrl + 'gate/change_active_state/',
+  loginGate: baseUrl + 'gate/login/',
 };
 
 export default URL;
