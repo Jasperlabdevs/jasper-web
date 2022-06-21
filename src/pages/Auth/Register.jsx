@@ -2,18 +2,14 @@
 import Button from "components/Button";
 import Input, { Checkbox, Select, PhoneInput } from "components/Input";
 import { useEffect, useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "store/actions/user";
 import authentication from "services/authentication";
 import PDF from "./../../assets/pdf/JASPER_TERMS_CONDITIONS_OF_SERVICE_AND_PRIVACY_POLICY.pdf";
 
 const Register = () => {
   const communityTypes = useSelector((state) => state.communityTypes);
-  const dispatch = useDispatch();
 
   const tabs = ["first", "second"];
   const {
@@ -25,12 +21,10 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(tabs[0]);
   const [communityType, setCommunityType] = useState(communityTypes);
-  const [phoneInput, setPhoneInput] = useState("");
 
   const [notif, setNotif] = useState("");
 
   const [err, setErr] = useState("");
-  const navigate = useNavigate();
 
   const watchFields = watch([
     "first_name",

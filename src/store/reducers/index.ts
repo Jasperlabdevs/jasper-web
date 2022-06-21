@@ -4,16 +4,18 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import communityTypesReducer from "./communityTypesReeducer";
 import userReducer from "./userReducer";
+import communityReducer from "./communityReducer";
 
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: [], // which reducer want to store
+  whitelist: ['user'], // which reducer want to store
 };
 
 const rootReducer = combineReducers({
   message: messageReducer,
   communityTypes: communityTypesReducer,
+  community: communityReducer,
   user: userReducer,
 });
 

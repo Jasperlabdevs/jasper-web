@@ -1,5 +1,5 @@
-import { addCommunity } from "services/community";
-import { ADD_COMMUNITY, ADD_COMMUNITY_FAILURE } from "store/constants";
+import { addCommunity, getCommunity } from "services/community";
+import { ADD_COMMUNITY, ADD_COMMUNITY_FAILURE, GET_COMMUNITY_FAILURE, GET_COMMUNITY_SUCCESS } from "store/constants";
 
 export const add_community =
   (data: any, errorhandler: any) => async (dispatch: any) => {
@@ -18,3 +18,15 @@ export const add_community =
       }
     );
   };
+
+export const get_community = () => async (dispatch:any) => {
+  return await getCommunity().then(
+    (res) => dispatch({
+      type: GET_COMMUNITY_SUCCESS,
+      payload: res.data?.results
+    }), error => dispatch({
+      type: GET_COMMUNITY_FAILURE,
+      payload: error.data
+    })
+  )
+}

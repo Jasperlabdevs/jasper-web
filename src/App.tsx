@@ -82,9 +82,7 @@ function App() {
         */}
           <Route path="gates" element={<Gates />} />
           <Route path="onboarding" element={<Onboarding />} />
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route path="dashboard/:user" element={<Dashboard />} />
-          </Route>
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -4,7 +4,7 @@ import URL from "helpers/URLs";
 const configuration = () => {
   const token = "";
   const config = {
-    headers: { Authorization: `${token}` },
+    headers: { Authorization: `Bearer ${token}` },
   };
   return config;
 };

@@ -5,10 +5,10 @@ import { Dispatch, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useDispatch } from "react-redux";
 import authentication from "services/authentication";
 import { setUser } from "store/actions/user";
 import { store } from "store";
+import { setToken } from "helpers/utils";
 
 export const dispatchStore = store.dispatch as
   | typeof store.dispatch
@@ -32,7 +32,8 @@ const Login = () => {
 
   const successCB = (data: any) => {
     dispatchStore(setUser(data));
-    navigate("/dashboard/new");
+    setToken(data.auth_token)
+    navigate("/dashboard");
   };
 
   const onSubmit = (data: any) => {

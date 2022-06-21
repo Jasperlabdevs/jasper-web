@@ -12,7 +12,7 @@ class Authentication {
       .post(URL.login, { ...data }, { timeout: 100000 })
       .then((res) => {
         this.authenticated = true;
-        cb(res);
+        cb(res.data.results);
       })
       .catch((err) => {
         console.log(err);
