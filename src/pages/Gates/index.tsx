@@ -21,81 +21,92 @@ const Gates = () => {
     "",
     "",
   ];
-  
-  const [ showGate, setShowGate ] = useState(false)
-  const [ edit, setEdit ] = useState(true)
-  const [gateData, setGateDate ] = useState<any>({gateName: '', phoneNumber: '', nestGate: ''})
-  const { register, formState: {errors} } = useForm()
 
+  const [showGate, setShowGate] = useState(false);
+  const [edit, setEdit] = useState(true);
+  const [gateData, setGateDate] = useState<any>({
+    gateName: "",
+    phoneNumber: "",
+    nestGate: "",
+  });
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
 
-  const [ showURL, setShowURl ] = useState(true)
+  const [showURL, setShowURl] = useState(true);
 
-  
   return (
     <div>
       <Header />
 
-      {
-        showGate && 
-        <Modal show={showGate} toggleClose={()=>setShowGate(!showGate)} >
-          <div className="p-8 relative" >
-            <h4>{ edit ? 'Edit Gate' :'Add Gate'}</h4>
-            <hr className="my-6 absolute w-full left-0"  />
+      {showGate && (
+        <Modal show={showGate} toggleClose={() => setShowGate(!showGate)}>
+          <div className="p-8 relative">
+            <h4>{edit ? "Edit Gate" : "Add Gate"}</h4>
+            <hr className="my-6 absolute w-full left-0" />
 
-            <form className="mt-16" >
-              <Input 
-                name='gate_name'
-                value={ gateData.gateName || '' }
-                label='Gate Name'
+            <form className="mt-16">
+              <Input
+                name="gate_name"
+                value={gateData.gateName || ""}
+                label="Gate Name"
                 register={register}
-                error={errors.gate_name && 'Please enter a gate name'}
-                options ={{ require: true }}
+                error={errors.gate_name && "Please enter a gate name"}
+                options={{ require: true }}
               />
-              <PhoneInput 
-                name='phone_number'
-                label='Phone Number'
-                value={ gateData.phoneNumber || '' }
+              <PhoneInput
+                name="phone_number"
+                label="Phone Number"
+                value={gateData.phoneNumber || ""}
                 register={register}
-                error={errors.phone_number && 'Please enter a phone number'}
-                options ={{ require: true, minLenght: 6, maxLenght: 11, pattern: "^[0-9]*$" }}
+                error={errors.phone_number && "Please enter a phone number"}
+                options={{
+                  require: true,
+                  minLenght: 6,
+                  maxLenght: 11,
+                  pattern: "^[0-9]*$",
+                }}
               />
-              <Select 
-                  name='nest_gate'
-                  label='Nest Gate'
-                  value={ gateData.nestGate || '' }
-                  placeholder="Select gate"
-                  register={register} 
-                  list={[]}
+              <Select
+                name="nest_gate"
+                label="Nest Gate"
+                value={gateData.nestGate || ""}
+                placeholder="Select gate"
+                register={register}
+                list={[]}
               />
-              
+
               <div className="w-fit float-right mb-8">
-                <Button title={ edit ? 'Edit Gate' :'Add Gate'} />
+                <Button title={edit ? "Edit Gate" : "Add Gate"} />
               </div>
             </form>
-
           </div>
         </Modal>
-      }
+      )}
 
-      {
-        showURL && 
-        <Modal show={showURL} toggleClose={()=>setShowURl(!showURL)} >
-          <div className="p-8 relative" >
-            <h4  >Gate Login URL</h4>
-            <hr className="my-6 absolute w-full left-0"  />
+      {showURL && (
+        <Modal show={showURL} toggleClose={() => setShowURl(!showURL)}>
+          <div className="p-8 relative">
+            <h4>Gate Login URL</h4>
+            <hr className="my-6 absolute w-full left-0" />
 
-            <div className="mt-20 border rounded-md p-10" >
-              <a className="text-primary p-5" href="/" target="_blank" >Google.com</a>
+            <div className="mt-20 border rounded-md p-10">
+              <a className="text-primary p-5" href="/" target="_blank">
+                Google.com
+              </a>
             </div>
 
-            <div className="w-full flex justify-center mt-20" >
-              <Button title='Copy Link' tertiary onClick={()=>copyText('test')}  />
+            <div className="w-full flex justify-center mt-20">
+              <Button
+                title="Copy Link"
+                tertiary
+                onClick={() => copyText("test")}
+              />
             </div>
-
           </div>
         </Modal>
-      }
-
+      )}
 
       <div className="px-10 mt-10 overflow-x-hidden">
         <div className="flex justify-between items-center">

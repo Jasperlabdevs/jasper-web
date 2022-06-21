@@ -32,7 +32,7 @@ const Input = ({
   placeholder,
   options,
   error = "",
-  value= ""
+  value = "",
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
 
@@ -48,7 +48,7 @@ const Input = ({
         disabled={disabled}
         className="p-4 mt-2 mb-8 border rounded-md w-full"
         placeholder={placeholder}
-        defaultValue={value || ''}
+        defaultValue={value || ""}
         type={!visibility ? type : "text"}
         {...register(name, { ...options })}
       />
@@ -72,7 +72,7 @@ export const PhoneInput = ({
   type = "text",
   placeholder,
   options,
-  value= '',
+  value = "",
   error = "",
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
@@ -90,7 +90,7 @@ export const PhoneInput = ({
         <input
           className=" w-full py-4 pl-4 outline-none "
           placeholder={placeholder}
-          defaultValue={ value || '' }
+          defaultValue={value || ""}
           type="tel"
           maxLength="11"
           {...register(name, { ...options })}
