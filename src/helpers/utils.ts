@@ -1,3 +1,10 @@
+import { Dispatch } from "react";
+import { store } from "store";
+
+export const dispatchStore = store.dispatch as
+  | typeof store.dispatch
+  | Dispatch<any>;
+
 export const copyText = (text: string) => {
   navigator.clipboard.writeText(text);
 };

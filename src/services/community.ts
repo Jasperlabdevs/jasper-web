@@ -11,7 +11,8 @@ const configuration = () => {
 };
 
 export const addCommunity = (data: any) => {
-  return axios.post(URL.community, { ...data });
+  let config = configuration()
+  return axios.post(URL.community, { ...data }, config);
 };
 
 export const getCommunity = () => {

@@ -1,7 +1,8 @@
+import Button from "components/Button";
 import Configuration from "components/Configuration";
 import { checklistData } from "helpers/data";
 
-const UserOnboarding = () => {
+const UserOnboarding = ({ forwardButton, forward, backward,activeStep }:any) => {
   return (
     <div className="mt-14 ">
       <h4>User Onboarding</h4>
@@ -26,6 +27,24 @@ const UserOnboarding = () => {
         title="Collect Member Addresses"
         description="Home addresses will be collected from community members during member onboarding"
       />
+
+        <div className="flex gap-4 lg:max-w-lg lg:mt-20 mb-20">
+            <div className="lg:max-w-[200px] w-full">
+              <Button
+                onClick={forward}
+                title={forwardButton}
+                // type="submit"
+              />
+            </div>
+           
+              <Button
+                onClick={backward}
+                title="Back to previous page"
+                type="button"
+                secondary
+              />
+            
+          </div>
     </div>
   );
 };
