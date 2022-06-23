@@ -15,6 +15,11 @@ export const addCommunity = (data: any) => {
   return axios.post(URL.community, { ...data }, config);
 };
 
+export const updateCommunity = (data: any, id:string) => {
+  let config = configuration()
+  return axios.put(URL.community + '/'+ id, { ...data }, config);
+};
+
 export const getCommunity = () => {
   let config = configuration()
   return axios.get(URL.community, config)

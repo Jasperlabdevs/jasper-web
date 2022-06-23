@@ -80,6 +80,7 @@ function App() {
             <Route path="members" element={<Members />} />
           </Route>
         */}
+        <Route path="test" element={<UserOnboarding />} />
           <Route path="gates" element={<Gates />} />
           <Route path="onboarding" element={<Onboarding />} />
           <Route path="dashboard" element={<Dashboard />} />

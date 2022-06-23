@@ -20,7 +20,6 @@ import rename from "assets/images/rename.png";
 import users from "assets/images/users.png";
 import { useSelector } from "react-redux";
 import { store } from "store";
-import { getCommunity } from "services/community";
 
 export const dispatchStore = store.dispatch as
   | typeof store.dispatch
@@ -32,19 +31,13 @@ const Dashboard = () => {
   const [ showModal, setShowModal ] = useState(false)
   const stateUser = useSelector((state:any) => state.user)
 
-  const fetchCommunity = async () => {
-    await getCommunity().then(
-      res => {
-        if(res.data?.results.length < 1){
-          setShowModal(true)
-        }
-      }
-    )
-  }
 
   useEffect(()=>{
-    fetchCommunity()
-  },[])
+    if(stateUser.community === null){
+      setShowModal(true)
+    }
+    
+  },[stateUser])
 
 
   const notifTabs = [

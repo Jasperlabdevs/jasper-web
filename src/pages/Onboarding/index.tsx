@@ -8,6 +8,8 @@ import AccessConfig from "components/AccesConfig";
 import { useNavigate } from "react-router-dom";
 import SuccessPage from "components/SuccessPage";
 import { Helmet } from "react-helmet";
+import { dispatchStore } from "helpers/utils";
+import { get_occupancy_types } from "store/actions/occupancyTypes";
 
 const Onboarding = () => {
   const [activeStep, setActiveStep] = useState(1);
@@ -15,6 +17,8 @@ const Onboarding = () => {
   const [progress, setProgress] = useState("33");
 
   const [ forward, setForward ] = useState('Continue')
+
+  dispatchStore(get_occupancy_types())
 
   const navigate = useNavigate();
 
@@ -117,8 +121,8 @@ const Onboarding = () => {
           </aside>
         </div>
         <div className="lg:mx-20 min-w-5xl lg:pl-[350px]">
-          {activeStep === 1 && <CommunityDetails forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} />}
-          {activeStep === 2 && <UserOnboarding forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} backward={()=>goBack(activeStep, setActiveStep)} />}
+          {activeStep === 2 && <CommunityDetails forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} />}
+          {activeStep === 1 && <UserOnboarding forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} backward={()=>goBack(activeStep, setActiveStep)} />}
 
           {activeStep === 3 && <AccessConfig />}
 

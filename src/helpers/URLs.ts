@@ -5,6 +5,9 @@ const URL = {
   logout: baseUrl + "logout/",
 
   communityTypes: baseUrl + "community/community_type/",
+  occuoantTypes: baseUrl + "community/occupancy_type/",
+
+  chooseOccupancyType: baseUrl + "community/choose_occupancy_type/",
 
   validateEmail: baseUrl + "validate_email/",
   resetPassword: baseUrl + "reset_password/",

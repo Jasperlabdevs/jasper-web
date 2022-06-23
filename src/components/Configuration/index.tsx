@@ -1,17 +1,24 @@
 import "./style.css";
-import { checklistData } from "helpers/data";
+import { useSelector } from "react-redux";
 
 type ConfigurationProp = {
   title: string;
   description: string;
   hasCheckList?: boolean;
+  register?:any;
+  name?:string
 };
 
 const Configuration = ({
   title,
   description,
   hasCheckList,
+  register,
+  name
 }: ConfigurationProp) => {
+
+  const { stateOccupancyType } = useSelector((state:any)=> state.occupancyTypes )
+
   return (
     <div className="config my-10 max-w-5xl ">
       <div className="texts ">
@@ -19,10 +26,10 @@ const Configuration = ({
         <p className="text-sm">{description}</p>
         {hasCheckList && (
           <div className="checklist mt-4">
-            {checklistData.map((data) => (
+            {stateOccupancyType.map((data:any) => (
               <label key={data.id} className="checkbox">
                 {data.name}
-                <input type="checkbox" checked={data.checked} />
+                <input type="checkbox" name={data.name} value={data.id} />
                 <span className="checkmark"></span>
               </label>
             ))}
@@ -30,7 +37,7 @@ const Configuration = ({
         )}
       </div>
       <label className="switch mt-2">
-        <input type="checkbox" defaultChecked />
+        <input type="checkbox" defaultChecked {...register(name)} />
         <span className="slider round"></span>
       </label>
     </div>

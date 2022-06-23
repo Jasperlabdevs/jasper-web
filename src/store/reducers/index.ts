@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import communityTypesReducer from "./communityTypesReeducer";
 import userReducer from "./userReducer";
 import communityReducer from "./communityReducer";
+import occupancyTypesReducer from "./occupancyTypesReeducer";
 
 const persistConfig = {
   key: "root",
@@ -15,6 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   message: messageReducer,
   communityTypes: communityTypesReducer,
+  occupancyTypes: occupancyTypesReducer,
   community: communityReducer,
   user: userReducer,
 });
