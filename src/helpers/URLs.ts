@@ -24,6 +24,9 @@ const URL = {
 
   toggleGate: baseUrl + "gate/change_active_state/",
   loginGate: baseUrl + "gate/login/",
+
+
+  accessRules: baseUrl + "access/create_rules/"
 };
 
 export default URL;

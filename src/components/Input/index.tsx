@@ -21,6 +21,7 @@ type SelectType = {
   options?: any;
   register: any;
   value?: any;
+  noborder?: Boolean
 };
 
 const Input = ({
@@ -112,6 +113,7 @@ export const Select = (
     placeholder,
     list,
     value = "",
+    noborder
   }: SelectType,
   ref: any
 ) => (
@@ -130,7 +132,7 @@ export const Select = (
 
     <select
       {...register(name, { ...options })}
-      className=" relative p-4 text-text-icon_background mt-2 mb-8 border rounded-md w-full"
+      className={`relative p-4 text-text-icon_background mt-2 mb-8 rounded-md w-full ${noborder ? 'border-none my-0': 'border' } `}
       defaultValue={value}
       name={name}
     >

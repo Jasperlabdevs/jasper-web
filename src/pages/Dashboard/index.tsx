@@ -30,14 +30,16 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [ showModal, setShowModal ] = useState(false)
   const stateUser = useSelector((state:any) => state.user)
+  const stateCommunity = useSelector((state:any) => state.community)
 
 
   useEffect(()=>{
-    if(stateUser.community === null){
+    console.log(Object.keys(stateCommunity).length)
+    if(Object.keys(stateCommunity).length === 0){
       setShowModal(true)
     }
     
-  },[stateUser])
+  },[stateCommunity])
 
 
   const notifTabs = [

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { updateCommunity } from "services/community";
 import { chooseOccupancyType } from "services/Occupancy";
 
-const UserOnboarding = ({ forwardButton, forward, backward,activeStep }:any) => {
+const UserOnboarding = ({ forwardButton, forward, backward }:any) => {
 
   const stateOccupancyType  = useSelector((state:any) => state.occupancyTypes )
   const stateCommunity  = useSelector((state:any) => state.cummunity )

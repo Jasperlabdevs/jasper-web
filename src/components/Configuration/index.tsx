@@ -17,7 +17,7 @@ const Configuration = ({
   name
 }: ConfigurationProp) => {
 
-  const { stateOccupancyType } = useSelector((state:any)=> state.occupancyTypes )
+  const stateOccupancyType = useSelector((state:any)=> state.occupancyTypes )
 
   return (
     <div className="config my-10 max-w-5xl ">
@@ -26,13 +26,13 @@ const Configuration = ({
         <p className="text-sm">{description}</p>
         {hasCheckList && (
           <div className="checklist mt-4">
-            {stateOccupancyType.map((data:any) => (
-              <label key={data.id} className="checkbox">
-                {data.name}
-                <input type="checkbox" name={data.name} value={data.id} />
-                <span className="checkmark"></span>
-              </label>
-            ))}
+              {stateOccupancyType?.map((data:any) => (
+                <label key={data.id} className="checkbox">
+                  {data.name}
+                  <input type="checkbox" {...register(name+'_'+(data.name).replace(/\s/g, ""))} value={data.id} />
+                  <span className="checkmark"></span>
+                </label>
+              ))}
           </div>
         )}
       </div>
