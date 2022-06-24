@@ -1,8 +1,9 @@
 import axios from "axios";
 import URL from "helpers/URLs";
+import { getToken } from "helpers/utils";
 
 const configuration = () => {
-  const token = "";
+  const token = getToken();
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
@@ -19,9 +20,9 @@ export const editGate = (data: any) => {
   return axios.put(URL.gate, { ...data }, config);
 };
 
-export const getGate = () => {
+export const getGate = (id:any) => {
   let config = configuration();
-  return axios.get(URL.gate, config);
+  return axios.get(URL.getGates+id+'/', config);
 };
 
 export const getCommunityGate = () => {

@@ -22,14 +22,15 @@ const UserOnboarding = ({ forwardButton, forward, backward }:any) => {
     const values = Object.values(data)
     const valueID = values.filter(el => ( el !== false && el !== true) )
 
-    for(let i = 0; i < valueID.length; i++){
-      const data = { "occupancy_type": valueID[i] }
-      await chooseOccupancyType(data)
-    }
+    // for(let i = 0; i < valueID.length; i++){
+    //   console.log(valueID[i])
+    //   const data = { "occupancy_type": valueID[i] }
+    //   await chooseOccupancyType(data)
+    // }
 
+    
     await updateCommunity(data, community.id).then(
       res => {
-        console.log('here')
         forward()
       }
     )
@@ -53,7 +54,7 @@ const UserOnboarding = ({ forwardButton, forward, backward }:any) => {
       <p>This allows you to segment your member database</p>
 
       <form onSubmit={handleSubmit(onSubmit)} >
-        <div className="grid grid-cols-2 lg:grid-cols-3 max-w-xl gap-4 flex-wrap mt-8 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 max-w-2xl gap-4 flex-wrap mt-8 mb-6">
           {occupancyTypes?.map((data: any) => (
             <article key={data.id} className={data.name}>
               <input type="checkbox" id={data.id} value={data.id} {...register(data.name)} />

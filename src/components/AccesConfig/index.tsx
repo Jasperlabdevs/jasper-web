@@ -61,9 +61,11 @@ data.additional_information=[
     setAccessRules(data).then(
       res=>{
         console.log(res.data.results)
+        setLoading(false)
       }
-    ).catch(
-      err => {
+      ).catch(
+        err => {
+        setLoading(false)
         console.log( err.data)
       }
     )
