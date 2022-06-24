@@ -9,15 +9,16 @@ import { chooseOccupancyType } from "services/Occupancy";
 const UserOnboarding = ({ forwardButton, forward, backward }:any) => {
 
   const stateOccupancyType  = useSelector((state:any) => state.occupancyTypes )
-  const stateCommunity  = useSelector((state:any) => state.cummunity )
+  const stateCommunity  = useSelector((state:any) => state.community )
 
   const [ occupancyTypes, setOccupancyType ] = useState(stateOccupancyType)
-  
-  console.log(stateOccupancyType)
+  const [ community, setCommunity ] = useState(stateCommunity)
+  const [ loading, setLoading ] = useState(false)
+
   const { register, handleSubmit, formState: { errors } } = useForm()
   
   const onSubmit = async (data:any) => {
-
+    setLoading(true)
     const values = Object.values(data)
     const valueID = values.filter(el => ( el !== false && el !== true) )
 
@@ -26,14 +27,18 @@ const UserOnboarding = ({ forwardButton, forward, backward }:any) => {
       await chooseOccupancyType(data)
     }
 
-    await updateCommunity(data, stateCommunity.id).then(
+    await updateCommunity(data, community.id).then(
       res => {
+        console.log('here')
         forward()
       }
     )
 
   }
 
+  useEffect(()=>{
+    setCommunity(stateCommunity)
+  },[stateCommunity])
   useEffect(()=>{
     setOccupancyType(stateOccupancyType)
   },[stateOccupancyType])
@@ -71,6 +76,7 @@ const UserOnboarding = ({ forwardButton, forward, backward }:any) => {
                   // onClick={forward}
                   title={forwardButton}
                   type="submit"
+                  loading={loading}
                 />
               </div>
             

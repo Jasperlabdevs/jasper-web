@@ -1,5 +1,5 @@
 import Configuration from "../Configuration";
-import React from "react";
+import React, { useState } from "react";
 import { configurationData, TableContent } from "helpers/data";
 import { useForm } from "react-hook-form";
 import Button from "components/Button";
@@ -9,11 +9,12 @@ import { Select } from "components/Input";
 const AccessConfig = ({ forwardButton, forward, backward,activeStep }:any) => {
 
   const { register, formState: {errors}, handleSubmit } = useForm()
+  const [ loading, setLoading ] = useState(false)
 
   const list = [{id:'required', name:'Required'}, {id:'not required', name:'Not Required'}]
 
   const onSubmit = (data:any) => {
-
+    setLoading(true)
 
 data.additional_information=[
   {
@@ -57,15 +58,15 @@ data.additional_information=[
 
     console.log(data)
 
-    // setAccessRules(data).then(
-    //   res=>{
-    //     console.log(res.data.results)
-    //   }
-    // ).catch(
-    //   err => {
-    //     console.log( err.data)
-    //   }
-    // )
+    setAccessRules(data).then(
+      res=>{
+        console.log(res.data.results)
+      }
+    ).catch(
+      err => {
+        console.log( err.data)
+      }
+    )
 
   }
 
@@ -131,6 +132,7 @@ data.additional_information=[
                   // onClick={forward}
                   title={forwardButton}
                   type="submit"
+                  loading= {loading}
                 />
               </div>
             

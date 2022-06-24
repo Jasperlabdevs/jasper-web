@@ -17,7 +17,7 @@ export const addCommunity = (data: any) => {
 
 export const updateCommunity = (data: any, id:string) => {
   let config = configuration()
-  return axios.put(URL.community + '/'+ id, { ...data }, config);
+  return axios.put(URL.community + id + '/', { ...data }, config);
 };
 
 export const getCommunity = () => {
