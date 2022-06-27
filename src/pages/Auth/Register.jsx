@@ -16,6 +16,7 @@ const Register = () => {
     register,
     watch,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
@@ -74,6 +75,11 @@ const Register = () => {
 
   const next = () => {
     setErr("");
+  
+    reset({
+      password: '',
+      confirm_password: ''
+    },{keepValues: true})
     let res;
     watchFields.map((el) => {
       if (el === undefined || el.length < 1 || el === false) {
@@ -202,6 +208,7 @@ const Register = () => {
                 type="password"
                 label="Create Password"
                 register={register}
+                value=""
                 options={{
                   required: true,
                   minLength: 8,
@@ -218,6 +225,7 @@ const Register = () => {
                 placeholder="Confirm your password"
                 type="password"
                 label="Confirm Password"
+                value=""
                 register={register}
                 options={{ required: true, minLength: 6 }}
                 error={
