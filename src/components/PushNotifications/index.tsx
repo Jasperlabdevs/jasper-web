@@ -7,9 +7,24 @@ const PushNotifications = () => {
 
   const notificationData = [
     {
-      notification: "Access Notifications",
+      notification: "Access Request Notifications",
       description:
-        "By turning on this toggle, you aggree to recieve notifications for access requests",
+        "By turning on this toggle, you agree to receive notifications for access requests",
+    },
+    {
+      notification: "Payment Notifications",
+      description:
+        "By turning on this toggle, you aggree to recieve payment notifications",
+    },
+    {
+      notification: "Issue Notifications",
+      description:
+        "By turning on this toggle, you aggree to recieve issue notifications",
+    },
+    {
+      notification: "Post request Notifications",
+      description:
+        "By turning on this toggle, you aggree to recieve post request notifications",
     },
     {
       notification: "Chat Notifications",
@@ -17,14 +32,9 @@ const PushNotifications = () => {
         "By turning on this toggle, you aggree to recieve chat notifications",
     },
     {
-      notification: "Email Notifications",
+      notification: "New Member Notifications",
       description:
-        "By turning on this toggle, you aggree to recieve email notifications",
-    },
-    {
-      notification: "Issue Notifications",
-      description:
-        "By turning on this toggle, you aggree to recieve issue notifications",
+        "By turning on this toggle, you aggree to recieve new member notifications",
     },
   ];
 
