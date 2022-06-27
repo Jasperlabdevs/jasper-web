@@ -2,8 +2,8 @@ import Button from "components/Button";
 import Header from "components/Header";
 import { Select } from "components/Input";
 import Modal from "components/Modal";
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { Dispatch, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   AreaChart,
   Area,
@@ -18,12 +18,29 @@ import WelcomeImage from "assets/images/welcome-image.png";
 import gate from "assets/images/gate.png";
 import rename from "assets/images/rename.png";
 import users from "assets/images/users.png";
+import { useSelector } from "react-redux";
+import { store } from "store";
+
+export const dispatchStore = store.dispatch as
+  | typeof store.dispatch
+  | Dispatch<any>;
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(1);
+  const [ showModal, setShowModal ] = useState(false)
+  const stateUser = useSelector((state:any) => state.user)
+  const stateCommunity = useSelector((state:any) => state.community)
 
-  let { user } = useParams();
+
+  useEffect(()=>{
+    console.log(Object.keys(stateCommunity).length)
+    if(Object.keys(stateCommunity).length === 0){
+      setShowModal(true)
+    }
+    
+  },[stateCommunity])
+
 
   const notifTabs = [
     {
@@ -116,11 +133,11 @@ const Dashboard = () => {
 
   return (
     <div>
-      {user === "new" && (
-        <Modal show={user === "new"}>
+      {showModal && (
+        <Modal show={showModal}>
           <div className="bg-[#2D4379] p-16 relative overflow-hidden">
             <p className="text-white text-4xl font-light">
-              Welcome aboard, <br /> Chidnma
+              Welcome aboard, <br /> {stateUser?.first_name || 'New User'}
             </p>
             <p className="mt-8">Let's get you up to speed</p>
             <div className="absolute w-60 h-60 bottom-0 right-10">

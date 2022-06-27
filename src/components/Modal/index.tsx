@@ -7,9 +7,9 @@ const Modal = ({ children, show = true, toggleClose }: any) => {
         show ? "block" : "hidden"
       } `}
     >
-      <div className="min-w-[400px] w-[500px] m-10 min-h-[500px] bg-[#ffffff] rounded-xl relative overflow-hidden">
+      <div className="min-w-[400px] w-[500px] m-10 max-h-[500px] bg-[#ffffff] rounded-xl relative overflow-hidden">
         <div
-          className=" absolute right-8 top-8 cursor-pointer"
+          className=" absolute z-10 right-8 top-8 cursor-pointer"
           onClick={toggleClose}
         >
           {SVGs.close}

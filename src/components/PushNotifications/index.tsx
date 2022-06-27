@@ -1,6 +1,10 @@
 import Configuration from "components/Configuration";
+import { useForm } from "react-hook-form";
 
 const PushNotifications = () => {
+
+  const { register } = useForm()
+
   const notificationData = [
     {
       notification: "Access Notifications",
@@ -32,6 +36,8 @@ const PushNotifications = () => {
         {notificationData.map((data) => (
           <div key={data.notification}>
             <Configuration
+              name={data.notification}
+              register={register}
               title={data.notification}
               description={data.description}
               hasCheckList={false}

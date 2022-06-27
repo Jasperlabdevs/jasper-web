@@ -45,7 +45,7 @@ function App() {
             <Route path="/verification" element={<Verification />} />
             <Route path="/validate_email" element={<ValidateEmail />} />
           </Route>
-          {/* <Route path="gate_auth" element={<GateAuth />}>
+          <Route path="gate_auth" element={<GateAuth />}>
             <Route index element={<GateLogin />} />
             <Route path="verification" element={<GateVerification />} />
           </Route>
@@ -79,8 +79,10 @@ function App() {
             <Route index element={<Navigate to="members" replace />} />
             <Route path="members" element={<Members />} />
           </Route>
+       
+        <Route path="test" element={<UserOnboarding />} />
           <Route path="gates" element={<Gates />} />
-        */}
+    
         <Route path="onboarding" element={<Onboarding />} />
         <Route path="dashboard" element={<Dashboard />}>
           <Route path=":user" element={<Dashboard />} />

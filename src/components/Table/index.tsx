@@ -1,10 +1,14 @@
 import Button from "components/Button";
+import { Select } from "components/Input";
+import SVGs from "helpers/SVGs";
 
 type tableColumnType = {
-  type?: "normal" | "status" | "userType" | "button" | "user";
+  type?: "normal" | "status" | "userType" | "button" | "user" | "dropdown";
   buttonType?: "smallPrimary" | "smallSecondary" | "tertiary" | "other";
   td: string | any;
   image?: any;
+  onClick?:any;
+  list?:any
 };
 
 export const TableHeader = ({ headers }: any) => (
@@ -22,6 +26,8 @@ export const TableColumn = ({
   buttonType,
   td,
   image,
+  onClick,
+  list=[]
 }: tableColumnType) => (
   <>
     {type === "normal" && <td className="px-4 text-left">{td}</td>}
@@ -45,22 +51,34 @@ export const TableColumn = ({
     )}
     {type === "button" && buttonType === "smallPrimary" && (
       <td className="px-4 ">
-        <Button smallPrimary title={td} />
+        <Button smallPrimary title={td} onClick={onClick} />
       </td>
     )}
     {type === "button" && buttonType === "smallSecondary" && (
       <td className="px-4 ">
-        <Button smallSecondary title={td} />
+        <Button smallSecondary title={td} onClick={onClick} />
       </td>
     )}
     {type === "button" && buttonType === "other" && (
       <td className="px-4 ">
-        <Button other title={td} />
+        <Button other title={td} onClick={onClick} />
       </td>
     )}
     {type === "button" && buttonType === "tertiary" && (
       <td className="px-4 ">
-        <Button tertiary title={td} />
+        <Button tertiary title={td} onClick={onClick} />
+      </td>
+    )}
+    {type === "dropdown" && (
+      <td className="px-4 ">
+        <div className="dropdown">
+          <button className="dropbtn flex items-center gap-4">{td}  {SVGs.arrow_down }</button>
+          <div className="dropdown-content">
+            {list?.map((data:any, index:number)=>(
+              <p >{data.name || data}</p>
+            ))}
+          </div>
+        </div>
       </td>
     )}
     {type === "user" && (

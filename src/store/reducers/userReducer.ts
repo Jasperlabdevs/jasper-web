@@ -5,9 +5,9 @@ const userReducer = (state: any = {}, action: any) => {
 
   switch (type) {
     case SET_USER:
-      return {...state, payload};
-    case CLEAR_USER: 
-        return {}
+      return { ...state, ...payload };
+    case CLEAR_USER:
+      return {};
     default:
       return state;
   }

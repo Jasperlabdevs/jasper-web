@@ -4,18 +4,36 @@ import { useEffect, useState } from "react";
 import country_data from "helpers/country_data.json";
 import { useLocation } from "react-router-dom";
 import Button from "components/Button";
+import { dispatchStore } from "helpers/utils";
+import { add_community } from "store/actions/community";
+import { addCommunity } from "services/community";
 
-const CommunityDetails = () => {
-  const { register, handleSubmit, formState: {errors} } = useForm();
+const CommunityDetails = ({ forwardButton, forward }:any) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [country, setCountry] = useState("Nigeria");
   const [stateProvince, setStateProvince] = useState<any>([]);
-
+  const [ err, setErr ] = useState('')
   const location = useLocation();
+  const [ loading, setLoading ] = useState(false)
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
+  const onSubmit = async (data: any) => {
+    setLoading(true)
+    await addCommunity(data).then(
+      (res) =>{
+        setLoading(false)
+        dispatchStore(add_community(res.data?.results))
+        forward()
+      },(error) => {
+        setLoading(false)
+          console.log(error)
+          setErr('Creating Community failed, kindly check your details')
+      });
+  }
   const countryList: Array<any> = country_data.map((data) => data.countryName);
 
   useEffect(() => {
@@ -43,44 +61,55 @@ const CommunityDetails = () => {
         culpa optio.
       </p>
 
+      {!!err && (
+        <div className="bg-faded_red w-full text-center p-4 mt-4 rounded-md">
+          <p className="text-red text-xs ">{err}</p>
+        </div>
+      )}
+
       <form className="mt-14 " onSubmit={handleSubmit(onSubmit)}>
         <Input
           placeholder="Enter your community name"
           name="name"
           label="Community Name"
           register={register}
-          options={{}}
+          options={{required : true}}
+          error={errors.name && "Please enter your community's name"}
         />
 
         <label className="text-label_text">Community Address</label>
         <div className="grid grid-cols-2 gap-x-6 ">
-          <Select 
+          <Select
             placeholder="Country"
             name="country"
             label=""
-            list={countryList} 
-            register={register}                         
-            />
-            <Select 
+            list={countryList}
+            value={country}
+            register={register}
+          />
+          <Select
             placeholder="State/Province"
-            name="State/Province"
+            name="state"
             label=""
-            list={stateProvince} 
-            register={register}                         
-            />
+            list={stateProvince}
+            register={register}
+            options={{require: true}}
+          />
           <Input
             placeholder="City"
             name="city"
             label=""
             register={register}
-            options={{}}
+            options={{required : true}}
+            error={errors.city && 'Please enter the name of your city'}
           />
           <Input
             placeholder="Street Name and number"
             name="street_name"
             label=""
             register={register}
-            options={{}}
+            options={{required : true}}
+            error={errors.street_name && 'Please enter the street name'}
           />
         </div>
 
@@ -89,20 +118,26 @@ const CommunityDetails = () => {
           name="security_company_name"
           label="Security Company"
           register={register}
-          options={{}}
+          options={{required : true}}
+          error={errors.security_company_name && "Please enter your security company's name"}
         />
 
         <PhoneInput
           placeholder="Enter community phone number"
-          name="phone_number"
+          name="community_contact_phone_number"
           label="Community Contact Phone Number"
-          type='tel'
+          type="tel"
           register={register}
-          error={errors.last_name && "Please enter a correct phone number"}
-          options={{ required: true, minLength: 6, maxLenght: 11, pattern: "^[0-9]*$" }} 
-           />
+          error={errors.community_contact_phone_number && "Please enter a correct phone number"}
+          options={{
+            required: true,
+            minLength: 6,
+            maxLenght: 11,
+            pattern: "^[0-9]*$",
+          }}
+        />
 
-        {location.pathname === "/settings/community_account" && (
+        {location.pathname === "/settings/community_account" ? (
           <>
             <Input
               placeholder="Enter your community's email address"
@@ -136,6 +171,17 @@ const CommunityDetails = () => {
               <Button title="Discard" type="button" other />
             </div>
           </>
+        ): (
+          <div className="flex gap-4 lg:max-w-lg lg:mt-20 mb-20">
+            <div className="lg:max-w-[200px] w-full">
+              <Button
+                title={forwardButton}
+                type="submit"
+                loading={loading}
+              />
+            </div>
+
+          </div>
         )}
       </form>
     </div>

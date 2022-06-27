@@ -8,11 +8,22 @@ import AccessConfig from "components/AccesConfig";
 import { useNavigate } from "react-router-dom";
 import SuccessPage from "components/SuccessPage";
 import { Helmet } from "react-helmet";
+import { dispatchStore } from "helpers/utils";
+import { get_occupancy_types } from "store/actions/occupancyTypes";
+import { useSelector } from "react-redux";
 
 const Onboarding = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [progressWidth, setProgressWidth] = useState("w-1/3");
   const [progress, setProgress] = useState("33");
+
+  const [ forward, setForward ] = useState('Continue')
+
+  const stateOccupancyType = useSelector((state:any) => state.occupancyTypes)
+
+  if(stateOccupancyType.length === 0){
+    dispatchStore(get_occupancy_types())
+  }
 
   const navigate = useNavigate();
 
@@ -20,22 +31,24 @@ const Onboarding = () => {
     if (activeStep === 2) {
       setProgress("66");
       setProgressWidth("w-2/3");
+      setForward('Continue')
     } else if (activeStep === 3) {
       setProgress("80");
       setProgressWidth("w-4/5");
+      setForward('Complete')
     } else {
       setProgress("33");
       setProgressWidth("w-1/3");
+      setForward('Continue')
     }
   }, [activeStep]);
 
   return (
     <div className="py-4 px-10 lg:p-0 relative">
-
-        <Helmet>
-            <title>Complete Onboarding | Jasper</title>
-            <meta name="description" content="Onboard your community with Jasper" />
-        </Helmet>
+      <Helmet>
+        <title>Complete Onboarding | Jasper</title>
+        <meta name="description" content="Onboard your community with Jasper" />
+      </Helmet>
 
       {activeStep > 3 && (
         <SuccessPage message={"Account created Successfully"} />
@@ -113,28 +126,12 @@ const Onboarding = () => {
           </aside>
         </div>
         <div className="lg:mx-20 min-w-5xl lg:pl-[350px]">
-          {activeStep === 1 && <CommunityDetails />}
-          {activeStep === 2 && <UserOnboarding />}
+          {activeStep === 3 && <CommunityDetails forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} />}
+          {activeStep === 2 && <UserOnboarding forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} backward={()=>goBack(activeStep, setActiveStep)} />}
 
-          {activeStep === 3 && <AccessConfig />}
+          {activeStep === 1 && <AccessConfig forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} backward={()=>goBack(activeStep, setActiveStep)} />}
 
-          <div className="flex gap-4 lg:max-w-lg lg:mt-20 mb-20">
-            <div className="lg:max-w-[200px] w-full">
-              <Button
-                onClick={() => goForward(activeStep, setActiveStep, navigate)}
-                title={activeStep === 3 ? "Complete" : "Continue"}
-                type="button"
-              />
-            </div>
-            {activeStep > 1 && (
-              <Button
-                onClick={() => goBack(activeStep, setActiveStep)}
-                title="Back to previous page"
-                type="button"
-                secondary
-              />
-            )}
-          </div>
+          
         </div>
       </div>
     </div>

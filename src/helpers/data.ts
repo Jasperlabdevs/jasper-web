@@ -18,6 +18,8 @@ type ConfigurationDataType = {
   title: string;
   description: string;
   hasCheckList?: boolean;
+  name?:string;
+  register?:any;
 };
 
 export const headerData: HeaderDataType[] = [
@@ -362,17 +364,20 @@ export const configurationData: ConfigurationDataType[] = [
     title: "Capture Visitor Entry and Exit",
     description: "Confirm entry/exit before granting access",
     hasCheckList: false,
+    name: "visitor_entry_and_exit"
   },
   {
     id: 2,
     title: "Identity Verification",
     description: "Confirm visitor ID before granting access",
+    name: 'identity_verification'
   },
   {
     id: 3,
     title: "Enable Secondary Gate Access",
     description:
       "This will be sent to all platform users on onboarding, prompting them to specify if they have a secondary gate.",
+      name: 'enable_secondary_gate_access'
   },
   {
     id: 4,
@@ -380,6 +385,7 @@ export const configurationData: ConfigurationDataType[] = [
     description:
       "By turning on this toggle, you agree to confirm entry/exit before granting access",
     hasCheckList: true,
+    name: 'allow_users_generate_onetime_access_codes'
   },
   {
     id: 5,
@@ -387,6 +393,7 @@ export const configurationData: ConfigurationDataType[] = [
     description:
       "By turning on this toggle, you give users access to generate access codes for events",
     hasCheckList: true,
+    name: 'allow_users_generate_event_access_codes'
   },
   {
     id: 6,
@@ -394,20 +401,23 @@ export const configurationData: ConfigurationDataType[] = [
     description:
       "By turning on this toggle, you give users access to generate access codes for recurring events",
     hasCheckList: true,
+    name: 'allow_users_generate_recurring_access_codes'
   },
   {
     id: 7,
     title: "Allow users to generate multiple access codes",
     description:
       "By turning on this toggle, you give users access to generate mutiple access codes",
-    hasCheckList: true,
+    hasCheckList: false,
+    name: 'generate_multiple_access_codes'
   },
   {
     id: 8,
     title: "Allow users to request multiple access codes",
     description:
       "By turning on this toggle, you give users access to generate mutiple access codes",
-    hasCheckList: true,
+    hasCheckList: false,
+    name: 'request_multiple_access_codes'
   },
 ];
 
@@ -426,7 +436,7 @@ export const TableContent = [
   },
   {
     id: 3,
-    additionalInfomation: "Visitor Department",
+    additionalInfomation: "Requesting Department",
     requried: "Requried",
     select: true,
   },

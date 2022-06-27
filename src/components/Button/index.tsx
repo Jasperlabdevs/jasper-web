@@ -26,7 +26,7 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      className={` p-2 px-4 md:p-4 w-full relative rounded-lg mt-10 
+      className={` p-4 w-full relative rounded-lg mt-10 
             ${
               secondary === false &&
               other === false &&

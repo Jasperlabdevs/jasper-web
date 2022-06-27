@@ -1,6 +1,26 @@
 import axios from "axios";
 import URL from "helpers/URLs";
+import { getToken } from "helpers/utils";
 
-export const addCommunity =(data:any) => {
-    return axios.post(URL.community, {...data})
+const configuration = () => {
+  const token = getToken();
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  return config;
+};
+
+export const addCommunity = (data: any) => {
+  let config = configuration()
+  return axios.post(URL.community, { ...data }, config);
+};
+
+export const updateCommunity = (data: any, id:string) => {
+  let config = configuration()
+  return axios.put(URL.community + id + '/', { ...data }, config);
+};
+
+export const getCommunity = () => {
+  let config = configuration()
+  return axios.get(URL.community, config)
 }

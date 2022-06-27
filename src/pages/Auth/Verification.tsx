@@ -3,7 +3,7 @@ import Input from "components/Input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet";
 
 const Verification = () => {
   const {
@@ -22,12 +22,10 @@ const Verification = () => {
 
   return (
     <div className="login text-center mt-24 lg:mt-20">
-
-        <Helmet>
-            <title>Verify your account | Jasper</title>
-            <meta name="description" content="Verify to join Jasper" />
-        </Helmet>
-
+      <Helmet>
+        <title>Verify your account | Jasper</title>
+        <meta name="description" content="Verify to join Jasper" />
+      </Helmet>
 
       <h3>Verification</h3>
       <p className="text-grey_text my-4">
