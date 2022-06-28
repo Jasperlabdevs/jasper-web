@@ -2,8 +2,7 @@ import Configuration from "components/Configuration";
 import { useForm } from "react-hook-form";
 
 const PushNotifications = () => {
-
-  const { register } = useForm()
+  const { register } = useForm();
 
   const notificationData = [
     {

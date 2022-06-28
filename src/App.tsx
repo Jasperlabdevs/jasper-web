@@ -79,14 +79,14 @@ function App() {
             <Route index element={<Navigate to="members" replace />} />
             <Route path="members" element={<Members />} />
           </Route>
-       
-        <Route path="test" element={<UserOnboarding />} />
+
+          <Route path="test" element={<UserOnboarding />} />
           <Route path="gates" element={<Gates />} />
-    
-        <Route path="onboarding" element={<Onboarding />} />
-        <Route path="dashboard" element={<Dashboard />}>
-          <Route path=":user" element={<Dashboard />} />
-        </Route> 
+
+          <Route path="onboarding" element={<Onboarding />} />
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route path=":user" element={<Dashboard />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

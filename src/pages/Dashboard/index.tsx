@@ -28,19 +28,16 @@ export const dispatchStore = store.dispatch as
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(1);
-  const [ showModal, setShowModal ] = useState(false)
-  const stateUser = useSelector((state:any) => state.user)
-  const stateCommunity = useSelector((state:any) => state.community)
+  const [showModal, setShowModal] = useState(false);
+  const stateUser = useSelector((state: any) => state.user);
+  const stateCommunity = useSelector((state: any) => state.community);
 
-
-  useEffect(()=>{
-    console.log(Object.keys(stateCommunity).length)
-    if(Object.keys(stateCommunity).length === 0){
-      setShowModal(true)
+  useEffect(() => {
+    console.log(Object.keys(stateCommunity).length);
+    if (Object.keys(stateCommunity).length === 0) {
+      setShowModal(true);
     }
-    
-  },[stateCommunity])
-
+  }, [stateCommunity]);
 
   const notifTabs = [
     {
@@ -137,7 +134,7 @@ const Dashboard = () => {
         <Modal show={showModal}>
           <div className="bg-[#2D4379] p-16 relative overflow-hidden">
             <p className="text-white text-4xl font-light">
-              Welcome aboard, <br /> {stateUser?.first_name || 'New User'}
+              Welcome aboard, <br /> {stateUser?.first_name || "New User"}
             </p>
             <p className="mt-8">Let's get you up to speed</p>
             <div className="absolute w-60 h-60 bottom-0 right-10">

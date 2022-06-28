@@ -11,6 +11,6 @@ const configuration = () => {
 };
 
 export const chooseOccupancyType = (data: any) => {
-  let config = configuration()
+  let config = configuration();
   return axios.post(URL.chooseOccupancyType, { ...data }, config);
 };

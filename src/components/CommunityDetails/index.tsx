@@ -8,7 +8,7 @@ import { dispatchStore } from "helpers/utils";
 import { add_community } from "store/actions/community";
 import { addCommunity } from "services/community";
 
-const CommunityDetails = ({ forwardButton, forward }:any) => {
+const CommunityDetails = ({ forwardButton, forward }: any) => {
   const {
     register,
     handleSubmit,
@@ -17,23 +17,25 @@ const CommunityDetails = ({ forwardButton, forward }:any) => {
 
   const [country, setCountry] = useState("Nigeria");
   const [stateProvince, setStateProvince] = useState<any>([]);
-  const [ err, setErr ] = useState('')
+  const [err, setErr] = useState("");
   const location = useLocation();
-  const [ loading, setLoading ] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: any) => {
-    setLoading(true)
+    setLoading(true);
     await addCommunity(data).then(
-      (res) =>{
-        setLoading(false)
-        dispatchStore(add_community(res.data?.results))
-        forward()
-      },(error) => {
-        setLoading(false)
-          console.log(error)
-          setErr('Creating Community failed, kindly check your details')
-      });
-  }
+      (res) => {
+        setLoading(false);
+        dispatchStore(add_community(res.data?.results));
+        forward();
+      },
+      (error) => {
+        setLoading(false);
+        console.log(error);
+        setErr("Creating Community failed, kindly check your details");
+      }
+    );
+  };
   const countryList: Array<any> = country_data.map((data) => data.countryName);
 
   useEffect(() => {
@@ -73,7 +75,7 @@ const CommunityDetails = ({ forwardButton, forward }:any) => {
           name="name"
           label="Community Name"
           register={register}
-          options={{required : true}}
+          options={{ required: true }}
           error={errors.name && "Please enter your community's name"}
         />
 
@@ -93,23 +95,23 @@ const CommunityDetails = ({ forwardButton, forward }:any) => {
             label=""
             list={stateProvince}
             register={register}
-            options={{require: true}}
+            options={{ require: true }}
           />
           <Input
             placeholder="City"
             name="city"
             label=""
             register={register}
-            options={{required : true}}
-            error={errors.city && 'Please enter the name of your city'}
+            options={{ required: true }}
+            error={errors.city && "Please enter the name of your city"}
           />
           <Input
             placeholder="Street Name and number"
             name="street_name"
             label=""
             register={register}
-            options={{required : true}}
-            error={errors.street_name && 'Please enter the street name'}
+            options={{ required: true }}
+            error={errors.street_name && "Please enter the street name"}
           />
         </div>
 
@@ -118,8 +120,11 @@ const CommunityDetails = ({ forwardButton, forward }:any) => {
           name="security_company_name"
           label="Security Company"
           register={register}
-          options={{required : true}}
-          error={errors.security_company_name && "Please enter your security company's name"}
+          options={{ required: true }}
+          error={
+            errors.security_company_name &&
+            "Please enter your security company's name"
+          }
         />
 
         <PhoneInput
@@ -128,7 +133,10 @@ const CommunityDetails = ({ forwardButton, forward }:any) => {
           label="Community Contact Phone Number"
           type="tel"
           register={register}
-          error={errors.community_contact_phone_number && "Please enter a correct phone number"}
+          error={
+            errors.community_contact_phone_number &&
+            "Please enter a correct phone number"
+          }
           options={{
             required: true,
             minLength: 6,
@@ -171,16 +179,11 @@ const CommunityDetails = ({ forwardButton, forward }:any) => {
               <Button title="Discard" type="button" other />
             </div>
           </>
-        ): (
+        ) : (
           <div className="flex gap-4 lg:max-w-lg lg:mt-20 mb-20">
             <div className="lg:max-w-[200px] w-full">
-              <Button
-                title={forwardButton}
-                type="submit"
-                loading={loading}
-              />
+              <Button title={forwardButton} type="submit" loading={loading} />
             </div>
-
           </div>
         )}
       </form>

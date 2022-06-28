@@ -17,12 +17,12 @@ const Onboarding = () => {
   const [progressWidth, setProgressWidth] = useState("w-1/3");
   const [progress, setProgress] = useState("33");
 
-  const [ forward, setForward ] = useState('Continue')
+  const [forward, setForward] = useState("Continue");
 
-  const stateOccupancyType = useSelector((state:any) => state.occupancyTypes)
+  const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
 
-  if(stateOccupancyType.length === 0){
-    dispatchStore(get_occupancy_types())
+  if (stateOccupancyType.length === 0) {
+    dispatchStore(get_occupancy_types());
   }
 
   const navigate = useNavigate();
@@ -31,15 +31,15 @@ const Onboarding = () => {
     if (activeStep === 2) {
       setProgress("66");
       setProgressWidth("w-2/3");
-      setForward('Continue')
+      setForward("Continue");
     } else if (activeStep === 3) {
       setProgress("80");
       setProgressWidth("w-4/5");
-      setForward('Complete')
+      setForward("Complete");
     } else {
       setProgress("33");
       setProgressWidth("w-1/3");
-      setForward('Continue')
+      setForward("Continue");
     }
   }, [activeStep]);
 
@@ -126,12 +126,26 @@ const Onboarding = () => {
           </aside>
         </div>
         <div className="lg:mx-20 min-w-5xl lg:pl-[350px]">
-          {activeStep === 3 && <CommunityDetails forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} />}
-          {activeStep === 2 && <UserOnboarding forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} backward={()=>goBack(activeStep, setActiveStep)} />}
-
-          {activeStep === 1 && <AccessConfig forwardButton={forward} forward={()=>goForward(activeStep, setActiveStep, navigate)} backward={()=>goBack(activeStep, setActiveStep)} />}
-
-          
+          {activeStep === 1 && (
+            <CommunityDetails
+              forwardButton={forward}
+              forward={() => goForward(activeStep, setActiveStep, navigate)}
+            />
+          )}
+          {activeStep === 2 && (
+            <UserOnboarding
+              forwardButton={forward}
+              forward={() => goForward(activeStep, setActiveStep, navigate)}
+              backward={() => goBack(activeStep, setActiveStep)}
+            />
+          )}
+          {activeStep === 3 && (
+            <AccessConfig
+              forwardButton={forward}
+              forward={() => goForward(activeStep, setActiveStep, navigate)}
+              backward={() => goBack(activeStep, setActiveStep)}
+            />
+          )}
         </div>
       </div>
     </div>

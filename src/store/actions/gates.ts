@@ -10,14 +10,14 @@ import {
   TOGGLE_GATE_SUCCESS,
 } from "store/constants";
 
-export const get_gate = (id:any, setLoading:any) => async (dispatch: any) => {
+export const get_gate = (id: any, setLoading: any) => async (dispatch: any) => {
   return await getGate(id).then(
-    (res) =>{
+    (res) => {
       dispatch({
         type: GET_GATE_SUCCESS,
         payload: res.data.results,
-      })
-      setLoading(false)
+      });
+      setLoading(false);
     },
     (error) =>
       dispatch({

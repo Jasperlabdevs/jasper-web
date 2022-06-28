@@ -32,7 +32,7 @@ const Login = () => {
 
   const successCB = (data: any) => {
     dispatchStore(setUser(data));
-    setToken(data.auth_token)
+    setToken(data.auth_token);
     navigate("/dashboard");
   };
 

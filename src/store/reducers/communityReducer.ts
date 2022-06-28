@@ -1,4 +1,8 @@
-import { ADD_COMMUNITY_SUCCESS, ADD_COMMUNITY_FAILURE, GET_COMMUNITY_SUCCESS } from "../constants";
+import {
+  ADD_COMMUNITY_SUCCESS,
+  ADD_COMMUNITY_FAILURE,
+  GET_COMMUNITY_SUCCESS,
+} from "../constants";
 
 const communityReducer = (state = {}, action: any) => {
   const { type, payload } = action;

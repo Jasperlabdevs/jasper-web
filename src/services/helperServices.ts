@@ -10,11 +10,10 @@ const configuration = () => {
   return config;
 };
 
-
 export const getCommunityTypes = () => {
   return axios.get(URL.communityTypes);
 };
 export const getOccupancyTypes = () => {
-  let config = configuration()
+  let config = configuration();
   return axios.get(URL.occuoantTypes, config);
 };

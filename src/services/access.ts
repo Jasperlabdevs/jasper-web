@@ -10,7 +10,7 @@ const configuration = () => {
   return config;
 };
 
-export const setAccessRules = (data:any) => {
-    let config = configuration()
-    return axios.post(URL.accessRules, {...data}, config)
-}
+export const setAccessRules = (data: any) => {
+  let config = configuration();
+  return axios.post(URL.accessRules, { ...data }, config);
+};

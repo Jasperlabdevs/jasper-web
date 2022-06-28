@@ -75,11 +75,14 @@ const Register = () => {
 
   const next = () => {
     setErr("");
-  
-    reset({
-      password: '',
-      confirm_password: ''
-    },{keepValues: true})
+
+    reset(
+      {
+        password: "",
+        confirm_password: "",
+      },
+      { keepValues: true }
+    );
     let res;
     watchFields.map((el) => {
       if (el === undefined || el.length < 1 || el === false) {

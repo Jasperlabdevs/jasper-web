@@ -11,7 +11,7 @@ import gatesReducer from "./gatesReducer";
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ['user', 'community'], // which reducer want to store
+  whitelist: ["user", "community"], // which reducer want to store
 };
 
 const rootReducer = combineReducers({

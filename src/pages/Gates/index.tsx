@@ -24,15 +24,15 @@ const Gates = () => {
     "",
   ];
 
-  const stateGates = useSelector((state:any)=> state.gates )
-  const stateCommunity = useSelector((state:any)=> state.community )
+  const stateGates = useSelector((state: any) => state.gates);
+  const stateCommunity = useSelector((state: any) => state.community);
 
-  const [ loading, setLoading ] = useState(true)
+  const [loading, setLoading] = useState(true);
 
-  const [ gates, setGates ] = useState(stateGates)
+  const [gates, setGates] = useState(stateGates);
   const [showGate, setShowGate] = useState(false);
   const [edit, setEdit] = useState(true);
-  const [ editID, setEditID ] = useState('')
+  const [editID, setEditID] = useState("");
   const [gateData, setGateData] = useState<any>({
     gateID: "",
     gateName: "",
@@ -42,29 +42,29 @@ const Gates = () => {
   const {
     register,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
   } = useForm();
 
-  const reformatDate = (date:string) => {
-    const d = new Date(date)
-    const dd = String(d.getDate()).padStart(2, '0');
-    const mm = String(d.getMonth() + 1).padStart(2, '0'); //January is 0!
+  const reformatDate = (date: string) => {
+    const d = new Date(date);
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mm = String(d.getMonth() + 1).padStart(2, "0"); //January is 0!
     const yyyy = d.getFullYear();
 
-    return mm + '/' + dd + '/' + yyyy;
-  }
+    return mm + "/" + dd + "/" + yyyy;
+  };
 
-  const editGate =(data:any)=>{
+  const editGate = (data: any) => {
     setGateData({
-      dataID:data.id,
+      dataID: data.id,
       gateName: data.name,
       phoneNumber: data.phone_number,
       nestGateID: data.nest_gate_id,
-    })
-    setShowGate(true)
-    setEditID(data.id)
-    setEdit(true)
-  }
+    });
+    setShowGate(true);
+    setEditID(data.id);
+    setEdit(true);
+  };
 
   const closeModal = () => {
     setGateData({
@@ -72,39 +72,36 @@ const Gates = () => {
       gateName: "",
       phoneNumber: "",
       nestGateID: "",
-    })
-    setEdit(false)
-    setShowGate(false)
-  }
+    });
+    setEdit(false);
+    setShowGate(false);
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
+    console.log(gateData);
+  }, [gateData]);
 
-    console.log(gateData)
+  useEffect(() => {
+    dispatchStore(get_gate(stateCommunity.id, setLoading));
+  }, []);
 
-  },[gateData])
+  useEffect(() => {
+    setGates(stateGates);
+  }, [stateGates]);
 
-  useEffect(()=>{
-    dispatchStore(get_gate(stateCommunity.id, setLoading ))
-  },[])
-  
-  useEffect(()=>{
-    setGates(stateGates)
-    
-  },[stateGates])
+  const onSubmit = (data: any) => {
+    data.community_id = gateData?.id;
 
-  const onSubmit = (data:any) =>{
-    data.community_id = gateData?.id
-
-    if(edit){
-      data.gate_id = editID
-      dispatchStore(edit_gate(data))
-      setEdit(false)
-    }else{
-      dispatchStore(add_gate(data))
+    if (edit) {
+      data.gate_id = editID;
+      dispatchStore(edit_gate(data));
+      setEdit(false);
+    } else {
+      dispatchStore(add_gate(data));
     }
-    console.log(data)
-    setShowGate(false)
-  }
+    console.log(data);
+    setShowGate(false);
+  };
   const [showURL, setShowURl] = useState(false);
 
   return (
@@ -117,7 +114,7 @@ const Gates = () => {
             <h4>{edit ? "Edit Gate" : "Add Gate"}</h4>
             <hr className="my-6 absolute w-full left-0" />
 
-            <form className="mt-16" onSubmit={handleSubmit(onSubmit)} >
+            <form className="mt-16" onSubmit={handleSubmit(onSubmit)}>
               <Input
                 name="name"
                 value={gateData.gateName}
@@ -189,7 +186,11 @@ const Gates = () => {
           </h4>
           <div className="flex gap-4 ">
             <div className="max-w-5xl -mt-10">
-              <Button title="Show gate URL" other onClick={()=>setShowURl(true)} />
+              <Button
+                title="Show gate URL"
+                other
+                onClick={() => setShowURl(true)}
+              />
             </div>
 
             <div className="max-w-4xl -mt-10">
@@ -199,7 +200,7 @@ const Gates = () => {
                     {SVGs.add_white} Add Gate
                   </span>
                 }
-                onClick={()=>setShowGate(true)}
+                onClick={() => setShowGate(true)}
               />
             </div>
           </div>
@@ -211,9 +212,13 @@ const Gates = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {gates?.map((data:any, index:number) => (
+            {gates?.map((data: any, index: number) => (
               <tr key={index} className="border-b border-[#C3C9DA]">
-                <TableColumn td={<span>{data?.name}</span>} type="user" image={img} />
+                <TableColumn
+                  td={<span>{data?.name}</span>}
+                  type="user"
+                  image={img}
+                />
 
                 <TableColumn td="AS12" />
                 <TableColumn td={data?.phone_number} />
@@ -222,7 +227,7 @@ const Gates = () => {
                 <TableColumn
                   td="Edit"
                   type="button"
-                  onClick={()=>editGate(data)}
+                  onClick={() => editGate(data)}
                   buttonType="smallSecondary"
                 />
                 <TableColumn
@@ -230,13 +235,17 @@ const Gates = () => {
                   type="button"
                   buttonType="smallPrimary"
                 />
-                <TableColumn td="View Nested Gate" list={['1','2']} type="dropdown"/>
+                <TableColumn
+                  td="View Nested Gate"
+                  list={["1", "2"]}
+                  type="dropdown"
+                />
               </tr>
             ))}
           </tbody>
         </table>
-        {loading && 'Loading Gates...'}
-        {!loading && (gates.length === 0) && 'No Gates available'}
+        {loading && "Loading Gates..."}
+        {!loading && gates.length === 0 && "No Gates available"}
       </div>
     </div>
   );

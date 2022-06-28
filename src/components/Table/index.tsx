@@ -7,8 +7,8 @@ type tableColumnType = {
   buttonType?: "smallPrimary" | "smallSecondary" | "tertiary" | "other";
   td: string | any;
   image?: any;
-  onClick?:any;
-  list?:any
+  onClick?: any;
+  list?: any;
 };
 
 export const TableHeader = ({ headers }: any) => (
@@ -27,7 +27,7 @@ export const TableColumn = ({
   td,
   image,
   onClick,
-  list=[]
+  list = [],
 }: tableColumnType) => (
   <>
     {type === "normal" && <td className="px-4 text-left">{td}</td>}
@@ -72,10 +72,12 @@ export const TableColumn = ({
     {type === "dropdown" && (
       <td className="px-4 ">
         <div className="dropdown">
-          <button className="dropbtn flex items-center gap-4">{td}  {SVGs.arrow_down }</button>
+          <button className="dropbtn flex items-center gap-4">
+            {td} {SVGs.arrow_down}
+          </button>
           <div className="dropdown-content">
-            {list?.map((data:any, index:number)=>(
-              <p >{data.name || data}</p>
+            {list?.map((data: any, index: number) => (
+              <p>{data.name || data}</p>
             ))}
           </div>
         </div>

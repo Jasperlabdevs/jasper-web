@@ -20,9 +20,9 @@ export const editGate = (data: any) => {
   return axios.put(URL.gate, { ...data }, config);
 };
 
-export const getGate = (id:any) => {
+export const getGate = (id: any) => {
   let config = configuration();
-  return axios.get(URL.getGates+id+'/', config);
+  return axios.get(URL.getGates + id + "/", config);
 };
 
 export const getCommunityGate = () => {
