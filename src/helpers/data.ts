@@ -409,7 +409,7 @@ export const configurationData: ConfigurationDataType[] = [
     description:
       "By turning on this toggle, you give users access to generate mutiple access codes",
     hasCheckList: false,
-    name: "generate_multiple_access_codes",
+    name: "allow_users_generate_multiple_access_codes",
   },
   {
     id: 8,
@@ -417,7 +417,7 @@ export const configurationData: ConfigurationDataType[] = [
     description:
       "By turning on this toggle, you give users access to generate mutiple access codes",
     hasCheckList: false,
-    name: "request_multiple_access_codes",
+    name: "allow_users_request_multiple_access_codes",
   },
 ];
 

@@ -30,22 +30,22 @@ const AccessConfig = ({
     data.additional_information = [
       {
         additional_information: "Visitor Company",
-        make_require: data.VisitorCompany_make_required,
+        make_required: data.VisitorCompany_make_required,
         selected: data.VisitorCompany_selected,
       },
       {
         additional_information: "Visitor Type",
-        make_require: data.VisitorType_make_required,
+        make_required: data.VisitorType_make_required,
         selected: data.VisitorType_selected,
       },
       {
         additional_information: "Reason for Visit",
-        make_require: data.Reasonforvisiting_make_required,
+        make_required: data.Reasonforvisiting_make_required,
         selected: data.Reasonforvisiting_selected,
       },
       {
         additional_information: "Requesting Department",
-        make_require: data.RequestingDepartment_make_required,
+        make_required: data.RequestingDepartment_make_required,
         selected: data.RequestingDepartment_selected,
       },
     ];
@@ -82,6 +82,7 @@ const AccessConfig = ({
       .then((res) => {
         console.log(res.data.results);
         setLoading(false);
+        forward()
       })
       .catch((err) => {
         setLoading(false);

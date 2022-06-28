@@ -25,15 +25,18 @@ const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
     const values = Object.values(data);
     const valueID = values.filter((el) => el !== false && el !== true);
 
-    // for(let i = 0; i < valueID.length; i++){
-    //   console.log(valueID[i])
-    //   const data = { "occupancy_type": valueID[i] }
-    //   await chooseOccupancyType(data)
-    // }
+    let occupancy = {
+      "occupancy_type": valueID
+    }
+   
+    await chooseOccupancyType(occupancy).then(
+      res => {
+        updateCommunity(data, community.id).then((res) => {
+          forward();
+        });
+      }
+    )
 
-    await updateCommunity(data, community.id).then((res) => {
-      forward();
-    });
   };
 
   useEffect(() => {
