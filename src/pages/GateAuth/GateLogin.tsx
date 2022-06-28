@@ -1,9 +1,13 @@
 /* eslint-disable no-useless-escape */
 import Button from "components/Button";
 import Input, { Select } from "components/Input";
-import { useState } from "react";
+import { dispatchStore } from "helpers/utils";
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { get_gate } from "store/actions/gates";
 
 const GateLogin = () => {
   const {
@@ -18,13 +22,25 @@ const GateLogin = () => {
     console.log(data);
   };
 
-  const gates: Array<String> = [];
+  let { community_id } = useParams();
+
+  const stateGates = useSelector((state: any) => state.gates);
+
+  useEffect(() => {
+    if(stateGates.length === 0){
+      dispatchStore(get_gate(community_id, setLoading));
+    }
+  }, []);
 
   return (
     <div className="login text-center mt-24 lg:mt-20">
-      <h3>Lakewo Gatehouse Login</h3>
+      <Helmet>
+        <title>Gate Login | Jasper</title>
+        <meta name="description" content="" />
+      </Helmet>
+      <h3>{stateGates[0]?.community.name} Gatehouse Login</h3>
       <p className="text-grey_text my-4">
-        Kindly fill in the follwoing to get started =
+        Kindly fill in the follwoing to get started
       </p>
       <hr className="w-2/3 mx-auto my-12" />
 
@@ -38,7 +54,7 @@ const GateLogin = () => {
           options={{ required: true }}
           placeholder="Select your Gate name"
           label="Gate"
-          list={gates}
+          list={stateGates}
         />
 
         <Input
@@ -51,10 +67,6 @@ const GateLogin = () => {
           error={errors.gate_pin && "Please enter the correct PIN"}
         />
 
-        <p className="-mt-6 absolute right-0 cursor-pointer text-grey_text hover:text-primary">
-          {" "}
-          <Link to="/forgot_password">Forget password?</Link>{" "}
-        </p>
 
         <Button title="Sign In" loading={loading} />
       </form>

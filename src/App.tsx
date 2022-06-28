@@ -30,10 +30,15 @@ import Community from "pages/Community";
 import Members from "pages/Community/Members";
 import NotFound from "components/NotFound";
 import ValidateEmail from "pages/Auth/validateEmail";
+import { Helmet } from "react-helmet";
 
 function App() {
   return (
     <div className="App">
+      <Helmet>
+        <title>Jasper</title>
+        <meta name="description" content="" />
+      </Helmet>
       <BrowserRouter>
         <Routes>
           <Route element={<Auth />}>
@@ -45,7 +50,7 @@ function App() {
             <Route path="/verification" element={<Verification />} />
             <Route path="/validate_email" element={<ValidateEmail />} />
           </Route>
-          <Route path="gate_auth" element={<GateAuth />}>
+          <Route path="gate_auth/:community_id" element={<GateAuth />}>
             <Route index element={<GateLogin />} />
             <Route path="verification" element={<GateVerification />} />
           </Route>

@@ -20,6 +20,7 @@ import rename from "assets/images/rename.png";
 import users from "assets/images/users.png";
 import { useSelector } from "react-redux";
 import { store } from "store";
+import { Helmet } from "react-helmet";
 
 export const dispatchStore = store.dispatch as
   | typeof store.dispatch
@@ -130,6 +131,10 @@ const Dashboard = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Jasper</title>
+        <meta name="description" content="" />
+      </Helmet>
       {showModal && (
         <Modal show={showModal}>
           <div className="bg-[#2D4379] p-16 relative overflow-hidden">

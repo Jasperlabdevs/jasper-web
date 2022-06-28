@@ -1,6 +1,5 @@
 import Button from "components/Button";
 import Header from "components/Header";
-import { TableContent } from "helpers/data";
 import SVGs from "helpers/SVGs";
 import img from "assets/images/gate.png";
 import { TableColumn, TableHeader } from "components/Table";
@@ -11,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { copyText, dispatchStore } from "helpers/utils";
 import { add_gate, edit_gate, get_gate } from "store/actions/gates";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 const Gates = () => {
   const headers = [
@@ -33,16 +33,11 @@ const Gates = () => {
   const [showGate, setShowGate] = useState(false);
   const [edit, setEdit] = useState(true);
   const [editID, setEditID] = useState("");
-  const [gateData, setGateData] = useState<any>({
-    gateID: "",
-    gateName: "",
-    phoneNumber: "",
-    nestGateID: "",
-  });
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset
   } = useForm();
 
   const reformatDate = (date: string) => {
@@ -54,35 +49,24 @@ const Gates = () => {
     return mm + "/" + dd + "/" + yyyy;
   };
 
+  let editable = { name: '', phone_number: '', }
   const editGate = (data: any) => {
-    setGateData({
-      dataID: data.id,
-      gateName: data.name,
-      phoneNumber: data.phone_number,
-      nestGateID: data.nest_gate_id,
-    });
+    reset()
+    editable = data
     setShowGate(true);
     setEditID(data.id);
     setEdit(true);
   };
 
   const closeModal = () => {
-    setGateData({
-      gateID: "",
-      gateName: "",
-      phoneNumber: "",
-      nestGateID: "",
-    });
     setEdit(false);
     setShowGate(false);
   };
 
   useEffect(() => {
-    console.log(gateData);
-  }, [gateData]);
-
-  useEffect(() => {
-    dispatchStore(get_gate(stateCommunity.id, setLoading));
+    if(stateGates.length === 0){
+      dispatchStore(get_gate(stateCommunity.id, setLoading));
+    }
   }, []);
 
   useEffect(() => {
@@ -90,7 +74,7 @@ const Gates = () => {
   }, [stateGates]);
 
   const onSubmit = (data: any) => {
-    data.community_id = gateData?.id;
+    data.community_id = stateCommunity.id
 
     if (edit) {
       data.gate_id = editID;
@@ -104,10 +88,15 @@ const Gates = () => {
   };
   const [showURL, setShowURl] = useState(false);
 
+
+
   return (
     <div>
       <Header />
-
+      <Helmet>
+        <title>Gates | Jasper</title>
+        <meta name="description" content="" />
+      </Helmet>
       {showGate && (
         <Modal show={showGate} toggleClose={closeModal}>
           <div className="p-8 relative">
@@ -117,7 +106,7 @@ const Gates = () => {
             <form className="mt-16" onSubmit={handleSubmit(onSubmit)}>
               <Input
                 name="name"
-                value={gateData.gateName}
+                value={editable?.name || '' }
                 label="Gate Name"
                 register={register}
                 error={errors.name && "Please enter a gate name"}
@@ -126,7 +115,7 @@ const Gates = () => {
               <PhoneInput
                 name="phone_number"
                 label="Phone Number"
-                value={gateData.phoneNumber}
+                value={ editable.phone_number || ''}
                 register={register}
                 error={errors.phone_number && "Please enter a phone number"}
                 options={{
@@ -139,7 +128,7 @@ const Gates = () => {
               <Select
                 name="nest_gate_id"
                 label="Nest Gate"
-                value={gateData.nestGateID}
+                value={ '' }
                 placeholder="Select gate"
                 register={register}
                 list={gates}
@@ -161,7 +150,7 @@ const Gates = () => {
 
             <div className="mt-20 border rounded-md p-10">
               <a className="text-primary p-5" href="/" target="_blank">
-                Google.com
+              https://jasper-web.herokuapp.com/gate_auth/{stateCommunity.id}
               </a>
             </div>
 
@@ -169,7 +158,7 @@ const Gates = () => {
               <Button
                 title="Copy Link"
                 tertiary
-                onClick={() => copyText("test")}
+                onClick={() => copyText(`https://jasper-web.herokuapp.com/gate_auth/${stateCommunity.id}`)}
               />
             </div>
           </div>
@@ -220,10 +209,10 @@ const Gates = () => {
                   image={img}
                 />
 
-                <TableColumn td="AS12" />
+                <TableColumn td={data?.pin} />
                 <TableColumn td={data?.phone_number} />
                 <TableColumn td={reformatDate(data?.created)} />
-                <TableColumn td="Generated" type="status" />
+                <TableColumn td={ data?.is_active ? 'Active' : 'Not Active' } status_type={data?.is_active} type="status" />
                 <TableColumn
                   td="Edit"
                   type="button"
@@ -237,7 +226,7 @@ const Gates = () => {
                 />
                 <TableColumn
                   td="View Nested Gate"
-                  list={["1", "2"]}
+                  list={[]}
                   type="dropdown"
                 />
               </tr>

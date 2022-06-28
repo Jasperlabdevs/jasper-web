@@ -9,6 +9,7 @@ type tableColumnType = {
   image?: any;
   onClick?: any;
   list?: any;
+  status_type?:Boolean
 };
 
 export const TableHeader = ({ headers }: any) => (
@@ -28,15 +29,16 @@ export const TableColumn = ({
   image,
   onClick,
   list = [],
+  status_type,
 }: tableColumnType) => (
   <>
     {type === "normal" && <td className="px-4 text-left">{td}</td>}
     {type === "status" && (
       <td
-        className={`p-2 px-4 my-4 w-fit rounded-full flex justify-center 
+        className={`p-2 px-4 my-6 w-fit rounded-full flex justify-center 
             ${false && "bg-faded_yellow text-yellow"}
-            ${false && "bg-faded_red text-red"}
-            ${true && "bg-faded_green text-green"} `}
+            ${status_type === false && "bg-faded_red text-red"}
+            ${status_type === true && "bg-faded_green text-green"} `}
       >
         {td}
       </td>
