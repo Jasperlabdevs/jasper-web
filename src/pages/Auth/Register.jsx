@@ -57,6 +57,7 @@ const Register = () => {
 
   const onSubmit = (data) => {
     setErr("");
+    data.phone_number = '234' + (data.phone_number).substring(1)
     if (data.password !== data.confirm_password) {
       setErr("Your Passwords do not match!!");
       return null;

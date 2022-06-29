@@ -23,6 +23,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
 
   const onSubmit = async (data: any) => {
     setLoading(true);
+    data.community_contact_phone_number = '234' + (data.community_contact_phone_number).substring(1)
     await addCommunity(data).then(
       (res) => {
         setLoading(false);
