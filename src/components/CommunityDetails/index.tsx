@@ -23,7 +23,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
 
   const onSubmit = async (data: any) => {
     setLoading(true);
-    data.community_contact_phone_number = '234' + (data.community_contact_phone_number).substring(1)
+    data.community_contact_phone_number = '234' + ((data.community_contact_phone_number[0] === '0') ? (data.community_contact_phone_number).substring(1) : data.community_contact_phone_number)
     await addCommunity(data).then(
       (res) => {
         setLoading(false);
@@ -142,7 +142,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
             required: true,
             minLength: 6,
             maxLenght: 11,
-            pattern: "^[0-9]*$",
+            pattern: "/^(0?)([7|8|9]{1})[0-9]{9}$/",
           }}
         />
 

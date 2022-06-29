@@ -57,7 +57,7 @@ const Register = () => {
 
   const onSubmit = (data) => {
     setErr("");
-    data.phone_number = '234' + (data.phone_number).substring(1)
+    data.phone_number = '234' + ((data.phone_number[0] === '0') ? (data.phone_number).substring(1) : data.phone_number)
     if (data.password !== data.confirm_password) {
       setErr("Your Passwords do not match!!");
       return null;
@@ -162,7 +162,7 @@ const Register = () => {
                   required: true,
                   minLength: 6,
                   maxLenght: 11,
-                  pattern: "^[0-9]*$",
+                  pattern: "/^(0?)([7|8|9]{1})[0-9]{9}$/",
                 }}
               />
 

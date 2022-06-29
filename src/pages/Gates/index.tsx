@@ -122,7 +122,7 @@ const Gates = () => {
                   require: true,
                   minLenght: 6,
                   maxLenght: 11,
-                  pattern: "^[0-9]*$",
+                  pattern: "/^(0?)([7|8|9]{1})[0-9]{9}$/",
                 }}
               />
               <Select
