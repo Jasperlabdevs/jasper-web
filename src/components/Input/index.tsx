@@ -125,14 +125,14 @@ export const Select = (
       </>
     )}
     {label.length > 1 ? (
-      <span className="z-10 absolute top-12 right-4 ">{SVG.arrow_down}</span>
+      <span className=" absolute top-12 right-4 ">{SVG.arrow_down}</span>
     ) : (
-      <span className="z-10 absolute top-7 right-4 ">{SVG.arrow_down}</span>
+      <span className=" absolute top-7 right-4 ">{SVG.arrow_down}</span>
     )}
 
     <select
       {...register(name, { ...options })}
-      className={`relative p-4 text-text-icon_background mt-2 mb-8 rounded-md w-full ${
+      className={`bg-[transparent] relative p-4 text-text-icon_background mt-2 mb-8 rounded-md w-full ${
         noborder ? "border-none my-0" : "border"
       } `}
       defaultValue={value}

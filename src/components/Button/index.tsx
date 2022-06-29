@@ -32,18 +32,18 @@ const Button = ({
               other === false &&
               "bg-primary border border-primary text-[#FFFFFF]"
             } 
-            ${secondary && "bg-[#ffffff] text-black"}
+            ${secondary && "bg-[#ffffff] text-black "}
             ${
               smallPrimary &&
-              "bg-primary text-[#ffffff] text-xs p-2 md:p-2 md:px-8 w-fit mt-0"
+              "bg-primary text-[#ffffff] text-xs p-2 py-3 md:px-8 w-fit mt-0"
             } 
             ${
               smallSecondary &&
-              "bg-[#ffffff] text-primary border md:py-2 border-primary text-xs p-2 md:px-8 w-fit mt-0"
+              "bg-[#ffffff] text-primary border py-3 border-primary text-xs p-2 md:px-8 w-fit mt-0"
             } 
             ${
               tertiary &&
-              "bg-faded border-none md:py-2 text-primary text-xs font-thin p-2 md:px-8 w-fit mt-0"
+              "bg-faded border-none py-3 text-primary text-xs font-thin p-2 md:px-8 w-fit mt-0"
             } 
             ${other && "bg-[#ffffff] text-primary border-primary border"} `}
       type={type}

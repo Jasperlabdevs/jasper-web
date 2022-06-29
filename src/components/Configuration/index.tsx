@@ -7,6 +7,7 @@ type ConfigurationProp = {
   hasCheckList?: boolean;
   register?: any;
   name?: string;
+  value?:Boolean
 };
 
 const Configuration = ({
@@ -15,6 +16,7 @@ const Configuration = ({
   hasCheckList,
   register,
   name,
+  value
 }: ConfigurationProp) => {
   const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
 
@@ -40,7 +42,7 @@ const Configuration = ({
         )}
       </div>
       <label className="switch mt-2">
-        <input type="checkbox" defaultChecked {...register(name)} />
+        <input type="checkbox" defaultChecked={value} {...register(name)} />
         <span className="slider round"></span>
       </label>
     </div>

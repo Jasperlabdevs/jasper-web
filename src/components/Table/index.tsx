@@ -35,7 +35,7 @@ export const TableColumn = ({
     {type === "normal" && <td className="px-4 text-left">{td}</td>}
     {type === "status" && (
       <td
-        className={`p-2 px-4 my-6 w-fit rounded-full flex justify-center 
+        className={`p-2 px-6 my-6 w-fit rounded-full flex justify-center 
             ${false && "bg-faded_yellow text-yellow"}
             ${status_type === false && "bg-faded_red text-red"}
             ${status_type === true && "bg-faded_green text-green"} `}

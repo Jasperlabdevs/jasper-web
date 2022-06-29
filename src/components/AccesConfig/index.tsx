@@ -52,7 +52,10 @@ const AccessConfig = ({
     const one = [];
     const two = [];
     const three = [];
+    const four = [];
+    const five = [];
 
+    /// Please do not touch
     for (const key in data) {
       if (
         key.includes("allow_users_generate_event_access_codes") &&
@@ -69,12 +72,64 @@ const AccessConfig = ({
         !(data[key] === true || data[key] === false)
       ) {
         three.push(data[key]);
+      } else if (
+        key.includes("allow_users_generate_multiple_access_codes") &&
+        !(data[key] === true || data[key] === false)
+      ) {
+        four.push(data[key]);
+      } else if (
+        key.includes("allow_users_request_multiple_access_codes") &&
+        !(data[key] === true || data[key] === false)
+      ) {
+        five.push(data[key]);
       }
     }
 
     data.occupancy_type_allowed_to_generate_onetime_access_codes = two;
     data.occupancy_type_allowed_to_generate_event_access_codes = one;
     data.occupancy_type_allowed_to_generate_recurring_access_codes = three;
+    data.occupancy_type_allowed_to_request_multiple_access_codes = four;
+    data.occupancy_type_allowed_to_generate_multiple_access_codes = five;
+
+    delete data.Reasonforvisiting_make_required
+    delete data.Reasonforvisiting_selected
+    delete data.RequestingDepartment_make_required
+    delete data.RequestingDepartment_selected
+    delete data.VisitorCompany_make_required
+    delete data.VisitorCompany_selected
+    delete data.VisitorType_make_required
+    delete data.VisitorType_selected
+    delete data.allow_users_generate_event_access_codes_Developer
+    delete data.allow_users_generate_event_access_codes_FacilityManagement
+    delete data.allow_users_generate_event_access_codes_Guest
+    delete data.allow_users_generate_event_access_codes_Landlord
+    delete data.allow_users_generate_event_access_codes_PropertyOwner
+    delete data.allow_users_generate_event_access_codes_Tenant
+    delete data.allow_users_generate_onetime_access_codes_Developer
+    delete data.allow_users_generate_onetime_access_codes_FacilityManagement
+    delete data.allow_users_generate_onetime_access_codes_Guest
+    delete data.allow_users_generate_onetime_access_codes_Landlord
+    delete data.allow_users_generate_onetime_access_codes_PropertyOwner
+    delete data.allow_users_generate_onetime_access_codes_Tenant
+    delete data.allow_users_generate_recurring_access_codes_Developer
+    delete data.allow_users_generate_recurring_access_codes_FacilityManagement
+    delete data.allow_users_generate_recurring_access_codes_Guest
+    delete data.allow_users_generate_recurring_access_codes_Landlord
+    delete data.allow_users_generate_recurring_access_codes_PropertyOwner
+    delete data.allow_users_generate_recurring_access_codes_Tenant
+    delete data.allow_users_request_multiple_access_codes_Developer
+    delete data.allow_users_request_multiple_access_codes_FacilityManagement
+    delete data.allow_users_request_multiple_access_codes_Guest
+    delete data.allow_users_request_multiple_access_codes_Landlord
+    delete data.allow_users_request_multiple_access_codes_PropertyOwner
+    delete data.allow_users_request_multiple_access_codes_Tenant
+    delete data.allow_users_generate_multiple_access_codes_Developer
+    delete data.allow_users_generate_multiple_access_codes_FacilityManagement
+    delete data.allow_users_generate_multiple_access_codes_Guest
+    delete data.allow_users_generate_multiple_access_codes_Landlord
+    delete data.allow_users_generate_multiple_access_codes_PropertyOwner
+    delete data.allow_users_generate_multiple_access_codes_Tenant
+    
 
     console.log(data);
 
@@ -102,6 +157,7 @@ const AccessConfig = ({
                 description={data.description}
                 hasCheckList={data.hasCheckList}
                 name={data.name}
+                value={data.value}
                 register={register}
               />
               {data.id === 6 && <h4 className="mt-8">MULTIPLE ACCESS</h4>}

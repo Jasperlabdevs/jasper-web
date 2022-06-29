@@ -19,6 +19,7 @@ type ConfigurationDataType = {
   description: string;
   hasCheckList?: boolean;
   name?: string;
+  value?:Boolean;
   register?: any;
 };
 
@@ -408,7 +409,7 @@ export const configurationData: ConfigurationDataType[] = [
     title: "Allow users to generate multiple access codes",
     description:
       "By turning on this toggle, you give users access to generate mutiple access codes",
-    hasCheckList: false,
+    hasCheckList: true,
     name: "allow_users_generate_multiple_access_codes",
   },
   {
@@ -416,7 +417,8 @@ export const configurationData: ConfigurationDataType[] = [
     title: "Allow users to request multiple access codes",
     description:
       "By turning on this toggle, you give users access to generate mutiple access codes",
-    hasCheckList: false,
+    hasCheckList: true,
+    value: false,
     name: "allow_users_request_multiple_access_codes",
   },
 ];

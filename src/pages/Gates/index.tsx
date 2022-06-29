@@ -224,11 +224,12 @@ const Gates = () => {
                   type="button"
                   buttonType="smallPrimary"
                 />
+                { !!data.gate && 
                 <TableColumn
                   td="View Nested Gate"
                   list={[]}
                   type="dropdown"
-                />
+                />}
               </tr>
             ))}
           </tbody>
