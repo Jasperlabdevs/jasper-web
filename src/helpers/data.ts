@@ -19,7 +19,7 @@ type ConfigurationDataType = {
   description: string;
   hasCheckList?: boolean;
   name?: string;
-  value?:Boolean;
+  value?: Boolean;
   register?: any;
 };
 

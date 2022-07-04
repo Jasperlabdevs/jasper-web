@@ -91,45 +91,44 @@ const AccessConfig = ({
     data.occupancy_type_allowed_to_request_multiple_access_codes = four;
     data.occupancy_type_allowed_to_generate_multiple_access_codes = five;
 
-    delete data.Reasonforvisiting_make_required
-    delete data.Reasonforvisiting_selected
-    delete data.RequestingDepartment_make_required
-    delete data.RequestingDepartment_selected
-    delete data.VisitorCompany_make_required
-    delete data.VisitorCompany_selected
-    delete data.VisitorType_make_required
-    delete data.VisitorType_selected
-    delete data.allow_users_generate_event_access_codes_Developer
-    delete data.allow_users_generate_event_access_codes_FacilityManagement
-    delete data.allow_users_generate_event_access_codes_Guest
-    delete data.allow_users_generate_event_access_codes_Landlord
-    delete data.allow_users_generate_event_access_codes_PropertyOwner
-    delete data.allow_users_generate_event_access_codes_Tenant
-    delete data.allow_users_generate_onetime_access_codes_Developer
-    delete data.allow_users_generate_onetime_access_codes_FacilityManagement
-    delete data.allow_users_generate_onetime_access_codes_Guest
-    delete data.allow_users_generate_onetime_access_codes_Landlord
-    delete data.allow_users_generate_onetime_access_codes_PropertyOwner
-    delete data.allow_users_generate_onetime_access_codes_Tenant
-    delete data.allow_users_generate_recurring_access_codes_Developer
-    delete data.allow_users_generate_recurring_access_codes_FacilityManagement
-    delete data.allow_users_generate_recurring_access_codes_Guest
-    delete data.allow_users_generate_recurring_access_codes_Landlord
-    delete data.allow_users_generate_recurring_access_codes_PropertyOwner
-    delete data.allow_users_generate_recurring_access_codes_Tenant
-    delete data.allow_users_request_multiple_access_codes_Developer
-    delete data.allow_users_request_multiple_access_codes_FacilityManagement
-    delete data.allow_users_request_multiple_access_codes_Guest
-    delete data.allow_users_request_multiple_access_codes_Landlord
-    delete data.allow_users_request_multiple_access_codes_PropertyOwner
-    delete data.allow_users_request_multiple_access_codes_Tenant
-    delete data.allow_users_generate_multiple_access_codes_Developer
-    delete data.allow_users_generate_multiple_access_codes_FacilityManagement
-    delete data.allow_users_generate_multiple_access_codes_Guest
-    delete data.allow_users_generate_multiple_access_codes_Landlord
-    delete data.allow_users_generate_multiple_access_codes_PropertyOwner
-    delete data.allow_users_generate_multiple_access_codes_Tenant
-    
+    delete data.Reasonforvisiting_make_required;
+    delete data.Reasonforvisiting_selected;
+    delete data.RequestingDepartment_make_required;
+    delete data.RequestingDepartment_selected;
+    delete data.VisitorCompany_make_required;
+    delete data.VisitorCompany_selected;
+    delete data.VisitorType_make_required;
+    delete data.VisitorType_selected;
+    delete data.allow_users_generate_event_access_codes_Developer;
+    delete data.allow_users_generate_event_access_codes_FacilityManagement;
+    delete data.allow_users_generate_event_access_codes_Guest;
+    delete data.allow_users_generate_event_access_codes_Landlord;
+    delete data.allow_users_generate_event_access_codes_PropertyOwner;
+    delete data.allow_users_generate_event_access_codes_Tenant;
+    delete data.allow_users_generate_onetime_access_codes_Developer;
+    delete data.allow_users_generate_onetime_access_codes_FacilityManagement;
+    delete data.allow_users_generate_onetime_access_codes_Guest;
+    delete data.allow_users_generate_onetime_access_codes_Landlord;
+    delete data.allow_users_generate_onetime_access_codes_PropertyOwner;
+    delete data.allow_users_generate_onetime_access_codes_Tenant;
+    delete data.allow_users_generate_recurring_access_codes_Developer;
+    delete data.allow_users_generate_recurring_access_codes_FacilityManagement;
+    delete data.allow_users_generate_recurring_access_codes_Guest;
+    delete data.allow_users_generate_recurring_access_codes_Landlord;
+    delete data.allow_users_generate_recurring_access_codes_PropertyOwner;
+    delete data.allow_users_generate_recurring_access_codes_Tenant;
+    delete data.allow_users_request_multiple_access_codes_Developer;
+    delete data.allow_users_request_multiple_access_codes_FacilityManagement;
+    delete data.allow_users_request_multiple_access_codes_Guest;
+    delete data.allow_users_request_multiple_access_codes_Landlord;
+    delete data.allow_users_request_multiple_access_codes_PropertyOwner;
+    delete data.allow_users_request_multiple_access_codes_Tenant;
+    delete data.allow_users_generate_multiple_access_codes_Developer;
+    delete data.allow_users_generate_multiple_access_codes_FacilityManagement;
+    delete data.allow_users_generate_multiple_access_codes_Guest;
+    delete data.allow_users_generate_multiple_access_codes_Landlord;
+    delete data.allow_users_generate_multiple_access_codes_PropertyOwner;
+    delete data.allow_users_generate_multiple_access_codes_Tenant;
 
     console.log(data);
 
@@ -137,7 +136,7 @@ const AccessConfig = ({
       .then((res) => {
         console.log(res.data.results);
         setLoading(false);
-        forward()
+        forward();
       })
       .catch((err) => {
         setLoading(false);

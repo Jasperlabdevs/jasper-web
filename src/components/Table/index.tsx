@@ -9,7 +9,7 @@ type tableColumnType = {
   image?: any;
   onClick?: any;
   list?: any;
-  status_type?:Boolean
+  status_type?: Boolean;
 };
 
 export const TableHeader = ({ headers }: any) => (

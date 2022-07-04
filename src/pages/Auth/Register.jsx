@@ -57,7 +57,11 @@ const Register = () => {
 
   const onSubmit = (data) => {
     setErr("");
-    data.phone_number = '234' + ((data.phone_number[0] === '0') ? (data.phone_number).substring(1) : data.phone_number)
+    data.phone_number =
+      "234" +
+      (data.phone_number[0] === "0"
+        ? data.phone_number.substring(1)
+        : data.phone_number);
     if (data.password !== data.confirm_password) {
       setErr("Your Passwords do not match!!");
       return null;
@@ -86,12 +90,16 @@ const Register = () => {
     );
     let res;
     watchFields.map((el) => {
-      if (el === undefined || el.length < 1 || el === false) {
+      console.log(el);
+      if (el !== undefined && el.length > 0 && el !== false) {
+        res = true;
+        setErr("");
+      } else {
+        res = false;
         setErr("Please complete the form before you continue");
-        return (res = false);
       }
-      setErr("");
-      return (res = true);
+
+      return res;
     });
 
     return !!res && setCurrentPage(tabs[1]);

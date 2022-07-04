@@ -7,7 +7,7 @@ type ConfigurationProp = {
   hasCheckList?: boolean;
   register?: any;
   name?: string;
-  value?:Boolean
+  value?: Boolean;
 };
 
 const Configuration = ({
@@ -16,7 +16,7 @@ const Configuration = ({
   hasCheckList,
   register,
   name,
-  value
+  value,
 }: ConfigurationProp) => {
   const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
 

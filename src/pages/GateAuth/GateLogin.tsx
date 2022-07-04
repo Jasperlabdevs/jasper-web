@@ -27,7 +27,7 @@ const GateLogin = () => {
   const stateGates = useSelector((state: any) => state.gates);
 
   useEffect(() => {
-    if(stateGates.length === 0){
+    if (stateGates.length === 0) {
       dispatchStore(get_gate(community_id, setLoading));
     }
   }, []);
@@ -66,7 +66,6 @@ const GateLogin = () => {
           options={{ required: true }}
           error={errors.gate_pin && "Please enter the correct PIN"}
         />
-
 
         <Button title="Sign In" loading={loading} />
       </form>
