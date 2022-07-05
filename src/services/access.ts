@@ -14,3 +14,14 @@ export const setAccessRules = (data: any) => {
   let config = configuration();
   return axios.post(URL.accessRules, { ...data }, config);
 };
+
+
+export const createEventAccess = (data:any) => {
+  let config = configuration()
+  return axios.post(URL.access, { ...data }, config);
+}
+
+export const getUserAccessHistory = () =>{
+  let config = configuration()
+  return axios.get(URL.userAccessHistory, config)
+}

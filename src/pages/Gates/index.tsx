@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import GateFormModal from "./GateFormModal";
 import ShowURLModal from "./ShowURLModal";
+import { formatDate } from "helpers/utils";
 
 const Gates = () => {
   const headers = [
@@ -33,14 +34,6 @@ const Gates = () => {
   const [edit, setEdit] = useState(true);
   const [editID, setEditID] = useState("");
 
-  const reformatDate = (date: string) => {
-    const d = new Date(date);
-    const dd = String(d.getDate()).padStart(2, "0");
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const yyyy = d.getFullYear();
-
-    return mm + "/" + dd + "/" + yyyy;
-  };
 
 
   const editGate = (id: any) => {
@@ -129,7 +122,7 @@ const Gates = () => {
 
                 <TableColumn td={data?.pin} />
                 <TableColumn td={data?.phone_number} />
-                <TableColumn td={reformatDate(data?.created)} />
+                <TableColumn td={formatDate(data?.created)} />
                 <TableColumn
                   td={data?.is_active ? "Enabled" : "Disabled"}
                   status_type={data?.is_active}

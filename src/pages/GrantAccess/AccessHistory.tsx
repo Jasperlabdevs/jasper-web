@@ -4,13 +4,26 @@ import SearchFilter from "components/SearchFilter";
 import { TableColumn, TableHeader } from "components/Table";
 import { TableContent } from "helpers/data";
 import SVGs from "helpers/SVGs";
-import { useState } from "react";
+import { formatDate } from "helpers/utils";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserAccessHistory } from "services/access";
 
 const AccessHistory = () => {
   const [activeTab, setActiveTab] = useState(1);
-
+  const [ userHistory, setUserHistory ] = useState([])
   const navigate = useNavigate();
+  const [ loading, setLoading ] = useState(true)
+
+  useEffect(()=> {
+    getUserAccessHistory().then(
+      res => {
+        setLoading(false)
+        console.log(res.data.results)
+        setUserHistory(res.data.results)
+      }
+    )
+  },[])
 
   const tabs = [
     {
@@ -24,19 +37,15 @@ const AccessHistory = () => {
   ];
 
   const headersAll = [
-    "Visitor's Name",
     "Event Name",
     "Status",
-    "Access Name",
+    "Access Type",
     "Gate",
     "Code",
-    "Phone Number",
     "Date/Time Generated",
     "More",
   ];
   const headersMultiple = [
-    "Visitor's Name",
-    "Phone Number",
     "Status",
     "Access Type",
     "Gate",
@@ -80,16 +89,16 @@ const AccessHistory = () => {
             <TableHeader headers={headersAll} />
           </thead>
           <tbody>
-            {TableContent.map((data) => (
-              <tr className="border-b border-[#C3C9DA]">
-                <TableColumn td="Kofi Emma" />
-                <TableColumn td="N/A" />
-                <TableColumn td="Generated" type="status" />
-                <TableColumn td="One-Time Access" />
-                <TableColumn td="3123" />
-                <TableColumn td="3123" />
-                <TableColumn td="088090809" />
-                <TableColumn td="15th Feb, 2022 - 12:00pm" />
+            { loading && "Loading..." }
+            {/* { (!loading && userHistory.length === 0) && "Loading..." } */}
+            {userHistory?.map((data:any, index:number) => (
+              <tr key={index} className="border-b border-[#C3C9DA]">
+                <TableColumn td={data?.event_name} />
+                <TableColumn td={data?.status} type="status" status_type={true} />
+                <TableColumn td={data?.access_type} />
+                <TableColumn td={data?.gate[0]?.name} />
+                <TableColumn td={data?.code} />
+                <TableColumn td={formatDate(data?.created)} />
                 <TableColumn td={SVGs.dots} />
               </tr>
             ))}
@@ -104,8 +113,8 @@ const AccessHistory = () => {
               <TableHeader headers={headersMultiple} />
             </thead>
             <tbody>
-              {TableContent.map((data) => (
-                <tr className="border-b border-[#C3C9DA]">
+              {TableContent?.map((data, index) => (
+                <tr key={index} className="border-b border-[#C3C9DA]">
                   <TableColumn td="Kofi Emma" />
                   <TableColumn td="N/A" />
                   <TableColumn td="Generated" type="status" />

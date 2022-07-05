@@ -4,13 +4,14 @@ import SVG from "helpers/SVGs";
 type InputType = {
   name: String;
   type?: String;
-  register: any;
+  register?: any;
   options: any;
   label: string | any;
   placeholder?: string;
   error?: string;
   disabled?: boolean;
   value?: String;
+  min?:string
 };
 
 type SelectType = {
@@ -22,6 +23,7 @@ type SelectType = {
   register: any;
   value?: any;
   noborder?: Boolean;
+  error?:string
 };
 
 const Input = ({
@@ -34,6 +36,7 @@ const Input = ({
   options,
   error = "",
   value = "",
+  min
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
 
@@ -51,6 +54,7 @@ const Input = ({
         placeholder={placeholder}
         defaultValue={value || ""}
         type={!visibility ? type : "text"}
+        min={min}
         {...register(name, { ...options })}
       />
       {type === "password" && (
@@ -114,6 +118,7 @@ export const Select = (
     list,
     value = "",
     noborder,
+    error
   }: SelectType,
   ref: any
 ) => (
@@ -132,7 +137,7 @@ export const Select = (
 
     <select
       {...register(name, { ...options })}
-      className={`bg-[transparent] relative p-4 text-text-icon_background mt-2 mb-8 rounded-md w-full ${
+      className={`bg-[transparent] relative p-4 text-text-icon_background mt-2 rounded-md w-full ${
         noborder ? "border-none my-0" : "border"
       } `}
       defaultValue={value}
@@ -147,6 +152,8 @@ export const Select = (
         </option>
       ))}
     </select>
+    <p className="text-red text-xs mt-1 mb-8">{error}</p>
+
   </div>
 );
 
@@ -159,13 +166,14 @@ export const Checkbox = ({ label, name, register }: InputType) => (
   </label>
 );
 
-export const Date = ({
+export const DateInput = ({
   label,
   name,
   register,
   placeholder,
   options,
   error = "",
+  min
 }: InputType) => (
   <div className="relative">
     {label.length > 1 && (
@@ -178,6 +186,7 @@ export const Date = ({
       type="date"
       className="p-4 mt-2 mb-8 border rounded-md w-full max-w-lg"
       placeholder={placeholder}
+      min={min}
       {...register(name, { ...options })}
     />
     <p className="text-red text-xs -mt-7">{error}</p>

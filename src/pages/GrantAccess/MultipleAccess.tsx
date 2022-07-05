@@ -1,15 +1,44 @@
 import Button from "components/Button";
-import Input, { Select, Date } from "components/Input";
+import Input, { Select, DateInput } from "components/Input";
 import SVGs from "helpers/SVGs";
+import { formatDate } from "helpers/utils";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { createEventAccess } from "services/access";
 
 const MultipleAccess = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [visitors, updateVisitors] = useState([
     { id: 1, name: "", phone_number: "" },
   ]);
-  const onSubmit = (data: any) => {};
+
+  const stateGates = useSelector((state:any)=> state.gates)
+  const [ showCodeGenerated, setShowCodeGenerated ] = useState(false)
+  const [ accessCode, setAccessCode ] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const today:any = new Date()
+  const todayDate = formatDate(today.toISOString(), '-')
+
+  const onSubmit = (data: any) => {
+    setLoading(true)
+    data.access_type = "multiple"
+    data.gates = [data.gates]
+    data.visitors = visitors
+
+    // createEventAccess(data).then(
+    //   res => {
+    //     setLoading(false)
+    //     setShowCodeGenerated(true)
+    //     console.log(res.data.results)
+    //     setAccessCode(res.data?.results?.code)
+    //   }).catch(err => {
+    //     setLoading(false)
+    //     console.log(err)
+    //   })
+    console.log(data)
+  };
 
   const addVisitor = () => {
     const new_visitor = {
@@ -26,7 +55,6 @@ const MultipleAccess = () => {
     updateVisitors(temp);
   };
 
-  const gates: Array<any> = [];
 
   return (
     <div className="mt-10 max-w-4xl">
@@ -36,59 +64,69 @@ const MultipleAccess = () => {
           name="event_name"
           label="Event Name"
           placeholder="Enter event name"
-          options={{}}
+          options={{ required: true }}
           register={register}
+          error={errors.event_name && "Please enter an event name"}
         />
         <Input
           label="Requesting Department"
           name="requesting_department"
           placeholder="Enter requesting department"
-          options={{}}
+          options={{ required: true }}
+          error={ errors.requesting_department && "Please enter a requesting department" }
           register={register}
         />
         <Select
           name="visitor_type"
           register={register}
-          options={{ required: true }}
+          options={{ required: false }}
           placeholder="Select your visitor type"
-          label="Gate"
-          list={gates}
+          label="Visitor Type"
+          error={ errors.visitor_type && "Please select a visitor type" }
+          list={[]}
         />
         <Input
           name="visitor_company"
           label="Visitor Company"
           placeholder="Enter visitor company name"
-          options={{}}
+          options={{require: true}}
+          error={ errors.visitor_company && "Please enter visitor's company"}
           register={register}
         />
         <Select
-          name="gate"
+          name="gates"
           register={register}
           options={{ required: true }}
           placeholder="Select the Gate(s) you want to give access to"
           label="Gate"
-          list={gates}
+          error={ errors.gates && "Please select a gate"}
+          list={stateGates}
         />
         <Input
           name="reason"
           label="Reason for visit"
           placeholder="Write a description"
           options={{}}
+          error={ errors.reason && "Please enter reason for visit"}
           register={register}
         />
-        <Date
+        <DateInput
           name="valid_from"
           label="Valid From"
           placeholder="dd/mm/yy"
           register={register}
-          options={{}}
-        />
-        <Date
+          min={todayDate}
+          options={{ required:true }}
+          error={errors.valid_from && "Please select a date" }
+          />
+        <DateInput
           name="valid_to"
           label="Valid To"
           placeholder="dd/mm/yy"
+          min={todayDate}
           register={register}
-          options={{}}
+          error={errors.valid_to && "Please select a date" }
+          options={{ required: true }}
         />
         <p>Visitor(s) List</p>
         <div className="flex gap-6 w-full">
@@ -130,16 +168,16 @@ const MultipleAccess = () => {
         >
           <span> {SVGs.add_red}</span> Add additional row
         </p>
-      </form>
-      <hr className="relative -left-10 w-screen mt-16 " />
-      <div className="flex gap-4 lg:max-w-3xl mb-20 ">
-        <div className="lg:max-w-lg w-full">
-          <Button title="Test Code" type="button" />
-        </div>
+        <hr className="relative -left-10 w-screen mt-16 " />
+        <div className="flex gap-4 lg:max-w-3xl mb-20 ">
+          <div className="lg:max-w-lg w-full">
+            <Button title="Test Code" type="button" />
+          </div>
 
-        <Button title="Generate Code" type="button" other />
-        <Button title="Cancel" type="button" secondary />
-      </div>
+          <Button title="Generate Code" type="button" other />
+          <Button title="Cancel" type="button" secondary />
+        </div>
+      </form>
     </div>
   );
 };

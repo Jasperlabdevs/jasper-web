@@ -27,6 +27,9 @@ const URL = {
   toggleGate: baseUrl + "gate/change_active_state/",
   loginGate: baseUrl + "gate/login/",
 
+  access: baseUrl + "access/",
+  userAccessHistory: baseUrl + "access/get_all_user_access_history/",
+
   accessRules: baseUrl + "access/create_rules/",
 };
 
