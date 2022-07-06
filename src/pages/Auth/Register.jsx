@@ -88,21 +88,23 @@ const Register = () => {
       },
       { keepValues: true }
     );
-    let res;
+    
+    let res = true;
+    setErr("");
     watchFields.map((el) => {
-      console.log(el);
-      if (el !== undefined && el.length > 0 && el !== false) {
-        res = true;
-        setErr("");
-      } else {
-        res = false;
+      
+
+      if (el === undefined || el.length === 0 || el === false) {
         setErr("Please complete the form before you continue");
+        res = false
+        
       }
-
-      return res;
     });
-
-    return !!res && setCurrentPage(tabs[1]);
+    
+    console.log('here')
+    return res ? setCurrentPage(tabs[1]) : null;
+    
+    
   };
 
   return (
