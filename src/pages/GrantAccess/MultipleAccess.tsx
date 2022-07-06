@@ -8,24 +8,28 @@ import { useSelector } from "react-redux";
 import { createEventAccess } from "services/access";
 
 const MultipleAccess = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [visitors, updateVisitors] = useState([
     { id: 1, name: "", phone_number: "" },
   ]);
 
-  const stateGates = useSelector((state:any)=> state.gates)
-  const [ showCodeGenerated, setShowCodeGenerated ] = useState(false)
-  const [ accessCode, setAccessCode ] = useState('')
-  const [loading, setLoading] = useState(false)
+  const stateGates = useSelector((state: any) => state.gates);
+  const [showCodeGenerated, setShowCodeGenerated] = useState(false);
+  const [accessCode, setAccessCode] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const today:any = new Date()
-  const todayDate = formatDate(today.toISOString(), '-')
+  const today: any = new Date();
+  const todayDate = formatDate(today.toISOString(), "-");
 
   const onSubmit = (data: any) => {
-    setLoading(true)
-    data.access_type = "multiple"
-    data.gates = [data.gates]
-    data.visitors = visitors
+    setLoading(true);
+    data.access_type = "multiple";
+    data.gates = [data.gates];
+    data.visitors = visitors;
 
     // createEventAccess(data).then(
     //   res => {
@@ -37,7 +41,7 @@ const MultipleAccess = () => {
     //     setLoading(false)
     //     console.log(err)
     //   })
-    console.log(data)
+    console.log(data);
   };
 
   const addVisitor = () => {
@@ -54,7 +58,6 @@ const MultipleAccess = () => {
     temp.splice(index, 1);
     updateVisitors(temp);
   };
-
 
   return (
     <div className="mt-10 max-w-4xl">
@@ -73,7 +76,10 @@ const MultipleAccess = () => {
           name="requesting_department"
           placeholder="Enter requesting department"
           options={{ required: true }}
-          error={ errors.requesting_department && "Please enter a requesting department" }
+          error={
+            errors.requesting_department &&
+            "Please enter a requesting department"
+          }
           register={register}
         />
         <Select
@@ -82,15 +88,15 @@ const MultipleAccess = () => {
           options={{ required: false }}
           placeholder="Select your visitor type"
           label="Visitor Type"
-          error={ errors.visitor_type && "Please select a visitor type" }
+          error={errors.visitor_type && "Please select a visitor type"}
           list={[]}
         />
         <Input
           name="visitor_company"
           label="Visitor Company"
           placeholder="Enter visitor company name"
-          options={{require: true}}
-          error={ errors.visitor_company && "Please enter visitor's company"}
+          options={{ require: true }}
+          error={errors.visitor_company && "Please enter visitor's company"}
           register={register}
         />
         <Select
@@ -99,7 +105,7 @@ const MultipleAccess = () => {
           options={{ required: true }}
           placeholder="Select the Gate(s) you want to give access to"
           label="Gate"
-          error={ errors.gates && "Please select a gate"}
+          error={errors.gates && "Please select a gate"}
           list={stateGates}
         />
         <Input
@@ -107,7 +113,7 @@ const MultipleAccess = () => {
           label="Reason for visit"
           placeholder="Write a description"
           options={{}}
-          error={ errors.reason && "Please enter reason for visit"}
+          error={errors.reason && "Please enter reason for visit"}
           register={register}
         />
         <DateInput
@@ -116,16 +122,16 @@ const MultipleAccess = () => {
           placeholder="dd/mm/yy"
           register={register}
           min={todayDate}
-          options={{ required:true }}
-          error={errors.valid_from && "Please select a date" }
-          />
+          options={{ required: true }}
+          error={errors.valid_from && "Please select a date"}
+        />
         <DateInput
           name="valid_to"
           label="Valid To"
           placeholder="dd/mm/yy"
           min={todayDate}
           register={register}
-          error={errors.valid_to && "Please select a date" }
+          error={errors.valid_to && "Please select a date"}
           options={{ required: true }}
         />
         <p>Visitor(s) List</p>

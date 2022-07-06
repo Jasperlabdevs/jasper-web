@@ -9,39 +9,46 @@ import { createEventAccess } from "services/access";
 import AccessCodeModal from "components/AccessCodeModal";
 
 const EventAccess = () => {
-  const { register, handleSubmit, formState: {errors} } = useForm();
-  const [ showCodeGenerated, setShowCodeGenerated ] = useState(false)
-  const [ accessCode, setAccessCode ] = useState('')
-  const stateGates = useSelector((state:any) => state.gates)
-  const today = new Date()
-  
-  const todayDate = formatDate(today.toISOString(), '-')
-  const [ loading, setLoading ] = useState(false)
-  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [showCodeGenerated, setShowCodeGenerated] = useState(false);
+  const [accessCode, setAccessCode] = useState("");
+  const stateGates = useSelector((state: any) => state.gates);
+  const today = new Date();
+
+  const todayDate = formatDate(today.toISOString(), "-");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (data: any) => {
-    setLoading(true)
-    data.access_type = "event"
-    data.gates = [data.gates]
+    setLoading(true);
+    data.access_type = "event";
+    data.gates = [data.gates];
 
-    createEventAccess(data).then(
-      res => {
-        setLoading(false)
-        setShowCodeGenerated(true)
-        console.log(res.data.results)
-        setAccessCode(res.data?.results?.code)
-      }).catch(err => {
-        setLoading(false)
-        console.log(err)
+    createEventAccess(data)
+      .then((res) => {
+        setLoading(false);
+        setShowCodeGenerated(true);
+        console.log(res.data.results);
+        setAccessCode(res.data?.results?.code);
       })
-    console.log(data)
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+    console.log(data);
   };
-
 
   return (
     <div className="mt-10 max-w-4xl">
-
-      <AccessCodeModal showCodeGenerated={showCodeGenerated} setShowCodeGenerated={setShowCodeGenerated} register={register} accessCode={accessCode}  />
+      <AccessCodeModal
+        showCodeGenerated={showCodeGenerated}
+        setShowCodeGenerated={setShowCodeGenerated}
+        register={register}
+        accessCode={accessCode}
+      />
 
       <h4>Event Access</h4>
       <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
@@ -52,7 +59,7 @@ const EventAccess = () => {
           options={{
             required: true,
           }}
-          error= {errors.event_name && "Please enter an event name"}
+          error={errors.event_name && "Please enter an event name"}
           register={register}
         />
         {/* auto-complete location */}
@@ -63,7 +70,7 @@ const EventAccess = () => {
           options={{
             required: true,
           }}
-          error= {errors.location && "Please enter an Location"}
+          error={errors.location && "Please enter an Location"}
           register={register}
         />
         <Select
@@ -72,7 +79,7 @@ const EventAccess = () => {
           options={{ required: true }}
           placeholder="Select the Gate(s) you want to give access to"
           label="Gate"
-          error={errors.gates &&  "Please select a gate."}
+          error={errors.gates && "Please select a gate."}
           list={stateGates}
         />
         <Input
@@ -83,7 +90,7 @@ const EventAccess = () => {
           options={{
             required: true,
           }}
-          error= {errors.event_name && "Please enter the number of visitors"}
+          error={errors.event_name && "Please enter the number of visitors"}
           register={register}
         />
 
@@ -96,10 +103,10 @@ const EventAccess = () => {
           options={{
             required: true,
           }}
-          error= {errors.event_name && "Please select a valid date"}
+          error={errors.event_name && "Please select a valid date"}
           register={register}
         />
-      
+
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-lg mb-20 ">
           <div className="lg:max-w-lg w-full">

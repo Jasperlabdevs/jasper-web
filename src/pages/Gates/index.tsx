@@ -5,7 +5,7 @@ import img from "assets/images/gate.png";
 import { TableColumn, TableHeader } from "components/Table";
 import { useEffect, useState } from "react";
 import { dispatchStore } from "helpers/utils";
-import { get_gate } from "store/actions/gates";
+import { get_gate, toggle_gate } from "store/actions/gates";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import GateFormModal from "./GateFormModal";
@@ -34,7 +34,22 @@ const Gates = () => {
   const [edit, setEdit] = useState(true);
   const [editID, setEditID] = useState("");
 
+  const [activeExpand, setActiveExpand] = useState(null);
 
+  const toggle = (id: any) => {
+    const data = { gate_id: id };
+    dispatchStore(toggle_gate(data));
+  };
+
+  const expand = (id: any) => {
+    if (id === activeExpand) {
+      setActiveExpand(null);
+    } else {
+      setActiveExpand(id);
+    }
+
+    console.log(id);
+  };
 
   const editGate = (id: any) => {
     setShowGate(true);
@@ -44,7 +59,7 @@ const Gates = () => {
 
   const closeModal = () => {
     setEdit(false);
-    setEditID('')
+    setEditID("");
     setShowGate(false);
   };
 
@@ -58,7 +73,6 @@ const Gates = () => {
     setGates(stateGates);
   }, [stateGates]);
 
-
   const [showURL, setShowURl] = useState(false);
 
   return (
@@ -69,11 +83,21 @@ const Gates = () => {
         <meta name="description" content="" />
       </Helmet>
       {showGate && (
-       <GateFormModal gates={gates} editID={editID} showGate={showGate} closeModal={closeModal} edit={edit} />
+        <GateFormModal
+          gates={gates}
+          editID={editID}
+          showGate={showGate}
+          closeModal={closeModal}
+          edit={edit}
+        />
       )}
 
       {showURL && (
-        <ShowURLModal showURL={showURL} setShowURl={setShowURl} stateCommunityID={stateCommunity.id} />
+        <ShowURLModal
+          showURL={showURL}
+          setShowURl={setShowURl}
+          stateCommunityID={stateCommunity.id}
+        />
       )}
 
       <div className="px-10 mt-10 overflow-x-hidden">
@@ -113,40 +137,75 @@ const Gates = () => {
           </thead>
           <tbody>
             {gates?.map((data: any, index: number) => (
-              <tr key={index} className="border-b border-[#C3C9DA]">
-                <TableColumn
-                  td={<span>{data?.name}</span>}
-                  type="user"
-                  image={img}
-                />
-
-                <TableColumn td={data?.pin} />
-                <TableColumn td={data?.phone_number} />
-                <TableColumn td={formatDate(data?.created)} />
-                <TableColumn
-                  td={data?.is_active ? "Enabled" : "Disabled"}
-                  status_type={data?.is_active}
-                  type="status"
-                />
-                <TableColumn
-                  td="Edit"
-                  type="button"
-                  onClick={() => editGate(data.id)}
-                  buttonType="smallSecondary"
-                />
-                <TableColumn
-                  td="Disable"
-                  type="button"
-                  buttonType="smallPrimary"
-                />
-                {!!data.gate && (
+              <>
+                <tr key={index} className="border-b border-[#C3C9DA]">
                   <TableColumn
-                    td="View Nested Gate"
-                    list={[]}
-                    type="dropdown"
+                    td={<span>{data?.name}</span>}
+                    type="user"
+                    image={img}
                   />
+
+                  <TableColumn td={data?.pin} />
+                  <TableColumn td={data?.phone_number} />
+                  <TableColumn td={formatDate(data?.created)} />
+                  <TableColumn
+                    td={data?.is_active ? "Enabled" : "Disabled"}
+                    status_type={data?.is_active}
+                    type="status"
+                  />
+                  <TableColumn
+                    td="Edit"
+                    type="button"
+                    onClick={() => editGate(data.id)}
+                    buttonType="smallSecondary"
+                  />
+                  <TableColumn
+                    td={data?.is_active ? "Disable" : "Enable"}
+                    type="button"
+                    buttonType={data?.is_active ? "red" : "primary"}
+                    onClick={() => toggle(data.id)}
+                  />
+                  {!!data.gate && (
+                    <TableColumn
+                      onClick={() => expand(data.id)}
+                      td="View Nested Gate"
+                      list={[]}
+                      type="dropdown"
+                    />
+                  )}
+                </tr>
+                {activeExpand === data.id && (
+                  <tr className="bg-faded border-b border-[#C3C9DA]">
+                    <TableColumn td={data.gate?.name} />
+                    <TableColumn td={data.gate?.pin} />
+                    <TableColumn td={data.gate?.phone_number} />
+                    <TableColumn td={formatDate(data.gate?.created)} />
+                    <TableColumn
+                      td={data?.gate?.is_active ? "Enabled" : "Disabled"}
+                      status_type={data?.gate?.is_active}
+                      type="status"
+                    />
+                    <TableColumn
+                      td="Edit"
+                      type="button"
+                      onClick={() => editGate(data.id)}
+                      buttonType="smallSecondary"
+                    />
+                    <TableColumn
+                      td={data?.is_active ? "Disable" : "Enable"}
+                      type="button"
+                      buttonType={data?.is_active ? "red" : "primary"}
+                      onClick={() => toggle(data.id)}
+                    />
+
+                    <TableColumn
+                      td="Denest"
+                      type="button"
+                      buttonType="smallSecondary-red"
+                    />
+                  </tr>
                 )}
-              </tr>
+              </>
             ))}
           </tbody>
         </table>

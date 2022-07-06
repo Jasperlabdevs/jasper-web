@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div className="py-3 px-10 flex items-center justify-between border-b border-[#F3F4F4]">
       <div className="flex items-center gap-4">
-        {SVGs.hamburger}
+        <span className="hidden lg:inline-flex">{SVGs.hamburger}</span>
         <h5 className="font-sans-display text-primary">Jasper</h5>
         <nav className="ml-24">
           <ul className="flex gap-6 ">

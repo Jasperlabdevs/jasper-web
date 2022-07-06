@@ -11,19 +11,17 @@ import { getUserAccessHistory } from "services/access";
 
 const AccessHistory = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [ userHistory, setUserHistory ] = useState([])
+  const [userHistory, setUserHistory] = useState([]);
   const navigate = useNavigate();
-  const [ loading, setLoading ] = useState(true)
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=> {
-    getUserAccessHistory().then(
-      res => {
-        setLoading(false)
-        console.log(res.data.results)
-        setUserHistory(res.data.results)
-      }
-    )
-  },[])
+  useEffect(() => {
+    getUserAccessHistory().then((res) => {
+      setLoading(false);
+      console.log(res.data.results);
+      setUserHistory(res.data.results);
+    });
+  }, []);
 
   const tabs = [
     {
@@ -89,12 +87,16 @@ const AccessHistory = () => {
             <TableHeader headers={headersAll} />
           </thead>
           <tbody>
-            { loading && "Loading..." }
+            {loading && "Loading..."}
             {/* { (!loading && userHistory.length === 0) && "Loading..." } */}
-            {userHistory?.map((data:any, index:number) => (
+            {userHistory?.map((data: any, index: number) => (
               <tr key={index} className="border-b border-[#C3C9DA]">
                 <TableColumn td={data?.event_name} />
-                <TableColumn td={data?.status} type="status" status_type={true} />
+                <TableColumn
+                  td={data?.status}
+                  type="status"
+                  status_type={true}
+                />
                 <TableColumn td={data?.access_type} />
                 <TableColumn td={data?.gate[0]?.name} />
                 <TableColumn td={data?.code} />

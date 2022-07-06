@@ -11,7 +11,7 @@ type InputType = {
   error?: string;
   disabled?: boolean;
   value?: String;
-  min?:string
+  min?: string;
 };
 
 type SelectType = {
@@ -23,7 +23,7 @@ type SelectType = {
   register: any;
   value?: any;
   noborder?: Boolean;
-  error?:string
+  error?: string;
 };
 
 const Input = ({
@@ -36,7 +36,7 @@ const Input = ({
   options,
   error = "",
   value = "",
-  min
+  min,
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
 
@@ -118,7 +118,7 @@ export const Select = (
     list,
     value = "",
     noborder,
-    error
+    error,
   }: SelectType,
   ref: any
 ) => (
@@ -153,7 +153,6 @@ export const Select = (
       ))}
     </select>
     <p className="text-red text-xs mt-1 mb-8">{error}</p>
-
   </div>
 );
 
@@ -173,7 +172,7 @@ export const DateInput = ({
   placeholder,
   options,
   error = "",
-  min
+  min,
 }: InputType) => (
   <div className="relative">
     {label.length > 1 && (

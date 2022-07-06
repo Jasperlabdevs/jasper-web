@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { gateAuth } from "services/gates";
 import { get_gate } from "store/actions/gates";
 
 const GateLogin = () => {
@@ -16,10 +17,23 @@ const GateLogin = () => {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
+  const [err, setErr] = useState("");
   const onSubmit = (data: any) => {
+    setErr("");
     setLoading(true);
     console.log(data);
+
+    gateAuth(data)
+      .then((res) => {
+        // console.log(res)
+        setLoading(false);
+        navigate(`verification`);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setErr(err.response.data.message);
+      });
   };
 
   let { community_id } = useParams();
@@ -44,23 +58,29 @@ const GateLogin = () => {
       </p>
       <hr className="w-2/3 mx-auto my-12" />
 
+      {!!err && (
+        <div className="bg-faded_red w-full text-center p-4 mb-4 rounded-md">
+          <p className="text-red text-xs ">{err}</p>
+        </div>
+      )}
       <form
         className="text-left mt-10 max-w-[450px] mx-auto relative"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Select
-          name="gate"
+          name="gate_id"
           register={register}
           options={{ required: true }}
           placeholder="Select your Gate name"
           label="Gate"
           list={stateGates}
+          error={errors.gate_id && "Please select a gate."}
         />
 
         <Input
           name="gate_pin"
           placeholder="Enter the gate pin"
-          type="text"
+          type="number"
           label="Gatehouse PIN"
           register={register}
           options={{ required: true }}

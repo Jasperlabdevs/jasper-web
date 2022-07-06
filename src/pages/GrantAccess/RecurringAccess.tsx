@@ -9,21 +9,25 @@ import { useSelector } from "react-redux";
 import { createEventAccess } from "services/access";
 
 const RecurringAccess = () => {
-  const { register, handleSubmit, formState: {errors} } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [showMore, setShowMore] = useState(false);
 
-  const [loading, setLoading] = useState(false)
-  const [ showCodeGenerated, setShowCodeGenerated ] = useState(false)
-  const [ accessCode, setAccessCode ] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [showCodeGenerated, setShowCodeGenerated] = useState(false);
+  const [accessCode, setAccessCode] = useState("");
 
-  const stateGates = useSelector((state:any) => state.gates)
-  const today:any = new Date()
-  const todayDate = formatDate(today.toISOString(), '-')
+  const stateGates = useSelector((state: any) => state.gates);
+  const today: any = new Date();
+  const todayDate = formatDate(today.toISOString(), "-");
 
   const onSubmit = (data: any) => {
-    setLoading(true)
-    data.access_type = "visitor_name"
-    data.gates = [data.gates]
+    setLoading(true);
+    data.access_type = "visitor_name";
+    data.gates = [data.gates];
 
     // createEventAccess(data).then(
     //   res => {
@@ -35,14 +39,17 @@ const RecurringAccess = () => {
     //     setLoading(false)
     //     console.log(err)
     //   })
-    console.log(data)
+    console.log(data);
   };
-
 
   return (
     <div className="mt-10 max-w-4xl">
-
-      <AccessCodeModal showCodeGenerated={showCodeGenerated} setShowCodeGenerated={setShowCodeGenerated} register={register} accessCode={accessCode}  />
+      <AccessCodeModal
+        showCodeGenerated={showCodeGenerated}
+        setShowCodeGenerated={setShowCodeGenerated}
+        register={register}
+        accessCode={accessCode}
+      />
 
       <h4>Recurring Access</h4>
       <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
@@ -101,28 +108,32 @@ const RecurringAccess = () => {
         </p>
         {showMore && (
           <>
-             <Input
+            <Input
               name="license_plate"
               placeholder="Enter license plate to be confirmed"
               label="License Plate"
-              options={ showMore && {required: true}}
+              options={showMore && { required: true }}
               register={register}
-              error={errors.license_plate && "Please enter a license plate number"}
+              error={
+                errors.license_plate && "Please enter a license plate number"
+              }
             />
             <Input
               name="security_password"
               label="Security Password"
               placeholder="Enter a password to be confirmed at the gate"
-              options={showMore && {required: true}}
+              options={showMore && { required: true }}
               register={register}
               type="password"
-              error={errors.security_password && "Please enter a security password"}
+              error={
+                errors.security_password && "Please enter a security password"
+              }
             />
             <Input
               name="visitor_id_card_name"
               label="Visitor's ID Card"
               placeholder="Enter the name on Visitor's ID card"
-              options={showMore && {required: true}}
+              options={showMore && { required: true }}
               register={register}
             />
           </>

@@ -33,9 +33,6 @@ import ValidateEmail from "pages/Auth/validateEmail";
 import { Helmet } from "react-helmet";
 
 function App() {
-
-
-
   return (
     <div className="App">
       <Helmet>

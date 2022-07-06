@@ -13,11 +13,10 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
     reset,
   } = useForm();
 
-  let active = gates.filter((el:any) => el.id === editID )
+  let active = gates.filter((el: any) => el.id === editID);
 
   const onSubmit = (data: any) => {
-    console.log(data)
-    
+    console.log(data);
 
     if (edit) {
       data.gate_id = editID;
@@ -39,7 +38,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
         <form className="mt-16" onSubmit={handleSubmit(onSubmit)}>
           <Input
             name="name"
-            value={ active[0]?.name || ""}
+            value={active[0]?.name || ""}
             label="Gate Name"
             register={register}
             error={errors.name && "Please enter a gate name"}
@@ -48,7 +47,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
           <PhoneInput
             name="phone_number"
             label="Phone Number"
-            value={ active[0]?.phone_number || ""}
+            value={active[0]?.phone_number || ""}
             register={register}
             error={errors.phone_number && "Please enter a phone number"}
             options={{
@@ -61,7 +60,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
           <Select
             name="nest_gate_id"
             label="Nest Gate"
-            value={ active[0]?.nest_gate_id || ""}
+            value={active[0]?.nest_gate_id || ""}
             placeholder={gates.length === 0 ? "No Gate created" : "Select gate"}
             register={register}
             list={gates}

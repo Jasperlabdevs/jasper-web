@@ -7,8 +7,10 @@ type ButtonType = {
   secondary?: boolean;
   tertiary?: boolean;
   smallSecondary?: boolean;
+  smallSecondaryred?: boolean;
   smallPrimary?: boolean;
   other?: boolean;
+  red?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
@@ -20,8 +22,10 @@ const Button = ({
   secondary = false,
   tertiary = false,
   other = false,
+  red = false,
   smallPrimary = false,
   smallSecondary = false,
+  smallSecondaryred = false,
 }: ButtonType) => {
   return (
     <button
@@ -32,7 +36,7 @@ const Button = ({
               other === false &&
               "bg-primary border border-primary text-[#FFFFFF]"
             } 
-            ${secondary && "bg-[#ffffff] text-black "}
+            ${secondary && " text-black "}
             ${
               smallPrimary &&
               "bg-primary text-[#ffffff] text-xs p-2 py-3 md:px-8 w-fit mt-0"
@@ -42,8 +46,16 @@ const Button = ({
               "bg-[#ffffff] text-primary border py-3 border-primary text-xs p-2 md:px-8 w-fit mt-0"
             } 
             ${
+              smallSecondaryred &&
+              "bg-[#ffffff] text-red border py-3 border-red text-xs p-2 md:px-8 w-fit mt-0"
+            } 
+            ${
               tertiary &&
               "bg-faded border-none py-3 text-primary text-xs font-thin p-2 md:px-8 w-fit mt-0"
+            } 
+            ${
+              red &&
+              "bg-red text-[#fff] border-red border mt-0 p-3 md:px-8 w-fit"
             } 
             ${other && "bg-[#ffffff] text-primary border-primary border"} `}
       type={type}

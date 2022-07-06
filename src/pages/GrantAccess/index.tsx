@@ -8,9 +8,8 @@ import { Outlet } from "react-router-dom";
 import { get_gate } from "store/actions/gates";
 
 const GrantAccess = () => {
-
-  const stateGates = useSelector((state:any)=> state.gates)
-  const stateCommunity = useSelector((state:any)=> state.community)
+  const stateGates = useSelector((state: any) => state.gates);
+  const stateCommunity = useSelector((state: any) => state.community);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -18,7 +17,6 @@ const GrantAccess = () => {
       dispatchStore(get_gate(stateCommunity.id, setLoading));
     }
   }, []);
-
 
   return (
     <div>

@@ -7,20 +7,23 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { createEventAccess } from "services/access";
 
-
 const OneTimeAccess = () => {
-  const stateGates = useSelector((state:any) => state.gates);
+  const stateGates = useSelector((state: any) => state.gates);
 
   const [showMore, setShowMore] = useState(false);
-  const { register, handleSubmit, formState: {errors} } = useForm();
-  const [ loading, setLoading ] = useState(false)
-  const [ showCodeGenerated, setShowCodeGenerated ] = useState(false)
-  const [ accessCode, setAccessCode ] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [showCodeGenerated, setShowCodeGenerated] = useState(false);
+  const [accessCode, setAccessCode] = useState("");
 
   const onSubmit = (data: any) => {
-    setLoading(true)
-    data.access_type = "onetime"
-    data.gates = [data.gates]
+    setLoading(true);
+    data.access_type = "onetime";
+    data.gates = [data.gates];
 
     // createEventAccess(data).then(
     //   res => {
@@ -32,13 +35,17 @@ const OneTimeAccess = () => {
     //     setLoading(false)
     //     console.log(err)
     //   })
-    console.log(data)
+    console.log(data);
   };
 
   return (
     <div className="mt-10 max-w-4xl">
-      
-      <AccessCodeModal showCodeGenerated={showCodeGenerated} setShowCodeGenerated={setShowCodeGenerated} register={register} accessCode={accessCode}  />
+      <AccessCodeModal
+        showCodeGenerated={showCodeGenerated}
+        setShowCodeGenerated={setShowCodeGenerated}
+        register={register}
+        accessCode={accessCode}
+      />
 
       <h3>One-Time Access</h3>
 
@@ -47,19 +54,17 @@ const OneTimeAccess = () => {
           name="visitor_name"
           label="Visitor's name"
           placeholder="Enter full name of the person you are granting access to"
-          options={{required: true}}
+          options={{ required: true }}
           register={register}
-          error={ errors.visitor_name && "Please enter a visitor's name" }
+          error={errors.visitor_name && "Please enter a visitor's name"}
         />
-       <PhoneInput
+        <PhoneInput
           placeholder="Enter your phone number"
           name="visitor_phone_number"
           label="Your Phone number"
           type="tel"
           register={register}
-          error={
-            errors.last_name && "Please enter a correct phone number"
-          }
+          error={errors.last_name && "Please enter a correct phone number"}
           options={{
             required: true,
             minLength: 6,
@@ -73,7 +78,7 @@ const OneTimeAccess = () => {
           options={{ required: true }}
           placeholder="Select the Gate you want to give access to"
           label="Gate"
-          error={errors.gates &&  "Please select a gate."}
+          error={errors.gates && "Please select a gate."}
           list={stateGates}
         />
         <Input
@@ -97,24 +102,28 @@ const OneTimeAccess = () => {
               name="license_plate"
               placeholder="Enter license plate to be confirmed"
               label="License Plate"
-              options={ showMore && {required: true}}
+              options={showMore && { required: true }}
               register={register}
-              error={errors.license_plate && "Please enter a license plate number"}
+              error={
+                errors.license_plate && "Please enter a license plate number"
+              }
             />
             <Input
               name="security_password"
               label="Security Password"
               placeholder="Enter a password to be confirmed at the gate"
-              options={showMore && {required: true}}
+              options={showMore && { required: true }}
               register={register}
               type="password"
-              error={errors.security_password && "Please enter a security password"}
+              error={
+                errors.security_password && "Please enter a security password"
+              }
             />
             <Input
               name="visitor_id_card_name"
               label="Visitor's ID Card"
               placeholder="Enter the name on Visitor's ID card"
-              options={showMore && {required: true}}
+              options={showMore && { required: true }}
               register={register}
             />
           </>
