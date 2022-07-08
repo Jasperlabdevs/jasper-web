@@ -5,7 +5,7 @@ import img from "assets/images/gate.png";
 import { TableColumn, TableHeader } from "components/Table";
 import { useEffect, useState } from "react";
 import { dispatchStore } from "helpers/utils";
-import { get_gate, toggle_gate } from "store/actions/gates";
+import { edit_gate, get_gate, toggle_gate } from "store/actions/gates";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import GateFormModal from "./GateFormModal";
@@ -47,8 +47,6 @@ const Gates = () => {
     } else {
       setActiveExpand(id);
     }
-
-    console.log(id);
   };
 
   const editGate = (id: any) => {
@@ -62,6 +60,12 @@ const Gates = () => {
     setEditID("");
     setShowGate(false);
   };
+
+  const denest = (data:any) => {
+    data.gate = {}
+    data.gate_id = data.id
+    dispatchStore(edit_gate(data));
+  }
 
   useEffect(() => {
     if (stateGates.length === 0) {
@@ -162,7 +166,7 @@ const Gates = () => {
                   <TableColumn
                     td={data?.is_active ? "Disable" : "Enable"}
                     type="button"
-                    buttonType={data?.is_active ? "red" : "primary"}
+                    buttonType={data?.is_active ? "red" : "smallPrimary"}
                     onClick={() => toggle(data.id)}
                   />
                   {!!data.gate && (
@@ -188,13 +192,13 @@ const Gates = () => {
                     <TableColumn
                       td="Edit"
                       type="button"
-                      onClick={() => editGate(data.id)}
+                      onClick={() => editGate(data.gate.id)}
                       buttonType="smallSecondary"
                     />
                     <TableColumn
-                      td={data?.is_active ? "Disable" : "Enable"}
+                      td={data?.gate?.is_active ? "Disable" : "Enable"}
                       type="button"
-                      buttonType={data?.is_active ? "red" : "primary"}
+                      buttonType={data?.gate?.is_active ? "red" : "smallPrimary"}
                       onClick={() => toggle(data.id)}
                     />
 
@@ -202,6 +206,7 @@ const Gates = () => {
                       td="Denest"
                       type="button"
                       buttonType="smallSecondary-red"
+                      onClick={()=> denest(data)}
                     />
                   </tr>
                 )}

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { gateAuth } from "services/gates";
 import { get_gate } from "store/actions/gates";
 
