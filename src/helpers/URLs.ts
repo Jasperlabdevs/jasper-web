@@ -17,7 +17,7 @@ const URL = {
 
   editProfile: baseUrl + "me/",
   getUser: baseUrl + "me/",
-
+  verifyGate: baseUrl + "gate/pass_gate/",
   getGates: baseUrl + "gate/community_gates/",
 
   community: baseUrl + "community/",

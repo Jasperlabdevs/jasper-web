@@ -52,7 +52,7 @@ function App() {
           </Route>
           <Route path="gate_auth/:community_id" element={<GateAuth />}>
             <Route index element={<GateLogin />} />
-            <Route path="verification" element={<GateVerification />} />
+            <Route path="verification/:gate_id" element={<GateVerification />} />
           </Route>
           <Route path="settings" element={<Settings />}>
             <Route

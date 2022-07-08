@@ -39,4 +39,8 @@ export const gateAuth = (data: any) => {
   return axios.post(URL.loginGate, { ...data });
 };
 
+export const verifyGate = (data: any )=> {
+  return axios.post(URL.verifyGate, { ...data })
+}
+
 export const gateLogin = (data: any) => axios.post(URL.toggleGate, { ...data });

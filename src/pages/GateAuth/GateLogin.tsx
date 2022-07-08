@@ -28,7 +28,7 @@ const GateLogin = () => {
       .then((res) => {
         // console.log(res)
         setLoading(false);
-        navigate(`verification`);
+        navigate(`verification/${data.gate_id}/`);
       })
       .catch((err) => {
         setLoading(false);
