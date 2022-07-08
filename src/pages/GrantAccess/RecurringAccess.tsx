@@ -1,6 +1,6 @@
 import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
-import Input, { Select, DateInput } from "components/Input";
+import Input, { Select, DateInput, PhoneInput } from "components/Input";
 import SVGs from "helpers/SVGs";
 import { formatDate } from "helpers/utils";
 import { useState } from "react";
@@ -26,19 +26,19 @@ const RecurringAccess = () => {
 
   const onSubmit = (data: any) => {
     setLoading(true);
-    data.access_type = "visitor_name";
+    data.access_type = "recurring";
     data.gates = [data.gates];
 
-    // createEventAccess(data).then(
-    //   res => {
-    //     setLoading(false)
-    //     setShowCodeGenerated(true)
-    //     console.log(res.data.results)
-    //     setAccessCode(res.data?.results?.code)
-    //   }).catch(err => {
-    //     setLoading(false)
-    //     console.log(err)
-    //   })
+    createEventAccess(data).then(
+      res => {
+        setLoading(false)
+        setShowCodeGenerated(true)
+        console.log(res.data.results)
+        setAccessCode(res.data?.results?.visitors[0]?.code)
+      }).catch(err => {
+        setLoading(false)
+        console.log(err)
+      })
     console.log(data);
   };
 
@@ -60,12 +60,19 @@ const RecurringAccess = () => {
           options={{}}
           register={register}
         />
-        <Input
-          label="Phone Number"
-          name="phone_number"
-          placeholder="Enter the person's phone number"
-          options={{}}
+        <PhoneInput
+          placeholder="Enter the visitor's phone number"
+          name="visitor_phone_number"
+          label="Phone number"
+          type="tel"
           register={register}
+          error={errors.last_name && "Please enter a correct phone number"}
+          options={{
+            required: true,
+            minLength: 6,
+            maxLenght: 11,
+            pattern: "/^(0?)([7|8|9]{1})[0-9]{9}$/",
+          }}
         />
         <Input
           name="location"

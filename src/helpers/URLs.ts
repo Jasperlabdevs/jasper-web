@@ -28,7 +28,7 @@ const URL = {
   loginGate: baseUrl + "gate/login/",
 
   access: baseUrl + "access/",
-  userAccessHistory: baseUrl + "access/get_all_user_access_history/",
+  communityAccessHistory: baseUrl + "access/get_all_community_access_history/",
 
   accessRules: baseUrl + "access/create_rules/",
 };

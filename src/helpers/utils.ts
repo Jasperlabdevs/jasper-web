@@ -26,3 +26,13 @@ export const formatDate = (date: string, separator: string = "/") => {
 
   return yyyy + separator + mm + separator + dd;
 };
+export const formatDateTime = (date: string, separator: string = "/") => {
+  const d = new Date(date);
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const yyyy = d.getFullYear();
+  const HH = d.getHours()
+  const MM = d.getMinutes()
+
+  return yyyy + separator + mm + separator + dd + ' ' + HH + ":" + MM;
+};

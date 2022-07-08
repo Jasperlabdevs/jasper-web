@@ -20,7 +20,7 @@ export const createEventAccess = (data: any) => {
   return axios.post(URL.access, { ...data }, config);
 };
 
-export const getUserAccessHistory = () => {
+export const getCommunityAccessHistory = () => {
   let config = configuration();
-  return axios.get(URL.userAccessHistory, config);
+  return axios.get(URL.communityAccessHistory, config);
 };

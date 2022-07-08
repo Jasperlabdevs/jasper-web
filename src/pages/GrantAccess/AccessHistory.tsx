@@ -4,22 +4,22 @@ import SearchFilter from "components/SearchFilter";
 import { TableColumn, TableHeader } from "components/Table";
 import { TableContent } from "helpers/data";
 import SVGs from "helpers/SVGs";
-import { formatDate } from "helpers/utils";
+import { formatDateTime } from "helpers/utils";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserAccessHistory } from "services/access";
+import { getCommunityAccessHistory } from "services/access";
 
 const AccessHistory = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [userHistory, setUserHistory] = useState([]);
+  const [communityHistory, setCommunityHistory] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getUserAccessHistory().then((res) => {
+    getCommunityAccessHistory().then((res) => {
       setLoading(false);
       console.log(res.data.results);
-      setUserHistory(res.data.results);
+      setCommunityHistory(res.data.results);
     });
   }, []);
 
@@ -35,20 +35,24 @@ const AccessHistory = () => {
   ];
 
   const headersAll = [
+    "Visitor's Name",
     "Event Name",
     "Status",
     "Access Type",
     "Gate",
     "Code",
+    "Phone Number",
     "Date/Time Generated",
     "More",
   ];
   const headersMultiple = [
-    "Status",
-    "Access Type",
+    "Event Name",
+    "Visitor Type",
     "Gate",
-    "Event",
+    "Access Type",
     "Date/Time Generated",
+    "Valid From",
+    "Valid To",
     "More",
   ];
 
@@ -89,9 +93,10 @@ const AccessHistory = () => {
           <tbody>
             {loading && "Loading..."}
             {/* { (!loading && userHistory.length === 0) && "Loading..." } */}
-            {userHistory?.map((data: any, index: number) => (
-              <tr key={index} className="border-b border-[#C3C9DA]">
-                <TableColumn td={data?.event_name} />
+            {communityHistory?.map((data: any, index: number) => (
+              <tr key={index} className="border-b capitalize border-[#C3C9DA]">
+                <TableColumn td={ data.visitors[0]?.name ||  "N/A"} />
+                <TableColumn td={data?.event_name || 'N/A'} />
                 <TableColumn
                   td={data?.status}
                   type="status"
@@ -99,9 +104,10 @@ const AccessHistory = () => {
                 />
                 <TableColumn td={data?.access_type} />
                 <TableColumn td={data?.gate[0]?.name} />
-                <TableColumn td={data?.code} />
-                <TableColumn td={formatDate(data?.created)} />
-                <TableColumn td={SVGs.dots} />
+                <TableColumn td={data?.code || data.visitors[0]?.code || 'N/A' } />
+                <TableColumn td={data.visitors[0]?.phone_number || 'N/A'} />
+                <TableColumn td={formatDateTime(data?.created)} />
+                <TableColumn td={SVGs.dots} list={['Reshare Code', 'Disable']} type="dropdown" />
               </tr>
             ))}
           </tbody>

@@ -25,16 +25,16 @@ const OneTimeAccess = () => {
     data.access_type = "onetime";
     data.gates = [data.gates];
 
-    // createEventAccess(data).then(
-    //   res => {
-    //     setLoading(false)
-    //     setShowCodeGenerated(true)
-    //     console.log(res.data.results)
-    //     setAccessCode(res.data?.results?.code)
-    //   }).catch(err => {
-    //     setLoading(false)
-    //     console.log(err)
-    //   })
+    createEventAccess(data).then(
+      res => {
+        setLoading(false)
+        setShowCodeGenerated(true)
+        console.log(res.data.results)
+        setAccessCode(res.data?.results?.visitors[0]?.code)
+      }).catch(err => {
+        setLoading(false)
+        console.log(err)
+      })
     console.log(data);
   };
 
@@ -59,9 +59,9 @@ const OneTimeAccess = () => {
           error={errors.visitor_name && "Please enter a visitor's name"}
         />
         <PhoneInput
-          placeholder="Enter your phone number"
+          placeholder="Enter the visitor's phone number"
           name="visitor_phone_number"
-          label="Your Phone number"
+          label="Phone number"
           type="tel"
           register={register}
           error={errors.last_name && "Please enter a correct phone number"}
@@ -94,7 +94,7 @@ const OneTimeAccess = () => {
           onClick={() => setShowMore(!showMore)}
           className="mb-8 text-peach flex items-center gap-4 cursor-pointer"
         >
-          <span> {SVGs.add_red}</span> Add additional details
+          <span> {SVGs.add_red}</span> { showMore ? 'Remove' : 'Add' } additional details
         </p>
         {showMore && (
           <>

@@ -90,11 +90,11 @@ export const TableColumn = ({
     )}
     {type === "dropdown" && (
       <td className="px-4 " onClick={onClick}>
-        <div className="dropdown">
+        <div className="dropdown relative">
           <button className="dropbtn flex items-center gap-4">
             {td} {SVGs.arrow_down}
           </button>
-          <div className="dropdown-content">
+          <div className="dropdown-content absolute">
             {list?.map((data: any, index: number) => (
               <p>{data.name || data}</p>
             ))}
