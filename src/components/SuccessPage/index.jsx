@@ -2,11 +2,7 @@ import Button from "components/Button";
 import { useNavigate } from "react-router-dom";
 import success from "assets/images/success.png";
 
-type SuccessPageProps = {
-  message: String;
-};
-
-const SuccessPage = ({ message }: SuccessPageProps) => {
+const SuccessPage = ({ message }) => {
   const navigate = useNavigate();
 
   return (
@@ -15,7 +11,7 @@ const SuccessPage = ({ message }: SuccessPageProps) => {
         <div className="w-80 h-fit mx-auto">
           <img src={success} alt="sucess" />
         </div>
-        <p className="text-center mt-16">{message}</p>
+        <p dangerouslySetInnerHTML={{ __html: message }} className="text-center mt-16"></p>
         <Button
           title="Go to Dashboard"
           onClick={() => navigate("/dashboard")}

@@ -39,7 +39,7 @@ export const TableColumn = ({
   status_type,
 }: tableColumnType) => (
   <>
-    {type === "normal" && <td className="px-4 text-left">{td}</td>}
+    {type === "normal" && <td className="px-4 py-8 text-left">{td}</td>}
     {type === "status" && (
       <td
         className={`p-2 px-6 my-8 w-fit rounded-full flex justify-center 
@@ -51,7 +51,7 @@ export const TableColumn = ({
       </td>
     )}
     {type === "userType" && (
-      <td className="text-left px-4  ">
+      <td className="text-left px-4 ">
         {" "}
         <span className="text-primary bg-faded px-4 py-2 rounded-full">
           {td}

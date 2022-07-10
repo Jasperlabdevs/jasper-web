@@ -9,7 +9,7 @@ import { chooseOccupancyType } from "services/Occupancy";
 const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
   const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
   const stateCommunity = useSelector((state: any) => state.community);
-
+  const [ err, setErr ] = useState('')
   const [occupancyTypes, setOccupancyType] = useState(stateOccupancyType);
   const [community, setCommunity] = useState(stateCommunity);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,6 @@ const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
 
   const onSubmit = async (data: any) => {
@@ -32,8 +31,8 @@ const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
     await chooseOccupancyType(occupancy).then((res) => {
       updateCommunity(data, community.id).then((res) => {
         forward();
-      });
-    });
+      }).catch((error:any) => ( !!error.response?.data?.message ? setErr(error.response?.data?.message) : setErr('Something went wrong. Please check and Try again')  ) )
+    }).catch((error:any) => ( !!error.response?.data?.message ? setErr(error.response?.data?.message) : setErr('Something went wrong. Please check and Try again') ))
   };
 
   useEffect(() => {
@@ -42,6 +41,8 @@ const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
   useEffect(() => {
     setOccupancyType(stateOccupancyType);
   }, [stateOccupancyType]);
+
+
   return (
     <div className="mt-14 ">
       <h4>User Onboarding</h4>
@@ -51,6 +52,12 @@ const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
 
       <h5 className="mt-10"> Select User Type To Collect</h5>
       <p>This allows you to segment your member database</p>
+
+      {!!err && (
+        <div className="bg-faded_red w-full text-center p-4 mt-4 rounded-md">
+          <p className="text-red text-xs ">{err}</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-2 lg:grid-cols-3 max-w-2xl gap-4 flex-wrap mt-8 mb-6">

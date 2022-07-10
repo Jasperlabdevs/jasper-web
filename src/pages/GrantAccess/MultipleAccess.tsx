@@ -17,10 +17,19 @@ const MultipleAccess = () => {
     { id: 1, name: "", phone_number: "" },
   ]);
 
+  const [ allVisitors, setAllVisitors ] = useState([])
+
   const stateGates = useSelector((state: any) => state.gates);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const handleChange = (index:any, event:any) => {
+    console.log(index)
+    const data:any = [...visitors]
+    data[index][event.target.name] = event.target.value
+    setAllVisitors(data)
+  }
 
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
@@ -29,19 +38,27 @@ const MultipleAccess = () => {
     setLoading(true);
     data.access_type = "multiple";
     data.gates = [data.gates];
-    data.visitors = visitors;
+    data.visitors = allVisitors;
 
-    // createEventAccess(data).then(
-    //   res => {
-    //     setLoading(false)
-    //     setShowCodeGenerated(true)
-    //     console.log(res.data.results)
-    //     setAccessCode(res.data?.results?.code)
-    //   }).catch(err => {
-    //     setLoading(false)
-    //     console.log(err)
-    //   })
-    console.log(data);
+    data.time_form = "12:00"
+    data.time_to = "12:00"
+    data.allow_multiple_entries = true
+    data.alert_security = true
+    data.pending_access = false
+
+    console.log(data)
+
+    createEventAccess(data).then(
+      res => {
+        setLoading(false)
+        setShowCodeGenerated(true)
+        console.log(res.data.results)
+        setAccessCode(res.data?.results?.code)
+      }).catch(err => {
+        setLoading(false)
+        console.log(err)
+      })
+  
   };
 
   const addVisitor = () => {
@@ -82,14 +99,13 @@ const MultipleAccess = () => {
           }
           register={register}
         />
-        <Select
+        <Input
           name="visitor_type"
           register={register}
-          options={{ required: false }}
-          placeholder="Select your visitor type"
+          options={{ required: true }}
+          placeholder="Enter visitor type"
           label="Visitor Type"
-          error={errors.visitor_type && "Please select a visitor type"}
-          list={[]}
+          error={errors.visitor_type && "Please enter visitor type"}
         />
         <Input
           name="visitor_company"
@@ -109,7 +125,7 @@ const MultipleAccess = () => {
           list={stateGates}
         />
         <Input
-          name="reason"
+          name="reason_for_visit"
           label="Reason for visit"
           placeholder="Write a description"
           options={{}}
@@ -142,21 +158,21 @@ const MultipleAccess = () => {
         {visitors.map((el, idx) => (
           <div key={el.id} className="flex gap-6 w-full">
             <div className="w-full">
-              <Input
-                name="visitor_name"
-                label=""
+              <input
+               className="p-4 mt-2 mb-8 border rounded-md w-full"
+                name="name"
                 placeholder="Enter visitor name"
-                options={{}}
-                register={register}
+                onChange={(event)=>handleChange(idx, event)}
+                value={el.name}
               />
             </div>
             <div className="w-full">
-              <Input
-                name="reason"
-                label=""
+              <input
+               className="p-4 mt-2 mb-8 border rounded-md w-full"
+                name="phone_number"
                 placeholder="Enter Visitor phone number"
-                options={{}}
-                register={register}
+                onChange={(event)=>handleChange(idx, event)}
+                value={el.phone_number}
               />
             </div>
             <div
@@ -180,7 +196,7 @@ const MultipleAccess = () => {
             <Button title="Test Code" type="button" />
           </div>
 
-          <Button title="Generate Code" type="button" other />
+          <Button title="Generate Code" type="submit" other />
           <Button title="Cancel" type="button" secondary />
         </div>
       </form>

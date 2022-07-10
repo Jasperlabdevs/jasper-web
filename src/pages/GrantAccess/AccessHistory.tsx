@@ -1,17 +1,16 @@
-import Button from "components/Button";
+
 import Filter from "components/Filters";
 import SearchFilter from "components/SearchFilter";
 import { TableColumn, TableHeader } from "components/Table";
-import { TableContent } from "helpers/data";
 import SVGs from "helpers/SVGs";
-import { formatDateTime } from "helpers/utils";
+import { formatDate, formatDateTime } from "helpers/utils";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCommunityAccessHistory } from "services/access";
 
 const AccessHistory = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [communityHistory, setCommunityHistory] = useState([]);
+  const [communityHistory, setCommunityHistory] = useState<any>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -22,6 +21,9 @@ const AccessHistory = () => {
       setCommunityHistory(res.data.results);
     });
   }, []);
+
+  const multipleAccessHistory =  communityHistory.filter((el:any) => el.access_type === "multiple")
+  const allAccessHistory = communityHistory.filter((el:any) => el.access_type !== "multiple")
 
   const tabs = [
     {
@@ -56,8 +58,8 @@ const AccessHistory = () => {
     "More",
   ];
 
-  const view = () => {
-    navigate("/grant_access/access_history/visitor_details");
+  const view = ({id}:any) => {
+    navigate(`/grant_access/access_history/visitor_details/${id}`);
   };
   return (
     <div className="mt-10 ">
@@ -65,7 +67,7 @@ const AccessHistory = () => {
         <h4>
           Members{" "}
           <span className="text-white bg-primary rounded-full px-3 text-xs">
-            30
+            {communityHistory.length}
           </span>{" "}
         </h4>
         <SearchFilter />
@@ -92,8 +94,8 @@ const AccessHistory = () => {
           </thead>
           <tbody>
             {loading && "Loading..."}
-            {/* { (!loading && userHistory.length === 0) && "Loading..." } */}
-            {communityHistory?.map((data: any, index: number) => (
+            { (!loading && allAccessHistory.length === 0) && "No Access History" }
+            {allAccessHistory?.map((data: any, index: number) => (
               <tr key={index} className="border-b capitalize border-[#C3C9DA]">
                 <TableColumn td={ data.visitors[0]?.name ||  "N/A"} />
                 <TableColumn td={data?.event_name || 'N/A'} />
@@ -121,16 +123,17 @@ const AccessHistory = () => {
               <TableHeader headers={headersMultiple} />
             </thead>
             <tbody>
-              {TableContent?.map((data, index) => (
-                <tr key={index} className="border-b border-[#C3C9DA]">
-                  <TableColumn td="Kofi Emma" />
-                  <TableColumn td="N/A" />
-                  <TableColumn td="Generated" type="status" />
-                  <TableColumn td="One-Time Access" />
-                  <TableColumn td="3123" />
-                  <TableColumn td="088090809" />
-                  <TableColumn td="15th Feb, 2022 - 12:00pm" />
-                  <TableColumn td="View" buttonType="tertiary" type="button" />
+            { (!loading && multipleAccessHistory.length === 0) && "No Multiple Access History" }
+              {multipleAccessHistory?.map((data:any, index:number) => (
+                <tr key={index} className="border-b capitalize py-2 border-[#C3C9DA]">
+                  <TableColumn td={data.event_name} />
+                  <TableColumn td={data.visitor_type} />
+                  <TableColumn td={data.gate[0]?.name} />
+                  <TableColumn td={data.access_type} />
+                  <TableColumn td={formatDate(data?.created)} />
+                  <TableColumn td={formatDate(data?.valid_from)} />
+                  <TableColumn td={formatDate(data?.valid_to)} />
+                  <TableColumn td="View" buttonType="tertiary" type="button" onClick={()=>view(data.id)} />
                 </tr>
               ))}
             </tbody>

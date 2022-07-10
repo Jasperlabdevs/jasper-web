@@ -1,4 +1,3 @@
-import Button from "components/Button";
 import SVGs from "helpers/SVGs";
 import { useEffect, useState } from "react";
 import CommunityDetails from "components/CommunityDetails";
@@ -19,13 +18,16 @@ const Onboarding = () => {
 
   const [forward, setForward] = useState("Continue");
 
-  const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
+  const [ pin, setPin ] = useState('')
 
+  const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
+  const stateCommunity = useSelector((state:any) => state.community )
   if (stateOccupancyType.length === 0) {
     dispatchStore(get_occupancy_types());
   }
 
   const navigate = useNavigate();
+
 
   useEffect(() => {
     if (activeStep === 2) {
@@ -43,6 +45,12 @@ const Onboarding = () => {
     }
   }, [activeStep]);
 
+  useEffect(() => {
+    if(activeStep > 3){
+      setPin(stateCommunity?.pin)
+    }
+  },[stateCommunity, activeStep])
+
   return (
     <div className="py-4 px-10 lg:p-0 relative">
       <Helmet>
@@ -51,7 +59,7 @@ const Onboarding = () => {
       </Helmet>
 
       {activeStep > 3 && (
-        <SuccessPage message={"Account created Successfully"} />
+        <SuccessPage message={`Account created Successfully <br/> Your community signup PIN is : ${pin} `} />
       )}
       <div className="relative flex justify-between max-w-[500px] mx-auto mt-5 lg:hidden">
         {steps.map((data: any) => (
