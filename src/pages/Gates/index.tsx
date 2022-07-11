@@ -61,11 +61,11 @@ const Gates = () => {
     setShowGate(false);
   };
 
-  const denest = (data:any) => {
-    data.gate = {}
-    data.gate_id = data.id
+  const denest = (data: any) => {
+    data.gate = {};
+    data.gate_id = data.id;
     dispatchStore(edit_gate(data));
-  }
+  };
 
   useEffect(() => {
     if (stateGates.length === 0) {
@@ -198,7 +198,9 @@ const Gates = () => {
                     <TableColumn
                       td={data?.gate?.is_active ? "Disable" : "Enable"}
                       type="button"
-                      buttonType={data?.gate?.is_active ? "red" : "smallPrimary"}
+                      buttonType={
+                        data?.gate?.is_active ? "red" : "smallPrimary"
+                      }
                       onClick={() => toggle(data.id)}
                     />
 
@@ -206,7 +208,7 @@ const Gates = () => {
                       td="Denest"
                       type="button"
                       buttonType="smallSecondary-red"
-                      onClick={()=> denest(data)}
+                      onClick={() => denest(data)}
                     />
                   </tr>
                 )}

@@ -18,16 +18,15 @@ const Onboarding = () => {
 
   const [forward, setForward] = useState("Continue");
 
-  const [ pin, setPin ] = useState('')
+  const [pin, setPin] = useState("");
 
   const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
-  const stateCommunity = useSelector((state:any) => state.community )
+  const stateCommunity = useSelector((state: any) => state.community);
   if (stateOccupancyType.length === 0) {
     dispatchStore(get_occupancy_types());
   }
 
   const navigate = useNavigate();
-
 
   useEffect(() => {
     if (activeStep === 2) {
@@ -46,10 +45,10 @@ const Onboarding = () => {
   }, [activeStep]);
 
   useEffect(() => {
-    if(activeStep > 3){
-      setPin(stateCommunity?.pin)
+    if (activeStep > 3) {
+      setPin(stateCommunity?.pin);
     }
-  },[stateCommunity, activeStep])
+  }, [stateCommunity, activeStep]);
 
   return (
     <div className="py-4 px-10 lg:p-0 relative">
@@ -59,7 +58,9 @@ const Onboarding = () => {
       </Helmet>
 
       {activeStep > 3 && (
-        <SuccessPage message={`Account created Successfully <br/> Your community signup PIN is : ${pin} `} />
+        <SuccessPage
+          message={`Account created Successfully <br/> Your community signup PIN is : ${pin} `}
+        />
       )}
       <div className="relative flex justify-between max-w-[500px] mx-auto mt-5 lg:hidden">
         {steps.map((data: any) => (

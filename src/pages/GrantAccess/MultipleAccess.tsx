@@ -17,19 +17,19 @@ const MultipleAccess = () => {
     { id: 1, name: "", phone_number: "" },
   ]);
 
-  const [ allVisitors, setAllVisitors ] = useState([])
+  const [allVisitors, setAllVisitors] = useState([]);
 
   const stateGates = useSelector((state: any) => state.gates);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (index:any, event:any) => {
-    console.log(index)
-    const data:any = [...visitors]
-    data[index][event.target.name] = event.target.value
-    setAllVisitors(data)
-  }
+  const handleChange = (index: any, event: any) => {
+    console.log(index);
+    const data: any = [...visitors];
+    data[index][event.target.name] = event.target.value;
+    setAllVisitors(data);
+  };
 
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
@@ -40,25 +40,25 @@ const MultipleAccess = () => {
     data.gates = [data.gates];
     data.visitors = allVisitors;
 
-    data.time_form = "12:00"
-    data.time_to = "12:00"
-    data.allow_multiple_entries = true
-    data.alert_security = true
-    data.pending_access = false
+    data.time_form = "12:00";
+    data.time_to = "12:00";
+    data.allow_multiple_entries = true;
+    data.alert_security = true;
+    data.pending_access = false;
 
-    console.log(data)
+    console.log(data);
 
-    createEventAccess(data).then(
-      res => {
-        setLoading(false)
-        setShowCodeGenerated(true)
-        console.log(res.data.results)
-        setAccessCode(res.data?.results?.code)
-      }).catch(err => {
-        setLoading(false)
-        console.log(err)
+    createEventAccess(data)
+      .then((res) => {
+        setLoading(false);
+        setShowCodeGenerated(true);
+        console.log(res.data.results);
+        setAccessCode(res.data?.results?.code);
       })
-  
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
   };
 
   const addVisitor = () => {
@@ -159,19 +159,19 @@ const MultipleAccess = () => {
           <div key={el.id} className="flex gap-6 w-full">
             <div className="w-full">
               <input
-               className="p-4 mt-2 mb-8 border rounded-md w-full"
+                className="p-4 mt-2 mb-8 border rounded-md w-full"
                 name="name"
                 placeholder="Enter visitor name"
-                onChange={(event)=>handleChange(idx, event)}
+                onChange={(event) => handleChange(idx, event)}
                 value={el.name}
               />
             </div>
             <div className="w-full">
               <input
-               className="p-4 mt-2 mb-8 border rounded-md w-full"
+                className="p-4 mt-2 mb-8 border rounded-md w-full"
                 name="phone_number"
                 placeholder="Enter Visitor phone number"
-                onChange={(event)=>handleChange(idx, event)}
+                onChange={(event) => handleChange(idx, event)}
                 value={el.phone_number}
               />
             </div>

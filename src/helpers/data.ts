@@ -2,6 +2,7 @@ type HeaderDataType = {
   id: number;
   title: string;
   link?: string;
+  children?: any;
 };
 
 type SidebarDataType = {
@@ -23,38 +24,6 @@ type ConfigurationDataType = {
   register?: any;
 };
 
-export const headerData: HeaderDataType[] = [
-  {
-    id: 1,
-    title: "Dashboard",
-    link: "/dashboard",
-  },
-  {
-    id: 2,
-    title: "Settings",
-    link: "/settings",
-  },
-  {
-    id: 3,
-    title: "Grant Access",
-    link: "/grant_access",
-  },
-  {
-    id: 4,
-    title: "Community",
-    link: "/community",
-  },
-  {
-    id: 5,
-    title: "Message Credits",
-    link: "/message_credits",
-  },
-  {
-    id: 6,
-    title: "Gates",
-    link: "/gates",
-  },
-];
 export const settingsHeaderData: HeaderDataType[] = [
   {
     id: 1,
@@ -80,33 +49,6 @@ export const settingsHeaderData: HeaderDataType[] = [
     id: 5,
     title: "Push Notifications",
     link: "push_notifications",
-  },
-];
-export const accessHeaderData: HeaderDataType[] = [
-  {
-    id: 1,
-    title: "One Time Access",
-    link: "one_time_access",
-  },
-  {
-    id: 2,
-    title: "Reccuring Access",
-    link: "recurring_access",
-  },
-  {
-    id: 3,
-    title: "Event Access",
-    link: "event_access",
-  },
-  {
-    id: 4,
-    title: "Multiple Access",
-    link: "multiple_access",
-  },
-  {
-    id: 5,
-    title: "Access History",
-    link: "access_history",
   },
 ];
 export const communityHeaderData: HeaderDataType[] = [
@@ -149,6 +91,69 @@ export const communityHeaderData: HeaderDataType[] = [
     id: 8,
     title: "Collect Payments",
     link: "collect_payments",
+  },
+];
+export const accessHeaderData: HeaderDataType[] = [
+  {
+    id: 1,
+    title: "One Time Access",
+    link: "one_time_access",
+  },
+  {
+    id: 2,
+    title: "Reccuring Access",
+    link: "recurring_access",
+  },
+  {
+    id: 3,
+    title: "Event Access",
+    link: "event_access",
+  },
+  {
+    id: 4,
+    title: "Multiple Access",
+    link: "multiple_access",
+  },
+  {
+    id: 5,
+    title: "Access History",
+    link: "access_history",
+  },
+];
+
+export const headerData: HeaderDataType[] = [
+  {
+    id: 1,
+    title: "Dashboard",
+    link: "/dashboard",
+  },
+  {
+    id: 2,
+    title: "Settings",
+    link: "/settings",
+    children: settingsHeaderData,
+  },
+  {
+    id: 3,
+    title: "Grant Access",
+    link: "/grant_access",
+    children: accessHeaderData,
+  },
+  {
+    id: 4,
+    title: "Community",
+    link: "/community",
+    children: communityHeaderData,
+  },
+  {
+    id: 5,
+    title: "Message Credits",
+    link: "/message_credits",
+  },
+  {
+    id: 6,
+    title: "Gates",
+    link: "/gates",
   },
 ];
 

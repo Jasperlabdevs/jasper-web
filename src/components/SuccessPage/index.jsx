@@ -11,7 +11,10 @@ const SuccessPage = ({ message }) => {
         <div className="w-80 h-fit mx-auto">
           <img src={success} alt="sucess" />
         </div>
-        <p dangerouslySetInnerHTML={{ __html: message }} className="text-center mt-16"></p>
+        <p
+          dangerouslySetInnerHTML={{ __html: message }}
+          className="text-center mt-16"
+        ></p>
         <Button
           title="Go to Dashboard"
           onClick={() => navigate("/dashboard")}

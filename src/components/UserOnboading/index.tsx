@@ -9,48 +9,49 @@ import { chooseOccupancyType } from "services/Occupancy";
 const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
   const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
   const stateCommunity = useSelector((state: any) => state.community);
-  const [ err, setErr ] = useState('')
+  const [err, setErr] = useState("");
   const [occupancyTypes, setOccupancyType] = useState(stateOccupancyType);
   const [community, setCommunity] = useState(stateCommunity);
   const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data: any) => {
-    setErr("")
+    setErr("");
     setLoading(true);
     const values = Object.values(data);
     const valueID = values.filter((el) => el !== false && el !== true);
 
-    const test = valueID.every( el => el === false)
+    const test = valueID.every((el) => el === false);
 
     let occupancy = {
       occupancy_type: valueID,
     };
 
-    if(test) {
-      setErr('Please Select at least One user Type')
-      setLoading(false)
-    }else{
-
-      await chooseOccupancyType(occupancy).then((res) => {
-        updateCommunity(data, community.id).then((res) => {
-          forward();
-        }).catch((error:any) => {
-          !!error.response?.data?.message ? setErr(error.response?.data?.message) : setErr('Something went wrong. Please check and Try again') 
-          setLoading(false)
-        }) 
-      }).catch((error:any) => {
-        !!error.response?.data?.message ? setErr(error.response?.data?.message) : setErr('Something went wrong. Please check and Try again') 
-        setLoading(false)
-      } )
+    if (test) {
+      setErr("Please Select at least One user Type");
+      setLoading(false);
+    } else {
+      await chooseOccupancyType(occupancy)
+        .then((res) => {
+          updateCommunity(data, community.id)
+            .then((res) => {
+              forward();
+            })
+            .catch((error: any) => {
+              !!error.response?.data?.message
+                ? setErr(error.response?.data?.message)
+                : setErr("Something went wrong. Please check and Try again");
+              setLoading(false);
+            });
+        })
+        .catch((error: any) => {
+          !!error.response?.data?.message
+            ? setErr(error.response?.data?.message)
+            : setErr("Something went wrong. Please check and Try again");
+          setLoading(false);
+        });
     }
-
-
-
   };
 
   useEffect(() => {
@@ -59,7 +60,6 @@ const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
   useEffect(() => {
     setOccupancyType(stateOccupancyType);
   }, [stateOccupancyType]);
-
 
   return (
     <div className="mt-14 ">

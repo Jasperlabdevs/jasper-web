@@ -29,16 +29,17 @@ const RecurringAccess = () => {
     data.access_type = "recurring";
     data.gates = [data.gates];
 
-    createEventAccess(data).then(
-      res => {
-        setLoading(false)
-        setShowCodeGenerated(true)
-        console.log(res.data.results)
-        setAccessCode(res.data?.results?.visitors[0]?.code)
-      }).catch(err => {
-        setLoading(false)
-        console.log(err)
+    createEventAccess(data)
+      .then((res) => {
+        setLoading(false);
+        setShowCodeGenerated(true);
+        console.log(res.data.results);
+        setAccessCode(res.data?.results?.visitors[0]?.code);
       })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
     console.log(data);
   };
 

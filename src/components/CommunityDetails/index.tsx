@@ -15,7 +15,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
     formState: { errors },
   } = useForm();
 
-  const [country, ] = useState("Nigeria");
+  const [country] = useState("Nigeria");
   const [stateProvince, setStateProvince] = useState<any>([]);
   const [err, setErr] = useState("");
   const location = useLocation();
@@ -54,8 +54,6 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
   return (
     <div className="mt-14 max-w-4xl">
       <h4>Community Account</h4>
-
-
 
       {location.pathname === "/settings/community_account" ? (
         <p className="text-grey_text mt-2">

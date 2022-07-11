@@ -10,7 +10,6 @@ const SubHeader = ({ headerData, head }: any) => {
   const location = useLocation();
 
   const link = head.replace(" ", "_").toLowerCase();
-  console.log(link);
 
   return (
     <div className="hidden lg:block">

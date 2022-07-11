@@ -1,4 +1,3 @@
-
 import Filter from "components/Filters";
 import SearchFilter from "components/SearchFilter";
 import { TableColumn, TableHeader } from "components/Table";
@@ -22,8 +21,12 @@ const AccessHistory = () => {
     });
   }, []);
 
-  const multipleAccessHistory =  communityHistory.filter((el:any) => el.access_type === "multiple")
-  const allAccessHistory = communityHistory.filter((el:any) => el.access_type !== "multiple")
+  const multipleAccessHistory = communityHistory.filter(
+    (el: any) => el.access_type === "multiple"
+  );
+  const allAccessHistory = communityHistory.filter(
+    (el: any) => el.access_type !== "multiple"
+  );
 
   const tabs = [
     {
@@ -58,7 +61,7 @@ const AccessHistory = () => {
     "More",
   ];
 
-  const view = ({id}:any) => {
+  const view = ({ id }: any) => {
     navigate(`/grant_access/access_history/visitor_details/${id}`);
   };
   return (
@@ -94,11 +97,11 @@ const AccessHistory = () => {
           </thead>
           <tbody>
             {loading && "Loading..."}
-            { (!loading && allAccessHistory.length === 0) && "No Access History" }
+            {!loading && allAccessHistory.length === 0 && "No Access History"}
             {allAccessHistory?.map((data: any, index: number) => (
               <tr key={index} className="border-b capitalize border-[#C3C9DA]">
-                <TableColumn td={ data.visitors[0]?.name ||  "N/A"} />
-                <TableColumn td={data?.event_name || 'N/A'} />
+                <TableColumn td={data.visitors[0]?.name || "N/A"} />
+                <TableColumn td={data?.event_name || "N/A"} />
                 <TableColumn
                   td={data?.status}
                   type="status"
@@ -106,10 +109,16 @@ const AccessHistory = () => {
                 />
                 <TableColumn td={data?.access_type} />
                 <TableColumn td={data?.gate[0]?.name} />
-                <TableColumn td={data?.code || data.visitors[0]?.code || 'N/A' } />
-                <TableColumn td={data.visitors[0]?.phone_number || 'N/A'} />
+                <TableColumn
+                  td={data?.code || data.visitors[0]?.code || "N/A"}
+                />
+                <TableColumn td={data.visitors[0]?.phone_number || "N/A"} />
                 <TableColumn td={formatDateTime(data?.created)} />
-                <TableColumn td={SVGs.dots} list={['Reshare Code', 'Disable']} type="dropdown" />
+                <TableColumn
+                  td={SVGs.dots}
+                  list={["Reshare Code", "Disable"]}
+                  type="dropdown"
+                />
               </tr>
             ))}
           </tbody>
@@ -123,9 +132,14 @@ const AccessHistory = () => {
               <TableHeader headers={headersMultiple} />
             </thead>
             <tbody>
-            { (!loading && multipleAccessHistory.length === 0) && "No Multiple Access History" }
-              {multipleAccessHistory?.map((data:any, index:number) => (
-                <tr key={index} className="border-b capitalize py-2 border-[#C3C9DA]">
+              {!loading &&
+                multipleAccessHistory.length === 0 &&
+                "No Multiple Access History"}
+              {multipleAccessHistory?.map((data: any, index: number) => (
+                <tr
+                  key={index}
+                  className="border-b capitalize py-2 border-[#C3C9DA]"
+                >
                   <TableColumn td={data.event_name} />
                   <TableColumn td={data.visitor_type} />
                   <TableColumn td={data.gate[0]?.name} />
@@ -133,7 +147,12 @@ const AccessHistory = () => {
                   <TableColumn td={formatDate(data?.created)} />
                   <TableColumn td={formatDate(data?.valid_from)} />
                   <TableColumn td={formatDate(data?.valid_to)} />
-                  <TableColumn td="View" buttonType="tertiary" type="button" onClick={()=>view(data.id)} />
+                  <TableColumn
+                    td="View"
+                    buttonType="tertiary"
+                    type="button"
+                    onClick={() => view(data.id)}
+                  />
                 </tr>
               ))}
             </tbody>
