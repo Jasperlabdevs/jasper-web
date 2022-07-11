@@ -43,4 +43,9 @@ export const verifyGate = (data: any) => {
   return axios.post(URL.verifyGate, { ...data });
 };
 
+export const denestGate = (data:any) => {
+  let config = configuration()
+  return axios.post(URL.denestGate, { ...data }, config)
+}
+
 export const gateLogin = (data: any) => axios.post(URL.toggleGate, { ...data });

@@ -6,28 +6,38 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { sideBar, setSidebar } = useContext(SideBarContext)
-  const [ activeTab, setActiveTab ] = useState<number | null>(null)
+  const { sideBar, setSidebar } = useContext(SideBarContext);
+  const [activeTab, setActiveTab] = useState<number | null>(null);
 
-  const handleClick = (id:number) => {
-    setActiveTab(id)
-  }
+  const handleClick = (id: number) => {
+    setActiveTab(id);
 
-  const goTo = (link:string) => {
-    navigate(link)
-    setSidebar(false)
-  }
+  };
+
+  const goTo = (link: string) => {
+    navigate(link);
+    setSidebar(false);
+  };
 
   return (
-    <div className={`bg-[#ffffff] z-10  absolute  h-screen  py-8 ${!!sideBar ? 'w-screen left-0' : 'w-0 -left-80' } `}>
+    <div
+      className={`bg-[#ffffff] z-10  absolute  h-screen  py-8 ${
+        !!sideBar ? "w-screen left-0" : "w-0 -left-80"
+      } `}
+    >
       <ul>
         {headerData.map((data: any, index: number) => (
           <li
             key={data.id + 100}
             className="cursor-pointer px-10  my-2 border-b py-4"
-            onClick={()=>handleClick(data.id)}
+            onClick={() => {
+              handleClick(data.id)
+              if(!data.children){
+                goTo(data.link)
+              }
+            }}
           >
             <div className="flex justify-between">
               <span
@@ -43,10 +53,12 @@ const Sidebar = () => {
                 {data.title}
               </span>
               {!!data.children && (
-                <span className="mt-3 ">{ data.id === activeTab ? SVGs.arrow_up : SVGs.arrow_down }</span>
+                <span className="mt-3 ">
+                  {data.id === activeTab ? SVGs.arrow_up : SVGs.arrow_down}
+                </span>
               )}
             </div>
-            {!!data.children && activeTab === data.id &&  (
+            {!!data.children && activeTab === data.id && (
               <ul className="ml-6">
                 {data.children.map((el: any) => (
                   <li
@@ -55,7 +67,7 @@ const Sidebar = () => {
                       "border-b-2 border-primary"
                     } `}
                     key={el.id}
-                    onClick={()=>goTo(data.link + "/" + el.link)}
+                    onClick={() => goTo(data.link + "/" + el.link)}
                   >
                     {el.title}
                   </li>

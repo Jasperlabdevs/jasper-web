@@ -29,7 +29,7 @@ const Gates = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const [gates, setGates] = useState(stateGates);
+  const [gates, setGates] = useState([]);
   const [showGate, setShowGate] = useState(false);
   const [edit, setEdit] = useState(true);
   const [editID, setEditID] = useState("");
@@ -40,6 +40,17 @@ const Gates = () => {
     const data = { gate_id: id };
     dispatchStore(toggle_gate(data));
   };
+
+  useEffect(()=>{
+    if(stateGates.length > 1){
+      setLoading(false)
+    }
+  },[])
+
+  useEffect(()=> {
+    const filtered = stateGates.filter((el:any) => el.gate !== null)
+    setGates(filtered)
+  },[stateGates])
 
   const expand = (id: any) => {
     if (id === activeExpand) {
@@ -73,9 +84,7 @@ const Gates = () => {
     }
   }, []);
 
-  useEffect(() => {
-    setGates(stateGates);
-  }, [stateGates]);
+
 
   const [showURL, setShowURl] = useState(false);
 

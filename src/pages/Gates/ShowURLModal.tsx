@@ -10,7 +10,7 @@ const ShowURLModal = ({ showURL, setShowURl, stateCommunityID }: any) => {
         <hr className="my-6 absolute w-full left-0" />
 
         <div className="mt-20 border rounded-md p-10">
-          <a className="text-primary p-5" href="/" target="_blank">
+          <a className="text-primary p-5" href={`https://jasper-web.herokuapp.com/gate_auth/${stateCommunityID}`} target="_blank" rel="noreferrer">
             https://jasper-web.herokuapp.com/gate_auth/{stateCommunityID}
           </a>
         </div>

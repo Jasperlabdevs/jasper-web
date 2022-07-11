@@ -23,7 +23,7 @@ const URL = {
   community: baseUrl + "community/",
   gate: baseUrl + "gate/",
   communityGate: baseUrl + "community_gates/",
-
+  denestGate: baseUrl + "gate/remove_nested_gate/",
   toggleGate: baseUrl + "gate/change_active_state/",
   loginGate: baseUrl + "gate/login/",
 

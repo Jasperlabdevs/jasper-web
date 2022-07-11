@@ -7,21 +7,24 @@ import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const location = useLocation();
-  const { sideBar, setSidebar } = useContext(SideBarContext)
+  const { sideBar, setSidebar } = useContext(SideBarContext);
 
   const toggleSideBar = () => {
-    if(sideBar){
-      setSidebar(false)
-    }else{
-      setSidebar(true)
+    if (sideBar) {
+      setSidebar(false);
+    } else {
+      setSidebar(true);
     }
-  }
+  };
 
   return (
     <>
       <div className="py-3 px-10 flex items-center justify-between border-b border-[#F3F4F4]">
         <div className="flex items-center gap-4">
-          <span onClick={toggleSideBar} className="lg:hidden inline-flex cursor-pointer ">
+          <span
+            onClick={toggleSideBar}
+            className="lg:hidden inline-flex cursor-pointer "
+          >
             {SVGs.hamburger}
           </span>
           <h5 className="font-sans-display text-primary">Jasper</h5>
