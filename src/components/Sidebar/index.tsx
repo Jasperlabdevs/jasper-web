@@ -43,7 +43,7 @@ const Sidebar = () => {
                 {data.title}
               </span>
               {!!data.children && (
-                <span className="mt-3 ">{ data.id === activeTab ? SVGs.arrow_down : SVGs.arrow_right }</span>
+                <span className="mt-3 ">{ data.id === activeTab ? SVGs.arrow_up : SVGs.arrow_down }</span>
               )}
             </div>
             {!!data.children && activeTab === data.id &&  (
