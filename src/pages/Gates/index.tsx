@@ -31,7 +31,7 @@ const Gates = () => {
 
   const [gates, setGates] = useState([]);
   const [showGate, setShowGate] = useState(false);
-  const [edit, setEdit] = useState(true);
+  const [edit, setEdit] = useState(false);
   const [editID, setEditID] = useState("");
 
   const [activeExpand, setActiveExpand] = useState(null);
@@ -48,8 +48,8 @@ const Gates = () => {
   },[])
 
   useEffect(()=> {
-    const filtered = stateGates.filter((el:any) => el.gate !== null)
-    setGates(filtered)
+    // const filtered = stateGates.filter((el:any) => el.gate !== null)
+    setGates(stateGates)
   },[stateGates])
 
   const expand = (id: any) => {
