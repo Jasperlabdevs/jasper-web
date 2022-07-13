@@ -33,8 +33,9 @@ const Gates = () => {
   const [showGate, setShowGate] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editID, setEditID] = useState("");
-
+  const [ notNested, setNotNested ] = useState([])
   const [activeExpand, setActiveExpand] = useState(null);
+
 
   const toggle = (id: any) => {
     const data = { gate_id: id };
@@ -48,7 +49,11 @@ const Gates = () => {
   },[])
 
   useEffect(()=> {
-    // const filtered = stateGates.filter((el:any) => el.gate !== null)
+    
+    const nested = stateGates.map((el:any) => el.gate)
+    
+    const notNested = stateGates.filter( (el1:any) => nested.find((el2:any) => el2?.id !== el1?.id ) )
+    setNotNested(notNested)
     setGates(stateGates)
   },[stateGates])
 
@@ -149,7 +154,7 @@ const Gates = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {gates?.map((data: any, index: number) => (
+            {notNested?.map((data: any, index: number) => (
               <>
                 <tr key={index} className="border-b border-[#C3C9DA]">
                   <TableColumn
