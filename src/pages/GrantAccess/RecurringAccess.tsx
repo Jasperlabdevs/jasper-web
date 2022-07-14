@@ -1,6 +1,7 @@
 import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
 import Input, { Select, DateInput, PhoneInput } from "components/Input";
+import TextCodeModal from "components/TextCodeModal";
 import SVGs from "helpers/SVGs";
 import { formatDate } from "helpers/utils";
 import { useState } from "react";
@@ -19,7 +20,7 @@ const RecurringAccess = () => {
   const [loading, setLoading] = useState(false);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
-
+  const [ showTextCode, setShowTextCode ] = useState(false)
   const stateGates = useSelector((state: any) => state.gates);
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
@@ -50,6 +51,12 @@ const RecurringAccess = () => {
         setShowCodeGenerated={setShowCodeGenerated}
         register={register}
         accessCode={accessCode}
+      />
+
+<TextCodeModal
+        showTextCode= {showTextCode}
+        accessCode = {accessCode}
+        setShowTextCode={setShowTextCode}
       />
 
       <h4>Recurring Access</h4>
@@ -149,7 +156,7 @@ const RecurringAccess = () => {
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">
-            <Button title="Test Code" type="button" />
+            <Button title="Test Code" type="button" onClick={()=>setShowTextCode(!showTextCode)} />
           </div>
 
           <Button title="Generate Code" loading={loading} type="submit" other />

@@ -1,6 +1,7 @@
 import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
 import Input, { PhoneInput, Select } from "components/Input";
+import TextCodeModal from "components/TextCodeModal";
 import SVGs from "helpers/SVGs";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -19,6 +20,7 @@ const OneTimeAccess = () => {
   const [loading, setLoading] = useState(false);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
+  const [ showTextCode, setShowTextCode ] = useState(false)
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -48,6 +50,13 @@ const OneTimeAccess = () => {
         accessCode={accessCode}
       />
 
+
+      <TextCodeModal
+        showTextCode= {showTextCode}
+        accessCode = {accessCode}
+        setShowTextCode={setShowTextCode}
+      />
+
       <h3>One-Time Access</h3>
 
       <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +64,7 @@ const OneTimeAccess = () => {
           name="visitor_name"
           label="Visitor's name"
           placeholder="Enter full name of the person you are granting access to"
-          options={{ required: true }}
+          options={{ require: true }}
           register={register}
           error={errors.visitor_name && "Please enter a visitor's name"}
         />
@@ -67,7 +76,7 @@ const OneTimeAccess = () => {
           register={register}
           error={errors.last_name && "Please enter a correct phone number"}
           options={{
-            required: true,
+            require: true,
             minLength: 6,
             maxLenght: 11,
             pattern: "/^(0?)([7|8|9]{1})[0-9]{9}$/",
@@ -76,7 +85,7 @@ const OneTimeAccess = () => {
         <Select
           name="gates"
           register={register}
-          options={{ required: true }}
+          options={{ require: true }}
           placeholder="Select the Gate you want to give access to"
           label="Gate"
           error={errors.gates && "Please select a gate."}
@@ -86,7 +95,7 @@ const OneTimeAccess = () => {
           name="location"
           label="Location"
           placeholder="Enter location you are granting access to"
-          options={{ required: true }}
+          options={{ require: true }}
           error={errors.location && "Please enter a location"}
           register={register}
         />
@@ -104,7 +113,7 @@ const OneTimeAccess = () => {
               name="license_plate"
               placeholder="Enter license plate to be confirmed"
               label="License Plate"
-              options={showMore && { required: true }}
+              options={showMore && { require: true }}
               register={register}
               error={
                 errors.license_plate && "Please enter a license plate number"
@@ -114,7 +123,7 @@ const OneTimeAccess = () => {
               name="security_password"
               label="Security Password"
               placeholder="Enter a password to be confirmed at the gate"
-              options={showMore && { required: true }}
+              options={showMore && { require: true }}
               register={register}
               type="password"
               error={
@@ -125,7 +134,7 @@ const OneTimeAccess = () => {
               name="visitor_id_card_name"
               label="Visitor's ID Card"
               placeholder="Enter the name on Visitor's ID card"
-              options={showMore && { required: true }}
+              options={showMore && { require: true }}
               register={register}
             />
           </>
@@ -133,7 +142,7 @@ const OneTimeAccess = () => {
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">
-            <Button title="Test Code" type="button" />
+            <Button title="Test Code" type="button" onClick={()=>setShowTextCode(!showTextCode)}  />
           </div>
 
           <Button title="Generate Code" loading={loading} type="submit" other />

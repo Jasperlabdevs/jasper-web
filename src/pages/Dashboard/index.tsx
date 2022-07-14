@@ -37,9 +37,11 @@ const Dashboard = () => {
   useEffect(() => {
 
     const community = stateUser.community
-    dispatchStore(add_community(community));
-    if (Object.keys(community).length === 0) {
+
+    if (community === null) {
       setShowModal(true);
+    }else{
+      dispatchStore(add_community(community));
     }
   }, [stateUser]);
 

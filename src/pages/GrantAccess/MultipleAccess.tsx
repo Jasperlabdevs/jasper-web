@@ -1,5 +1,7 @@
+import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
 import Input, { Select, DateInput } from "components/Input";
+import TextCodeModal from "components/TextCodeModal";
 import SVGs from "helpers/SVGs";
 import { formatDate } from "helpers/utils";
 import { useState } from "react";
@@ -23,6 +25,8 @@ const MultipleAccess = () => {
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [ showTextCode, setShowTextCode ] = useState(false)
 
   const handleChange = (index: any, event: any) => {
     console.log(index);
@@ -78,6 +82,20 @@ const MultipleAccess = () => {
 
   return (
     <div className="mt-10 max-w-4xl">
+
+    <AccessCodeModal
+        showCodeGenerated={showCodeGenerated}
+        setShowCodeGenerated={setShowCodeGenerated}
+        register={register}
+        accessCode={accessCode}
+      />
+
+
+      <TextCodeModal
+        showTextCode= {showTextCode}
+        accessCode = {accessCode}
+        setShowTextCode={setShowTextCode}
+      />
       <h4>Multiple Access</h4>
       <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -193,10 +211,10 @@ const MultipleAccess = () => {
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">
-            <Button title="Test Code" type="button" />
+            <Button title="Test Code" type="button" onClick={()=>setShowTextCode(!showTextCode)}  />
           </div>
 
-          <Button title="Generate Code" type="submit" other />
+          <Button title="Generate Code" loading={loading} type="submit" other />
           <Button title="Cancel" type="button" secondary />
         </div>
       </form>
