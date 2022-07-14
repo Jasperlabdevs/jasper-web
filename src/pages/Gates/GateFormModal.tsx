@@ -15,6 +15,15 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
 
   let active = gates.filter((el: any) => el.id === editID);
 
+  let newGates = []
+
+  if(edit){
+    newGates = gates.filter((el:any) => el.id !== editID )
+  } else{
+    newGates = gates
+  }
+
+
   const onSubmit = (data: any) => {
     console.log(data);
 
@@ -63,7 +72,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
             value={active[0]?.nest_gate_id || ""}
             placeholder={gates.length === 0 ? "No Gate created" : "Select gate"}
             register={register}
-            list={gates}
+            list={newGates}
           />
 
           <div className="w-fit float-right mb-8">

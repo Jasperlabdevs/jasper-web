@@ -32,13 +32,16 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const stateUser = useSelector((state: any) => state.user);
-  // const stateCommunity = useSelector((state: any) => state.community);
+  const stateCommunity = useSelector((state: any) => state.community);
 
   useEffect(() => {
 
-    const community = stateUser.community
+    console.log('user',stateUser.community)
+    console.log('state',stateCommunity)
 
-    if (community === null) {
+    const community = stateUser.community || stateCommunity
+
+    if (community === null || Object.keys(community).length === 0 ) {
       setShowModal(true);
     }else{
       dispatchStore(add_community(community));

@@ -140,14 +140,15 @@ export const Select = (
       className={`bg-[transparent] relative p-4 text-text-icon_background mt-2 rounded-md w-full ${
         noborder ? "border-none my-0" : "border"
       } `}
-      defaultValue={value}
       name={name}
     >
-      <option hidden value="">
-        {placeholder}
-      </option>
+      { !value &&
+        <option hidden value="">
+          {placeholder}
+        </option>
+      }
       {list.map((data: any) => (
-        <option key={data.id || data} value={data.id || data}>
+        <option key={data.id || data} selected={(data.id === value || data === value) ? true : false} value={data.id || data}>
           {data.name || data}
         </option>
       ))}
