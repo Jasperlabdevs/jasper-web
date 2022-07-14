@@ -47,7 +47,7 @@ const Gates = () => {
     setUpdate(!update)
   };
 
-  console.log(notNested)
+  // console.log(notNested)
 
   useEffect(()=>{
     if(stateGates.length > 1){
@@ -162,7 +162,7 @@ const Gates = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {notNested?.map((data: any, index: number) => (
+            {gates?.map((data: any, index: number) => (
               <>
                 <tr key={index} className="border-b border-[#C3C9DA]">
                   <TableColumn
