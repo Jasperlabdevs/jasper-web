@@ -21,6 +21,7 @@ import users from "assets/images/users.png";
 import { useSelector } from "react-redux";
 import { store } from "store";
 import { Helmet } from "react-helmet";
+import { add_community } from "store/actions/community";
 
 export const dispatchStore = store.dispatch as
   | typeof store.dispatch
@@ -36,7 +37,7 @@ const Dashboard = () => {
   useEffect(() => {
 
     const community = stateUser.community
-
+    dispatchStore(add_community(community));
     if (Object.keys(community).length === 0) {
       setShowModal(true);
     }
