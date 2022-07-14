@@ -5,7 +5,7 @@ import img from "assets/images/gate.png";
 import { TableColumn, TableHeader } from "components/Table";
 import { useEffect, useState } from "react";
 import { dispatchStore } from "helpers/utils";
-import { edit_gate, get_gate, toggle_gate } from "store/actions/gates";
+import { denest_gate, edit_gate, get_gate, toggle_gate } from "store/actions/gates";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import GateFormModal from "./GateFormModal";
@@ -83,10 +83,9 @@ const Gates = () => {
     setShowGate(false);
   };
 
-  const denest = (data: any) => {
-    data.gate = {};
-    data.gate_id = data.id;
-    dispatchStore(edit_gate(data));
+  const denest = (id: any) => {
+    const data = { gate_id : id }
+    dispatchStore(denest_gate(data));
   };
 
   useEffect(() => {
@@ -162,7 +161,7 @@ const Gates = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {notNested?.map((data: any, index: number) => (
+            {gates?.map((data: any, index: number) => (
               <>
                 <tr key={index} className="border-b border-[#C3C9DA]">
                   <TableColumn
@@ -200,7 +199,7 @@ const Gates = () => {
                     />
                   )}
                 </tr>
-                {activeExpand === data.id && (
+                {activeExpand === data.id && data.gate && (
                   <tr className="bg-faded border-b border-[#C3C9DA]">
                     <TableColumn td={data.gate?.name} />
                     <TableColumn td={data.gate?.pin} />
@@ -230,7 +229,7 @@ const Gates = () => {
                       td="Denest"
                       type="button"
                       buttonType="smallSecondary-red"
-                      onClick={() => denest(data)}
+                      onClick={() => denest(data.id)}
                     />
                   </tr>
                 )}
