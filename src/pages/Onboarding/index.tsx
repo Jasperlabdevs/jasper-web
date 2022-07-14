@@ -51,7 +51,7 @@ const Onboarding = () => {
   }, [stateCommunity, activeStep]);
 
   return (
-    <div className="py-4 px-10 lg:p-0 relative">
+    <div className="p-0 relative">
       <Helmet>
         <title>Complete Onboarding | Jasper</title>
         <meta name="description" content="Onboard your community with Jasper" />
@@ -87,7 +87,7 @@ const Onboarding = () => {
         ))}
       </div>
 
-      <div className="flex w-auto">
+      <div className="flex w-auto px-10 py-4">
         <div className="min-w-[350px] hidden lg:block fixed">
           <aside className="border-r min-h-screen py-10 px-14">
             <h4 className="text-primary font-sans-display">Jasper</h4>
