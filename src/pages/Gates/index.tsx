@@ -47,6 +47,8 @@ const Gates = () => {
     setUpdate(!update)
   };
 
+  console.log(notNested)
+
   useEffect(()=>{
     if(stateGates.length > 1){
       setLoading(false)
