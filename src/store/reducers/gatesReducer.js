@@ -12,7 +12,7 @@ const gatesReducer = (state = [], action) => {
     case ADD_GATE_SUCCESS:
       return [...state, payload];
     case GET_GATE_SUCCESS:
-      return [...state, ...payload];
+      return [ ...payload];
     case EDIT_GATE_SUCCESS:
       let id = payload.id;
       const tempState = [...state];

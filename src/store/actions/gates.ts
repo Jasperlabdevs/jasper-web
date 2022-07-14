@@ -1,4 +1,4 @@
-import { addGate, editGate, getGate, toggleGate } from "services/gates";
+import { addGate, denestGate, editGate, getGate, toggleGate } from "services/gates";
 import {
   ADD_GATE_FAILURE,
   ADD_GATE_SUCCESS,
@@ -55,6 +55,22 @@ export const edit_gate = (data: any) => async (dispatch: any) => {
       })
   );
 };
+export const denest_gate = (data: any) => async (dispatch: any) => {
+  return await denestGate(data).then(
+    (res) =>
+      dispatch({
+        type: EDIT_GATE_SUCCESS,
+        payload: res.data.results,
+      }),
+    (error) =>
+      dispatch({
+        type: EDIT_GATE_FAILURE,
+        payload: error.data,
+      })
+  );
+};
+
+
 export const toggle_gate = (data: any) => async (dispatch: any) => {
   return await toggleGate(data).then(
     (res) =>

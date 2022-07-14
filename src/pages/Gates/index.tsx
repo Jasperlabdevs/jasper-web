@@ -33,13 +33,18 @@ const Gates = () => {
   const [showGate, setShowGate] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editID, setEditID] = useState("");
-  const [ notNested, setNotNested ] = useState([])
+  // const [ notNested, setNotNested ] = useState([])
   const [activeExpand, setActiveExpand] = useState(null);
 
+  const [ update, setUpdate] = useState(false)
+
+  const nested = stateGates.map((el:any) => el.gate)
+  const notNested = stateGates.filter( (el1:any) => nested.find((el2:any) => el2?.id !== el1?.id ) )
 
   const toggle = (id: any) => {
     const data = { gate_id: id };
     dispatchStore(toggle_gate(data));
+    setUpdate(!update)
   };
 
   useEffect(()=>{
@@ -50,11 +55,10 @@ const Gates = () => {
 
   useEffect(()=> {
     
-    const nested = stateGates.map((el:any) => el.gate)
-    
-    const notNested = stateGates.filter( (el1:any) => nested.find((el2:any) => el2?.id !== el1?.id ) )
-    setNotNested(notNested)
+
+    // setNotNested(notNested)
     setGates(stateGates)
+    console.log(stateGates)
   },[stateGates])
 
   const expand = (id: any) => {
@@ -84,10 +88,12 @@ const Gates = () => {
   };
 
   useEffect(() => {
-    if (stateGates.length === 0) {
-      dispatchStore(get_gate(stateCommunity.id, setLoading));
-    }
-  }, []);
+      if(edit === false){
+        dispatchStore(get_gate(stateCommunity.id, setLoading));
+
+      }
+    
+  }, [edit, update]);
 
 
 
@@ -215,7 +221,7 @@ const Gates = () => {
                       buttonType={
                         data?.gate?.is_active ? "red" : "smallPrimary"
                       }
-                      onClick={() => toggle(data.id)}
+                      onClick={() => toggle(data?.gate?.id)}
                     />
 
                     <TableColumn

@@ -39,7 +39,7 @@ const Button = ({
             ${secondary && " text-black "}
             ${
               smallPrimary &&
-              "bg-primary text-[#ffffff] text-xs p-2 py-3 md:px-8 w-fit mt-0"
+              "bg-primary text-[#ffffff] p-3 md:px-8 w-fit mt-0"
             } 
             ${
               smallSecondary &&
