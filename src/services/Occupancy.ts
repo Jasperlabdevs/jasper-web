@@ -14,3 +14,9 @@ export const chooseOccupancyType = (data: any) => {
   let config = configuration();
   return axios.post(URL.chooseOccupancyType, { ...data }, config);
 };
+
+
+export const getSelectedOccupancyTypes = () => {
+  let config = configuration()
+  return axios.get(URL.getOccupancyType, config)
+}

@@ -4,16 +4,28 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { updateCommunity } from "services/community";
+import { getOccupancyTypes } from "services/helperServices";
 import { chooseOccupancyType } from "services/Occupancy";
 
 const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
   const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
   const stateCommunity = useSelector((state: any) => state.community);
   const [err, setErr] = useState("");
-  const [occupancyTypes, setOccupancyType] = useState(stateOccupancyType);
+  const [occupancyTypes, setOccupancyType] = useState([]);
   const [community, setCommunity] = useState(stateCommunity);
   const [loading, setLoading] = useState(false);
 
+
+  useEffect(()=>{
+    getOccupancyTypes().then(
+      res => {
+        setOccupancyType(res.data?.results)
+      }
+    , (err:any) => {
+      console.log(err)
+    })
+
+  },[])
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data: any) => {

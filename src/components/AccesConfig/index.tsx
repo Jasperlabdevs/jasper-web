@@ -1,10 +1,12 @@
 import Configuration from "../Configuration";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { configurationData, TableContent } from "helpers/data";
 import { useForm } from "react-hook-form";
 import Button from "components/Button";
 import { setAccessRules } from "services/access";
 import { Select } from "components/Input";
+import { dispatchStore } from "helpers/utils";
+import { get_selected_occupancy_type } from "store/actions/occupancyTypes";
 
 const AccessConfig = ({
   forwardButton,
@@ -14,7 +16,6 @@ const AccessConfig = ({
 }: any) => {
   const {
     register,
-    formState: { errors },
     handleSubmit,
   } = useForm();
   const [loading, setLoading] = useState(false);
@@ -23,6 +24,11 @@ const AccessConfig = ({
     { id: "required", name: "Required" },
     { id: "not required", name: "Not Required" },
   ];
+
+  useEffect(()=> {
+    dispatchStore(get_selected_occupancy_type());
+  },[])
+
 
   const onSubmit = (data: any) => {
     setLoading(true);

@@ -7,8 +7,6 @@ import AccessConfig from "components/AccesConfig";
 import { useNavigate } from "react-router-dom";
 import SuccessPage from "components/SuccessPage";
 import { Helmet } from "react-helmet";
-import { dispatchStore } from "helpers/utils";
-import { get_occupancy_types } from "store/actions/occupancyTypes";
 import { useSelector } from "react-redux";
 
 const Onboarding = () => {
@@ -20,11 +18,12 @@ const Onboarding = () => {
 
   const [pin, setPin] = useState("");
 
-  const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
+
+  // const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
   const stateCommunity = useSelector((state: any) => state.community);
-  if (stateOccupancyType.length === 0) {
-    dispatchStore(get_occupancy_types());
-  }
+  // if (stateOccupancyType.length === 0) {
+  //   dispatchStore(get_occupancy_types());
+  // }
 
   const navigate = useNavigate();
 
@@ -135,20 +134,20 @@ const Onboarding = () => {
           </aside>
         </div>
         <div className="lg:mx-20 min-w-5xl lg:pl-[350px]">
-          {activeStep === 1 && (
+          {activeStep === 2 && (
             <CommunityDetails
               forwardButton={forward}
               forward={() => goForward(activeStep, setActiveStep, navigate)}
             />
           )}
-          {activeStep === 2 && (
+          {activeStep === 3 && (
             <UserOnboarding
               forwardButton={forward}
               forward={() => goForward(activeStep, setActiveStep, navigate)}
               backward={() => goBack(activeStep, setActiveStep)}
             />
           )}
-          {activeStep === 3 && (
+          {activeStep === 1 && (
             <AccessConfig
               forwardButton={forward}
               forward={() => goForward(activeStep, setActiveStep, navigate)}

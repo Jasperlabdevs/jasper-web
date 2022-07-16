@@ -8,6 +8,7 @@ const URL = {
   occuoantTypes: baseUrl + "community/occupancy_type/",
 
   chooseOccupancyType: baseUrl + "community/choose_occupancy_type/",
+  getOccupancyType: baseUrl + "community/community_occupancy_type/",
 
   validateEmail: baseUrl + "validate_email/",
   resetPassword: baseUrl + "reset_password/",

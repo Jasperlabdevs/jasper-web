@@ -1,5 +1,6 @@
 import "./style.css";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 type ConfigurationProp = {
   title: string;
@@ -18,7 +19,9 @@ const Configuration = ({
   name,
   value,
 }: ConfigurationProp) => {
+
   const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
+  console.log(stateOccupancyType)
 
   return (
     <div className="config my-10 max-w-5xl ">
