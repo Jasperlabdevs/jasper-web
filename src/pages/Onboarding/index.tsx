@@ -134,20 +134,20 @@ const Onboarding = () => {
           </aside>
         </div>
         <div className="lg:mx-20 min-w-5xl lg:pl-[350px]">
-          {activeStep === 2 && (
+          {activeStep === 1 && (
             <CommunityDetails
               forwardButton={forward}
               forward={() => goForward(activeStep, setActiveStep, navigate)}
             />
           )}
-          {activeStep === 3 && (
+          {activeStep === 2 && (
             <UserOnboarding
               forwardButton={forward}
               forward={() => goForward(activeStep, setActiveStep, navigate)}
               backward={() => goBack(activeStep, setActiveStep)}
             />
           )}
-          {activeStep === 1 && (
+          {activeStep === 3 && (
             <AccessConfig
               forwardButton={forward}
               forward={() => goForward(activeStep, setActiveStep, navigate)}

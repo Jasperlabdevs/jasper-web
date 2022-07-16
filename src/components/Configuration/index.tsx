@@ -1,6 +1,5 @@
 import "./style.css";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 
 type ConfigurationProp = {
   title: string;
