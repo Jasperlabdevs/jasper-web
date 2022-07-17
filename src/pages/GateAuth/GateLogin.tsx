@@ -37,9 +37,12 @@ const GateLogin = () => {
   };
 
   let { community_id } = useParams();
-  let { token } = useParams();
+  const { token } = useParams();
 
-  setToken(token)
+  useEffect(()=>{
+    setToken(token || '')
+  }, [token])
+
 
   const stateGates = useSelector((state: any) => state.gates);
 
