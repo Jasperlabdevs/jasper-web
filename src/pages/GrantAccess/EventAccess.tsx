@@ -12,6 +12,7 @@ const EventAccess = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
@@ -21,6 +22,19 @@ const EventAccess = () => {
 
   const todayDate = formatDate(today.toISOString(), "-");
   const [loading, setLoading] = useState(false);
+
+  const resetFields = () => {
+    reset(
+      {
+        event_name: "",
+        number_of_visitors: "",
+        gates: "",
+        location: "",
+        event_date: "",
+      }
+    );
+
+  }
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -33,6 +47,7 @@ const EventAccess = () => {
         setShowCodeGenerated(true);
         console.log(res.data.results);
         setAccessCode(res.data?.results?.code);
+        resetFields()
       })
       .catch((err) => {
         setLoading(false);
@@ -89,8 +104,9 @@ const EventAccess = () => {
           type="number"
           options={{
             required: true,
+            min: 1
           }}
-          error={errors.event_name && "Please enter the number of visitors"}
+          error={errors.number_of_visitors && "Please enter the number of visitors"}
           register={register}
         />
 
@@ -103,7 +119,7 @@ const EventAccess = () => {
           options={{
             required: true,
           }}
-          error={errors.event_name && "Please select a valid date"}
+          error={errors.event_date && "Please select a valid date"}
           register={register}
         />
 
@@ -113,7 +129,7 @@ const EventAccess = () => {
             <Button title="Generate Code" loading={loading} type="submit" />
           </div>
 
-          <Button title="Cancel" type="button" secondary />
+          <Button title="Cancel" type="button" onClick={resetFields} secondary />
         </div>
       </form>
     </div>

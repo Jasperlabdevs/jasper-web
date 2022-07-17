@@ -101,7 +101,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
             label=""
             list={stateProvince}
             register={register}
-            options={{ require: true }}
+            options={{ required: true }}
           />
           <Input
             placeholder="City"

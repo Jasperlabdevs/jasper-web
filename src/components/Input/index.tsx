@@ -55,6 +55,7 @@ const Input = ({
         defaultValue={value || ""}
         type={!visibility ? type : "text"}
         min={min}
+        step="1"
         {...register(name, { ...options })}
       />
       {type === "password" && (

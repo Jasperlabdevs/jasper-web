@@ -21,8 +21,8 @@ const OneTimeAccess = () => {
   const [loading, setLoading] = useState(false);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [ which, setWhich ] = useState('')
-  const [accessCode, setAccessCode] = useState("");
   const [ showTextCode, setShowTextCode ] = useState(false)
+  const [accessCode, setAccessCode] = useState("");
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -40,6 +40,7 @@ const OneTimeAccess = () => {
         }
         console.log(res.data.results);
         setAccessCode(res.data?.results?.visitors[0]?.code);
+        resetFields()
       })
       .catch((err) => {
         setLoading(false);
@@ -64,8 +65,14 @@ const OneTimeAccess = () => {
   }
 
   useEffect(()=> {
-
-  },[showMore, reset])
+    reset(
+      {
+        security_password: "",
+        license_plate: "",
+        visitor_id_card_name: ""
+      }
+    );
+  },[showMore])
 
   const triggerShowMore = () => {
     setShowMore(!showMore)
