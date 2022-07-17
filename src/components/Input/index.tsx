@@ -116,7 +116,7 @@ export const Select = (
     label = "",
     placeholder,
     list,
-    value = "",
+    value,
     noborder,
     error,
   }: SelectType,
@@ -141,14 +141,15 @@ export const Select = (
         noborder ? "border-none my-0" : "border"
       } `}
       name={name}
+      value={value || ""}
     >
-      { !value &&
+      { value === "" &&
         <option hidden value="">
           {placeholder}
         </option>
       }
       {list.map((data: any) => (
-        <option key={data.id || data} selected={(data.id === value || data === value) ? true : false} value={data.id || data}>
+        <option key={data.id || data} value={data.id || data}>
           {data.name || data}
         </option>
       ))}

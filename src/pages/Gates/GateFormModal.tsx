@@ -69,7 +69,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
           <Select
             name="nest_gate_id"
             label="Nest Gate"
-            value={active[0]?.nest_gate_id || ""}
+            value={active[0]?.gate?.id || ""}
             placeholder={gates.length === 0 ? "No Gate created" : "Select gate"}
             register={register}
             list={newGates}

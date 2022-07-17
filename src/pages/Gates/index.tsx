@@ -161,9 +161,9 @@ const Gates = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {stateGates?.map((data: any, index: number) => (
+            {stateGates?.map((data: any) => (
               <>
-                <tr key={index} className="border-b border-[#C3C9DA]">
+                <tr key={data?.id} className="border-b border-[#C3C9DA]">
                   <TableColumn
                     td={<span>{data?.name}</span>}
                     type="user"
