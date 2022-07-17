@@ -129,7 +129,7 @@ const MultipleAccess = () => {
           name="visitor_company"
           label="Visitor Company"
           placeholder="Enter visitor company name"
-          options={{ require: true }}
+          options={{ required: true }}
           error={errors.visitor_company && "Please enter visitor's company"}
           register={register}
         />

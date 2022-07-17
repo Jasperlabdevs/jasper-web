@@ -51,7 +51,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
             label="Gate Name"
             register={register}
             error={errors.name && "Please enter a gate name"}
-            options={{ require: true, minLenght: 1 }}
+            options={{ required: true, minLenght: 1 }}
           />
           <PhoneInput
             name="phone_number"
@@ -60,7 +60,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
             register={register}
             error={errors.phone_number && "Please enter a phone number"}
             options={{
-              require: true,
+              required: true,
               minLenght: 6,
               maxLenght: 11,
               pattern: "/^(0?)([7|8|9]{1})[0-9]{9}$/",
