@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 import Button from "components/Button";
 import Input, { Select } from "components/Input";
-import { dispatchStore } from "helpers/utils";
+import { dispatchStore, setToken } from "helpers/utils";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
@@ -37,6 +37,9 @@ const GateLogin = () => {
   };
 
   let { community_id } = useParams();
+  let { token } = useParams();
+
+  setToken(token)
 
   const stateGates = useSelector((state: any) => state.gates);
 

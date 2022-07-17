@@ -19,6 +19,9 @@ const gatesReducer = (state = [], action) => {
       const temp = tempState.filter((el) => el.id === id);
       const indxOf = tempState.indexOf(temp[0]);
       tempState.splice(indxOf, 1, payload);
+
+      
+
       return [...tempState];
     case TOGGLE_GATE_SUCCESS:
       let update_id = payload.id;
@@ -26,6 +29,8 @@ const gatesReducer = (state = [], action) => {
       const tempo = tempoState.filter((el) => el.id === update_id);
       const indxOfT = tempoState.indexOf(tempo[0]);
       tempoState.splice(indxOfT, 1, payload);
+
+      console.log(tempState)
       return [...tempoState];
     default:
       return state;

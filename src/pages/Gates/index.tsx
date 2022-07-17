@@ -89,12 +89,12 @@ const Gates = () => {
   };
 
   useEffect(() => {
-      if(edit === false){
-        dispatchStore(get_gate(stateCommunity.id, setLoading));
+    dispatchStore(get_gate(stateCommunity.id, setLoading));
+      // if(edit === false){
 
-      }
+      // }
     
-  }, [edit, update]);
+  }, []);
 
 
 
@@ -161,7 +161,7 @@ const Gates = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {gates?.map((data: any, index: number) => (
+            {stateGates?.map((data: any, index: number) => (
               <>
                 <tr key={index} className="border-b border-[#C3C9DA]">
                   <TableColumn
