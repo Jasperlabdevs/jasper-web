@@ -1,14 +1,16 @@
+import Button from "components/Button";
 import Sidebar from "components/Sidebar";
 import { SideBarContext } from "helpers/context";
 import { headerData } from "helpers/data";
 import SVGs from "helpers/SVGs";
 import { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import authentication from "services/authentication";
 
 const Header = () => {
   const location = useLocation();
   const { sideBar, setSidebar } = useContext(SideBarContext);
-
+  const navigate = useNavigate()
   const toggleSideBar = () => {
     if (sideBar) {
       setSidebar(false);
@@ -16,6 +18,11 @@ const Header = () => {
       setSidebar(true);
     }
   };
+
+
+  const logout = () => {
+    authentication.Logout(()=>navigate('/login'))
+  }
 
   return (
     <>
@@ -57,6 +64,7 @@ const Header = () => {
             88 Message Credits
           </p>
           {SVGs.bell}
+          <Button title='Logout' red onClick={logout} />
         </div>
       </div>
       <Sidebar />

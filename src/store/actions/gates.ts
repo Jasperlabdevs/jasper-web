@@ -11,7 +11,7 @@ import {
 } from "store/constants";
 
 export const get_gate = (id: any, setLoading: any) => async (dispatch: any) => {
-  return await getGate(id).then(
+  return await getGate().then(
     (res) => {
       dispatch({
         type: GET_GATE_SUCCESS,

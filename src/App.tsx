@@ -32,6 +32,7 @@ import NotFound from "components/NotFound";
 import ValidateEmail from "pages/Auth/validateEmail";
 import { Helmet } from "react-helmet";
 import { SideBarContext } from "helpers/context";
+import AuthGuard from "helpers/authGuard";
 
 function App() {
   const [sideBar, setSidebar] = useState<any>(false);
@@ -61,50 +62,140 @@ function App() {
                 element={<GateVerification />}
               />
             </Route>
-            <Route path="settings" element={<Settings />}>
-              <Route
-                index
-                element={<Navigate to="/settings/onboarding" replace />}
-              />
-              <Route path="onboarding" element={<UserOnboarding />} />
-              <Route path="access_rules" element={<AccessConfig />} />
-              <Route path="community_account" element={<CommunityDetails />} />
-              <Route path="admin_account" element={<Account />} />
-              <Route
-                path="push_notifications"
-                element={<PushNotifications />}
-              />
-            </Route>
-            <Route path="grant_access" element={<GrantAccess />}>
-              <Route
-                index
-                element={
+              
+          <Route path="settings" element={
+            <AuthGuard>
+              <Settings />
+            </AuthGuard>
+          }>
+            <Route
+              index
+              element={
+                <AuthGuard>
+                  <Navigate to="/settings/onboarding" replace />
+                </AuthGuard>
+              }
+            />
+            <Route path="onboarding" element={
+              <AuthGuard>
+                <UserOnboarding />
+              </AuthGuard>
+            } />
+            <Route path="access_rules" element={
+                <AuthGuard>
+                  <AccessConfig />
+                </AuthGuard>
+              } />
+            <Route path="community_account" element={
+              <AuthGuard>
+                <CommunityDetails />
+              </AuthGuard>
+              } />
+            <Route path="admin_account" element={
+              <AuthGuard>
+                <Account />
+              </AuthGuard>
+              } />
+            <Route
+              path="push_notifications"
+              element={
+                <AuthGuard>
+                  <PushNotifications />
+                </AuthGuard>
+            }
+            />
+          </Route>
+          <Route path="grant_access" element={
+            <AuthGuard>
+              <GrantAccess />
+            </AuthGuard>
+          }>
+            <Route
+              index
+              element={
+                <AuthGuard>
                   <Navigate to="/grant_access/one_time_access" replace />
-                }
-              />
-              <Route path="one_time_access" element={<OneTimeAccess />} />
-              <Route path="recurring_access" element={<RecurringAccess />} />
-              <Route path="event_access" element={<EventAccess />} />
-              <Route path="multiple_access" element={<MultipleAccess />} />
-              <Route path="access_history" element={<AccessHistory />}></Route>
-              <Route
-                path="access_history/visitor_details"
-                element={<VisitorDetails />}
-              />
-            </Route>
-            <Route path="community" element={<Community />}>
-              <Route index element={<Navigate to="members" replace />} />
-              <Route path="members" element={<Members />} />
-            </Route>
+                </AuthGuard>
+              }
+            />
+            <Route path="one_time_access" element={
+              <AuthGuard>
+                <OneTimeAccess />
+              </AuthGuard>
+              } />
+            <Route path="recurring_access" element={
+              <AuthGuard>
+                <RecurringAccess />
+              </AuthGuard>
+              } />
+            <Route path="event_access" element={
+              <AuthGuard>
+                <EventAccess />
+              </AuthGuard>
+            } />
+            <Route path="multiple_access" element={
+              <AuthGuard>
+                <MultipleAccess />
+              </AuthGuard>
+            } />
+            <Route path="access_history" element={
+              <AuthGuard>
+                <AccessHistory />
+              </AuthGuard>
+            }></Route>
+            <Route
+              path="access_history/visitor_details"
+              element={
+              <AuthGuard>
+                <VisitorDetails />
+              </AuthGuard>
+            }
+            />
+          </Route>
+          <Route path="community" element={
+            <AuthGuard>
+              <Community />
+            </AuthGuard>
+            }>
+            <Route index element={
+              <AuthGuard>
+                <Navigate to="members" replace />
+              </AuthGuard>
+              } />
+            <Route path="members" element={
+              <AuthGuard>
+                <Members />
+              </AuthGuard>
+            } />
+          </Route>
 
-            <Route path="test" element={<UserOnboarding />} />
-            <Route path="gates" element={<Gates />} />
+          <Route path="test" element={
+          <AuthGuard>
+            <UserOnboarding />
+          </AuthGuard>
+          } />
+          <Route path="gates" element={
+            <AuthGuard>
+              <Gates />
+            </AuthGuard>
+          } />
 
-            <Route path="onboarding" element={<Onboarding />} />
-            <Route path="dashboard" element={<Dashboard />}>
-              <Route path=":user" element={<Dashboard />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
+          <Route path="onboarding" element={
+            <AuthGuard>
+              <Onboarding />
+            </AuthGuard>
+          } />
+          <Route path="dashboard" element={
+            <AuthGuard>
+              <Dashboard />
+            </AuthGuard>
+            }>
+            <Route path=":user" element={<AuthGuard>
+              <Dashboard />
+            </AuthGuard>} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
           </Routes>
         </SideBarContext.Provider>
       </BrowserRouter>

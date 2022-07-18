@@ -1,12 +1,23 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import BG from "assets/images/bg-image.png";
 import { useDispatch } from "react-redux";
 import { get_community_types } from "store/actions/communityTypes";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
+import { getToken } from "helpers/utils";
 
 const Auth = () => {
   const location = useLocation();
+  const navigate = useNavigate()
+
+  const token  = getToken()
+
+  useEffect(()=> {
+    if(token.length > 0){
+       navigate('/dashboard')
+    }
+  },[token,navigate])
+
 
   const dispatch: any = useDispatch();
 

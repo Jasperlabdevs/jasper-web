@@ -1,5 +1,16 @@
 import axios from "axios";
+import { getToken } from "helpers/utils";
+import { useNavigate } from "react-router-dom";
 import URL from "./../helpers/URLs";
+
+const configuration = () => {
+  const token = getToken();
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  return config;
+};
+
 
 class Authentication {
   authenticated: boolean;
@@ -77,10 +88,14 @@ class Authentication {
     return axios.get(URL.validateEmail, { params: { token: token, uid: uid } });
   }
 
-  Logout() {
-    axios.post(URL.logout, { timeout: 100000 }).then((res) => {
+  Logout(callback:any) {
+    let config = configuration()
+    axios.get(URL.logout, config).then((res) => {
       localStorage.removeItem("token");
+      localStorage.removeItem('persist:root')
       this.authenticated = false;
+
+      callback()
     });
   }
 
