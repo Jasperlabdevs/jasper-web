@@ -201,7 +201,7 @@ const RecurringAccess = () => {
         )}
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
-        <div className="lg:max-w-lg w-full">
+          <div className="lg:max-w-lg w-full">
             <Button title="Test Code" type="submit" loading={loading} onClick={()=>setWhich('text')}  />
           </div>
 

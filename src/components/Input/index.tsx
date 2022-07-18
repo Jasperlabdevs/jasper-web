@@ -24,6 +24,7 @@ type SelectType = {
   value?: any;
   noborder?: Boolean;
   error?: string;
+  onChange?:any;
 };
 
 const Input = ({
@@ -71,6 +72,51 @@ const Input = ({
     </div>
   );
 };
+export const TextArea = ({
+  label = "",
+  register,
+  name,
+  type = "",
+  disabled = false,
+  placeholder,
+  options,
+  error = "",
+  value = "",
+  min,
+}: InputType) => {
+  const [visibility, setVisibility] = useState(false);
+
+  return (
+    <div className="relative">
+      {label.length > 1 && (
+        <>
+          <label className="mb-4 lg:text-label_text ">{label}</label>
+          <br />
+        </>
+      )}
+      <textarea
+        disabled={disabled}
+        className="p-4 mt-2 mb-8 border rounded-md w-full"
+        placeholder={placeholder}
+        defaultValue={value || ""}
+        type={type}
+        min={min}
+        step="1"
+        {...register(name, { ...options })}
+      />
+      {type === "password" && (
+        <span
+          className="cursor-pointer text-light_grey_text absolute top-12 right-4"
+          onClick={() => setVisibility(!visibility)}
+        >
+          {visibility ? "Hide" : "Show"}
+        </span>
+      )}
+      <p className="text-red text-xs -mt-7">{error}</p>
+      <br />
+    </div>
+  );
+};
 export const PhoneInput = ({
   label = "",
   register,
@@ -81,8 +127,6 @@ export const PhoneInput = ({
   value = "",
   error = "",
 }: InputType) => {
-  const [visibility, setVisibility] = useState(false);
-
   return (
     <div className="relative">
       {label.length > 1 && (
@@ -111,13 +155,14 @@ export const PhoneInput = ({
 
 export const Select = (
   {
+    onChange,
     register,
     options,
     name,
     label = "",
     placeholder,
     list,
-    value,
+    value = "",
     noborder,
     error,
   }: SelectType,
@@ -142,7 +187,8 @@ export const Select = (
         noborder ? "border-none my-0" : "border"
       } `}
       name={name}
-      value={value || ""}
+      defaultValue={value || ""}
+      onChange={onChange}
     >
       { value === "" &&
         <option hidden value="">

@@ -12,21 +12,28 @@ const AccessHistory = () => {
   const [communityHistory, setCommunityHistory] = useState<any>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [activeAllList, setActiveAllList ] = useState([])
+  const [ showFilter, setShowFilter ] = useState(false)
 
   useEffect(() => {
     getCommunityAccessHistory().then((res) => {
       setLoading(false);
       console.log(res.data.results);
       setCommunityHistory(res.data.results);
+      const all = communityHistory.filter(
+        (el: any) => el.access_type !== "multiple"
+      )
+      setActiveAllList(all)
     });
   }, []);
 
   const multipleAccessHistory = communityHistory.filter(
     (el: any) => el.access_type === "multiple"
   );
-  const allAccessHistory = communityHistory.filter(
-    (el: any) => el.access_type !== "multiple"
-  );
+  // let allAccessHistory = communityHistory.filter(
+  //   (el: any) => el.access_type !== "multiple"
+  // );
+
 
   const tabs = [
     {
@@ -61,6 +68,35 @@ const AccessHistory = () => {
     "More",
   ];
 
+  const toggleFilter = () => {
+    setShowFilter(!showFilter)
+  }
+
+  const handleChange = (event:any) => {
+    const name = (event.target.name)
+    const value = (event.target.value)
+
+    if(name === 'gate'){
+      if(value === 'all'){
+        setActiveAllList(communityHistory)
+      } else{
+        setActiveAllList(communityHistory.filter(
+          (el: any) => el.gate[0].id === value
+        ))
+      }
+    }else{
+      if(value === 'all'){
+        setActiveAllList(communityHistory)
+      } else{
+        setActiveAllList(communityHistory.filter(
+          (el: any) => el[`${name}`] === value
+        ))
+      }
+    }
+
+  
+  }
+
   const view = ({ id }: any) => {
     navigate(`/grant_access/access_history/visitor_details/${id}`);
   };
@@ -68,28 +104,29 @@ const AccessHistory = () => {
     <div className="mt-10 ">
       <div className="flex justify-between items-center">
         <h4>
-          Members{" "}
-          <span className="text-white bg-primary rounded-full px-3 text-xs">
+          Access History{" "}
+          {/* <span className="text-white bg-primary rounded-full px-3 text-xs">
             {communityHistory.length}
-          </span>{" "}
+          </span>{" "} */}
         </h4>
-        <SearchFilter />
+        <SearchFilter toggleFilter={toggleFilter} />
       </div>
 
       <div className="my-6 flex w-fit border-b border-[#EFF1F5]">
         {tabs.map((data: any) => (
           <div
-            key={data.id}
-            onClick={() => setActiveTab(data.id)}
-            className={`text-grey_text px-2 py-1.5 cursor-pointer ${
-              data.id === activeTab && "text-black border-b border-primary"
-            } `}
+          key={data.id}
+          onClick={() => setActiveTab(data.id)}
+          className={`text-grey_text px-2 py-1.5 cursor-pointer ${
+            data.id === activeTab && "text-black border-b border-primary"
+          } `}
           >
             {data.name}
           </div>
         ))}
       </div>
 
+        {showFilter && <Filter handleChange={handleChange} /> }
       {activeTab === 1 && (
         <table className="w-full ">
           <thead className="">
@@ -97,8 +134,8 @@ const AccessHistory = () => {
           </thead>
           <tbody>
             {loading && "Loading..."}
-            {!loading && allAccessHistory.length === 0 && "No Access History"}
-            {allAccessHistory?.map((data: any, index: number) => (
+            {!loading && activeAllList.length === 0 && "No Access History"}
+            {activeAllList?.map((data: any, index: number) => (
               <tr key={index} className="border-b capitalize border-[#C3C9DA]">
                 <TableColumn td={data.visitors[0]?.name || "N/A"} />
                 <TableColumn td={data?.event_name || "N/A"} />
@@ -126,7 +163,6 @@ const AccessHistory = () => {
       )}
       {activeTab === 2 && (
         <>
-          <Filter />
           <table className="w-full ">
             <thead className="">
               <TableHeader headers={headersMultiple} />

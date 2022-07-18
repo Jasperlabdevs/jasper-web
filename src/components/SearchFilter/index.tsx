@@ -1,7 +1,7 @@
 import Button from "components/Button";
 import SVGs from "helpers/SVGs";
 
-const SearchFilter = () => {
+const SearchFilter = ({toggleFilter}:any) => {
   return (
     <div className="flex items-center gap-4">
       <form className="bg-[#F9F9FB] flex w-3xl py-2 px-4 rounded-lg">
@@ -14,6 +14,7 @@ const SearchFilter = () => {
       </form>
       <div className="-mt-10 w-4xl">
         <Button
+          onClick={toggleFilter}
           title={
             <span className="flex items-center justify-center gap-2 text-[#fff]">
               {SVGs.filter_white} Filter{" "}

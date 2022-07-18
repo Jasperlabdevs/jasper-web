@@ -1,8 +1,15 @@
 import { Select } from "components/Input";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
-const Filter = () => {
+const Filter = ({handleChange}:any) => {
   const { register } = useForm();
+
+  const access_types = [ 'all', 'recurring', 'event', 'onetime', 'multiple' ]
+  const status = [ 'all', 'generated' ]
+
+  const stateGates = useSelector((state: any) => state.gates);
+
 
   return (
     <div>
@@ -10,32 +17,35 @@ const Filter = () => {
         <div className="flex gap-6">
           <div className="w-lg">
             <Select
-              name="gate"
+              name="access_type"
               register={register}
               options={{ required: true }}
               placeholder="Access Type"
               label=""
-              list={[]}
-            />
+              onChange={handleChange}
+              list={access_types}
+              />
           </div>
           <div className="w-lg">
             <Select
-              name="gate"
+              onChange={handleChange}
+              name="status"
               register={register}
               options={{ required: true }}
               placeholder="Status"
               label=""
-              list={[]}
-            />
+              list={status}
+              />
           </div>
           <div className="w-lg">
             <Select
+              onChange={handleChange}
               name="gate"
               register={register}
               options={{ required: true }}
               placeholder="Gate"
               label=""
-              list={[]}
+              list={['all', ...stateGates]}
             />
           </div>
         </div>

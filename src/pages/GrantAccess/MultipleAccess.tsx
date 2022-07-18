@@ -1,6 +1,6 @@
 import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
-import Input, { Select, DateInput } from "components/Input";
+import Input, { Select, DateInput, TextArea, Checkbox } from "components/Input";
 import TextCodeModal from "components/TextCodeModal";
 import SVGs from "helpers/SVGs";
 import { formatDate } from "helpers/utils";
@@ -13,6 +13,7 @@ const MultipleAccess = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [visitors, updateVisitors] = useState([
@@ -25,7 +26,7 @@ const MultipleAccess = () => {
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [ which, setWhich ] = useState('')
   const [ showTextCode, setShowTextCode ] = useState(false)
 
   const handleChange = (index: any, event: any) => {
@@ -38,15 +39,39 @@ const MultipleAccess = () => {
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
 
+  const resetFields = () => {
+    reset(
+      {
+        visitor_name: "",
+        visitor_phone_number: "",
+        gates: "",
+        visitors: "",
+        valid_from: "",
+        valid_to: "",
+        time_form: "",
+        time_to: "",
+        allow_multiple_entries: "",
+        alert_security: "",
+        pending_access: "",
+        event_name: "",
+        requesting_department: "",
+        visitor_type: "",
+        visitor_company: "",
+        reason: "",
+      }
+    );
+
+  }
+
   const onSubmit = (data: any) => {
     setLoading(true);
+    setWhich('')
     data.access_type = "multiple";
     data.gates = [data.gates];
     data.visitors = allVisitors;
 
     data.time_form = "12:00";
     data.time_to = "12:00";
-    data.allow_multiple_entries = true;
     data.alert_security = true;
     data.pending_access = false;
 
@@ -55,7 +80,11 @@ const MultipleAccess = () => {
     createEventAccess(data)
       .then((res) => {
         setLoading(false);
-        setShowCodeGenerated(true);
+        if(which === 'text') {
+          setShowTextCode(true)
+        }else {
+          setShowCodeGenerated(true)
+        }
         console.log(res.data.results);
         setAccessCode(res.data?.results?.code);
       })
@@ -98,6 +127,15 @@ const MultipleAccess = () => {
       />
       <h4>Multiple Access</h4>
       <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-10" >
+          <Checkbox
+                  name="allow_multiple_entries"
+                  register={register}
+                  label="Allow multiple entries wihtin validity period"
+                  options={{ required: true }}
+                />
+
+        </div>
         <Input
           name="event_name"
           label="Event Name"
@@ -142,23 +180,37 @@ const MultipleAccess = () => {
           error={errors.gates && "Please select a gate"}
           list={stateGates}
         />
-        <Input
+        <TextArea
           name="reason_for_visit"
           label="Reason for visit"
           placeholder="Write a description"
-          options={{}}
+          options={{ required: true }}
           error={errors.reason && "Please enter reason for visit"}
           register={register}
         />
-        <DateInput
-          name="valid_from"
-          label="Valid From"
-          placeholder="dd/mm/yy"
-          register={register}
-          min={todayDate}
-          options={{ required: true }}
-          error={errors.valid_from && "Please select a date"}
-        />
+        <div className="flex items-center" >
+          <div className="w-full" >
+            <DateInput
+              name="valid_from"
+              label="Valid From"
+              placeholder="dd/mm/yy"
+              register={register}
+              min={todayDate}
+              options={{ required: true }}
+              error={errors.valid_from && "Please select a date"}
+            />
+          </div>
+          <div className="w-1/2" >
+            <Checkbox
+                    name="all_day"
+                    register={register}
+                    label="All day"
+                    options={{ required: false }}
+                  />
+
+          </div>
+
+        </div>
         <DateInput
           name="valid_to"
           label="Valid To"
@@ -210,12 +262,12 @@ const MultipleAccess = () => {
         </p>
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
-          <div className="lg:max-w-lg w-full">
-            <Button title="Test Code" type="button" onClick={()=>setShowTextCode(!showTextCode)}  />
+        <div className="lg:max-w-lg w-full">
+            <Button title="Test Code" type="submit" loading={loading} onClick={()=>setWhich('text')}  />
           </div>
 
-          <Button title="Generate Code" loading={loading} type="submit" other />
-          <Button title="Cancel" type="button" secondary />
+          <Button title="Generate Code" loading={loading} type="submit" onClick={()=>setWhich('generated')  } other />
+          <Button title="Cancel" type="button" onClick={resetFields} secondary />
         </div>
       </form>
     </div>
