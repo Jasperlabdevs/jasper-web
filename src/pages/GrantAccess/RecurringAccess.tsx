@@ -144,7 +144,7 @@ const RecurringAccess = () => {
           placeholder="Select the Gate(s) you want to give access to"
           label="Gate"
           error={errors.gates && "Please a gate"}
-          list={stateGates}
+          list={stateGates.filter((el:any) => el.is_active === true )}
         />
 
         <div className="flex items-center" >

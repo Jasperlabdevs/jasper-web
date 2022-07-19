@@ -1,4 +1,4 @@
-import { addGate, denestGate, editGate, getGate, toggleGate } from "services/gates";
+import { addGate, denestGate, editGate, getAllGates, getGate, toggleGate } from "services/gates";
 import {
   ADD_GATE_FAILURE,
   ADD_GATE_SUCCESS,
@@ -10,8 +10,8 @@ import {
   TOGGLE_GATE_SUCCESS,
 } from "store/constants";
 
-export const get_gate = (id: any, setLoading: any) => async (dispatch: any) => {
-  return await getGate().then(
+export const get_all_gates = (id: any, setLoading: any) => async (dispatch: any) => {
+  return await getAllGates(id).then(
     (res) => {
       dispatch({
         type: GET_GATE_SUCCESS,

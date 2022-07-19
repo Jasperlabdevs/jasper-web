@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { gateAuth } from "services/gates";
-import { get_gate } from "store/actions/gates";
+import { get_all_gates } from "store/actions/gates";
 
 const GateLogin = () => {
   const {
@@ -48,7 +48,7 @@ const GateLogin = () => {
 
   useEffect(() => {
     if (stateGates.length === 0) {
-      dispatchStore(get_gate(community_id, setLoading));
+      dispatchStore(get_all_gates(community_id, setLoading));
     }
   }, []);
 
@@ -79,7 +79,7 @@ const GateLogin = () => {
           options={{ required: true }}
           placeholder="Select your Gate name"
           label="Gate"
-          list={stateGates}
+          list={stateGates.filter((el:any) => el.is_active === true )}
           error={errors.gate_id && "Please select a gate."}
         />
 

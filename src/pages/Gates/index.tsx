@@ -5,12 +5,13 @@ import img from "assets/images/gate.png";
 import { TableColumn, TableHeader } from "components/Table";
 import { useEffect, useState } from "react";
 import { dispatchStore } from "helpers/utils";
-import { denest_gate, edit_gate, get_gate, toggle_gate } from "store/actions/gates";
+import { denest_gate, get_all_gates, toggle_gate } from "store/actions/gates";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import GateFormModal from "./GateFormModal";
 import ShowURLModal from "./ShowURLModal";
 import { formatDate } from "helpers/utils";
+import { denestGate, getGate } from "services/gates";
 
 const Gates = () => {
   const headers = [
@@ -24,7 +25,7 @@ const Gates = () => {
     "",
   ];
 
-  const stateGates = useSelector((state: any) => state.gates);
+
   const stateCommunity = useSelector((state: any) => state.community);
 
   const [loading, setLoading] = useState(true);
@@ -38,30 +39,29 @@ const Gates = () => {
 
   const [ update, setUpdate] = useState(false)
 
-  const nested = stateGates.map((el:any) => el.gate)
-  const notNested = stateGates.filter( (el1:any) => nested.find((el2:any) => el2?.id !== el1?.id ) )
-
   const toggle = (id: any) => {
     const data = { gate_id: id };
     dispatchStore(toggle_gate(data));
     setUpdate(!update)
   };
 
+  const stateGates = useSelector((state: any) => state.gates);
+
+  useEffect(() => {
+    if (stateGates.length === 0) {
+      dispatchStore(get_all_gates(stateCommunity.id, setLoading));
+    }
+  }, []);
+
   // console.log(notNested)
 
   useEffect(()=>{
-    if(stateGates.length > 1){
+    if(gates.length > 1){
       setLoading(false)
     }
-  },[])
+  },[gates])
 
-  useEffect(()=> {
-    
 
-    // setNotNested(notNested)
-    setGates(stateGates)
-    console.log(stateGates)
-  },[stateGates])
 
   const expand = (id: any) => {
     if (id === activeExpand) {
@@ -75,26 +75,38 @@ const Gates = () => {
     setShowGate(true);
     setEditID(id);
     setEdit(true);
+    setUpdate(!update)
   };
 
   const closeModal = () => {
     setEdit(false);
     setEditID("");
     setShowGate(false);
+    setUpdate(!update)
   };
 
   const denest = (id: any) => {
     const data = { gate_id : id }
-    dispatchStore(denest_gate(data));
+    // dispatchStore(denest_gate(data));
+    denestGate(data).then(
+      (res:any)=> {
+        setUpdate(!update)
+
+      }
+    )
   };
 
   useEffect(() => {
-    dispatchStore(get_gate(stateCommunity.id, setLoading));
-      // if(edit === false){
-
-      // }
+    setLoading(true)
+    setGates([])
+    getGate().then(
+      (res) => {
+        setGates(res.data.results)
+        setLoading(false)
+      }
+    )
     
-  }, []);
+  }, [update]);
 
 
 
@@ -109,7 +121,7 @@ const Gates = () => {
       </Helmet>
       {showGate && (
         <GateFormModal
-          gates={gates}
+          gates={stateGates}
           editID={editID}
           showGate={showGate}
           closeModal={closeModal}
@@ -161,7 +173,7 @@ const Gates = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {stateGates?.map((data: any) => (
+            {gates?.map((data: any) => (
               <>
                 <tr key={data?.id} className="border-b border-[#C3C9DA]">
                   <TableColumn

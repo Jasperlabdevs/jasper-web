@@ -5,7 +5,7 @@ import { dispatchStore } from "helpers/utils";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { get_gate } from "store/actions/gates";
+import { get_all_gates } from "store/actions/gates";
 
 const GrantAccess = () => {
   const stateGates = useSelector((state: any) => state.gates);
@@ -14,7 +14,7 @@ const GrantAccess = () => {
 
   useEffect(() => {
     if (stateGates.length === 0) {
-      dispatchStore(get_gate(stateCommunity.id, setLoading));
+      dispatchStore(get_all_gates(stateCommunity.id, setLoading));
     }
   }, []);
 

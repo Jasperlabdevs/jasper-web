@@ -25,6 +25,11 @@ export const getGate = () => {
   return axios.get(URL.getGates, config);
 };
 
+export const getAllGates = (id:any) => {
+  let config = configuration();
+  return axios.get(URL.getAllGates + id+ '/', config);
+}
+
 export const getCommunityGate = () => {
   let config = configuration();
   return axios.get(URL.communityGate, config);

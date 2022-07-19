@@ -25,7 +25,7 @@ const GateVerification = () => {
 
     verifyGate(data)
       .then((res) => {
-        console.log(res.data.results);
+        console.log(res.data);
         setShow(true);
         setStatus(true);
       })
@@ -34,8 +34,6 @@ const GateVerification = () => {
         setShow(true);
         setStatus(false);
       });
-
-    console.log(otp);
   };
 
   const [otp, setOtp] = useState(new Array(6).fill(""));
@@ -60,9 +58,8 @@ const GateVerification = () => {
     else setActiveOtpIndex(index + 1);
 
     setOtp(newOTP);
-
-    console.log(otp);
   };
+
 
   const handleKeyDown = (
     { key }: React.KeyboardEvent<HTMLInputElement>,
@@ -74,24 +71,31 @@ const GateVerification = () => {
     }
   };
 
-  const successComponent = ({ successful }: any) => (
+  const successComponent = (successful: any) => (
     <div>
       <div>
         <div className="w-80 h-fit mx-auto">
-          {successful ? (
+          {!!successful ? (
             <img src={success} alt="sucess" />
           ) : (
             <img src={failure} alt="failure" />
           )}
         </div>
         <h3 className="text-center mt-16">
-          {successful ? "Access Granted" : "Access Denied"}
+          {!!successful ? "Access Granted" : "Access Denied"}
         </h3>
         <p className="my-3">{err}</p>
-        <Button title="Ok" onClick={() => navigate(-1)} />
+        <Button title="Ok" onClick={() => {
+          setShow(false)
+          setLoading(false)
+          setOtp(new Array(6).fill(""))
+        }
+          } />
       </div>
     </div>
   );
+
+
 
   return (
     <div className="login text-center mt-24 lg:mt-20">

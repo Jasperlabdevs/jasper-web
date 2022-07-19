@@ -20,7 +20,7 @@ const URL = {
   getUser: baseUrl + "me/",
   verifyGate: baseUrl + "gate/pass_gate/",
   getGates: baseUrl + "gate/",
-
+  getAllGates: baseUrl + "gate/community_gates/",
   community: baseUrl + "community/",
   gate: baseUrl + "gate/",
   communityGate: baseUrl + "community_gates/",

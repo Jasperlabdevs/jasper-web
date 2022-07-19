@@ -179,7 +179,7 @@ const MultipleAccess = () => {
           placeholder="Select the Gate(s) you want to give access to"
           label="Gate"
           error={errors.gates && "Please select a gate"}
-          list={stateGates}
+          list={stateGates.filter((el:any) => el.is_active === true )}
         />
         <TextArea
           name="reason_for_visit"
