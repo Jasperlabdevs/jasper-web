@@ -53,12 +53,12 @@ const TextCodeModal = ({ showTextCode, accessCode, setShowTextCode }:any) => {
                     />
 
                     <div className="float-right w-fit mb-8 flex gap-4">
-                    <div  >
+                    {/* <div  >
                         <Button
                         type="submit"
                         title="Send SMS"
                         />
-                    </div>
+                    </div> */}
                     <div  >
                         <Button
                         type="button"

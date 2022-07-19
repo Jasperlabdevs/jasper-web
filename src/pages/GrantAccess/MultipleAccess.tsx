@@ -94,6 +94,7 @@ const MultipleAccess = () => {
       });
   };
 
+
   const addVisitor = () => {
     const new_visitor = {
       id: Math.floor(Math.random() * 100),
@@ -263,10 +264,10 @@ const MultipleAccess = () => {
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
         <div className="lg:max-w-lg w-full">
-            <Button title="Test Code" type="submit" loading={loading} onClick={()=>setWhich('text')}  />
+            <Button title="Text Code" type="submit" loading={loading} onClick={()=>setWhich('generated')}  />
           </div>
 
-          <Button title="Generate Code" loading={loading} type="submit" onClick={()=>setWhich('generated')  } other />
+          <Button title="Generate Code" loading={loading} type="submit" onClick={()=>setWhich('text')  } other />
           <Button title="Cancel" type="button" onClick={resetFields} secondary />
         </div>
       </form>

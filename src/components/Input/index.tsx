@@ -12,6 +12,7 @@ type InputType = {
   disabled?: boolean;
   value?: String;
   min?: string;
+  onChange?:any
 };
 
 type SelectType = {
@@ -222,6 +223,7 @@ export const DateInput = ({
   options,
   error = "",
   min,
+  onChange,
 }: InputType) => (
   <div className="relative">
     {label.length > 1 && (
@@ -235,6 +237,7 @@ export const DateInput = ({
       className="p-4 mt-2 mb-8 border rounded-md w-full max-w-lg"
       placeholder={placeholder}
       min={min}
+      onChange={onChange}
       {...register(name, { ...options })}
     />
     <p className="text-red text-xs -mt-7">{error}</p>

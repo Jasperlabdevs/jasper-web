@@ -1,6 +1,6 @@
 import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
-import Input, { Select, DateInput, PhoneInput } from "components/Input";
+import Input, { Select, DateInput, PhoneInput, Checkbox } from "components/Input";
 import TextCodeModal from "components/TextCodeModal";
 import SVGs from "helpers/SVGs";
 import { formatDate } from "helpers/utils";
@@ -14,6 +14,7 @@ const RecurringAccess = () => {
     register,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors },
   } = useForm();
   const [showMore, setShowMore] = useState(false);
@@ -26,6 +27,8 @@ const RecurringAccess = () => {
   const stateGates = useSelector((state: any) => state.gates);
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
+
+  const [startDate, setStartDate] = useState(todayDate)
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -51,6 +54,10 @@ const RecurringAccess = () => {
       });
     console.log(data);
   };
+
+  useEffect(()=>{
+    console.log(getValues("valid_from"))
+  },[getValues])
 
   const resetFields = () => {
     reset(
@@ -140,15 +147,30 @@ const RecurringAccess = () => {
           list={stateGates}
         />
 
-        <DateInput
-          name="valid_from"
-          label="Valid From"
-          placeholder="dd/mm/yy"
-          register={register}
-          options={{required: true}}
-          error={ errors.valid_from && "Please select a valid date" }
-          min={todayDate}
-        />
+        <div className="flex items-center" >
+          <div className="w-full" >
+            <DateInput
+              name="valid_from"
+              label="Valid From"
+              placeholder="dd/mm/yy"
+              register={register}
+              min={todayDate}
+              options={{ required: true, onChange: ()=> {setStartDate(getValues("valid_from"))} }}
+              error={errors.valid_from && "Please select a date"}
+
+              />
+          </div>
+          <div className="w-1/2" >
+            <Checkbox
+                    name="all_day"
+                    register={register}
+                    label="All day"
+                    options={{ required: false }}
+                    />
+
+          </div>
+
+        </div>
         <DateInput
           name="valid_to"
           label="Valid To"
@@ -156,7 +178,7 @@ const RecurringAccess = () => {
           register={register}
           options={{required: true}}
           error={ errors.valid_to && "Please select a valid date" }
-          min={todayDate}
+          min={startDate}
         />
         <p
           onClick={triggerShowMore}
@@ -202,11 +224,11 @@ const RecurringAccess = () => {
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">
-            <Button title="Test Code" type="submit" loading={loading} onClick={()=>setWhich('text')}  />
+            <Button title="Text Code" type="submit" loading={loading} onClick={()=>setWhich('generated')}  />
           </div>
 
-          <Button title="Generate Code" loading={loading} type="submit" onClick={()=>setWhich('generated')  } other />
-          <Button title="Cancel" type="button" onClick={resetFields} secondary />
+          <Button title="Generate Code" loading={loading} type="submit" onClick={()=>setWhich('text')  } other />
+          <Button title="Cancel" type="button" onClick={()=>console.log(getValues("valid_from"))} secondary />
         </div>
       </form>
     </div>

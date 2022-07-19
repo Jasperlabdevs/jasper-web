@@ -104,7 +104,8 @@ const EventAccess = () => {
           type="number"
           options={{
             required: true,
-            min: 1
+            min: 1,
+            max: 250
           }}
           error={errors.number_of_visitors && "Please enter the number of visitors"}
           register={register}

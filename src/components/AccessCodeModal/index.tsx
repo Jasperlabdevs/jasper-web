@@ -18,7 +18,7 @@ const AccessCodeModal = ({
     <div className="w-full my-10">
       <div className="mx-auto w-fit text-center">
         <img src={Mail} alt="mail-icon" />
-        <p>Access Code Generated!</p>
+        <p>Access Code Successfully sent!</p>
       </div>
 
       <form className="m-10">
