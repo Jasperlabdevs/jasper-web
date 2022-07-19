@@ -1,6 +1,11 @@
 import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
-import Input, { Select, DateInput, PhoneInput, Checkbox } from "components/Input";
+import Input, {
+  Select,
+  DateInput,
+  PhoneInput,
+  Checkbox,
+} from "components/Input";
 import TextCodeModal from "components/TextCodeModal";
 import SVGs from "helpers/SVGs";
 import { formatDate } from "helpers/utils";
@@ -22,31 +27,31 @@ const RecurringAccess = () => {
   const [loading, setLoading] = useState(false);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
-  const [ which, setWhich ] = useState('')
-  const [ showTextCode, setShowTextCode ] = useState(false)
+  const [which, setWhich] = useState("");
+  const [showTextCode, setShowTextCode] = useState(false);
   const stateGates = useSelector((state: any) => state.gates);
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
 
-  const [startDate, setStartDate] = useState(todayDate)
+  const [startDate, setStartDate] = useState(todayDate);
 
   const onSubmit = (data: any) => {
     setLoading(true);
-    setWhich('')
+    setWhich("");
     data.access_type = "recurring";
     data.gates = [data.gates];
 
     createEventAccess(data)
       .then((res) => {
         setLoading(false);
-        if(which === 'text') {
-          setShowTextCode(true)
-        }else {
-          setShowCodeGenerated(true)
+        if (which === "text") {
+          setShowTextCode(true);
+        } else {
+          setShowCodeGenerated(true);
         }
         console.log(res.data.results);
         setAccessCode(res.data?.results?.visitors[0]?.code);
-        resetFields()
+        resetFields();
       })
       .catch((err) => {
         setLoading(false);
@@ -55,40 +60,35 @@ const RecurringAccess = () => {
     console.log(data);
   };
 
-  useEffect(()=>{
-    console.log(getValues("valid_from"))
-  },[getValues])
+  useEffect(() => {
+    console.log(getValues("valid_from"));
+  }, [getValues]);
 
   const resetFields = () => {
-    reset(
-      {
-        visitor_name: "",
-        visitor_phone_number: "",
-        gates: "",
-        location: "",
-        valid_from: "",
-        valid_to: "",
-        security_password: "",
-        license_plate: "",
-        visitor_id_card_name: ""
-      }
-    );
+    reset({
+      visitor_name: "",
+      visitor_phone_number: "",
+      gates: "",
+      location: "",
+      valid_from: "",
+      valid_to: "",
+      security_password: "",
+      license_plate: "",
+      visitor_id_card_name: "",
+    });
+  };
 
-  }
-
-  useEffect(()=> {
-    reset(
-      {
-        security_password: "",
-        license_plate: "",
-        visitor_id_card_name: ""
-      }
-    );
-  },[showMore])
+  useEffect(() => {
+    reset({
+      security_password: "",
+      license_plate: "",
+      visitor_id_card_name: "",
+    });
+  }, [showMore]);
 
   const triggerShowMore = () => {
-    setShowMore(!showMore)
-  }
+    setShowMore(!showMore);
+  };
 
   return (
     <div className="mt-10 max-w-4xl">
@@ -99,9 +99,9 @@ const RecurringAccess = () => {
         accessCode={accessCode}
       />
 
-<TextCodeModal
-        showTextCode= {showTextCode}
-        accessCode = {accessCode}
+      <TextCodeModal
+        showTextCode={showTextCode}
+        accessCode={accessCode}
         setShowTextCode={setShowTextCode}
       />
 
@@ -121,7 +121,9 @@ const RecurringAccess = () => {
           label="Phone number"
           type="tel"
           register={register}
-          error={errors.visitor_phone_number && "Please enter a correct phone number"}
+          error={
+            errors.visitor_phone_number && "Please enter a correct phone number"
+          }
           options={{
             required: true,
             minLength: 6,
@@ -144,40 +146,42 @@ const RecurringAccess = () => {
           placeholder="Select the Gate(s) you want to give access to"
           label="Gate"
           error={errors.gates && "Please a gate"}
-          list={stateGates.filter((el:any) => el.is_active === true )}
+          list={stateGates.filter((el: any) => el.is_active === true)}
         />
 
-        <div className="flex items-center" >
-          <div className="w-full" >
+        <div className="flex items-center">
+          <div className="w-full">
             <DateInput
               name="valid_from"
               label="Valid From"
               placeholder="dd/mm/yy"
               register={register}
               min={todayDate}
-              options={{ required: true, onChange: ()=> {setStartDate(getValues("valid_from"))} }}
+              options={{
+                required: true,
+                onChange: () => {
+                  setStartDate(getValues("valid_from"));
+                },
+              }}
               error={errors.valid_from && "Please select a date"}
-
-              />
+            />
           </div>
-          <div className="w-1/2" >
+          <div className="w-1/2">
             <Checkbox
-                    name="all_day"
-                    register={register}
-                    label="All day"
-                    options={{ required: false }}
-                    />
-
+              name="all_day"
+              register={register}
+              label="All day"
+              options={{ required: false }}
+            />
           </div>
-
         </div>
         <DateInput
           name="valid_to"
           label="Valid To"
           placeholder="dd/mm/yy"
           register={register}
-          options={{required: true}}
-          error={ errors.valid_to && "Please select a valid date" }
+          options={{ required: true }}
+          error={errors.valid_to && "Please select a valid date"}
           min={startDate}
         />
         <p
@@ -208,7 +212,7 @@ const RecurringAccess = () => {
               error={
                 errors.security_password && "Please enter a security password"
               }
-              />
+            />
             <Input
               name="visitor_id_card_name"
               label="Visitor's ID Card"
@@ -216,7 +220,8 @@ const RecurringAccess = () => {
               options={{}}
               register={register}
               error={
-                errors.visitor_id_card_name && "Please enter a security password"
+                errors.visitor_id_card_name &&
+                "Please enter a security password"
               }
             />
           </>
@@ -224,11 +229,27 @@ const RecurringAccess = () => {
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">
-            <Button title="Text Code" type="submit" loading={loading} onClick={()=>setWhich('generated')}  />
+            <Button
+              title="Text Code"
+              type="submit"
+              loading={loading}
+              onClick={() => setWhich("generated")}
+            />
           </div>
 
-          <Button title="Generate Code" loading={loading} type="submit" onClick={()=>setWhich('text')  } other />
-          <Button title="Cancel" type="button" onClick={()=>console.log(getValues("valid_from"))} secondary />
+          <Button
+            title="Generate Code"
+            loading={loading}
+            type="submit"
+            onClick={() => setWhich("text")}
+            other
+          />
+          <Button
+            title="Cancel"
+            type="button"
+            onClick={() => console.log(getValues("valid_from"))}
+            secondary
+          />
         </div>
       </form>
     </div>

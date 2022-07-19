@@ -12,7 +12,7 @@ const gatesReducer = (state = [], action) => {
     case ADD_GATE_SUCCESS:
       return [...state, payload];
     case GET_GATE_SUCCESS:
-      return [ ...payload];
+      return [...payload];
     case EDIT_GATE_SUCCESS:
       let id = payload.id;
       const tempState = [...state];
@@ -27,13 +27,11 @@ const gatesReducer = (state = [], action) => {
       const indxOfT = tempoState.indexOf(tempo[0]);
       tempoState.splice(indxOfT, 1, payload);
 
-      console.log(tempState)
+      console.log(tempState);
       return [...tempoState];
     default:
       return state;
   }
 };
-
-
 
 export default gatesReducer;

@@ -26,8 +26,8 @@ const MultipleAccess = () => {
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [ which, setWhich ] = useState('')
-  const [ showTextCode, setShowTextCode ] = useState(false)
+  const [which, setWhich] = useState("");
+  const [showTextCode, setShowTextCode] = useState(false);
 
   const handleChange = (index: any, event: any) => {
     console.log(index);
@@ -40,32 +40,29 @@ const MultipleAccess = () => {
   const todayDate = formatDate(today.toISOString(), "-");
 
   const resetFields = () => {
-    reset(
-      {
-        visitor_name: "",
-        visitor_phone_number: "",
-        gates: "",
-        visitors: "",
-        valid_from: "",
-        valid_to: "",
-        time_form: "",
-        time_to: "",
-        allow_multiple_entries: "",
-        alert_security: "",
-        pending_access: "",
-        event_name: "",
-        requesting_department: "",
-        visitor_type: "",
-        visitor_company: "",
-        reason: "",
-      }
-    );
-
-  }
+    reset({
+      visitor_name: "",
+      visitor_phone_number: "",
+      gates: "",
+      visitors: "",
+      valid_from: "",
+      valid_to: "",
+      time_form: "",
+      time_to: "",
+      allow_multiple_entries: "",
+      alert_security: "",
+      pending_access: "",
+      event_name: "",
+      requesting_department: "",
+      visitor_type: "",
+      visitor_company: "",
+      reason: "",
+    });
+  };
 
   const onSubmit = (data: any) => {
     setLoading(true);
-    setWhich('')
+    setWhich("");
     data.access_type = "multiple";
     data.gates = [data.gates];
     data.visitors = allVisitors;
@@ -80,10 +77,10 @@ const MultipleAccess = () => {
     createEventAccess(data)
       .then((res) => {
         setLoading(false);
-        if(which === 'text') {
-          setShowTextCode(true)
-        }else {
-          setShowCodeGenerated(true)
+        if (which === "text") {
+          setShowTextCode(true);
+        } else {
+          setShowCodeGenerated(true);
         }
         console.log(res.data.results);
         setAccessCode(res.data?.results?.code);
@@ -93,7 +90,6 @@ const MultipleAccess = () => {
         console.log(err);
       });
   };
-
 
   const addVisitor = () => {
     const new_visitor = {
@@ -112,30 +108,27 @@ const MultipleAccess = () => {
 
   return (
     <div className="mt-10 max-w-4xl">
-
-    <AccessCodeModal
+      <AccessCodeModal
         showCodeGenerated={showCodeGenerated}
         setShowCodeGenerated={setShowCodeGenerated}
         register={register}
         accessCode={accessCode}
       />
 
-
       <TextCodeModal
-        showTextCode= {showTextCode}
-        accessCode = {accessCode}
+        showTextCode={showTextCode}
+        accessCode={accessCode}
         setShowTextCode={setShowTextCode}
       />
       <h4>Multiple Access</h4>
       <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-10" >
+        <div className="mb-10">
           <Checkbox
-                  name="allow_multiple_entries"
-                  register={register}
-                  label="Allow multiple entries wihtin validity period"
-                  options={{ required: true }}
-                />
-
+            name="allow_multiple_entries"
+            register={register}
+            label="Allow multiple entries wihtin validity period"
+            options={{ required: true }}
+          />
         </div>
         <Input
           name="event_name"
@@ -179,7 +172,7 @@ const MultipleAccess = () => {
           placeholder="Select the Gate(s) you want to give access to"
           label="Gate"
           error={errors.gates && "Please select a gate"}
-          list={stateGates.filter((el:any) => el.is_active === true )}
+          list={stateGates.filter((el: any) => el.is_active === true)}
         />
         <TextArea
           name="reason_for_visit"
@@ -189,8 +182,8 @@ const MultipleAccess = () => {
           error={errors.reason && "Please enter reason for visit"}
           register={register}
         />
-        <div className="flex items-center" >
-          <div className="w-full" >
+        <div className="flex items-center">
+          <div className="w-full">
             <DateInput
               name="valid_from"
               label="Valid From"
@@ -201,16 +194,14 @@ const MultipleAccess = () => {
               error={errors.valid_from && "Please select a date"}
             />
           </div>
-          <div className="w-1/2" >
+          <div className="w-1/2">
             <Checkbox
-                    name="all_day"
-                    register={register}
-                    label="All day"
-                    options={{ required: false }}
-                  />
-
+              name="all_day"
+              register={register}
+              label="All day"
+              options={{ required: false }}
+            />
           </div>
-
         </div>
         <DateInput
           name="valid_to"
@@ -263,12 +254,28 @@ const MultipleAccess = () => {
         </p>
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
-        <div className="lg:max-w-lg w-full">
-            <Button title="Text Code" type="submit" loading={loading} onClick={()=>setWhich('generated')}  />
+          <div className="lg:max-w-lg w-full">
+            <Button
+              title="Text Code"
+              type="submit"
+              loading={loading}
+              onClick={() => setWhich("generated")}
+            />
           </div>
 
-          <Button title="Generate Code" loading={loading} type="submit" onClick={()=>setWhich('text')  } other />
-          <Button title="Cancel" type="button" onClick={resetFields} secondary />
+          <Button
+            title="Generate Code"
+            loading={loading}
+            type="submit"
+            onClick={() => setWhich("text")}
+            other
+          />
+          <Button
+            title="Cancel"
+            type="button"
+            onClick={resetFields}
+            secondary
+          />
         </div>
       </form>
     </div>

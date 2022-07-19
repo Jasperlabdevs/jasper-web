@@ -35,15 +35,14 @@ const Dashboard = () => {
   const stateCommunity = useSelector((state: any) => state.community);
 
   useEffect(() => {
+    console.log("user", stateUser.community);
+    console.log("state", stateCommunity);
 
-    console.log('user',stateUser.community)
-    console.log('state',stateCommunity)
+    const community = stateUser.community || stateCommunity;
 
-    const community = stateUser.community || stateCommunity
-
-    if (community === null || Object.keys(community).length === 0 ) {
+    if (community === null || Object.keys(community).length === 0) {
       setShowModal(true);
-    }else{
+    } else {
       dispatchStore(add_community(community));
     }
   }, [stateUser]);

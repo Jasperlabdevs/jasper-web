@@ -12,7 +12,7 @@ type InputType = {
   disabled?: boolean;
   value?: String;
   min?: string;
-  onChange?:any
+  onChange?: any;
 };
 
 type SelectType = {
@@ -25,7 +25,7 @@ type SelectType = {
   value?: any;
   noborder?: Boolean;
   error?: string;
-  onChange?:any;
+  onChange?: any;
 };
 
 const Input = ({
@@ -191,11 +191,11 @@ export const Select = (
       defaultValue={value || ""}
       onChange={onChange}
     >
-      { value === "" &&
+      {value === "" && (
         <option hidden value="">
           {placeholder}
         </option>
-      }
+      )}
       {list.map((data: any) => (
         <option key={data.id || data} value={data.id || data}>
           {data.name || data}

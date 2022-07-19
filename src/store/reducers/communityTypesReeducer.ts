@@ -8,7 +8,7 @@ const communityTypesReducer = (state = [], action: any) => {
 
   switch (type) {
     case GET_COMMUNITY_TYPES_SUCCESS:
-      return [ ...payload];
+      return [...payload];
     case GET_COMMUNITY_TYPES_FAILURE:
       return [...state, ...payload];
     default:

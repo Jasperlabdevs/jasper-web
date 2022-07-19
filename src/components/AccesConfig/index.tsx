@@ -14,10 +14,7 @@ const AccessConfig = ({
   backward,
   activeStep,
 }: any) => {
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
 
   const list = [
@@ -25,10 +22,9 @@ const AccessConfig = ({
     { id: "not required", name: "Not Required" },
   ];
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatchStore(get_selected_occupancy_type());
-  },[])
-
+  }, []);
 
   const onSubmit = (data: any) => {
     setLoading(true);

@@ -15,17 +15,16 @@ const UserOnboarding = ({ forwardButton, forward, backward }: any) => {
   const [community, setCommunity] = useState(stateCommunity);
   const [loading, setLoading] = useState(false);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     getOccupancyTypes().then(
-      res => {
-        setOccupancyType(res.data?.results)
+      (res) => {
+        setOccupancyType(res.data?.results);
+      },
+      (err: any) => {
+        console.log(err);
       }
-    , (err:any) => {
-      console.log(err)
-    })
-
-  },[])
+    );
+  }, []);
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data: any) => {

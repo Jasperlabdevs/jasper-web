@@ -20,27 +20,27 @@ const OneTimeAccess = () => {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
-  const [ which, setWhich ] = useState('')
-  const [ showTextCode, setShowTextCode ] = useState(false)
+  const [which, setWhich] = useState("");
+  const [showTextCode, setShowTextCode] = useState(false);
   const [accessCode, setAccessCode] = useState("");
 
   const onSubmit = (data: any) => {
     setLoading(true);
-    setWhich('')
+    setWhich("");
     data.access_type = "onetime";
     data.gates = [data.gates];
 
     createEventAccess(data)
       .then((res) => {
         setLoading(false);
-        if(which === 'text') {
-          setShowTextCode(true)
-        }else {
-          setShowCodeGenerated(true)
+        if (which === "text") {
+          setShowTextCode(true);
+        } else {
+          setShowCodeGenerated(true);
         }
         console.log(res.data.results);
         setAccessCode(res.data?.results?.visitors[0]?.code);
-        resetFields()
+        resetFields();
       })
       .catch((err) => {
         setLoading(false);
@@ -50,33 +50,28 @@ const OneTimeAccess = () => {
   };
 
   const resetFields = () => {
-    reset(
-      {
-        visitor_name: "",
-        visitor_phone_number: "",
-        gates: "",
-        location: "",
-        security_password: "",
-        license_plate: "",
-        visitor_id_card_name: ""
-      }
-    );
+    reset({
+      visitor_name: "",
+      visitor_phone_number: "",
+      gates: "",
+      location: "",
+      security_password: "",
+      license_plate: "",
+      visitor_id_card_name: "",
+    });
+  };
 
-  }
-
-  useEffect(()=> {
-    reset(
-      {
-        security_password: "",
-        license_plate: "",
-        visitor_id_card_name: ""
-      }
-    );
-  },[showMore])
+  useEffect(() => {
+    reset({
+      security_password: "",
+      license_plate: "",
+      visitor_id_card_name: "",
+    });
+  }, [showMore]);
 
   const triggerShowMore = () => {
-    setShowMore(!showMore)
-  }
+    setShowMore(!showMore);
+  };
 
   return (
     <div className="mt-10 max-w-4xl">
@@ -87,16 +82,15 @@ const OneTimeAccess = () => {
         accessCode={accessCode}
       />
 
-
       <TextCodeModal
-        showTextCode= {showTextCode}
-        accessCode = {accessCode}
+        showTextCode={showTextCode}
+        accessCode={accessCode}
         setShowTextCode={setShowTextCode}
       />
 
       <h3>One-Time Access</h3>
 
-      <form className="mt-10"  onSubmit={handleSubmit(onSubmit)}>
+      <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="visitor_name"
           label="Visitor's name"
@@ -111,7 +105,9 @@ const OneTimeAccess = () => {
           label="Phone number"
           type="tel"
           register={register}
-          error={errors.visitor_phone_number && "Please enter a correct phone number"}
+          error={
+            errors.visitor_phone_number && "Please enter a correct phone number"
+          }
           options={{
             required: true,
             minLength: 6,
@@ -126,7 +122,7 @@ const OneTimeAccess = () => {
           placeholder="Select the Gate you want to give access to"
           label="Gate"
           error={errors.gates && "Please select a gate."}
-          list={stateGates.filter((el:any) => el.is_active === true )}
+          list={stateGates.filter((el: any) => el.is_active === true)}
         />
         <Input
           name="location"
@@ -179,11 +175,27 @@ const OneTimeAccess = () => {
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">
-            <Button title="Text Code" type="submit" loading={loading} onClick={()=>setWhich('generated')}  />
+            <Button
+              title="Text Code"
+              type="submit"
+              loading={loading}
+              onClick={() => setWhich("generated")}
+            />
           </div>
 
-          <Button title="Generate Code" loading={loading} type="submit" onClick={()=>setWhich('text')  } other />
-          <Button title="Cancel" type="button" onClick={resetFields} secondary />
+          <Button
+            title="Generate Code"
+            loading={loading}
+            type="submit"
+            onClick={() => setWhich("text")}
+            other
+          />
+          <Button
+            title="Cancel"
+            type="button"
+            onClick={resetFields}
+            secondary
+          />
         </div>
       </form>
     </div>

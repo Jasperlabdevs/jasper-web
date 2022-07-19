@@ -12,8 +12,8 @@ const AccessHistory = () => {
   const [communityHistory, setCommunityHistory] = useState<any>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [activeAllList, setActiveAllList ] = useState([])
-  const [ showFilter, setShowFilter ] = useState(false)
+  const [activeAllList, setActiveAllList] = useState([]);
+  const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
     getCommunityAccessHistory().then((res) => {
@@ -22,8 +22,8 @@ const AccessHistory = () => {
       setCommunityHistory(res.data.results);
       const all = communityHistory.filter(
         (el: any) => el.access_type !== "multiple"
-      )
-      setActiveAllList(all)
+      );
+      setActiveAllList(all);
     });
   }, []);
 
@@ -33,7 +33,6 @@ const AccessHistory = () => {
   // let allAccessHistory = communityHistory.filter(
   //   (el: any) => el.access_type !== "multiple"
   // );
-
 
   const tabs = [
     {
@@ -69,33 +68,31 @@ const AccessHistory = () => {
   ];
 
   const toggleFilter = () => {
-    setShowFilter(!showFilter)
-  }
+    setShowFilter(!showFilter);
+  };
 
-  const handleChange = (event:any) => {
-    const name = (event.target.name)
-    const value = (event.target.value)
+  const handleChange = (event: any) => {
+    const name = event.target.name;
+    const value = event.target.value;
 
-    if(name === 'gate'){
-      if(value === 'all'){
-        setActiveAllList(communityHistory)
-      } else{
-        setActiveAllList(communityHistory.filter(
-          (el: any) => el.gate[0].id === value
-        ))
+    if (name === "gate") {
+      if (value === "all") {
+        setActiveAllList(communityHistory);
+      } else {
+        setActiveAllList(
+          communityHistory.filter((el: any) => el.gate[0].id === value)
+        );
       }
-    }else{
-      if(value === 'all'){
-        setActiveAllList(communityHistory)
-      } else{
-        setActiveAllList(communityHistory.filter(
-          (el: any) => el[`${name}`] === value
-        ))
+    } else {
+      if (value === "all") {
+        setActiveAllList(communityHistory);
+      } else {
+        setActiveAllList(
+          communityHistory.filter((el: any) => el[`${name}`] === value)
+        );
       }
     }
-
-  
-  }
+  };
 
   const view = ({ id }: any) => {
     navigate(`/grant_access/access_history/visitor_details/${id}`);
@@ -115,18 +112,18 @@ const AccessHistory = () => {
       <div className="my-6 flex w-fit border-b border-[#EFF1F5]">
         {tabs.map((data: any) => (
           <div
-          key={data.id}
-          onClick={() => setActiveTab(data.id)}
-          className={`text-grey_text px-2 py-1.5 cursor-pointer ${
-            data.id === activeTab && "text-black border-b border-primary"
-          } `}
+            key={data.id}
+            onClick={() => setActiveTab(data.id)}
+            className={`text-grey_text px-2 py-1.5 cursor-pointer ${
+              data.id === activeTab && "text-black border-b border-primary"
+            } `}
           >
             {data.name}
           </div>
         ))}
       </div>
 
-        {showFilter && <Filter handleChange={handleChange} /> }
+      {showFilter && <Filter handleChange={handleChange} />}
       {activeTab === 1 && (
         <table className="w-full ">
           <thead className="">

@@ -23,7 +23,6 @@ export const get_occupancy_types = () => async (dispatch: any) => {
   );
 };
 
-
 export const get_selected_occupancy_type = () => async (dispatch: any) => {
   dispatch({ type: GET_OCCUPANCY_TYPES });
 

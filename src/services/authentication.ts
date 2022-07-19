@@ -11,7 +11,6 @@ const configuration = () => {
   return config;
 };
 
-
 class Authentication {
   authenticated: boolean;
   constructor() {
@@ -88,14 +87,14 @@ class Authentication {
     return axios.get(URL.validateEmail, { params: { token: token, uid: uid } });
   }
 
-  Logout(callback:any) {
-    let config = configuration()
+  Logout(callback: any) {
+    let config = configuration();
     axios.get(URL.logout, config).then((res) => {
       localStorage.removeItem("token");
-      localStorage.removeItem('persist:root')
+      localStorage.removeItem("persist:root");
       this.authenticated = false;
 
-      callback()
+      callback();
     });
   }
 

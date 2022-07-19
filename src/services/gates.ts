@@ -25,10 +25,10 @@ export const getGate = () => {
   return axios.get(URL.getGates, config);
 };
 
-export const getAllGates = (id:any) => {
+export const getAllGates = (id: any) => {
   let config = configuration();
-  return axios.get(URL.getAllGates + id+ '/', config);
-}
+  return axios.get(URL.getAllGates + id + "/", config);
+};
 
 export const getCommunityGate = () => {
   let config = configuration();
@@ -48,16 +48,16 @@ export const verifyGate = (data: any) => {
   return axios.post(URL.verifyGate, { ...data });
 };
 
-export const entryExit = (data:any) => {
+export const entryExit = (data: any) => {
   return axios.post(URL.verifyGate, { ...data });
-}
-export const checkID = (data:any) => {
+};
+export const checkID = (data: any) => {
   return axios.post(URL.verifyGate, { ...data });
-}
+};
 
-export const denestGate = (data:any) => {
-  let config = configuration()
-  return axios.post(URL.denestGate, { ...data }, config)
-}
+export const denestGate = (data: any) => {
+  let config = configuration();
+  return axios.post(URL.denestGate, { ...data }, config);
+};
 
 export const gateLogin = (data: any) => axios.post(URL.toggleGate, { ...data });

@@ -2,14 +2,13 @@ import { Select } from "components/Input";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
-const Filter = ({handleChange}:any) => {
+const Filter = ({ handleChange }: any) => {
   const { register } = useForm();
 
-  const access_types = [ 'all', 'recurring', 'event', 'onetime', 'multiple' ]
-  const status = [ 'all', 'generated' ]
+  const access_types = ["all", "recurring", "event", "onetime", "multiple"];
+  const status = ["all", "generated"];
 
   const stateGates = useSelector((state: any) => state.gates);
-
 
   return (
     <div>
@@ -24,7 +23,7 @@ const Filter = ({handleChange}:any) => {
               label=""
               onChange={handleChange}
               list={access_types}
-              />
+            />
           </div>
           <div className="w-lg">
             <Select
@@ -35,7 +34,7 @@ const Filter = ({handleChange}:any) => {
               placeholder="Status"
               label=""
               list={status}
-              />
+            />
           </div>
           <div className="w-lg">
             <Select
@@ -45,7 +44,7 @@ const Filter = ({handleChange}:any) => {
               options={{ required: true }}
               placeholder="Gate"
               label=""
-              list={['all', ...stateGates]}
+              list={["all", ...stateGates]}
             />
           </div>
         </div>

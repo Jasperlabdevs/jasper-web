@@ -18,7 +18,6 @@ const Onboarding = () => {
 
   const [pin, setPin] = useState("");
 
-
   // const stateOccupancyType = useSelector((state: any) => state.occupancyTypes);
   const stateCommunity = useSelector((state: any) => state.community);
   // if (stateOccupancyType.length === 0) {

@@ -39,10 +39,9 @@ const GateLogin = () => {
   let { community_id } = useParams();
   const { token } = useParams();
 
-  useEffect(()=>{
-    setToken(token || '')
-  }, [token])
-
+  useEffect(() => {
+    setToken(token || "");
+  }, [token]);
 
   const stateGates = useSelector((state: any) => state.gates);
 
@@ -79,7 +78,7 @@ const GateLogin = () => {
           options={{ required: true }}
           placeholder="Select your Gate name"
           label="Gate"
-          list={stateGates.filter((el:any) => el.is_active === true )}
+          list={stateGates.filter((el: any) => el.is_active === true)}
           error={errors.gate_id && "Please select a gate."}
         />
 

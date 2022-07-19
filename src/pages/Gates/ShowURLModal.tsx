@@ -3,8 +3,7 @@ import Modal from "components/Modal";
 import { copyText, getToken } from "helpers/utils";
 
 const ShowURLModal = ({ showURL, setShowURl, stateCommunityID }: any) => {
-
-  const token = getToken()
+  const token = getToken();
 
   return (
     <Modal show={showURL} toggleClose={() => setShowURl(!showURL)}>
@@ -13,8 +12,14 @@ const ShowURLModal = ({ showURL, setShowURl, stateCommunityID }: any) => {
         <hr className="my-6 absolute w-full left-0" />
 
         <div className="mt-20 border rounded-md p-10">
-          <a className="text-primary p-5" href={`https://jasper-web.herokuapp.com/gate_auth/${stateCommunityID}/${token}`} target="_blank" rel="noreferrer">
-            https://jasper-web.herokuapp.com/gate_auth/{stateCommunityID}/{token}
+          <a
+            className="text-primary p-5"
+            href={`https://jasper-web.herokuapp.com/gate_auth/${stateCommunityID}/${token}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            https://jasper-web.herokuapp.com/gate_auth/{stateCommunityID}/
+            {token}
           </a>
         </div>
 

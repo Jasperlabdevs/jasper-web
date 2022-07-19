@@ -1,7 +1,7 @@
 import Button from "components/Button";
 import SVGs from "helpers/SVGs";
 
-const SearchFilter = ({toggleFilter}:any) => {
+const SearchFilter = ({ toggleFilter }: any) => {
   return (
     <div className="flex items-center gap-4">
       <form className="bg-[#F9F9FB] flex w-3xl py-2 px-4 rounded-lg">

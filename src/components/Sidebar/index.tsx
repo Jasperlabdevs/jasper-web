@@ -13,7 +13,6 @@ const Sidebar = () => {
 
   const handleClick = (id: number) => {
     setActiveTab(id);
-
   };
 
   const goTo = (link: string) => {
@@ -33,9 +32,9 @@ const Sidebar = () => {
             key={data.id + 100}
             className="cursor-pointer px-10  my-2 border-b py-4"
             onClick={() => {
-              handleClick(data.id)
-              if(!data.children){
-                goTo(data.link)
+              handleClick(data.id);
+              if (!data.children) {
+                goTo(data.link);
               }
             }}
           >

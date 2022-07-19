@@ -10,7 +10,7 @@ import authentication from "services/authentication";
 const Header = () => {
   const location = useLocation();
   const { sideBar, setSidebar } = useContext(SideBarContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const toggleSideBar = () => {
     if (sideBar) {
       setSidebar(false);
@@ -19,10 +19,9 @@ const Header = () => {
     }
   };
 
-
   const logout = () => {
-    authentication.Logout(()=>navigate('/login'))
-  }
+    authentication.Logout(() => navigate("/login"));
+  };
 
   return (
     <>
@@ -64,7 +63,7 @@ const Header = () => {
             88 Message Credits
           </p>
           {SVGs.bell}
-          <Button title='Logout' red onClick={logout} />
+          <Button title="Logout" red onClick={logout} />
         </div>
       </div>
       <Sidebar />

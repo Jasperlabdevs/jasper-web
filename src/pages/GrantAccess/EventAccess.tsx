@@ -24,17 +24,14 @@ const EventAccess = () => {
   const [loading, setLoading] = useState(false);
 
   const resetFields = () => {
-    reset(
-      {
-        event_name: "",
-        number_of_visitors: "",
-        gates: "",
-        location: "",
-        event_date: "",
-      }
-    );
-
-  }
+    reset({
+      event_name: "",
+      number_of_visitors: "",
+      gates: "",
+      location: "",
+      event_date: "",
+    });
+  };
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -47,7 +44,7 @@ const EventAccess = () => {
         setShowCodeGenerated(true);
         console.log(res.data.results);
         setAccessCode(res.data?.results?.code);
-        resetFields()
+        resetFields();
       })
       .catch((err) => {
         setLoading(false);
@@ -95,7 +92,7 @@ const EventAccess = () => {
           placeholder="Select the Gate(s) you want to give access to"
           label="Gate"
           error={errors.gates && "Please select a gate."}
-          list={stateGates.filter((el:any) => el.is_active === true )}
+          list={stateGates.filter((el: any) => el.is_active === true)}
         />
         <Input
           name="number_of_visitors"
@@ -105,9 +102,11 @@ const EventAccess = () => {
           options={{
             required: true,
             min: 1,
-            max: 250
+            max: 250,
           }}
-          error={errors.number_of_visitors && "Please enter the number of visitors"}
+          error={
+            errors.number_of_visitors && "Please enter the number of visitors"
+          }
           register={register}
         />
 
@@ -130,7 +129,12 @@ const EventAccess = () => {
             <Button title="Generate Code" loading={loading} type="submit" />
           </div>
 
-          <Button title="Cancel" type="button" onClick={resetFields} secondary />
+          <Button
+            title="Cancel"
+            type="button"
+            onClick={resetFields}
+            secondary
+          />
         </div>
       </form>
     </div>

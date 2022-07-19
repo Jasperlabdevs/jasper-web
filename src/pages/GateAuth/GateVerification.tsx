@@ -15,8 +15,8 @@ const GateVerification = () => {
 
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState(false);
-  const [ showExtra, setShowExtra ] = useState(true)
-  const [ showIdentityModal, setshowIdentityModal ] = useState(false)
+  const [showExtra, setShowExtra] = useState(false);
+  const [showIdentityModal, setshowIdentityModal] = useState(false);
 
   const navigate = useNavigate();
   const onSubmit = () => {
@@ -30,21 +30,20 @@ const GateVerification = () => {
     verifyGate(data)
       .then((res) => {
         console.log(res.data);
-        setShowExtra(true)
+        setShowExtra(true);
       })
       .catch((err) => {
         setErr(err.response.data.message);
         setShow(true);
         setStatus(false);
       });
-    };
-    
-    const closeShowExtra = () => {
+  };
+
+  const closeShowExtra = () => {
     setShow(true);
     setStatus(true);
-    setShowExtra(false)
-
-  }
+    setShowExtra(false);
+  };
 
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [activeOtpIndex, setActiveOtpIndex] = useState(0);
@@ -70,7 +69,6 @@ const GateVerification = () => {
     setOtp(newOTP);
   };
 
-
   const handleKeyDown = (
     { key }: React.KeyboardEvent<HTMLInputElement>,
     index: number
@@ -95,27 +93,36 @@ const GateVerification = () => {
           {!!successful ? "Access Granted" : "Access Denied"}
         </h3>
         <p className="my-3">{err}</p>
-        <Button title="Ok" onClick={() => {
-          setShow(false)
-          setLoading(false)
-          setOtp(new Array(6).fill(""))
-        }
-          } />
+        <Button
+          title="Ok"
+          onClick={() => {
+            setShow(false);
+            setLoading(false);
+            setOtp(new Array(6).fill(""));
+          }}
+        />
       </div>
     </div>
   );
 
-
-
   return (
     <div className="login text-center mt-24 lg:mt-20">
-
-      {showExtra && 
-        <EntryExitModal gate={gate_id} code={otp.join("")} showExtra={showExtra} setShowExtra={closeShowExtra}  />
-      }
-      {showIdentityModal && 
-        <IdentityCheckModal gate={gate_id} code={otp.join("")} showIdentity={showIdentityModal} setShowIdentity={setshowIdentityModal}  />
-      }
+      {showExtra && (
+        <EntryExitModal
+          gate={gate_id}
+          code={otp.join("")}
+          showExtra={showExtra}
+          setShowExtra={closeShowExtra}
+        />
+      )}
+      {showIdentityModal && (
+        <IdentityCheckModal
+          gate={gate_id}
+          code={otp.join("")}
+          showIdentity={showIdentityModal}
+          setShowIdentity={setshowIdentityModal}
+        />
+      )}
       <div>
         {!show ? (
           <>
@@ -144,7 +151,7 @@ const GateVerification = () => {
                 type="button"
                 loading={loading}
                 onClick={onSubmit}
-                disable={ otp[ otp.length -1 ] === "" }
+                disable={otp[otp.length - 1] === ""}
               />
             </form>
           </>

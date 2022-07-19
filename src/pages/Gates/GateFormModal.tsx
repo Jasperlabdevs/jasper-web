@@ -15,14 +15,13 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
 
   let active = gates.filter((el: any) => el.id === editID);
 
-  let newGates = []
+  let newGates = [];
 
-  if(edit){
-    newGates = gates.filter((el:any) => el.id !== editID )
-  } else{
-    newGates = gates
+  if (edit) {
+    newGates = gates.filter((el: any) => el.id !== editID);
+  } else {
+    newGates = gates;
   }
-
 
   const onSubmit = (data: any) => {
     console.log(data);

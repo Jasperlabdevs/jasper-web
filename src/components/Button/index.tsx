@@ -11,7 +11,7 @@ type ButtonType = {
   smallPrimary?: boolean;
   other?: boolean;
   red?: boolean;
-  disable?:boolean;
+  disable?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
@@ -40,10 +40,9 @@ const Button = ({
               "bg-primary border border-primary text-[#FFFFFF]"
             } 
             ${secondary && " text-black "}
-            ${disable && "cursor-not-allowed" }
+            ${disable && "cursor-not-allowed"}
             ${
-              smallPrimary &&
-              "bg-primary text-[#ffffff] p-3 md:px-8 w-fit mt-0"
+              smallPrimary && "bg-primary text-[#ffffff] p-3 md:px-8 w-fit mt-0"
             } 
             ${
               smallSecondary &&

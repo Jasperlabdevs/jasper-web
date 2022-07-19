@@ -8,16 +8,15 @@ import { getToken } from "helpers/utils";
 
 const Auth = () => {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const token  = getToken()
+  const token = getToken();
 
-  useEffect(()=> {
-    if(token.length > 0){
-       navigate('/dashboard')
+  useEffect(() => {
+    if (token.length > 0) {
+      navigate("/dashboard");
     }
-  },[token,navigate])
-
+  }, [token, navigate]);
 
   const dispatch: any = useDispatch();
 

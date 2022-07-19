@@ -25,7 +25,6 @@ const Gates = () => {
     "",
   ];
 
-
   const stateCommunity = useSelector((state: any) => state.community);
 
   const [loading, setLoading] = useState(true);
@@ -37,12 +36,12 @@ const Gates = () => {
   // const [ notNested, setNotNested ] = useState([])
   const [activeExpand, setActiveExpand] = useState(null);
 
-  const [ update, setUpdate] = useState(false)
+  const [update, setUpdate] = useState(false);
 
   const toggle = (id: any) => {
     const data = { gate_id: id };
     dispatchStore(toggle_gate(data));
-    setUpdate(!update)
+    setUpdate(!update);
   };
 
   const stateGates = useSelector((state: any) => state.gates);
@@ -55,13 +54,11 @@ const Gates = () => {
 
   // console.log(notNested)
 
-  useEffect(()=>{
-    if(gates.length > 1){
-      setLoading(false)
+  useEffect(() => {
+    if (gates.length > 1) {
+      setLoading(false);
     }
-  },[gates])
-
-
+  }, [gates]);
 
   const expand = (id: any) => {
     if (id === activeExpand) {
@@ -75,40 +72,32 @@ const Gates = () => {
     setShowGate(true);
     setEditID(id);
     setEdit(true);
-    setUpdate(!update)
+    setUpdate(!update);
   };
 
   const closeModal = () => {
     setEdit(false);
     setEditID("");
     setShowGate(false);
-    setUpdate(!update)
+    setUpdate(!update);
   };
 
   const denest = (id: any) => {
-    const data = { gate_id : id }
+    const data = { gate_id: id };
     // dispatchStore(denest_gate(data));
-    denestGate(data).then(
-      (res:any)=> {
-        setUpdate(!update)
-
-      }
-    )
+    denestGate(data).then((res: any) => {
+      setUpdate(!update);
+    });
   };
 
   useEffect(() => {
-    setLoading(true)
-    setGates([])
-    getGate().then(
-      (res) => {
-        setGates(res.data.results)
-        setLoading(false)
-      }
-    )
-    
+    setLoading(true);
+    setGates([]);
+    getGate().then((res) => {
+      setGates(res.data.results);
+      setLoading(false);
+    });
   }, [update]);
-
-
 
   const [showURL, setShowURl] = useState(false);
 
