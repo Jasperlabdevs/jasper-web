@@ -48,6 +48,13 @@ export const verifyGate = (data: any) => {
   return axios.post(URL.verifyGate, { ...data });
 };
 
+export const entryExit = (data:any) => {
+  return axios.post(URL.verifyGate, { ...data });
+}
+export const checkID = (data:any) => {
+  return axios.post(URL.verifyGate, { ...data });
+}
+
 export const denestGate = (data:any) => {
   let config = configuration()
   return axios.post(URL.denestGate, { ...data }, config)
