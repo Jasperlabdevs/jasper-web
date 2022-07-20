@@ -12,12 +12,12 @@ const EntryExitModal = ({ showExtra, setShowExtra, code, gate }: any) => {
 
     entryExit(data).then((res: any) => {
       console.log(res.data);
-      setShowExtra(false);
+      setShowExtra();
     });
   };
 
   return (
-    <Modal show={showExtra} toggleClose={() => setShowExtra(false)}>
+    <Modal show={showExtra} toggleClose={() => setShowExtra()}>
       <h4 className="mt-8 ml-8 text-left">Entry/Exit Capture</h4>
       <hr className="my-6 absolute w-full left-0" />
 

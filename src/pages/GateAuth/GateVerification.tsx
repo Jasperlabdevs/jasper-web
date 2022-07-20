@@ -6,6 +6,7 @@ import failure from "assets/images/error.svg";
 import success from "assets/images/success.png";
 import EntryExitModal from "./EntryExitModal";
 import IdentityCheckModal from "./IdentityCheckModal";
+import { getCommunityWithID } from "services/community";
 
 const GateVerification = () => {
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,21 @@ const GateVerification = () => {
   const [status, setStatus] = useState(false);
   const [showExtra, setShowExtra] = useState(false);
   const [showIdentityModal, setshowIdentityModal] = useState(false);
+  const [ visitor, setVisitor ] = useState<any>({})
+  const [ accessRules, setAccessRules ] = useState<any>({})
+  const { community_id } = useParams();
+
+  useEffect(()=>{
+    getCommunityWithID(community_id || '').then(
+      res => {
+        setAccessRules(res.data.access_rules)
+      }
+    ).catch(err => {
+      console.log(err.data)
+    })
+
+    console.log(accessRules)
+  },[])
 
   const navigate = useNavigate();
   const onSubmit = () => {
@@ -28,9 +44,21 @@ const GateVerification = () => {
     };
 
     verifyGate(data)
-      .then((res) => {
+      .then((res:any) => {
         console.log(res.data);
-        setShowExtra(true);
+        setVisitor(res.data?.result?.visitor)
+        if( accessRules?.identity_verification && (visitor.visitor_id_card_name !== "" || visitor.security_password !== "" || visitor.license_plate !== "")){
+          setshowIdentityModal(true)
+        }else if(accessRules?.capture_visitor_entry_exit){
+          setShowExtra(true);
+        }else {
+          setShow(true);
+          setStatus(true);
+        }
+        
+        // 735327
+
+        
       })
       .catch((err) => {
         setErr(err.response.data.message);
@@ -38,6 +66,15 @@ const GateVerification = () => {
         setStatus(false);
       });
   };
+
+  const closeShowIdentityModal = () => {
+    setshowIdentityModal(false)
+    if( status && accessRules?.capture_visitor_entry_exit){
+      setShowExtra(true);
+    }else {
+      setShow(true);
+    }
+  }
 
   const closeShowExtra = () => {
     setShow(true);
@@ -118,9 +155,11 @@ const GateVerification = () => {
       {showIdentityModal && (
         <IdentityCheckModal
           gate={gate_id}
+          setStatus={setStatus}
           code={otp.join("")}
           showIdentity={showIdentityModal}
-          setShowIdentity={setshowIdentityModal}
+          setShowIdentity={closeShowIdentityModal}
+          visitor={visitor}
         />
       )}
       <div>
