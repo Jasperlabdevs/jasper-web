@@ -1,16 +1,26 @@
 import Button from "components/Button";
 import Modal from "components/Modal";
-import { entryExit } from "services/gates";
+import { entryVerification, exitVerification } from "services/gates";
 
 const EntryExitModal = ({ showExtra, setShowExtra, code, gate }: any) => {
-  const handleEntryExit = (which: any) => {
+  const handleEntry = () => {
     const data = {
       gate_id: gate,
       code: code,
-      entry_or_exit: which,
     };
 
-    entryExit(data).then((res: any) => {
+    entryVerification(data).then((res: any) => {
+      console.log(res.data);
+      setShowExtra();
+    });
+  };
+  const handleExit = () => {
+    const data = {
+      gate_id: gate,
+      code: code,
+    };
+
+    exitVerification(data).then((res: any) => {
       console.log(res.data);
       setShowExtra();
     });
@@ -32,14 +42,14 @@ const EntryExitModal = ({ showExtra, setShowExtra, code, gate }: any) => {
               <Button
                 type="button"
                 title="Entry"
-                onClick={() => handleEntryExit("ENTRY")}
+                onClick={handleEntry}
               />
             </div>
             <div className="w-[100px]">
               <Button
                 type="button"
                 title="Exit"
-                onClick={() => handleEntryExit("EXIT")}
+                onClick={handleExit}
               />
             </div>
           </div>

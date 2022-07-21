@@ -15,5 +15,5 @@ export const getCommunityTypes = () => {
 };
 export const getOccupancyTypes = () => {
   let config = configuration();
-  return axios.get(URL.occuoantTypes, config);
+  return axios.get(URL.occupantTypes, config);
 };

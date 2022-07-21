@@ -5,7 +5,7 @@ const URL = {
   logout: baseUrl + "logout/",
 
   communityTypes: baseUrl + "community/community_type/",
-  occuoantTypes: baseUrl + "community/occupancy_type/",
+  occupantTypes: baseUrl + "community/occupancy_type/",
 
   chooseOccupancyType: baseUrl + "community/choose_occupancy_type/",
   getOccupancyType: baseUrl + "community/community_occupancy_type/",
@@ -19,6 +19,11 @@ const URL = {
   editProfile: baseUrl + "me/",
   getUser: baseUrl + "me/",
   verifyGate: baseUrl + "gate/pass_gate/",
+
+  identification: baseUrl + "gate/verify_access_identification/",
+  entryGate: baseUrl + "gate/verify_access_entry/",
+  exitGate: baseUrl + "gate/verify_access_exit/",
+
   getGates: baseUrl + "gate/",
   getAllGates: baseUrl + "gate/community_gates/",
   community: baseUrl + "community/",
