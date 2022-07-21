@@ -24,3 +24,19 @@ export const getCommunityAccessHistory = () => {
   let config = configuration();
   return axios.get(URL.communityAccessHistory, config);
 };
+
+
+export const accessHistorySearchHistory = (data:any) => {
+  let config = configuration();
+  return axios.post(URL.accessHistorySearchFilter, data, config);
+
+}
+
+// const serialize = (obj:any) => {
+//   var str = [];
+//   for (var p in obj)
+//     if (obj.hasOwnProperty(p)) {
+//       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+//     }
+//   return str.join("&") + '/';
+// }

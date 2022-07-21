@@ -23,6 +23,8 @@ const OneTimeAccess = () => {
   const [which, setWhich] = useState("");
   const [showTextCode, setShowTextCode] = useState(false);
   const [accessCode, setAccessCode] = useState("");
+  const stateCommunity = useSelector((state:any) => state.community)
+  const location = stateCommunity.street_name +", "+ stateCommunity.city +", "+ stateCommunity.state
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -131,6 +133,7 @@ const OneTimeAccess = () => {
           options={{ required: true }}
           error={errors.location && "Please enter a location"}
           register={register}
+          value={location}
         />
 
         <p

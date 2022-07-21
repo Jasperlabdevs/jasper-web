@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 const Filter = ({ handleChange }: any) => {
   const { register } = useForm();
 
-  const access_types = ["all", "recurring", "event", "onetime", "multiple"];
-  const status = ["all", "generated"];
+  const access_types = ["All", "recurring", "event", "onetime", "multiple"];
+  const status = ["All", "generated", "Verified", "Expired", "Disabled"];
 
   const stateGates = useSelector((state: any) => state.gates);
 
@@ -44,7 +44,7 @@ const Filter = ({ handleChange }: any) => {
               options={{ required: true }}
               placeholder="Gate"
               label=""
-              list={["all", ...stateGates]}
+              list={["All", ...stateGates]}
             />
           </div>
         </div>

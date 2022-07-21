@@ -37,6 +37,7 @@ const Login = () => {
   };
 
   const onSubmit = (data: any) => {
+    data.email = (data.email).toLowerCase()
     authentication.Login(data, successCB, failedCB);
     setLoading(true);
     console.log(data);

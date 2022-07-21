@@ -29,6 +29,7 @@ const ForgotPassword = () => {
   };
 
   const onSubmit = (data: any) => {
+    data.email = (data.email).toLowerCase()
     setErr("");
     setLoading(true);
     authentication.ForgetPassword(data, successCB, failedCB);

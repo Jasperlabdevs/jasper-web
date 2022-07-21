@@ -23,6 +23,9 @@ const EventAccess = () => {
   const todayDate = formatDate(today.toISOString(), "-");
   const [loading, setLoading] = useState(false);
 
+  const stateCommunity = useSelector((state:any) => state.community)
+  const location = stateCommunity.street_name +", "+ stateCommunity.city +", "+ stateCommunity.state
+
   const resetFields = () => {
     reset({
       event_name: "",
@@ -32,6 +35,7 @@ const EventAccess = () => {
       event_date: "",
     });
   };
+
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -79,6 +83,7 @@ const EventAccess = () => {
           name="location"
           label="Location"
           placeholder="Enter location you are granting access to"
+          value={location}
           options={{
             required: true,
           }}
@@ -105,7 +110,7 @@ const EventAccess = () => {
             max: 250,
           }}
           error={
-            errors.number_of_visitors && "Please enter the number of visitors"
+            errors.number_of_visitors && "Please number of visitors must be between 1 and 250"
           }
           register={register}
         />

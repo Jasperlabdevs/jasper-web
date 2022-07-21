@@ -31,6 +31,8 @@ const URL = {
   access: baseUrl + "access/",
   communityAccessHistory: baseUrl + "access/get_all_community_access_history/",
 
+  accessHistorySearchFilter: baseUrl + "access/search_filter/?",
+
   accessRules: baseUrl + "access/create_rules/",
 };
 

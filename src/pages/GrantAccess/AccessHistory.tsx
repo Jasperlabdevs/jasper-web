@@ -5,7 +5,7 @@ import SVGs from "helpers/SVGs";
 import { formatDate, formatDateTime } from "helpers/utils";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCommunityAccessHistory } from "services/access";
+import { accessHistorySearchHistory, getCommunityAccessHistory } from "services/access";
 
 const AccessHistory = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -15,16 +15,22 @@ const AccessHistory = () => {
   const [activeAllList, setActiveAllList] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
 
-  useEffect(() => {
-    getCommunityAccessHistory().then((res) => {
+  const [ params, setParams ] = useState<any>({})
+
+  const getHistory = async() => {
+    await getCommunityAccessHistory().then((res) => {
       setLoading(false);
       console.log(res.data.results);
       setCommunityHistory(res.data.results);
-      const all = communityHistory.filter(
-        (el: any) => el.access_type !== "multiple"
-      );
-      setActiveAllList(all);
+      // const all = communityHistory.filter(
+      //   (el: any) => el.access_type !== "multiple"
+      // );
+      setActiveAllList(res.data.results);
     });
+  }
+
+  useEffect(() => {
+    getHistory()
   }, []);
 
   const multipleAccessHistory = communityHistory.filter(
@@ -39,10 +45,10 @@ const AccessHistory = () => {
       id: 1,
       name: "All Access",
     },
-    {
-      id: 2,
-      name: "Multiple Access",
-    },
+    // {
+    //   id: 2,
+    //   name: "Multiple Access",
+    // },
   ];
 
   const headersAll = [
@@ -71,27 +77,40 @@ const AccessHistory = () => {
     setShowFilter(!showFilter);
   };
 
-  const handleChange = (event: any) => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    if (name === "gate") {
-      if (value === "all") {
-        setActiveAllList(communityHistory);
-      } else {
-        setActiveAllList(
-          communityHistory.filter((el: any) => el.gate[0].id === value)
-        );
-      }
-    } else {
-      if (value === "all") {
-        setActiveAllList(communityHistory);
-      } else {
-        setActiveAllList(
-          communityHistory.filter((el: any) => el[`${name}`] === value)
-        );
-      }
+  const handleSearch =(text:string) =>{
+    setShowFilter(false)
+    const data = {
+      search_text: text
     }
+    accessHistorySearchHistory(data).then(
+      res => {
+        const data = res.data.results
+        setActiveAllList(data)
+      }
+    )
+  }
+
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+
+    const temp = { ...params }
+
+    if(value === "All"){
+      temp[name] = ''
+    }else{
+      temp[name] = value
+    }
+
+
+    setParams(temp) 
+
+    accessHistorySearchHistory(temp).then(
+      res => {
+        const data = res.data.results
+        setActiveAllList(data)
+      }
+    )
+   
   };
 
   const view = ({ id }: any) => {
@@ -106,7 +125,7 @@ const AccessHistory = () => {
             {communityHistory.length}
           </span>{" "} */}
         </h4>
-        <SearchFilter toggleFilter={toggleFilter} />
+        <SearchFilter handleSearch={handleSearch} toggleFilter={toggleFilter} />
       </div>
 
       <div className="my-6 flex w-fit border-b border-[#EFF1F5]">

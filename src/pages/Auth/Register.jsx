@@ -67,6 +67,8 @@ const Register = () => {
       return null;
     }
 
+    data.email = (data.email).toLowerCase()
+
     setLoading(true);
 
     authentication.Register(data, successCB, failedCB);

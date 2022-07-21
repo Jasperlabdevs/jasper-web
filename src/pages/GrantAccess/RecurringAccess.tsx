@@ -34,6 +34,8 @@ const RecurringAccess = () => {
   const todayDate = formatDate(today.toISOString(), "-");
 
   const [startDate, setStartDate] = useState(todayDate);
+  const stateCommunity = useSelector((state:any) => state.community)
+  const location = stateCommunity.street_name +", "+ stateCommunity.city +", "+ stateCommunity.state
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -138,6 +140,7 @@ const RecurringAccess = () => {
           options={{ required: true }}
           error={errors.location && "Please enter a location"}
           register={register}
+          value={location}
         />
         <Select
           name="gates"
