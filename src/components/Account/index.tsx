@@ -1,51 +1,38 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Button from "components/Button";
-import Input from "components/Input";
+import Input, { PhoneInput } from "components/Input";
 import { useForm } from "react-hook-form";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import Modal from "components/Modal";
-import { useNavigate } from "react-router-dom";
+import DefaaultAvatar from "assets/images/AccountPhoto.png";
+import { NavLink } from "react-router-dom";
+
+import ChangePassword from "./ChangePassword";
+import UpdatePhoto from "./UpdatePhoto";
 
 const Account = () => {
-  const { register, handleSubmit } = useForm();
-  const [phoneInput, setPhoneInput] = useState("+234");
-  const [modal, toggleModal] = useState(false);
+  const { register: registerPersonalInfo, setValue } = useForm();
 
-  const navigate = useNavigate();
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [updatePhotoModal, setUpdatePhotoModal] = useState(false);
+  const [avatar, setAvatar] = useState("");
+  const stateUser = useSelector((state: any) => state.user);
 
   return (
     <div className="mt-14 max-w-4xl">
-      <Modal show={modal} toggleClose={() => toggleModal(false)}>
-        <div className="p-8">
-          <p className="text-black mb-10">Update Password</p>
-          <form>
-            <Input
-              placeholder="Enter your old password"
-              name="old_passowrd"
-              label="Old Password"
-              register={register}
-              options={{}}
-            />
-            <Input
-              placeholder="Enter your New Password"
-              name="new_password"
-              label="New password"
-              register={register}
-              options={{}}
-            />
-            <Input
-              placeholder="Repeat your new password"
-              name="repeat_new_password"
-              label="Repeat new Password"
-              register={register}
-              options={{}}
-            />
-            <div className="w-fit float-right mb-8">
-              <Button title="Save Password" />
-            </div>
-          </form>
-        </div>
+      <Modal
+        show={showPasswordModal}
+        toggleClose={() => setShowPasswordModal(false)}
+      >
+        <ChangePassword onHide={() => setShowPasswordModal(false)} />
+      </Modal>
+
+      <Modal
+        show={updatePhotoModal}
+        toggleClose={() => setUpdatePhotoModal(false)}
+      >
+        <UpdatePhoto />
       </Modal>
 
       <h4>Community Account</h4>
@@ -54,10 +41,20 @@ const Account = () => {
       <div>
         <p className="text-black mt-8 py-4">Photo</p>
         <div className="flex justify-between items-center">
-          <div className="rounded-full bg-icon_background h-20 w-20"></div>
+          <div className="rounded-full bg-icon_background h-20 w-20">
+            {avatar ? (
+              <img src={avatar} className="rounded-full" alt="Avatar" />
+            ) : (
+              <img src={DefaaultAvatar} className="rounded-full" alt="Avatar" />
+            )}
+          </div>
 
           <div className="grow max-w-[200px] md:max-w-xs w-md -mt-10">
-            <Button title="Upload Image" other />
+            <Button
+              title="Upload Image"
+              onClick={() => setUpdatePhotoModal(true)}
+              other
+            />
           </div>
         </div>
 
@@ -69,15 +66,28 @@ const Account = () => {
               placeholder="Enter your full name"
               name="full_name"
               label="Admin Name"
-              register={register}
+              value={stateUser.first_name}
+              register={registerPersonalInfo}
               options={{}}
             />
 
-            <label className="text-label_text">Your Phone Number</label>
             <PhoneInput
               placeholder="Enter phone number"
-              value={phoneInput}
-              onChange={(event) => setPhoneInput("")}
+              name="phone_number"
+              label="Your Phone Number"
+              type="tel"
+              register={registerPersonalInfo}
+              // error={
+              //   errors.community_contact_phone_number &&
+              //   "Please enter a correct phone number"
+              // }
+              value={stateUser.phone_number.slice(3)}
+              options={{
+                required: true,
+                minLength: 7,
+                maxLenght: 8,
+                pattern: /[0-9]/,
+              }}
             />
           </form>
         </div>
@@ -92,7 +102,7 @@ const Account = () => {
             <Button
               title="Update Password"
               type="button"
-              onClick={() => toggleModal(true)}
+              onClick={() => setShowPasswordModal(true)}
               other
             />
           </div>
@@ -104,12 +114,9 @@ const Account = () => {
           </div>
 
           <div className="grow max-w-xs -mt-10">
-            <Button
-              title="Log Out"
-              type="button"
-              onClick={() => navigate("/login")}
-              other
-            />
+            <NavLink to="/login">
+              <Button title="Log Out" type="button" other />
+            </NavLink>
           </div>
         </div>
 
@@ -119,7 +126,19 @@ const Account = () => {
             <Button title="Save Changes" type="button" />
           </div>
 
-          <Button title="Discard" type="button" other />
+          <Button
+            title="Discard"
+            type="button"
+            onClick={() => {
+              setValue("full_name", stateUser.first_name, {
+                shouldDirty: true,
+              });
+              setValue("phone_number", stateUser.phone_number.slice(3), {
+                shouldDirty: true,
+              });
+            }}
+            other
+          />
         </div>
       </div>
     </div>

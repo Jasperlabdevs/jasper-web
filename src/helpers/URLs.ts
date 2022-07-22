@@ -9,6 +9,7 @@ const URL = {
 
   chooseOccupancyType: baseUrl + "community/choose_occupancy_type/",
   getOccupancyType: baseUrl + "community/community_occupancy_type/",
+  selectableOccupancyTypes: baseUrl + "community/selectable_occupancy_type/",
 
   validateEmail: baseUrl + "validate_email/",
   resetPassword: baseUrl + "reset_password/",
@@ -39,6 +40,9 @@ const URL = {
   accessHistorySearchFilter: baseUrl + "access/search_filter/?",
 
   accessRules: baseUrl + "access/create_rules/",
+  communityAccessRules: baseUrl + "access/rules/",
+
+  userNotificationSettings: baseUrl + "user_notification_settings/",
 };
 
 export default URL;

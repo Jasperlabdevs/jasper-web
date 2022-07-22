@@ -16,3 +16,5 @@ const composeEnhancers = composeWithDevTools(applyMiddleware(thunk));
 export const store = createStore(persistedReducer, composeEnhancers);
 
 export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof persistedReducer>;

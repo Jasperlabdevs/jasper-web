@@ -1,5 +1,5 @@
-import { useState } from "react";
-import SVG from "helpers/SVGs";
+import { useState } from 'react';
+import SVG from 'helpers/SVGs';
 
 type InputType = {
   name: String;
@@ -26,18 +26,19 @@ type SelectType = {
   noborder?: Boolean;
   error?: string;
   onChange?: any;
+  defaultValue?: any;
 };
 
 const Input = ({
-  label = "",
+  label = '',
   register,
   name,
-  type = "text",
+  type = 'text',
   disabled = false,
   placeholder,
   options,
-  error = "",
-  value = "",
+  error = '',
+  value = '',
   min,
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
@@ -54,18 +55,18 @@ const Input = ({
         disabled={disabled}
         className="p-4 mt-2 mb-8 border rounded-md w-full"
         placeholder={placeholder}
-        defaultValue={value || ""}
-        type={!visibility ? type : "text"}
+        defaultValue={value || ''}
+        type={!visibility ? type : 'text'}
         min={min}
         step="1"
         {...register(name, { ...options })}
       />
-      {type === "password" && (
+      {type === 'password' && (
         <span
           className="cursor-pointer text-light_grey_text absolute top-12 right-4"
           onClick={() => setVisibility(!visibility)}
         >
-          {visibility ? "Hide" : "Show"}
+          {visibility ? 'Hide' : 'Show'}
         </span>
       )}
       <p className="text-red text-xs -mt-7">{error}</p>
@@ -74,15 +75,15 @@ const Input = ({
   );
 };
 export const TextArea = ({
-  label = "",
+  label = '',
   register,
   name,
-  type = "",
+  type = '',
   disabled = false,
   placeholder,
   options,
-  error = "",
-  value = "",
+  error = '',
+  value = '',
   min,
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
@@ -99,18 +100,18 @@ export const TextArea = ({
         disabled={disabled}
         className="p-4 mt-2 mb-8 border rounded-md w-full"
         placeholder={placeholder}
-        defaultValue={value || ""}
+        defaultValue={value || ''}
         type={type}
         min={min}
         step="1"
         {...register(name, { ...options })}
       />
-      {type === "password" && (
+      {type === 'password' && (
         <span
           className="cursor-pointer text-light_grey_text absolute top-12 right-4"
           onClick={() => setVisibility(!visibility)}
         >
-          {visibility ? "Hide" : "Show"}
+          {visibility ? 'Hide' : 'Show'}
         </span>
       )}
       <p className="text-red text-xs -mt-7">{error}</p>
@@ -119,14 +120,14 @@ export const TextArea = ({
   );
 };
 export const PhoneInput = ({
-  label = "",
+  label = '',
   register,
   name,
-  type = "text",
+  type = 'text',
   placeholder,
   options,
-  value = "",
-  error = "",
+  value = '',
+  error = '',
 }: InputType) => {
   return (
     <div className="relative">
@@ -141,7 +142,7 @@ export const PhoneInput = ({
         <input
           className=" w-full py-4 pl-4 outline-none "
           placeholder={placeholder}
-          defaultValue={value || ""}
+          defaultValue={value || ''}
           type="tel"
           maxLength="11"
           {...register(name, { ...options })}
@@ -160,10 +161,11 @@ export const Select = (
     register,
     options,
     name,
-    label = "",
+    label = '',
     placeholder,
     list,
-    value = "",
+    value = '',
+    defaultValue = '',
     noborder,
     error,
   }: SelectType,
@@ -185,13 +187,13 @@ export const Select = (
     <select
       {...register(name, { ...options })}
       className={`bg-[transparent] relative p-4 text-text-icon_background mt-2 rounded-md w-full ${
-        noborder ? "border-none my-0" : "border"
+        noborder ? 'border-none my-0' : 'border'
       } `}
       name={name}
-      defaultValue={value || ""}
+      defaultValue={defaultValue || value || ''}
       onChange={onChange}
     >
-      {value === "" && (
+      {value === '' && (
         <option hidden value="">
           {placeholder}
         </option>
@@ -208,7 +210,7 @@ export const Select = (
 
 export const Checkbox = ({ label, name, register }: InputType) => (
   <label className="checkbox_container lg:text-label_text">
-    {" "}
+    {' '}
     <div>{label}</div>
     <input type="checkbox" {...register(name)} />
     <span className="checkmark"></span>
@@ -221,7 +223,7 @@ export const DateInput = ({
   register,
   placeholder,
   options,
-  error = "",
+  error = '',
   min,
   onChange,
 }: InputType) => (

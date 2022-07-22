@@ -1,12 +1,18 @@
 import Configuration from "../Configuration";
 import React, { useEffect, useState } from "react";
-import { configurationData, TableContent } from "helpers/data";
+import { defaultConfigurationData, TableContent } from "helpers/data";
 import { useForm } from "react-hook-form";
 import Button from "components/Button";
-import { setAccessRules } from "services/access";
+import {
+  setAccessRules,
+  updateAccessRules,
+  getCommunityAccessRules,
+} from "services/access";
 import { Select } from "components/Input";
 import { dispatchStore } from "helpers/utils";
 import { get_selected_occupancy_type } from "store/actions/occupancyTypes";
+import { getUser } from "services/helperServices";
+import { setUser } from "store/actions/user";
 
 const AccessConfig = ({
   forwardButton,
@@ -16,6 +22,7 @@ const AccessConfig = ({
 }: any) => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
+  const [accessConfig, setAccessConfig] = useState<any>(false);
 
   const list = [
     { id: "required", name: "Required" },
@@ -23,6 +30,16 @@ const AccessConfig = ({
   ];
 
   useEffect(() => {
+    getCommunityAccessRules().then(
+      (res) => {
+        console.log(res.data.results);
+        setAccessConfig(res.data.results);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+
     dispatchStore(get_selected_occupancy_type());
   }, []);
 
@@ -51,6 +68,7 @@ const AccessConfig = ({
         selected: data.RequestingDepartment_selected,
       },
     ];
+
     const one = [];
     const two = [];
     const three = [];
@@ -93,57 +111,29 @@ const AccessConfig = ({
     data.occupancy_type_allowed_to_request_multiple_access_codes = four;
     data.occupancy_type_allowed_to_generate_multiple_access_codes = five;
 
-    delete data.Reasonforvisiting_make_required;
-    delete data.Reasonforvisiting_selected;
-    delete data.RequestingDepartment_make_required;
-    delete data.RequestingDepartment_selected;
-    delete data.VisitorCompany_make_required;
-    delete data.VisitorCompany_selected;
-    delete data.VisitorType_make_required;
-    delete data.VisitorType_selected;
-    delete data.allow_users_generate_event_access_codes_Developer;
-    delete data.allow_users_generate_event_access_codes_FacilityManagement;
-    delete data.allow_users_generate_event_access_codes_Guest;
-    delete data.allow_users_generate_event_access_codes_Landlord;
-    delete data.allow_users_generate_event_access_codes_PropertyOwner;
-    delete data.allow_users_generate_event_access_codes_Tenant;
-    delete data.allow_users_generate_onetime_access_codes_Developer;
-    delete data.allow_users_generate_onetime_access_codes_FacilityManagement;
-    delete data.allow_users_generate_onetime_access_codes_Guest;
-    delete data.allow_users_generate_onetime_access_codes_Landlord;
-    delete data.allow_users_generate_onetime_access_codes_PropertyOwner;
-    delete data.allow_users_generate_onetime_access_codes_Tenant;
-    delete data.allow_users_generate_recurring_access_codes_Developer;
-    delete data.allow_users_generate_recurring_access_codes_FacilityManagement;
-    delete data.allow_users_generate_recurring_access_codes_Guest;
-    delete data.allow_users_generate_recurring_access_codes_Landlord;
-    delete data.allow_users_generate_recurring_access_codes_PropertyOwner;
-    delete data.allow_users_generate_recurring_access_codes_Tenant;
-    delete data.allow_users_request_multiple_access_codes_Developer;
-    delete data.allow_users_request_multiple_access_codes_FacilityManagement;
-    delete data.allow_users_request_multiple_access_codes_Guest;
-    delete data.allow_users_request_multiple_access_codes_Landlord;
-    delete data.allow_users_request_multiple_access_codes_PropertyOwner;
-    delete data.allow_users_request_multiple_access_codes_Tenant;
-    delete data.allow_users_generate_multiple_access_codes_Developer;
-    delete data.allow_users_generate_multiple_access_codes_FacilityManagement;
-    delete data.allow_users_generate_multiple_access_codes_Guest;
-    delete data.allow_users_generate_multiple_access_codes_Landlord;
-    delete data.allow_users_generate_multiple_access_codes_PropertyOwner;
-    delete data.allow_users_generate_multiple_access_codes_Tenant;
-
     console.log(data);
-
-    setAccessRules(data)
-      .then((res) => {
-        console.log(res.data.results);
-        setLoading(false);
-        forward();
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.data);
-      });
+    if (forwardButton) {
+      setAccessRules(data)
+        .then((res) => {
+          console.log(res.data.results);
+          setLoading(false);
+          forward();
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err.data);
+        });
+    } else {
+      updateAccessRules(data)
+        .then((res) => {
+          console.log(res);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err.data);
+        });
+    }
   };
 
   return (
@@ -151,19 +141,91 @@ const AccessConfig = ({
       <section>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h3>Access Rules</h3>
-          {configurationData.map((data, index) => (
-            <div key={data.id}>
-              <Configuration
-                title={data.title}
-                description={data.description}
-                hasCheckList={data.hasCheckList}
-                name={data.name}
-                value={data.value}
-                register={register}
-              />
-              {data.id === 6 && <h4 className="mt-8">MULTIPLE ACCESS</h4>}
-            </div>
-          ))}
+
+          <div>
+            <Configuration
+              title={"Capture Visitor Entry and Exit"}
+              description={"Confirm entry/exit before granting access"}
+              defaultChecked={false}
+              name={"visitor_entry_and_exit"}
+              value={accessConfig.capture_visitor_entry_exit}
+              register={register}
+            />
+            <Configuration
+              title={"Identity Verification"}
+              description={"Confirm visitor ID before granting access"}
+              defaultChecked={false}
+              name={"identity_verification"}
+              value={accessConfig.identity_verification}
+              register={register}
+            />
+            <Configuration
+              title={"Enable Secondary Gate Access"}
+              description={
+                "This will be sent to all platform users on onboarding, prompting them to specify if they have a secondary gate."
+              }
+              defaultChecked={false}
+              name={"enable_secondary_gate_access"}
+              value={accessConfig.enable_secondary_access_gate}
+              register={register}
+            />
+            <Configuration
+              title={"Allow users to generate one-time access codes"}
+              description={
+                "By turning on this toggle, you agree to confirm entry/exit before granting access"
+              }
+              hasCheckList={true}
+              defaultChecked={true}
+              name={"allow_users_generate_onetime_access_codes"}
+              value={accessConfig.allow_users_generate_onetime_access_codes}
+              register={register}
+            />
+            <Configuration
+              title={"Allow users to generate event access codes"}
+              description={
+                "By turning on this toggle, you give users access to generate access codes for events"
+              }
+              hasCheckList={true}
+              defaultChecked={true}
+              name={"allow_users_generate_event_access_codes"}
+              value={accessConfig.allow_users_generate_event_access_codes}
+              register={register}
+            />
+            <Configuration
+              title={"Allow users to generate recurring access codes"}
+              description={
+                "By turning on this toggle, you give users access to generate access codes for recurring events"
+              }
+              hasCheckList={true}
+              defaultChecked={true}
+              name={"allow_users_generate_recurring_access_codes"}
+              value={accessConfig.allow_users_generate_recurring_access_codes}
+              register={register}
+            />
+            <h4 className="mt-8">MULTIPLE ACCESS</h4>
+            <Configuration
+              title={"Allow users to generate multiple access codes"}
+              description={
+                "By turning on this toggle, you give users access to generate mutiple access codes"
+              }
+              hasCheckList={true}
+              defaultChecked={true}
+              name={"allow_users_generate_multiple_access_codes"}
+              value={accessConfig.allow_users_generate_multiple_access_codes}
+              register={register}
+            />
+            <Configuration
+              title={"Allow users to request multiple access codes"}
+              description={
+                "By turning on this toggle, you give users access to generate mutiple access codes"
+              }
+              hasCheckList={true}
+              defaultChecked={true}
+              name={"allow_users_request_multiple_access_codes"}
+              value={accessConfig.allow_users_request_multiple_access_codes}
+              register={register}
+            />
+          </div>
 
           <h5 className="py-4 -mb-10 md:mb-0">
             Select additional Information you'd like to capture before granting
@@ -191,7 +253,7 @@ const AccessConfig = ({
                           data.additionalInfomation.replace(/\s/g, "") +
                           "_make_required"
                         }
-                        value={"required"}
+                        defaultValue={data.required}
                         list={list}
                         noborder
                         label={""}
@@ -221,7 +283,7 @@ const AccessConfig = ({
             <div className="lg:max-w-[200px] w-full">
               <Button
                 // onClick={forward}
-                title={forwardButton}
+                title={forwardButton || "Save Changes"}
                 type="submit"
                 loading={loading}
               />

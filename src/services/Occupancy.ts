@@ -19,3 +19,8 @@ export const getSelectedOccupancyTypes = () => {
   let config = configuration();
   return axios.get(URL.getOccupancyType, config);
 };
+
+export const getSelectableOccupancyTypes = () => {
+  let config = configuration();
+  return axios.get(URL.selectableOccupancyTypes, config);
+};

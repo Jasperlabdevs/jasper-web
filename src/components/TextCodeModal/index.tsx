@@ -42,16 +42,21 @@ const TextCodeModal = ({ showTextCode, accessCode, setShowTextCode }: any) => {
             label="Name"
           />
           <PhoneInput
-            name="phone_number"
+            placeholder="Enter community phone number"
+            name="community_contact_phone_number"
+            label="Community Contact Phone Number"
+            type="tel"
             register={register}
+            error={
+              errors.community_contact_phone_number &&
+              "Please enter a correct phone number"
+            }
             options={{
               required: true,
-              minLenght: 6,
-              maxLenght: 11,
-              pattern: "/^(0?)([7|8|9]{1})[0-9]{9}$/",
+              minLength: 7,
+              maxLenght: 8,
+              pattern: /[0-9]/,
             }}
-            error={errors.phone_number && "Please Enter a correct phone number"}
-            label="Phone Number"
           />
 
           <div className="float-right w-fit mb-8 flex gap-4">

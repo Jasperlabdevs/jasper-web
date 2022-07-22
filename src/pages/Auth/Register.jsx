@@ -42,7 +42,6 @@ const Register = () => {
     if (!!data.detail) {
       return setErr(data.detail);
     }
-    console.log(data);
     let error = "";
     Object.values(data).map((el) => (error = error + "\n" + el));
 
@@ -67,13 +66,11 @@ const Register = () => {
       return null;
     }
 
-    data.email = (data.email).toLowerCase()
+    data.email = data.email.toLowerCase();
 
     setLoading(true);
 
     authentication.Register(data, successCB, failedCB);
-
-    console.log(data);
   };
 
   useEffect(() => {
@@ -93,14 +90,13 @@ const Register = () => {
 
     let res = true;
     setErr("");
-    watchFields.map((el) => {
+    watchFields.forEach((el) => {
       if (el === undefined || el.length === 0 || el === false) {
         setErr("Please complete the form before you continue");
         res = false;
       }
     });
 
-    console.log("here");
     return res ? setCurrentPage(tabs[1]) : null;
   };
 
@@ -163,7 +159,7 @@ const Register = () => {
                 type="tel"
                 register={register}
                 error={
-                  errors.last_name && "Please enter a correct phone number"
+                  errors.phone_number && "Please enter a correct phone number"
                 }
                 options={{
                   required: true,

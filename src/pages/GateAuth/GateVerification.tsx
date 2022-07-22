@@ -1,6 +1,6 @@
 import Button from "components/Button";
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { verifyGate } from "services/gates";
 import failure from "assets/images/error.svg";
 import success from "assets/images/success.png";
@@ -18,23 +18,23 @@ const GateVerification = () => {
   const [status, setStatus] = useState(false);
   const [showExtra, setShowExtra] = useState(false);
   const [showIdentityModal, setshowIdentityModal] = useState(false);
-  const [ visitor, setVisitor ] = useState<any>({})
-  const [ accessRules, setAccessRules ] = useState<any>({})
+  const [visitor, setVisitor] = useState<any>({});
+  const [accessRules, setAccessRules] = useState<any>({});
   const { community_id } = useParams();
 
-  useEffect(()=>{
-    getCommunityWithID(community_id || '').then(
-      res => {
-        setAccessRules(res.data.access_rules)
-      }
-    ).catch(err => {
-      console.log(err.data)
-    })
+  useEffect(() => {
+    getCommunityWithID(community_id || "")
+      .then((res) => {
+        setAccessRules(res.data.access_rules);
+      })
+      .catch((err) => {
+        console.log(err.data);
+      });
 
-    console.log(accessRules)
-  },[])
+    console.log(accessRules);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const navigate = useNavigate();
   const onSubmit = () => {
     setLoading(true);
 
@@ -44,21 +44,24 @@ const GateVerification = () => {
     };
 
     verifyGate(data)
-      .then((res:any) => {
+      .then((res: any) => {
         console.log(res.data);
-        setVisitor(res.data?.result?.visitor)
-        if( accessRules?.identity_verification && (visitor.visitor_id_card_name !== "" || visitor.security_password !== "" || visitor.license_plate !== "")){
-          setshowIdentityModal(true)
-        }else if(accessRules?.capture_visitor_entry_exit){
+        setVisitor(res.data?.result?.visitor);
+        if (
+          accessRules?.identity_verification &&
+          (visitor.visitor_id_card_name !== "" ||
+            visitor.security_password !== "" ||
+            visitor.license_plate !== "")
+        ) {
+          setshowIdentityModal(true);
+        } else if (accessRules?.capture_visitor_entry_exit) {
           setShowExtra(true);
-        }else {
+        } else {
           setShow(true);
           setStatus(true);
         }
-        
-        // 735327
 
-        
+        // 735327
       })
       .catch((err) => {
         setErr(err.response.data.message);
@@ -68,13 +71,13 @@ const GateVerification = () => {
   };
 
   const closeShowIdentityModal = () => {
-    setshowIdentityModal(false)
-    if( status && accessRules?.capture_visitor_entry_exit){
+    setshowIdentityModal(false);
+    if (status && accessRules?.capture_visitor_entry_exit) {
       setShowExtra(true);
-    }else {
+    } else {
       setShow(true);
     }
-  }
+  };
 
   const closeShowExtra = () => {
     setShow(true);

@@ -8,7 +8,7 @@ const occupancyTypesReducer = (state = [], action: any) => {
 
   switch (type) {
     case GET_OCCUPANCY_TYPES_SUCCESS:
-      return [...state, ...payload];
+      return payload;
     case GET_OCCUPANCY_TYPES_FAILURE:
       return [...state, ...payload];
     default:

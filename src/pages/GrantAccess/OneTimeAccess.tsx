@@ -23,8 +23,13 @@ const OneTimeAccess = () => {
   const [which, setWhich] = useState("");
   const [showTextCode, setShowTextCode] = useState(false);
   const [accessCode, setAccessCode] = useState("");
-  const stateCommunity = useSelector((state:any) => state.community)
-  const location = stateCommunity.street_name +", "+ stateCommunity.city +", "+ stateCommunity.state
+  const stateCommunity = useSelector((state: any) => state.community);
+  const location =
+    stateCommunity.street_name +
+    ", " +
+    stateCommunity.city +
+    ", " +
+    stateCommunity.state;
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -69,6 +74,7 @@ const OneTimeAccess = () => {
       license_plate: "",
       visitor_id_card_name: "",
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore]);
 
   const triggerShowMore = () => {
@@ -102,21 +108,23 @@ const OneTimeAccess = () => {
           error={errors.visitor_name && "Please enter a visitor's name"}
         />
         <PhoneInput
-          placeholder="Enter the visitor's phone number"
-          name="visitor_phone_number"
-          label="Phone number"
+          placeholder="Enter community phone number"
+          name="community_contact_phone_number"
+          label="Community Contact Phone Number"
           type="tel"
           register={register}
           error={
-            errors.visitor_phone_number && "Please enter a correct phone number"
+            errors.community_contact_phone_number &&
+            "Please enter a correct phone number"
           }
           options={{
             required: true,
-            minLength: 6,
-            maxLenght: 11,
-            pattern: "/^(0?)([7|8|9]{1})[0-9]{9}$/",
+            minLength: 7,
+            maxLenght: 8,
+            pattern: /[0-9]/,
           }}
         />
+
         <Select
           name="gates"
           register={register}

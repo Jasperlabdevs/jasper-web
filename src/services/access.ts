@@ -15,6 +15,16 @@ export const setAccessRules = (data: any) => {
   return axios.post(URL.accessRules, { ...data }, config);
 };
 
+export const updateAccessRules = (data: any) => {
+  let config = configuration();
+  return axios.post(URL.communityAccessRules, { ...data }, config);
+};
+
+export const getCommunityAccessRules = () => {
+  let config = configuration();
+  return axios.get(URL.communityAccessRules, config);
+};
+
 export const createEventAccess = (data: any) => {
   let config = configuration();
   return axios.post(URL.access, { ...data }, config);
@@ -25,12 +35,10 @@ export const getCommunityAccessHistory = () => {
   return axios.get(URL.communityAccessHistory, config);
 };
 
-
-export const accessHistorySearchHistory = (data:any) => {
+export const accessHistorySearchHistory = (data: any) => {
   let config = configuration();
   return axios.post(URL.accessHistorySearchFilter, data, config);
-
-}
+};
 
 // const serialize = (obj:any) => {
 //   var str = [];
