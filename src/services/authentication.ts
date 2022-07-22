@@ -89,13 +89,15 @@ class Authentication {
 
   Logout(callback: any) {
     let config = configuration();
-    axios.get(URL.logout, config).then((res) => {
+    axios.get(URL.logout, config).then(() => {
+      
+    }).then(()=>{
       localStorage.removeItem("token");
       localStorage.removeItem("persist:root");
       this.authenticated = false;
-
       callback();
-    });
+
+    })
   }
 
   isAuthenticated() {
