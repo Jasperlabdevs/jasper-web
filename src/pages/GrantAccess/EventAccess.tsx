@@ -31,7 +31,6 @@ const EventAccess = () => {
       event_name: "",
       number_of_visitors: "",
       gates: "",
-      location: "",
       event_date: "",
     });
   };

@@ -156,7 +156,7 @@ const AccessHistory = () => {
                 <TableColumn td={data.visitors[0]?.name || "N/A"} />
                 <TableColumn td={data?.event_name || "N/A"} />
                 <TableColumn
-                  td={data?.status}
+                  td={data?.status   + ' - ' + data?.number_of_visitors_countdown + '/' + data?.number_of_visitors} 
                   type="status"
                   status_type={true}
                 />

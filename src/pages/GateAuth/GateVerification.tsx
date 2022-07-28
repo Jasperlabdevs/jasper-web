@@ -46,6 +46,7 @@ const GateVerification = () => {
     verifyGate(data)
       .then((res: any) => {
         console.log(res.data);
+<<<<<<< Updated upstream
         setVisitor(res.data?.result?.visitor);
         if (
           accessRules?.identity_verification &&
@@ -55,6 +56,12 @@ const GateVerification = () => {
         ) {
           setshowIdentityModal(true);
         } else if (accessRules?.capture_visitor_entry_exit) {
+=======
+        setVisitor(res.data?.result?.visitor)
+        if( accessRules?.identity_verification && (visitor.visitor_id_card_name !== "" || visitor?.security_password !== "" || visitor?.license_plate !== "")){
+          setshowIdentityModal(true)
+        }else if(accessRules?.capture_visitor_entry_exit){
+>>>>>>> Stashed changes
           setShowExtra(true);
         } else {
           setShow(true);
@@ -71,8 +78,9 @@ const GateVerification = () => {
   };
 
   const closeShowIdentityModal = () => {
-    setshowIdentityModal(false);
-    if (status && accessRules?.capture_visitor_entry_exit) {
+    setshowIdentityModal(false)
+    console.log(status && accessRules?.capture_visitor_entry_exit)
+    if( status && accessRules?.capture_visitor_entry_exit){
       setShowExtra(true);
     } else {
       setShow(true);

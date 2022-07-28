@@ -61,7 +61,6 @@ const OneTimeAccess = () => {
       visitor_name: "",
       visitor_phone_number: "",
       gates: "",
-      location: "",
       security_password: "",
       license_plate: "",
       visitor_id_card_name: "",

@@ -76,7 +76,6 @@ const RecurringAccess = () => {
       visitor_name: "",
       visitor_phone_number: "",
       gates: "",
-      location: "",
       valid_from: "",
       valid_to: "",
       security_password: "",

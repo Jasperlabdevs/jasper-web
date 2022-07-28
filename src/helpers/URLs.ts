@@ -19,7 +19,7 @@ const URL = {
 
   editProfile: baseUrl + "me/",
   getUser: baseUrl + "me/",
-  verifyGate: baseUrl + "gate/pass_gate/",
+  verifyGate: baseUrl + "gate/verify_access_code/",
 
   identification: baseUrl + "gate/verify_access_identification/",
   entryGate: baseUrl + "gate/verify_access_entry/",
