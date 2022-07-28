@@ -19,7 +19,7 @@ const Button = ({
   title,
   loading,
   type = "submit",
-  onClick,
+  onClick = () => {},
   disable,
   secondary = false,
   tertiary = false,

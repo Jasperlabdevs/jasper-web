@@ -1,8 +1,7 @@
 import Button from "components/Button";
 import Header from "components/Header";
-import { Select } from "components/Input";
 import Modal from "components/Modal";
-import React, { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   AreaChart,
@@ -21,7 +20,6 @@ import users from "assets/images/users.png";
 import { useSelector } from "react-redux";
 import { store } from "store";
 import { Helmet } from "react-helmet";
-import { add_community } from "store/actions/community";
 
 export const dispatchStore = store.dispatch as
   | typeof store.dispatch
@@ -32,20 +30,18 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const stateUser = useSelector((state: any) => state.user);
-  const stateCommunity = useSelector((state: any) => state.community);
 
+  // Check if current user has created at least one community (onboarding flow completed check)
   useEffect(() => {
-    console.log("user", stateUser.community);
-    console.log("state", stateCommunity);
+    const currentCommunity = stateUser?.community;
 
-    const community = stateUser.community || stateCommunity;
-
-    if (community === null || Object.keys(community).length === 0) {
-      setShowModal(true);
+    if (currentCommunity) {
+      console.log("Onborading was finished with community: ", currentCommunity);
     } else {
-      dispatchStore(add_community(community));
+      setShowModal(true);
     }
-  }, [stateUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const notifTabs = [
     {
@@ -171,8 +167,10 @@ const Dashboard = () => {
       <Header />
       <div className="py-4 px-10 mt-10 lg:pt-0 pr-0 lg:mt-0 flex gap-10">
         <div className="grow pt-10 pr-10 lg:pr-0">
-          <h5>Welcome Back, Emmanuel</h5>
-          <p className="text-lg">Here's what is foing on at Lawoke Estate</p>
+          <h5>Welcome Back, {stateUser.first_name}</h5>
+          <p className="text-lg">
+            Here's what is foing on at {stateUser.community?.name}
+          </p>
 
           <div className="flex flex-col md:flex-row gap-6 mt-12">
             {stats.map((data: any) => (

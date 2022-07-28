@@ -1,8 +1,8 @@
+/* eslint-disable no-useless-escape */
 import Button from "components/Button";
 import Input from "components/Input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import authentication from "services/authentication";
 
@@ -13,7 +13,6 @@ const ForgotPassword = () => {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const [err, setErr] = useState("");
   const [notif, setNotif] = useState("");

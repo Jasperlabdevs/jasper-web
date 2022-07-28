@@ -37,7 +37,7 @@ const Login = () => {
   };
 
   const onSubmit = (data: any) => {
-    data.email = (data.email).toLowerCase()
+    data.email = data.email.toLowerCase();
     authentication.Login(data, successCB, failedCB);
     setLoading(true);
     console.log(data);
@@ -84,13 +84,20 @@ const Login = () => {
           type="password"
           label="Password"
           register={register}
-          options={{ required: true, minLength: 8 }}
-          error={errors.password && "Password must be at least 6 characters"}
+          options={{
+            required: true,
+            pattern: {
+              value:
+                /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+              message:
+                "Minimum six characters, at least one uppercase letter, one number and one special character",
+            },
+          }}
+          error={errors.password?.message}
         />
 
         <p className="-mt-6 absolute right-0 cursor-pointer text-grey_text hover:text-primary">
-          {" "}
-          <Link to="/forgot_password">Forgot password?</Link>{" "}
+          <Link to="/forgot_password">Forgot password?</Link>
         </p>
 
         <Button title="Sign In" loading={loading} />

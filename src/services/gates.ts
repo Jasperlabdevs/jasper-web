@@ -59,10 +59,14 @@ export const checkID = (data: any) => {
   return axios.post(URL.identification, { ...data });
 };
 
-
 export const denestGate = (data: any) => {
   let config = configuration();
   return axios.post(URL.denestGate, { ...data }, config);
 };
 
 export const gateLogin = (data: any) => axios.post(URL.toggleGate, { ...data });
+
+export const changePassword = (data: any) => {
+  let config = configuration();
+  return axios.post(URL.changePassword, data, config);
+};

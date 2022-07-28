@@ -22,6 +22,7 @@ type ConfigurationDataType = {
   name?: string;
   value?: Boolean;
   register?: any;
+  defaultChecked?: boolean;
 };
 
 export const settingsHeaderData: HeaderDataType[] = [
@@ -364,21 +365,21 @@ export const NigeriaStates = [
   },
 ];
 
-export const configurationData: ConfigurationDataType[] = [
+export const defaultConfigurationData: ConfigurationDataType[] = [
   {
     id: 1,
     title: "Capture Visitor Entry and Exit",
     description: "Confirm entry/exit before granting access",
     hasCheckList: false,
     name: "visitor_entry_and_exit",
-    value: true,
+    value: false,
   },
   {
     id: 2,
     title: "Identity Verification",
     description: "Confirm visitor ID before granting access",
     name: "identity_verification",
-    value: true,
+    value: false,
   },
   {
     id: 3,
@@ -394,6 +395,7 @@ export const configurationData: ConfigurationDataType[] = [
     description:
       "By turning on this toggle, you agree to confirm entry/exit before granting access",
     hasCheckList: true,
+    defaultChecked: true,
     name: "allow_users_generate_onetime_access_codes",
     value: true,
   },
@@ -403,6 +405,7 @@ export const configurationData: ConfigurationDataType[] = [
     description:
       "By turning on this toggle, you give users access to generate access codes for events",
     hasCheckList: true,
+    defaultChecked: true,
     name: "allow_users_generate_event_access_codes",
     value: true,
   },
@@ -412,6 +415,7 @@ export const configurationData: ConfigurationDataType[] = [
     description:
       "By turning on this toggle, you give users access to generate access codes for recurring events",
     hasCheckList: true,
+    defaultChecked: true,
     name: "allow_users_generate_recurring_access_codes",
     value: true,
   },
@@ -422,7 +426,7 @@ export const configurationData: ConfigurationDataType[] = [
       "By turning on this toggle, you give users access to generate mutiple access codes",
     hasCheckList: true,
     name: "allow_users_generate_multiple_access_codes",
-    value: true,
+    value: false,
   },
   {
     id: 8,
@@ -439,25 +443,25 @@ export const TableContent = [
   {
     id: 1,
     additionalInfomation: "Visitor Company",
-    requried: "Requried",
-    select: true,
+    required: "not required",
+    select: false,
   },
   {
     id: 2,
     additionalInfomation: "Visitor Type",
-    requried: "Requried",
-    select: true,
+    required: "not required",
+    select: false,
   },
   {
     id: 3,
     additionalInfomation: "Requesting Department",
-    requried: "Requried",
-    select: true,
+    required: "not required",
+    select: false,
   },
   {
-    id: 2,
+    id: 4,
     additionalInfomation: "Reason for visiting",
-    requried: "Not Requried",
+    required: "not required",
     select: false,
   },
 ];

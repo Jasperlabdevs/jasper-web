@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getToken } from "helpers/utils";
-import { useNavigate } from "react-router-dom";
 import URL from "./../helpers/URLs";
 
 const configuration = () => {

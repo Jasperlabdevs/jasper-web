@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Auth from "pages/Auth";
 import Home from "pages/Auth/Home";
@@ -33,9 +33,27 @@ import ValidateEmail from "pages/Auth/validateEmail";
 import { Helmet } from "react-helmet";
 import { SideBarContext } from "helpers/context";
 import AuthGuard from "helpers/authGuard";
+import { dispatchStore, getToken } from "helpers/utils";
+import { getUser } from "services/helperServices";
+import { setUser } from "store/actions/user";
 
 function App() {
   const [sideBar, setSidebar] = useState<any>(false);
+
+  const token = getToken();
+
+  useEffect(() => {
+    if (token.length > 0) {
+      getUser().then(
+        (res) => {
+          dispatchStore(setUser(res.data));
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    }
+  }, [token]);
 
   return (
     <div className="App">
@@ -83,7 +101,7 @@ function App() {
                 path="onboarding"
                 element={
                   <AuthGuard>
-                    <UserOnboarding />
+                    <UserOnboarding editMode />
                   </AuthGuard>
                 }
               />
@@ -91,7 +109,7 @@ function App() {
                 path="access_rules"
                 element={
                   <AuthGuard>
-                    <AccessConfig />
+                    <AccessConfig editMode />
                   </AuthGuard>
                 }
               />
