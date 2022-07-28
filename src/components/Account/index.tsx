@@ -2,7 +2,7 @@
 import Button from "components/Button";
 import Input, { PhoneInput } from "components/Input";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Modal from "components/Modal";
 import DefaaultAvatar from "assets/images/AccountPhoto.png";
@@ -18,6 +18,10 @@ const Account = () => {
   const [updatePhotoModal, setUpdatePhotoModal] = useState(false);
   const [avatar, setAvatar] = useState("");
   const stateUser = useSelector((state: any) => state.user);
+
+  useEffect(() => {
+    console.log(stateUser);
+  }, []);
 
   return (
     <div className="mt-14 max-w-4xl">

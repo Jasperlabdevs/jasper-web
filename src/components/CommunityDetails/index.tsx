@@ -1,13 +1,19 @@
 import Input, { Select, PhoneInput } from "components/Input";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import country_data from "helpers/country_data.json";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button from "components/Button";
 import { dispatchStore } from "helpers/utils";
-import { add_community } from "store/actions/community";
-import { updateCommunity, addCommunity } from "services/community";
+import { add_community, set_community } from "store/actions/community";
+import {
+  updateCommunity,
+  addCommunity,
+  getCommunityWithID,
+} from "services/community";
+import { getUser } from "services/helperServices";
+import { setUser } from "store/actions/user";
 
 const COUNTRY = "Nigeria";
 
@@ -23,8 +29,26 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
     setValue,
     formState: { errors },
   } = useForm();
-  const stateUser = useSelector((state: any) => state.user);
+  const currentCommunityId = useSelector(
+    (state: any) => state.user?.community?.id
+  );
   const stateCommunity = useSelector((state: any) => state.community);
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const load = async () => {
+    dispatchStore(setUser((await getUser()).data));
+    dispatchStore(
+      set_community(
+        currentCommunityId
+          ? (await getCommunityWithID(currentCommunityId)).data
+          : {}
+      )
+    );
+  };
 
   const [err, setErr] = useState("");
   const location = useLocation();
@@ -38,8 +62,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
         ? data.community_contact_phone_number.substring(1)
         : data.community_contact_phone_number);
     if (location.pathname === "/settings/community_account") {
-      const currentCommunity = stateUser.community.id;
-      updateCommunity(data, currentCommunity).then(
+      updateCommunity(data, currentCommunityId).then(
         (res) => {
           setLoading(false);
           console.log(res.data);

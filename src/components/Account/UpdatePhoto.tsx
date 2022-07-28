@@ -1,13 +1,20 @@
 import Button from "components/Button";
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect, useEffect } from "react";
+import { editUser } from "services/helperServices";
+import { dispatchStore } from "helpers/utils";
+import { setUser } from "store/actions/user";
 import UploadIcon from "assets/images/upload.svg";
 
 const UpdatePhoto = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const drop = useRef<HTMLDivElement>(null);
+  let profilePicture = {
+    profile_picture: selectedImage,
+  };
+
   const onUpload = (files: any) => {
     setSelectedImage(URL.createObjectURL(files[0]));
-    console.log(files);
+    console.log(URL.createObjectURL(files[0]));
   };
 
   const imageChange = (e: any) => {
@@ -15,6 +22,18 @@ const UpdatePhoto = () => {
       setSelectedImage(URL.createObjectURL(e.target.files[0]));
       console.log(URL.createObjectURL(e.target.files[0]));
     }
+  };
+
+  const onSubmit = (data: any) => {
+    editUser(data).then(
+      (res) => {
+        console.log(res.data);
+        dispatchStore(setUser(res.data));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
 
   useLayoutEffect(() => {
@@ -96,7 +115,11 @@ const UpdatePhoto = () => {
         </div>
         <div className="flex justify-center items-center gap-4">
           <div className="w-40">
-            <Button title="Save Photo" />
+            <Button
+              title="Save Photo"
+              type="button"
+              onClick={() => onSubmit(profilePicture)}
+            />
           </div>
           <div className="w-40">
             <Button title="Cancel" type="button" other />

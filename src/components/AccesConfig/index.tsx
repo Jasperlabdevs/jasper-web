@@ -1,47 +1,73 @@
 import Configuration from "../Configuration";
-import React, { useEffect, useState } from "react";
-import { defaultConfigurationData, TableContent } from "helpers/data";
+import { useEffect, useState } from "react";
+import { TableContent } from "helpers/data";
 import { useForm } from "react-hook-form";
+import { Select } from "components/Input";
 import Button from "components/Button";
 import {
-  setAccessRules,
+  setAccessRules as createAccessRules,
   updateAccessRules,
   getCommunityAccessRules,
+  TAccessRuleRequestBody,
+  DEFAULT_RULES,
 } from "services/access";
-import { Select } from "components/Input";
 import { dispatchStore } from "helpers/utils";
 import { get_selected_occupancy_type } from "store/actions/occupancyTypes";
 import { getUser } from "services/helperServices";
 import { setUser } from "store/actions/user";
+import { useSelector } from "react-redux";
 
 const AccessConfig = ({
   forwardButton,
   forward,
   backward,
-  activeStep,
-}: any) => {
+}: /*   activeStep, */
+any) => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
-  const [accessConfig, setAccessConfig] = useState<any>(false);
-
+  const [accessConfig, setAccessConfig] = useState<any>(null);
+  const occupancyTypes = useSelector((state: any) => state.occupancyTypes);
   const list = [
     { id: "required", name: "Required" },
     { id: "not required", name: "Not Required" },
   ];
 
   useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const load = () => {
+    dispatchStore(get_selected_occupancy_type());
+    getUser().then((res) => dispatchStore(setUser(res.data)));
+
     getCommunityAccessRules().then(
       (res) => {
-        console.log(res.data.results);
         setAccessConfig(res.data.results);
       },
       (err: any) => {
-        console.log(err);
+        if (err?.response?.data?.response_code === "100") {
+          const defaultSettings = DEFAULT_RULES;
+          occupancyTypes.forEach(({ id }: { id: string }) => {
+            defaultSettings.occupancy_type_allowed_to_generate_event_access_codes.push(
+              id
+            );
+            defaultSettings.occupancy_type_allowed_to_generate_onetime_access_codes.push(
+              id
+            );
+            defaultSettings.occupancy_type_allowed_to_generate_recurring_access_codes.push(
+              id
+            );
+          });
+          createAccessRules(defaultSettings).then(() =>
+            getCommunityAccessRules().then((res) =>
+              setAccessConfig(res.data.results)
+            )
+          );
+        }
       }
     );
-
-    dispatchStore(get_selected_occupancy_type());
-  }, []);
+  };
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -105,35 +131,25 @@ const AccessConfig = ({
       }
     }
 
-    data.occupancy_type_allowed_to_generate_onetime_access_codes = two;
     data.occupancy_type_allowed_to_generate_event_access_codes = one;
+    data.occupancy_type_allowed_to_generate_onetime_access_codes = two;
     data.occupancy_type_allowed_to_generate_recurring_access_codes = three;
     data.occupancy_type_allowed_to_request_multiple_access_codes = four;
     data.occupancy_type_allowed_to_generate_multiple_access_codes = five;
 
-    console.log(data);
-    if (forwardButton) {
-      setAccessRules(data)
-        .then((res) => {
-          console.log(res.data.results);
-          setLoading(false);
-          forward();
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err.data);
-        });
-    } else {
-      updateAccessRules(data)
-        .then((res) => {
-          console.log(res);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err.data);
-        });
-    }
+    console.log(data as TAccessRuleRequestBody);
+
+    updateAccessRules(data)
+      .then((res) => {
+        console.log(res);
+        setLoading(false);
+
+        forwardButton && forward();
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err.data);
+      });
   };
 
   return (
@@ -141,91 +157,94 @@ const AccessConfig = ({
       <section>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h3>Access Rules</h3>
-
-          <div>
-            <Configuration
-              title={"Capture Visitor Entry and Exit"}
-              description={"Confirm entry/exit before granting access"}
-              defaultChecked={false}
-              name={"visitor_entry_and_exit"}
-              value={accessConfig.capture_visitor_entry_exit}
-              register={register}
-            />
-            <Configuration
-              title={"Identity Verification"}
-              description={"Confirm visitor ID before granting access"}
-              defaultChecked={false}
-              name={"identity_verification"}
-              value={accessConfig.identity_verification}
-              register={register}
-            />
-            <Configuration
-              title={"Enable Secondary Gate Access"}
-              description={
-                "This will be sent to all platform users on onboarding, prompting them to specify if they have a secondary gate."
-              }
-              defaultChecked={false}
-              name={"enable_secondary_gate_access"}
-              value={accessConfig.enable_secondary_access_gate}
-              register={register}
-            />
-            <Configuration
-              title={"Allow users to generate one-time access codes"}
-              description={
-                "By turning on this toggle, you agree to confirm entry/exit before granting access"
-              }
-              hasCheckList={true}
-              defaultChecked={true}
-              name={"allow_users_generate_onetime_access_codes"}
-              value={accessConfig.allow_users_generate_onetime_access_codes}
-              register={register}
-            />
-            <Configuration
-              title={"Allow users to generate event access codes"}
-              description={
-                "By turning on this toggle, you give users access to generate access codes for events"
-              }
-              hasCheckList={true}
-              defaultChecked={true}
-              name={"allow_users_generate_event_access_codes"}
-              value={accessConfig.allow_users_generate_event_access_codes}
-              register={register}
-            />
-            <Configuration
-              title={"Allow users to generate recurring access codes"}
-              description={
-                "By turning on this toggle, you give users access to generate access codes for recurring events"
-              }
-              hasCheckList={true}
-              defaultChecked={true}
-              name={"allow_users_generate_recurring_access_codes"}
-              value={accessConfig.allow_users_generate_recurring_access_codes}
-              register={register}
-            />
-            <h4 className="mt-8">MULTIPLE ACCESS</h4>
-            <Configuration
-              title={"Allow users to generate multiple access codes"}
-              description={
-                "By turning on this toggle, you give users access to generate mutiple access codes"
-              }
-              hasCheckList={true}
-              defaultChecked={true}
-              name={"allow_users_generate_multiple_access_codes"}
-              value={accessConfig.allow_users_generate_multiple_access_codes}
-              register={register}
-            />
-            <Configuration
-              title={"Allow users to request multiple access codes"}
-              description={
-                "By turning on this toggle, you give users access to generate mutiple access codes"
-              }
-              hasCheckList={true}
-              defaultChecked={true}
-              name={"allow_users_request_multiple_access_codes"}
-              value={accessConfig.allow_users_request_multiple_access_codes}
-              register={register}
-            />
-          </div>
+          {accessConfig && (
+            <div>
+              <Configuration
+                title={"Capture Visitor Entry and Exit"}
+                description={"Confirm entry/exit before granting access"}
+                name={"visitor_entry_and_exit"}
+                value={accessConfig.capture_visitor_entry_exit}
+                register={register}
+              />
+              <Configuration
+                title={"Identity Verification"}
+                description={"Confirm visitor ID before granting access"}
+                name={"identity_verification"}
+                value={accessConfig.identity_verification}
+                register={register}
+              />
+              <Configuration
+                title={"Enable Secondary Gate Access"}
+                description={
+                  "This will be sent to all platform users on onboarding, prompting them to specify if they have a secondary gate."
+                }
+                name={"enable_secondary_gate_access"}
+                value={accessConfig.enable_secondary_access_gate}
+                register={register}
+              />
+              <Configuration
+                title={"Allow users to generate one-time access codes"}
+                description={
+                  "By turning on this toggle, you agree to confirm entry/exit before granting access"
+                }
+                hasCheckList={
+                  accessConfig.occupancy_type_allowed_to_generate_onetime_access_codes
+                }
+                name={"allow_users_generate_onetime_access_codes"}
+                value={accessConfig.allow_users_generate_onetime_access_codes}
+                register={register}
+              />
+              <Configuration
+                title={"Allow users to generate event access codes"}
+                description={
+                  "By turning on this toggle, you give users access to generate access codes for events"
+                }
+                hasCheckList={
+                  accessConfig.occupancy_type_allowed_to_generate_event_access_codes
+                }
+                name={"allow_users_generate_event_access_codes"}
+                value={accessConfig.allow_users_generate_event_access_codes}
+                register={register}
+              />
+              <Configuration
+                title={"Allow users to generate recurring access codes"}
+                description={
+                  "By turning on this toggle, you give users access to generate access codes for recurring events"
+                }
+                hasCheckList={
+                  accessConfig.occupancy_type_allowed_to_generate_recurring_access_codes
+                }
+                name={"allow_users_generate_recurring_access_codes"}
+                value={accessConfig.allow_users_generate_recurring_access_codes}
+                register={register}
+              />
+              <h4 className="mt-8">MULTIPLE ACCESS</h4>
+              <Configuration
+                title={"Allow users to generate multiple access codes"}
+                description={
+                  "By turning on this toggle, you give users access to generate mutiple access codes"
+                }
+                hasCheckList={
+                  accessConfig.occupancy_type_allowed_to_generate_multiple_access_codes
+                }
+                name={"allow_users_generate_multiple_access_codes"}
+                value={accessConfig.allow_users_generate_multiple_access_codes}
+                register={register}
+              />
+              <Configuration
+                title={"Allow users to request multiple access codes"}
+                description={
+                  "By turning on this toggle, you give users access to generate mutiple access codes"
+                }
+                hasCheckList={
+                  accessConfig.occupancy_type_allowed_to_request_multiple_access_codes
+                }
+                name={"allow_users_request_multiple_access_codes"}
+                value={accessConfig.allow_users_request_multiple_access_codes}
+                register={register}
+              />
+            </div>
+          )}
 
           <h5 className="py-4 -mb-10 md:mb-0">
             Select additional Information you'd like to capture before granting
