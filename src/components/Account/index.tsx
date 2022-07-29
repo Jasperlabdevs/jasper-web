@@ -21,6 +21,7 @@ const Account = () => {
 
   useEffect(() => {
     console.log(stateUser);
+    setAvatar(stateUser.profile_picture);
   }, []);
 
   return (
@@ -36,7 +37,10 @@ const Account = () => {
         show={updatePhotoModal}
         toggleClose={() => setUpdatePhotoModal(false)}
       >
-        <UpdatePhoto />
+        <UpdatePhoto
+          setUpdatePhotoModal={setUpdatePhotoModal}
+          setAvatar={setAvatar}
+        />
       </Modal>
 
       <h4>Community Account</h4>
@@ -47,9 +51,17 @@ const Account = () => {
         <div className="flex justify-between items-center">
           <div className="rounded-full bg-icon_background h-20 w-20">
             {avatar ? (
-              <img src={avatar} className="rounded-full" alt="Avatar" />
+              <img
+                src={avatar}
+                className="overflow-hidden relative h-20 w-20 rounded-full"
+                alt="Avatar"
+              />
             ) : (
-              <img src={DefaaultAvatar} className="rounded-full" alt="Avatar" />
+              <img
+                src={DefaaultAvatar}
+                className=" overflow-hidden relative h-20 w-20 vrounded-full"
+                alt="Avatar"
+              />
             )}
           </div>
 

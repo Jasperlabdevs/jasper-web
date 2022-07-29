@@ -5,7 +5,12 @@ import { dispatchStore } from "helpers/utils";
 import { setUser } from "store/actions/user";
 import UploadIcon from "assets/images/upload.svg";
 
-const UpdatePhoto = () => {
+type ConfigurationProp = {
+  setUpdatePhotoModal: Function;
+  setAvatar: Function;
+};
+
+const UpdatePhoto = ({ setUpdatePhotoModal, setAvatar }: ConfigurationProp) => {
   const [selectedImage, setSelectedImage] = useState("");
   const drop = useRef<HTMLDivElement>(null);
   let profilePicture = {
@@ -14,13 +19,15 @@ const UpdatePhoto = () => {
 
   const onUpload = (files: any) => {
     setSelectedImage(URL.createObjectURL(files[0]));
-    console.log(URL.createObjectURL(files[0]));
+    //   setSelectedImage(files[0]);
+    console.log(files[0]);
   };
 
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(URL.createObjectURL(e.target.files[0]));
-      console.log(URL.createObjectURL(e.target.files[0]));
+      //   setSelectedImage(e.target.files[0]);
+      console.log(e.target.files[0]);
     }
   };
 
@@ -29,11 +36,14 @@ const UpdatePhoto = () => {
       (res) => {
         console.log(res.data);
         dispatchStore(setUser(res.data));
+        setAvatar(res.data.profile_picture);
       },
       (error) => {
         console.log(error);
       }
     );
+    setUpdatePhotoModal(false);
+    setSelectedImage("");
   };
 
   useLayoutEffect(() => {
@@ -122,7 +132,15 @@ const UpdatePhoto = () => {
             />
           </div>
           <div className="w-40">
-            <Button title="Cancel" type="button" other />
+            <Button
+              title="Cancel"
+              type="button"
+              onClick={() => {
+                setUpdatePhotoModal(false);
+                setSelectedImage("");
+              }}
+              other
+            />
           </div>
         </div>
       </form>
