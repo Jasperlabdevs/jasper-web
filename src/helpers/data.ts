@@ -442,27 +442,27 @@ export const defaultConfigurationData: ConfigurationDataType[] = [
 export const TableContent = [
   {
     id: 1,
-    additionalInfomation: "Visitor Company",
-    required: "not required",
-    select: false,
+    additional_information: "Visitor Company",
+    make_required: "not required",
+    selected: false,
   },
   {
     id: 2,
-    additionalInfomation: "Visitor Type",
-    required: "not required",
-    select: false,
+    additional_information: "Visitor Type",
+    make_required: "not required",
+    selected: false,
   },
   {
     id: 3,
-    additionalInfomation: "Requesting Department",
-    required: "not required",
-    select: false,
+    additional_information: "Reason for visiting",
+    make_required: "not required",
+    selected: false,
   },
   {
     id: 4,
-    additionalInfomation: "Reason for visiting",
-    required: "not required",
-    select: false,
+    additional_information: "Requesting Department",
+    make_required: "not required",
+    selected: false,
   },
 ];
 
