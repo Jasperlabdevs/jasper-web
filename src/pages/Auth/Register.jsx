@@ -219,7 +219,8 @@ const Register = () => {
                 options={{
                   required: true,
                   minLength: 8,
-                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/,
+                  pattern:
+                    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
                 }}
                 error={
                   errors.password &&

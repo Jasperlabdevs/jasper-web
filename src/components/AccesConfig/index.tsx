@@ -36,7 +36,7 @@ any) => {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log("accessConfig:", accessConfig);
   const load = () => {
     dispatchStore(get_selected_occupancy_type());
     getUser().then((res) => dispatchStore(setUser(res.data)));
@@ -84,7 +84,7 @@ any) => {
         selected: data.VisitorType_selected,
       },
       {
-        additional_information: "Reason for Visit",
+        additional_information: "Reason for visiting",
         make_required: data.Reasonforvisiting_make_required,
         selected: data.Reasonforvisiting_selected,
       },
@@ -138,17 +138,17 @@ any) => {
     data.occupancy_type_allowed_to_generate_multiple_access_codes = five;
 
     console.log(data as TAccessRuleRequestBody);
+    console.log("data:", data);
 
     updateAccessRules(data)
       .then((res) => {
-        console.log(res);
         setLoading(false);
-
         forwardButton && forward();
+        console.log(res);
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err.data);
+        console.log(err);
       });
   };
 
@@ -262,39 +262,44 @@ any) => {
               </tr>
             </thead>
             <tbody>
-              {TableContent.map((data, index) => (
-                <tr key={index + 100} className="border-b">
-                  <td className="text-left">{data.additionalInfomation}</td>
-                  <td className="py-5">
-                    <div className="flex text-center mx-auto w-fit items-center gap-4 -mb-8 border-none">
-                      <Select
-                        name={
-                          data.additionalInfomation.replace(/\s/g, "") +
-                          "_make_required"
-                        }
-                        defaultValue={data.required}
-                        list={list}
-                        noborder
-                        label={""}
-                        register={register}
-                      />
-                    </div>
-                  </td>
-                  <td className="pl-4">
-                    <label className="checkbox">
-                      <input
-                        type="checkbox"
-                        {...register(
-                          data.additionalInfomation.replace(/\s/g, "") +
-                            "_selected"
-                        )}
-                        defaultChecked={data.select}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
-                  </td>
-                </tr>
-              ))}
+              {accessConfig &&
+                accessConfig.additional_information.map(
+                  (data: any, index: any) => (
+                    <tr key={index + 100} className="border-b">
+                      <td className="text-left">
+                        {data.additional_information}
+                      </td>
+                      <td className="py-5">
+                        <div className="flex text-center mx-auto w-fit items-center gap-4 -mb-8 border-none">
+                          <Select
+                            name={
+                              data.additional_information.replace(/\s/g, "") +
+                              "_make_required"
+                            }
+                            defaultValue={data.make_required}
+                            list={list}
+                            noborder
+                            label={""}
+                            register={register}
+                          />
+                        </div>
+                      </td>
+                      <td className="pl-4">
+                        <label className="checkbox">
+                          <input
+                            type="checkbox"
+                            {...register(
+                              data.additional_information.replace(/\s/g, "") +
+                                "_selected"
+                            )}
+                            defaultChecked={data.selected}
+                          />
+                          <span className="checkmark"></span>
+                        </label>
+                      </td>
+                    </tr>
+                  )
+                )}
             </tbody>
           </table>
 
