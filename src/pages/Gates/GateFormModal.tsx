@@ -54,12 +54,13 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
           />
           <PhoneInput
             placeholder="Enter community phone number"
-            name="community_contact_phone_number"
+            name="phone_number"
             label="Community Contact Phone Number"
             type="tel"
             register={register}
+            value={active[0].phone_number}
             error={
-              errors.community_contact_phone_number &&
+              errors.phone_number &&
               "Please enter a correct phone number"
             }
             options={{

@@ -20,6 +20,7 @@ import users from "assets/images/users.png";
 import { useSelector } from "react-redux";
 import { store } from "store";
 import { Helmet } from "react-helmet";
+import { set_community } from "store/actions/community";
 
 export const dispatchStore = store.dispatch as
   | typeof store.dispatch
@@ -34,6 +35,8 @@ const Dashboard = () => {
   // Check if current user has created at least one community (onboarding flow completed check)
   useEffect(() => {
     const currentCommunity = stateUser?.community;
+
+    dispatchStore(set_community(currentCommunity))
 
     if (currentCommunity) {
       console.log("Onborading was finished with community: ", currentCommunity);
