@@ -15,6 +15,7 @@ module.exports = {
         icon_background: "#C3C9DA",
         faded_red: "#FFECEB",
         faded_yellow: "#FFF3E6",
+        faded_primary: "#b8dcff",
         red: "#F14A0E",
         peach: "#FF8168",
         yellow: "#FFAB4C",

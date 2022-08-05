@@ -241,6 +241,9 @@ const Gates = () => {
         {loading && "Loading Gates..."}
         {!loading && gates.length === 0 && "No Gates available"}
       </div>
+
+
+      
     </div>
   );
 };

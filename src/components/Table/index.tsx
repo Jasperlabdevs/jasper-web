@@ -1,5 +1,4 @@
 import Button from "components/Button";
-import { Select } from "components/Input";
 import SVGs from "helpers/SVGs";
 
 type tableColumnType = {

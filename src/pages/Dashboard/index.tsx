@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import { store } from "store";
 import { Helmet } from "react-helmet";
 import { set_community } from "store/actions/community";
+import Toaster from "components/Toaster";
 
 export const dispatchStore = store.dispatch as
   | typeof store.dispatch
