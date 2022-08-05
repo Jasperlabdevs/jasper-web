@@ -27,6 +27,7 @@ type SelectType = {
   error?: string;
   onChange?: any;
   defaultValue?: any;
+  disabled?:boolean
 };
 
 const Input = ({
@@ -168,8 +169,8 @@ export const Select = (
     defaultValue = '',
     noborder,
     error,
-  }: SelectType,
-  ref: any
+    disabled,
+  }: SelectType
 ) => (
   <div className="relative min-w-[120px]">
     {label.length > 1 && (
@@ -189,6 +190,7 @@ export const Select = (
       className={`bg-[transparent] relative p-4 text-text-icon_background mt-2 rounded-md w-full ${
         noborder ? 'border-none my-0' : 'border'
       } `}
+      disabled={disabled}
       name={name}
       defaultValue={defaultValue || value || ''}
       onChange={onChange}

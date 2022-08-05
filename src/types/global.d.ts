@@ -3,4 +3,11 @@ declare namespace globalThis {
     communityTypes: any;
     messages: any;
   }
+
+  type NotificationType = {
+    type: 'error' | 'success' | 'info' | undefined,
+    title:string,
+    message:string,
+    autoDeleteTime?:number
+  }
 }

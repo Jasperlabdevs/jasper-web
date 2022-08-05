@@ -5,7 +5,7 @@ import { dispatchStore } from "helpers/utils";
 import { useForm } from "react-hook-form";
 import { edit_gate, add_gate } from "store/actions/gates";
 
-const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
+const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: any) => {
   const {
     register,
     formState: { errors },
@@ -14,9 +14,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
   } = useForm();
 
   let active = gates.filter((el: any) => el.id === editID);
-
   let newGates = [];
-
   if (edit) {
     newGates = gates.filter((el: any) => el.id !== editID);
   } else {
@@ -58,7 +56,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
             label="Community Contact Phone Number"
             type="tel"
             register={register}
-            value={active[0].phone_number}
+            value={active[0]?.phone_number || ""}
             error={
               errors.phone_number &&
               "Please enter a correct phone number"
@@ -71,14 +69,17 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID }: any) => {
             }}
           />
 
-          <Select
-            name="nest_gate_id"
-            label="Nest Gate"
-            value={active[0]?.gate?.id || ""}
-            placeholder={gates.length === 0 ? "No Gate created" : "Select gate"}
-            register={register}
-            list={newGates}
-          />
+            {!nested && 
+                <Select
+                  name="nest_gate_id"
+                  disabled={nested}
+                  label="Nest Gate"
+                  value={active[0]?.gate?.id || ""}
+                  placeholder={gates.length === 0 ? "No Gate created" : "Select gate"}
+                  register={register}
+                  list={newGates}
+                />
+            }
 
           <div className="w-fit float-right mb-8">
             <Button type="submit" title={edit ? "Edit Gate" : "Add Gate"} />

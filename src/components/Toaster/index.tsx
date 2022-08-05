@@ -1,14 +1,8 @@
 import SVGs from "helpers/SVGs"
 import { useEffect, useState } from "react"
 
-type ToasterType = {
-    type: 'error' | 'success' | 'info',
-    title:string,
-    message:string,
-    autoDeleteTime?:number
-}
 
-const Toaster = ({ type, title, message, autoDeleteTime=5000 }:ToasterType) => {
+const Toaster = ({ type, title, message, autoDeleteTime=5000 }:NotificationType) => {
 
     const [ active, setActive ] = useState(true)
 
@@ -23,7 +17,7 @@ const Toaster = ({ type, title, message, autoDeleteTime=5000 }:ToasterType) => {
     
     return(
         <div>
-            {active &&
+            {((active === true) && (type !== undefined)) &&
             <div className={`absolute top-8 right-12 toaster-animation flex gap-3 border-l-4 text-dark_grey_text rounded-md p-6 max-w-[400px]
                 ${type === 'error' && 'border-red bg-faded_red'} 
                 ${type === 'info' && 'border-primary bg-faded_primary'} 

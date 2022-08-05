@@ -5,13 +5,15 @@ import img from "assets/images/gate.png";
 import { TableColumn, TableHeader } from "components/Table";
 import { useEffect, useState } from "react";
 import { dispatchStore } from "helpers/utils";
-import { denest_gate, get_all_gates, toggle_gate } from "store/actions/gates";
+import { get_all_gates, toggle_gate } from "store/actions/gates";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import GateFormModal from "./GateFormModal";
 import ShowURLModal from "./ShowURLModal";
 import { formatDate } from "helpers/utils";
 import { denestGate, getGate } from "services/gates";
+import Toaster from "components/Toaster";
+import { useNavigate } from "react-router-dom";
 
 const Gates = () => {
   const headers = [
@@ -25,10 +27,13 @@ const Gates = () => {
     "",
   ];
 
+  const navigate = useNavigate()
+
   const stateCommunity = useSelector((state: any) => state.community);
 
   const [loading, setLoading] = useState(true);
-
+  const [ notification, setNotification ] = useState<NotificationType>({type: undefined, title: '', message: ''})
+  const [nested, setNested] = useState(false)
   const [gates, setGates] = useState([]);
   const [showGate, setShowGate] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -69,10 +74,16 @@ const Gates = () => {
   };
 
   const editGate = (id: any) => {
+
+    if(!gates.some((el:any) => el.id === id) ){
+      setNested(true)
+    }else{
+      setNested(false)
+    }
     setShowGate(true);
     setEditID(id);
     setEdit(true);
-    setUpdate(!update);
+    // setUpdate(!update);
   };
 
   const closeModal = () => {
@@ -87,6 +98,11 @@ const Gates = () => {
     // dispatchStore(denest_gate(data));
     denestGate(data).then((res: any) => {
       setUpdate(!update);
+      setNotification({
+        type: 'success',
+        title: 'Denesting Successful',
+        message: res.data.message 
+      })
     });
   };
 
@@ -96,8 +112,18 @@ const Gates = () => {
     getGate().then((res) => {
       setGates(res.data.results);
       setLoading(false);
-    });
-  }, [update]);
+    }).catch(
+      error => {
+        setNotification({
+          type: 'error',
+          title: 'Kindly Sign In',
+          message: error.response.data.detail 
+        })
+
+        navigate('/login')
+      }
+    );
+  }, [update, navigate]);
 
   const [showURL, setShowURl] = useState(false);
 
@@ -115,6 +141,7 @@ const Gates = () => {
           showGate={showGate}
           closeModal={closeModal}
           edit={edit}
+          nested={nested}
         />
       )}
 
@@ -242,7 +269,11 @@ const Gates = () => {
         {!loading && gates.length === 0 && "No Gates available"}
       </div>
 
-
+      <Toaster
+        type={notification?.type}
+        title={notification?.title}
+        message={notification?.message}
+      />
       
     </div>
   );
