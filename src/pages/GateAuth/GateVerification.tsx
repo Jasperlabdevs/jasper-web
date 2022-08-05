@@ -28,15 +28,18 @@ const GateVerification = () => {
         setAccessRules(res.data.access_rules);
       })
       .catch((err) => {
-        console.log(err.data);
+        // console.log(err.data);
       });
 
-    console.log(accessRules);
+    // console.log('accessRules',accessRules);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = () => {
     setLoading(true);
+    setShowExtra(false)
+    setShow(false)
+    setErr('')
 
     let data = {
       gate_id: gate_id,
@@ -46,40 +49,34 @@ const GateVerification = () => {
     verifyGate(data)
       .then((res: any) => {
         console.log(res.data);
-        setVisitor(res.data?.result?.visitor);
-        if (
-          accessRules?.identity_verification &&
-          (visitor.visitor_id_card_name !== "" ||
-            visitor.security_password !== "" ||
-            visitor.license_plate !== "")
-        ) {
-          setshowIdentityModal(true);
-        } else if (accessRules?.capture_visitor_entry_exit) {
-        // setVisitor(res.data?.result?.visitor)
-        // if( accessRules?.identity_verification && (visitor.visitor_id_card_name !== "" || visitor?.security_password !== "" || visitor?.license_plate !== "")){
-        //   setshowIdentityModal(true)
-        // }else if(accessRules?.capture_visitor_entry_exit){
+        setVisitor(res.data?.result?.visitor)
+        if( accessRules?.identity_verification 
+          && (visitor.visitor_id_card_name !== "" 
+          || visitor?.security_password !== "" 
+          || visitor?.license_plate !== "")
+          ){
+          setshowIdentityModal(true)
+        }else if(accessRules?.capture_visitor_entry_exit){
           setShowExtra(true);
         } else {
           setShow(true);
           setStatus(true);
         }
-
-        // 735327
       })
       .catch((err) => {
+        setStatus(false);
         setErr(err.response.data.message);
         setShow(true);
-        setStatus(false);
       });
   };
 
-  const closeShowIdentityModal = () => {
+  const closeShowIdentityModal = (stat:boolean) => {
+    setStatus(stat)
     setshowIdentityModal(false)
-    console.log(status && accessRules?.capture_visitor_entry_exit)
-    if( status && accessRules?.capture_visitor_entry_exit){
+    if( stat && accessRules?.capture_visitor_entry_exit){
       setShowExtra(true);
     } else {
+      setErr('Verification failed')
       setShow(true);
     }
   };
@@ -118,11 +115,12 @@ const GateVerification = () => {
     { key }: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    console.log(key);
+    // console.log(key);
     if (key === "Backspace") {
       setActiveOtpIndex(index - 1);
     }
   };
+
 
   const successComponent = (successful: any) => (
     <div>
@@ -137,7 +135,7 @@ const GateVerification = () => {
         <h3 className="text-center mt-16">
           {!!successful ? "Access Granted" : "Access Denied"}
         </h3>
-        <p className="my-3">{err}</p>
+        <p className="my-3">{!successful ? err : ''}</p>
         <Button
           title="Ok"
           onClick={() => {
@@ -163,10 +161,9 @@ const GateVerification = () => {
       {showIdentityModal && (
         <IdentityCheckModal
           gate={gate_id}
-          setStatus={setStatus}
           code={otp.join("")}
           showIdentity={showIdentityModal}
-          setShowIdentity={closeShowIdentityModal}
+          setShowIdentity={(closeShowIdentityModal)}
           visitor={visitor}
         />
       )}
@@ -179,13 +176,13 @@ const GateVerification = () => {
               <label className="mb-10 lg:text-label_text ">
                 Visitor Access Code
               </label>
-              <div className="flex mt-3 gap-4 justify-between mx-auto w-full">
+              <div className="flex mt-3 gap-3 justify-between mx-auto w-full">
                 {otp.map((el, index) => (
                   <input
                     key={index}
                     ref={index === activeOtpIndex ? inputRef : null}
                     type="number"
-                    className="w-12 px-4 flex justify-center items-center p-4 h-14 border rounded-lg text-xl"
+                    className="w-14 px-4 flex justify-center items-center p-4 h-14 border rounded-lg text-xl"
                     onChange={(e) => handleChange(e, index)}
                     value={otp[index]}
                     onKeyDown={(e) => handleKeyDown(e, index)}

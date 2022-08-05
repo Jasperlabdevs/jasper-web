@@ -9,38 +9,49 @@ const IdentityCheckModal = ({
   code,
   gate,
   visitor,
-  setStatus
 }: any) => {
 
-  const [ data, setData ] = useState({code: code, gate_id: gate})
-
+  const [ data, setData ] = useState<any>({code: code, gate_id: gate})
+  const [err, setErr] = useState("");
   const handleRadioChange =(event:any)=>{
     const { name, value } = event.target
 
     const temp:any = {...data}
-    console.log(temp)
     temp[name] = value
 
     setData(temp)
   }
 
+  
   const handleAccess = () => {
+    setErr('')
+    const conditionOne = ((visitor?.visitor_id_card_name).length > 0) && data.hasOwnProperty('id_card_name')
+    const conditionTwo = ((visitor?.security_password).length > 0) && data.hasOwnProperty('security_password')
+    const conditionThree = ((visitor?.license_plate).length > 0) && data.hasOwnProperty('license_plate')
 
-    console.log(data)
-    checkID(data).then((res: any) => {
-      console.log(res.data);
-      setStatus(true)
-      setShowIdentity();
-    }).catch(error => {
-      setStatus(false)
-      setShowIdentity()
-    })
+    if(conditionOne && conditionTwo && conditionThree ){
+      checkID(data).then((res: any) => {
+        setShowIdentity(true);
+      }).catch(error => {
+        setShowIdentity(false)
+      })
+
+    }else{
+      setErr('Please select all available options')
+    }
+
   };
 
   return (
     <Modal show={showIdentity} toggleClose={() => setShowIdentity(false)}>
       <p className=" mt-8 ml-8 text-left">Check the following</p>
       <hr className="my-6 absolute w-full left-0" />
+
+      {!!err && (
+        <div className="mt-12 -mb-16 bg-faded_red w-full text-center p-4 mb-4 rounded-md">
+          <p className="text-red text-xs ">{err}</p>
+        </div>
+      )}
 
       <div className="p-10">
         {
@@ -56,15 +67,17 @@ const IdentityCheckModal = ({
               value="true"
               name="security_password"
               onChange={handleRadioChange}
-            />
+              required
+              />
             <label htmlFor="">Yes</label>
             <input
+              required
               className="ml-4 mr-2"
               type="radio"
               value="false"
               name="security_password"
               onChange={handleRadioChange}
-            />
+              />
             <label htmlFor="">No</label>
           </div>
         </div>}
