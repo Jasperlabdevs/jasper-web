@@ -20,8 +20,8 @@ const NotificationCard = ({ type }: NotificationType) => {
   }
 
   return (
-    <div className="flex lg:flex-row flex-col items-start lg:items-center lg:justify-between w-full border-[#EFF1F5] border-b py-8 px-10">
-      <div className="flex gap-6 grow">
+    <div className="flex lg:flex-row flex-col items-start lg:items-center gap-10 lg:justify-between w-full border-[#EFF1F5] border-b py-8 px-10">
+      <div className="flex gap-4 w-full">
         <div
           className={`rounded-xl flex justify-center items-center bg-faded w-14 h-14  ${
             type === "warning" && "bg-faded_red"
@@ -31,16 +31,16 @@ const NotificationCard = ({ type }: NotificationType) => {
         </div>
         <div>
           <p className="font-medium !text-black">Multiple Access Request</p>
-          <p className="!text-black py-1 text-sm">
+          <p className="!text-black py-1 text-sm truncate">
             For 20 guests; 2nd to Fed. 3rd and the
           </p>
-          <div className="pt-1.5 flex  gap-3 text-grey_text items-center">
+          <div className="pt-1.5 flex  gap-2 text-grey_text items-center">
             <div className="h-6 w-6 rounded-full bg-icon_background text-xs"></div>
             <p className="text-sm">Emmanuel Willimas • 3:15</p>
           </div>
         </div>
       </div>
-      <div className="w-fit lg:mt-2 lg:ml-20">
+      <div className="w-fit lg:mt-2">
         <Button title={"Review"} tertiary />
       </div>
     </div>

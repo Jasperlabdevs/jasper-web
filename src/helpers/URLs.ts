@@ -44,6 +44,10 @@ const URL = {
   communityAccessRules: baseUrl + "access/rules/",
 
   userNotificationSettings: baseUrl + "user_notification_settings/",
+
+
+  overview: baseUrl + "overview/",
+  notifications: baseUrl + "user_notifications/"
 };
 
 export default URL;

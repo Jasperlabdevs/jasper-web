@@ -12,7 +12,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import NotificationCard from "./NotificationCard";
 import WelcomeImage from "assets/images/welcome-image.png";
 import gate from "assets/images/gate.png";
 import rename from "assets/images/rename.png";
@@ -21,6 +20,8 @@ import { useSelector } from "react-redux";
 import { store } from "store";
 import { Helmet } from "react-helmet";
 import { set_community } from "store/actions/community";
+import { getOverview } from "services/dashboard";
+import Notifications from "./Notifications";
 
 export const dispatchStore = store.dispatch as
   | typeof store.dispatch
@@ -28,9 +29,10 @@ export const dispatchStore = store.dispatch as
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(1);
+  
   const [showModal, setShowModal] = useState(false);
   const stateUser = useSelector((state: any) => state.user);
+  const [overviewData, setOverviewData] = useState<any>({})
 
   // Check if current user has created at least one community (onboarding flow completed check)
   useEffect(() => {
@@ -46,46 +48,35 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const notifTabs = [
-    {
-      id: 1,
-      name: "All",
-    },
-    {
-      id: 2,
-      name: "Access Requests",
-    },
-    {
-      id: 3,
-      name: "Payment",
-    },
-    {
-      id: 4,
-      name: "Issues",
-    },
-    {
-      id: 5,
-      name: "Post Requests",
-    },
-  ];
+  useEffect(()=>{
+    getOverview().then(
+      res => {
+        setOverviewData(res.data.results)
+      }
+    ).catch(err=> {
+      console.log(err)
+    })
+  },[])
+
+
 
   const stats = [
     {
       id: 1,
       title: "number of users",
-      stat: 100,
+      stat: overviewData.number_of_users,
       image: users,
     },
     {
       id: 2,
       title: "active gates",
-      stat: 2,
+      stat: overviewData.active_gates,
       image: gate,
     },
     {
       id: 3,
       title: "message credit balance",
-      stat: 88,
+      stat: overviewData.message_credits,
       image: rename,
     },
   ];
@@ -172,7 +163,7 @@ const Dashboard = () => {
         <div className="grow pt-10 pr-10 lg:pr-0">
           <h5>Welcome Back, {stateUser.first_name}</h5>
           <p className="text-lg">
-            Here's what is foing on at {stateUser.community?.name}
+            Here's what is going on at {stateUser.community?.name}
           </p>
 
           <div className="flex flex-col md:flex-row gap-6 mt-12">
@@ -182,10 +173,10 @@ const Dashboard = () => {
                 className="relative border w-full rounded-xl h-fit min-h-20 p-6"
               >
                 <div>
-                  <p className="uppercase">{data.title}</p>
-                  <h1 className="mt-8">{data.stat}</h1>
+                  <p className="uppercase truncate">{data.title}</p>
+                  <h1 className="mt-8">{data.stat || 0}</h1>
                 </div>
-                <div className="absolute h-28 right-10 bottom-2 md:h-20 md:right-2 lg:h-28">
+                <div className="absolute -z-10 right-10 bottom-2 h-28 md:right-2 md:h-28">
                   <img src={data.image} className="w-full h-full" alt="" />
                 </div>
               </div>
@@ -226,28 +217,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <aside className="w-[500px] border-l border-[#EFF1F5] py-10 hidden lg:block">
-          <h4 className="px-10 mb-6">Notifications</h4>
-          <div className="flex px-10 border-b border-[#EFF1F5]">
-            {notifTabs.map((data: any) => (
-              <div
-                key={data.id}
-                onClick={() => setActiveTab(data.id)}
-                className={`text-grey_text px-2 py-1.5 cursor-pointer ${
-                  data.id === activeTab && "text-black border-b border-primary"
-                } `}
-              >
-                {data.name}
-              </div>
-            ))}
-          </div>
-
-          <div className=" py-5">
-            <NotificationCard />
-            <NotificationCard type="warning" />
-            <NotificationCard type="notif" />
-          </div>
-        </aside>
+        <Notifications />
       </div>
     </div>
   );

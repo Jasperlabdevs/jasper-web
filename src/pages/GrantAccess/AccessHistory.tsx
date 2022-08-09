@@ -153,9 +153,9 @@ const AccessHistory = () => {
       <div className="flex justify-between items-center">
         <h4>
           Access History{" "}
-          {/* <span className="text-white bg-primary rounded-full px-3 text-xs">
-            {communityHistory.length}
-          </span>{" "} */}
+          <span className="text-white bg-primary rounded-full px-3 text-xs">
+            {activeAllList.length}
+          </span>{" "}
         </h4>
         <SearchFilter handleSearch={handleSearch} toggleFilter={toggleFilter} />
       </div>
