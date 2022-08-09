@@ -35,6 +35,7 @@ const URL = {
   loginGate: baseUrl + "gate/login/",
 
   access: baseUrl + "access/",
+  updateAccessCode: baseUrl + "access/update_access_code/",
   communityAccessHistory: baseUrl + "access/get_all_community_access_history/",
 
   accessHistorySearchFilter: baseUrl + "access/search_filter/?",

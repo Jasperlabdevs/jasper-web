@@ -1,11 +1,13 @@
+import AccessCodeModal from "components/AccessCodeModal";
 import Filter from "components/Filters";
 import SearchFilter from "components/SearchFilter";
 import { TableColumn, TableHeader } from "components/Table";
 import SVGs from "helpers/SVGs";
 import { formatDate, formatDateTime } from "helpers/utils";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { accessHistorySearchHistory, getCommunityAccessHistory } from "services/access";
+import { accessHistorySearchHistory, disableAccessCode, getCommunityAccessHistory } from "services/access";
 
 const AccessHistory = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -14,7 +16,10 @@ const AccessHistory = () => {
   const [loading, setLoading] = useState(true);
   const [activeAllList, setActiveAllList] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
+  const [accessCode, setAccessCode] = useState('')
+  const [showCodeGenerated, setShowCodeGenerated] = useState(false)
 
+  const {register} = useForm()
   const [ params, setParams ] = useState<any>({})
 
   const getHistory = async() => {
@@ -27,6 +32,23 @@ const AccessHistory = () => {
       // );
       setActiveAllList(res.data.results);
     });
+  }
+
+  const reshare =(code:any) => {
+    setAccessCode(code)
+    setShowCodeGenerated(true)
+  }
+
+  const disable =(id:string) => {
+    const data = { access_id : id }
+    setLoading(true)
+    setActiveAllList([])
+    disableAccessCode(data).then(
+      res => {
+        console.log(res)
+        getHistory()
+      }
+    )
   }
 
   useEffect(() => {
@@ -91,6 +113,8 @@ const AccessHistory = () => {
   }
 
   const handleChange = (event: any) => {
+    setActiveAllList([])
+    setLoading(true)
     const { name, value } = event.target;
 
     const temp = { ...params }
@@ -106,6 +130,7 @@ const AccessHistory = () => {
 
     accessHistorySearchHistory(temp).then(
       res => {
+        setLoading(false)
         const data = res.data.results
         setActiveAllList(data)
       }
@@ -117,7 +142,14 @@ const AccessHistory = () => {
     navigate(`/grant_access/access_history/visitor_details/${id}`);
   };
   return (
-    <div className="mt-10 ">
+    <div className="mt-10 pb-40">
+      <AccessCodeModal
+        showCodeGenerated={showCodeGenerated}
+        setShowCodeGenerated={setShowCodeGenerated}
+        register={register}
+        accessCode={accessCode}
+        reshare={true}
+      />
       <div className="flex justify-between items-center">
         <h4>
           Access History{" "}
@@ -151,14 +183,14 @@ const AccessHistory = () => {
           <tbody>
             {loading && "Loading..."}
             {!loading && activeAllList.length === 0 && "No Access History"}
-            {activeAllList?.map((data: any, index: number) => (
-              <tr key={index} className="border-b capitalize border-[#C3C9DA]">
+            {activeAllList?.map((data: any) => (
+              <tr key={data.id} className="border-b capitalize border-[#C3C9DA]">
                 <TableColumn td={data.visitors[0]?.name || "N/A"} />
                 <TableColumn td={data?.event_name || "N/A"} />
                 <TableColumn
-                  td={data?.status   + ' - ' + data?.number_of_visitors_countdown + '/' + data?.number_of_visitors} 
+                  td={data?.status + ( data?.access_type === "event" ?  ' - ' +  data?.number_of_visitors_countdown + '/' + data?.number_of_visitors: '')} 
                   type="status"
-                  status_type={true}
+                  status_type={data?.status === 'generated' ? true : false}
                 />
                 <TableColumn td={data?.access_type} />
                 <TableColumn td={data?.gate[0]?.name} />
@@ -169,7 +201,7 @@ const AccessHistory = () => {
                 <TableColumn td={formatDateTime(data?.created)} />
                 <TableColumn
                   td={SVGs.dots}
-                  list={["Reshare Code", "Disable"]}
+                  list={[{title: "Reshare Code", action: ()=> {reshare(data?.code || data?.visitors[0]?.code)}},  {title: data?.status !== 'disabled' ? 'Disable' : 'Enable' , action: ()=>{disable(data?.id)}}]}
                   type="dropdown"
                 />
               </tr>

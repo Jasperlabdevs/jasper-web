@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { createEventAccess } from "services/access";
+import { getCommunityWithID } from "services/community";
 
 const RecurringAccess = () => {
   const {
@@ -22,7 +23,6 @@ const RecurringAccess = () => {
     getValues,
     formState: { errors },
   } = useForm();
-  const [showMore, setShowMore] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
@@ -35,6 +35,20 @@ const RecurringAccess = () => {
 
   const [startDate, setStartDate] = useState(todayDate);
   const stateCommunity = useSelector((state: any) => state.community);
+  const [accessRules, setAccessRules] = useState<any>({});
+  
+  useEffect(() => {
+    getCommunityWithID(stateCommunity.id || "")
+      .then((res) => {
+        setAccessRules(res.data.access_rules);
+      })
+      .catch((err) => {
+        // console.log(err.data);
+      });
+
+    // console.log('accessRules',accessRules);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const location =
     stateCommunity.street_name +
     ", " +
@@ -84,18 +98,6 @@ const RecurringAccess = () => {
     });
   };
 
-  useEffect(() => {
-    reset({
-      security_password: "",
-      license_plate: "",
-      visitor_id_card_name: "",
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showMore]);
-
-  const triggerShowMore = () => {
-    setShowMore(!showMore);
-  };
 
   return (
     <div className="mt-10 max-w-4xl">
@@ -125,7 +127,7 @@ const RecurringAccess = () => {
         <PhoneInput
           placeholder="Enter community phone number"
           name="community_contact_phone_number"
-          label="Community Contact Phone Number"
+          label="Phone Number"
           type="tel"
           register={register}
           error={
@@ -194,14 +196,9 @@ const RecurringAccess = () => {
           error={errors.valid_to && "Please select a valid date"}
           min={startDate}
         />
-        <p
-          onClick={triggerShowMore}
-          className="mb-8 text-peach flex items-center gap-4 cursor-pointer"
-        >
-          <span> {SVGs.add_red}</span> Add additional details
-        </p>
-        {showMore && (
-          <>
+
+        {
+            accessRules?.license_plate !== "" &&
             <Input
               name="license_plate"
               placeholder="Enter license plate to be confirmed"
@@ -212,6 +209,9 @@ const RecurringAccess = () => {
                 errors.license_plate && "Please enter a license plate number"
               }
             />
+          }
+          {
+            accessRules?.security_password !== "" &&
             <Input
               name="security_password"
               label="Security Password"
@@ -223,19 +223,17 @@ const RecurringAccess = () => {
                 errors.security_password && "Please enter a security password"
               }
             />
+          }
+          {
+             accessRules?.visitor_id_card_name !== "" &&
             <Input
               name="visitor_id_card_name"
               label="Visitor's ID Card"
               placeholder="Enter the name on Visitor's ID card"
               options={{}}
               register={register}
-              error={
-                errors.visitor_id_card_name &&
-                "Please enter a security password"
-              }
             />
-          </>
-        )}
+          }
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">

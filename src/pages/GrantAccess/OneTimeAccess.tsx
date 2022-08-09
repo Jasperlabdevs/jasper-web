@@ -2,16 +2,16 @@ import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
 import Input, { PhoneInput, Select } from "components/Input";
 import TextCodeModal from "components/TextCodeModal";
-import SVGs from "helpers/SVGs";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { createEventAccess } from "services/access";
+import { getCommunityWithID } from "services/community";
 
 const OneTimeAccess = () => {
   const stateGates = useSelector((state: any) => state.gates);
 
-  const [showMore, setShowMore] = useState(false);
+  // const [showMore, setShowMore] = useState(false);
   const {
     register,
     handleSubmit,
@@ -24,6 +24,20 @@ const OneTimeAccess = () => {
   const [showTextCode, setShowTextCode] = useState(false);
   const [accessCode, setAccessCode] = useState("");
   const stateCommunity = useSelector((state: any) => state.community);
+  const [accessRules, setAccessRules] = useState<any>({});
+  
+  useEffect(() => {
+    getCommunityWithID(stateCommunity.id || "")
+      .then((res) => {
+        setAccessRules(res.data.access_rules);
+      })
+      .catch((err) => {
+        // console.log(err.data);
+      });
+
+    // console.log('accessRules',accessRules);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const location =
     stateCommunity.street_name +
     ", " +
@@ -67,18 +81,18 @@ const OneTimeAccess = () => {
     });
   };
 
-  useEffect(() => {
-    reset({
-      security_password: "",
-      license_plate: "",
-      visitor_id_card_name: "",
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showMore]);
+  // useEffect(() => {
+  //   reset({
+  //     security_password: "",
+  //     license_plate: "",
+  //     visitor_id_card_name: "",
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [showMore]);
 
-  const triggerShowMore = () => {
-    setShowMore(!showMore);
-  };
+  // const triggerShowMore = () => {
+  //   setShowMore(!showMore);
+  // };
 
   return (
     <div className="mt-10 max-w-4xl">
@@ -109,7 +123,7 @@ const OneTimeAccess = () => {
         <PhoneInput
           placeholder="Enter community phone number"
           name="community_contact_phone_number"
-          label="Community Contact Phone Number"
+          label="Phone Number"
           type="tel"
           register={register}
           error={
@@ -143,7 +157,7 @@ const OneTimeAccess = () => {
           value={location}
         />
 
-        <p
+        {/* <p
           onClick={triggerShowMore}
           className="mb-8 text-peach flex items-center gap-4 cursor-pointer"
         >
@@ -151,7 +165,10 @@ const OneTimeAccess = () => {
           details
         </p>
         {showMore && (
-          <>
+          <> */}
+   
+          {
+            accessRules?.license_plate !== "" &&
             <Input
               name="license_plate"
               placeholder="Enter license plate to be confirmed"
@@ -162,6 +179,9 @@ const OneTimeAccess = () => {
                 errors.license_plate && "Please enter a license plate number"
               }
             />
+          }
+          {
+            accessRules?.security_password !== "" &&
             <Input
               name="security_password"
               label="Security Password"
@@ -173,6 +193,9 @@ const OneTimeAccess = () => {
                 errors.security_password && "Please enter a security password"
               }
             />
+          }
+          {
+             accessRules?.visitor_id_card_name !== "" &&
             <Input
               name="visitor_id_card_name"
               label="Visitor's ID Card"
@@ -180,8 +203,9 @@ const OneTimeAccess = () => {
               options={{}}
               register={register}
             />
-          </>
-        )}
+          }
+          {/* </>
+        )} */}
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">

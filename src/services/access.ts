@@ -171,11 +171,7 @@ export const accessHistorySearchHistory = (data: any) => {
   return axios.post(URL.accessHistorySearchFilter, data, config);
 };
 
-// const serialize = (obj:any) => {
-//   var str = [];
-//   for (var p in obj)
-//     if (obj.hasOwnProperty(p)) {
-//       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-//     }
-//   return str.join("&") + '/';
-// }
+export const disableAccessCode = (data:any) => {
+  let config = configuration()
+  return axios.post(URL.updateAccessCode, data, config)
+}

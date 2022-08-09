@@ -53,7 +53,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: an
           <PhoneInput
             placeholder="Enter community phone number"
             name="phone_number"
-            label="Community Contact Phone Number"
+            label="Phone Number"
             type="tel"
             register={register}
             value={active[0]?.phone_number || ""}

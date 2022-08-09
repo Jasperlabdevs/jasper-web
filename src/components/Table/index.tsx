@@ -89,13 +89,13 @@ export const TableColumn = ({
     )}
     {type === "dropdown" && (
       <td className="px-4 " onClick={onClick}>
-        <div className="dropdown relative">
+        <div className="dropdown absolute">
           <button className="dropbtn flex items-center gap-4">
             {td} {SVGs.arrow_down}
           </button>
-          <div className="dropdown-content absolute">
+          <div className="dropdown-content absolute z-[1000]">
             {list?.map((data: any, index: number) => (
-              <p>{data.name || data}</p>
+              <p className="cursor-pointer hover:bg-faded" onClick={data.action} >{data.title}</p>
             ))}
           </div>
         </div>

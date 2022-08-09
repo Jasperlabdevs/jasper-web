@@ -10,6 +10,7 @@ const AccessCodeModal = ({
   setShowCodeGenerated,
   register,
   accessCode,
+  reshare = false
 }: any) => (
   <Modal
     show={showCodeGenerated}
@@ -18,7 +19,7 @@ const AccessCodeModal = ({
     <div className="w-full my-10">
       <div className="mx-auto w-fit text-center">
         <img src={Mail} alt="mail-icon" />
-        <p>Access Code Successfully sent!</p>
+        <p>{!reshare ? 'Access Code Successfully sent!' : 'Share Access Code'}</p>
       </div>
 
       <form className="m-10">
