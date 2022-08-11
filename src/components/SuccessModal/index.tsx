@@ -1,4 +1,4 @@
-import error from "assets/images/success.png";
+import success from "assets/images/success.png";
 import React from "react";
 import Button from "components/Button";
 
@@ -18,7 +18,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   return (
     <div className="bg-[#fff] flex justify-center items-center flex-col p-10">
       <div className="w-60 h-fit mx-auto mt-3">
-        <img src={error} alt="success" />
+        <img src={success} alt="success" />
       </div>
       <h4 className="mt-14">{title}</h4>
       <div className="text-center">

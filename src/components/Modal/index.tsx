@@ -7,7 +7,7 @@ const Modal = ({ children, show = true, toggleClose }: any) => {
         show ? "block" : "hidden"
       } `}
     >
-      <div className="min-w-[400px] w-[500px] m-10 max-h-[500px] bg-[#ffffff] rounded-xl relative overflow-hidden">
+      <div className="min-w-[400px] w-[500px] m-10 max-h-[550px] bg-[#ffffff] rounded-xl relative overflow-hidden">
         <div
           className=" absolute z-10 right-8 top-8 cursor-pointer"
           onClick={toggleClose}

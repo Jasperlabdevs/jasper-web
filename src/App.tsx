@@ -36,6 +36,7 @@ import AuthGuard from "helpers/authGuard";
 import { dispatchStore, getToken } from "helpers/utils";
 import { getUser } from "services/helperServices";
 import { setUser } from "store/actions/user";
+import CollectPayment from "pages/Community/CollectPayment";
 
 function App() {
   const [sideBar, setSidebar] = useState<any>(false);
@@ -224,6 +225,14 @@ function App() {
                 element={
                   <AuthGuard>
                     <Members />
+                  </AuthGuard>
+                }
+              />
+              <Route
+                path="collect_payments"
+                element={
+                  <AuthGuard>
+                    <CollectPayment />
                   </AuthGuard>
                 }
               />
