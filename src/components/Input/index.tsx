@@ -172,7 +172,7 @@ export const Select = (
     disabled,
   }: SelectType
 ) => (
-  <div className="relative min-w-[120px]">
+  <div className="relative min-w-[160px]">
     {label.length > 1 && (
       <>
         <label className="mb-4 lg:text-label_text">{label}</label>

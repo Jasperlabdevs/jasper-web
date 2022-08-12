@@ -9,6 +9,7 @@ import SetupBankModal from "components/SetupBankModal"
 // import ErrorModal from "components/ErrorModal"
 import { TableHeader, TableColumn } from "components/Table"
 import { TableContent } from "helpers/data"
+import { useNavigate } from "react-router-dom"
 
 const CollectPayment = () => {
 
@@ -24,7 +25,7 @@ const CollectPayment = () => {
         "Action",
       ];
     // const [ condition, setCondition ] = useState(true)
-
+      const navigate = useNavigate()
     const [ setupBank, setBank ] = useState(false)
 
     return(
@@ -43,7 +44,7 @@ const CollectPayment = () => {
           <h4>Collect Payments</h4>
           <div className="flex gap-4 items-center">
             <div className="fit -mt-10" >
-              <Button title={<span className="flex items-center justify-center gap-4 text-[#fff]">{SVGs.add_white}  New payment Request</span>} />
+              <Button onClick={()=>{navigate('new_payment_request')}} title={<span className="flex items-center justify-center gap-4 text-[#fff]">{SVGs.add_white}  New payment Request</span>} />
             </div>
             <div className="relative">
                 <div className="dropdown absolute">
@@ -76,7 +77,7 @@ const CollectPayment = () => {
                     <h3 className="my-6" >Click the button below to create your <br /> first payment request</h3>
 
                     <div className="md:w-80 mx-auto " >
-                        <Button title={<span className="flex items-center justify-center gap-4 text-[#fff]">{SVGs.add_white}  New payment Request</span>} />
+                        <Button onClick={()=>{navigate('new_payment_request')} title={<span className="flex items-center justify-center gap-4 text-[#fff]">{SVGs.add_white}  New payment Request</span>} />
                     </div>
                 </div>
             } */}
@@ -98,7 +99,7 @@ const CollectPayment = () => {
                 <TableColumn td="10%" />
                 <TableColumn td="12" />
                 <TableColumn
-                  td="In Progress"
+                  td="in progress"
                   type="status"
                 />
                 <TableColumn td="2nd March, 2022" />

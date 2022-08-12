@@ -22,7 +22,7 @@ const SubHeader = ({ headerData, head }: any) => {
                 to={`/${link}/` + data.link}
                 key={data.id}
                 className={`py-4 cursor-pointer hover:text-black text-grey_text ${
-                  `/${link}/` + data.link === location.pathname &&
+                  location.pathname.includes(`/${link}/` + data.link)  &&
                   "border-b text-black border-primary"
                 }`}
               >

@@ -37,6 +37,8 @@ import { dispatchStore, getToken } from "helpers/utils";
 import { getUser } from "services/helperServices";
 import { setUser } from "store/actions/user";
 import CollectPayment from "pages/Community/CollectPayment";
+import NewPaymentRequest from "pages/Community/NewPaymentRequest";
+import TransactionHistory from "pages/Community/TransactionHistory";
 
 function App() {
   const [sideBar, setSidebar] = useState<any>(false);
@@ -227,12 +229,30 @@ function App() {
                     <Members />
                   </AuthGuard>
                 }
-              />
+              >
+                
+              </Route>
               <Route
                 path="collect_payments"
                 element={
                   <AuthGuard>
                     <CollectPayment />
+                  </AuthGuard>
+                }
+              />
+              <Route
+                path="collect_payments/new_payment_request"
+                element={
+                  <AuthGuard>
+                    <NewPaymentRequest />
+                  </AuthGuard>
+                }
+              />
+              <Route
+                path="collect_payments/transaction_history"
+                element={
+                  <AuthGuard>
+                    <TransactionHistory />
                   </AuthGuard>
                 }
               />

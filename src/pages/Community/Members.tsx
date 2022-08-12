@@ -60,7 +60,7 @@ const Members = () => {
                 <TableColumn td="2nd March, 2022" />
                 <TableColumn td="02454342534" />
                 <TableColumn td="2nd March, 2022" />
-                <TableColumn td="Enable" type="status" />
+                <TableColumn td="enable" type="status" />
                 <TableColumn
                   td="Manage Access"
                   type="button"

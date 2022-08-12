@@ -2,7 +2,7 @@ import Button from "components/Button";
 import SVGs from "helpers/SVGs";
 
 type tableColumnType = {
-  type?: "normal" | "status" | "userType" | "button" | "user" | "dropdown";
+  type?: "normal" | "status" | "userType" | "button" | "user" | "dropdown" | "check";
   buttonType?:
     | "smallPrimary"
     | "smallSecondary"
@@ -19,7 +19,7 @@ type tableColumnType = {
 };
 
 export const TableHeader = ({ headers }: any) => (
-  <tr className="text-grey_text border-b border-[#C3C9DA] bg-[#F9F9FB]">
+  <tr className="text-grey_text w-full border-b border-[#C3C9DA] bg-[#F9F9FB]">
     {headers.map((data: any, idx: number) => (
       <th key={idx} className={`px-4  text-left text-grey_text py-4 `}>
         {data}
@@ -39,12 +39,14 @@ export const TableColumn = ({
 }: tableColumnType) => (
   <>
     {type === "normal" && <td className="px-4 py-8 text-left">{td}</td>}
+    {type === "check" && <td className="pl-4 py-8 text-left">{<input type="checkbox" name={td} />}</td>}
     {type === "status" && (
       <td
-        className={`p-2 px-6 my-8 w-fit rounded-full flex justify-center 
-            ${false && "bg-faded_yellow text-yellow"}
-            ${status_type === false && "bg-faded_red text-red"}
-            ${status_type === true && "bg-faded_green text-green"} `}
+        className={`p-2 px-6 my-6 w-fit rounded-full flex justify-center 
+            ${(td.includes('generated') || td === 'in progress') && "bg-faded_yellow text-yellow"}
+            ${(td.includes('draft') ) && "bg-faded text-primary"}
+            ${(td === 'disabled' || td.includes("expired") || td === 'not paid') && "bg-faded_red text-red"}
+            ${(td === 'enable' || td === 'enabled' || td === 'verified' || td === 'completed' || td === 'paid')  && "bg-faded_green text-green"} `}
       >
         {td}
       </td>
@@ -103,8 +105,8 @@ export const TableColumn = ({
     )}
     {type === "user" && (
       <td className="text-left h-full pl-4 flex mt-5 gap-2 items-center">
-        <span className="bg-faded rounded-full h-12 w-12 flex justify-center items-center">
-          <img src={image} className="h-6 w-6 object-cover" alt="gate" />
+        <span className="bg-faded rounded-full h-12 w-12 flex justify-center overflow-hidden items-center">
+          <img src={image} className="h-auto w-auto object-cover" alt="gate" />
         </span>
         <span>{td}</span>
       </td>
