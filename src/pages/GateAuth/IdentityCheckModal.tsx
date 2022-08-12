@@ -25,9 +25,9 @@ const IdentityCheckModal = ({
   
   const handleAccess = () => {
     setErr('')
-    const conditionOne = ((visitor?.visitor_id_card_name).length > 0) && data.hasOwnProperty('id_card_name')
-    const conditionTwo = ((visitor?.security_password).length > 0) && data.hasOwnProperty('security_password')
-    const conditionThree = ((visitor?.license_plate).length > 0) && data.hasOwnProperty('license_plate')
+    const conditionOne = (!!(visitor?.visitor_id_card_name)) && data.hasOwnProperty('id_card_name')
+    const conditionTwo = (!!(visitor?.security_password)) && data.hasOwnProperty('security_password')
+    const conditionThree = (!!(visitor?.license_plate)) && data.hasOwnProperty('license_plate')
 
     if(conditionOne && conditionTwo && conditionThree ){
       checkID(data).then((res: any) => {
