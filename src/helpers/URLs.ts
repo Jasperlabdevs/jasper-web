@@ -29,6 +29,7 @@ const URL = {
   getAllGates: baseUrl + "gate/community_gates/",
   community: baseUrl + "community/",
   gate: baseUrl + "gate/",
+  unested_gate: baseUrl + "gate/available_gates_to_be_nested/",
   communityGate: baseUrl + "community_gates/",
   denestGate: baseUrl + "gate/remove_nested_gate/",
   toggleGate: baseUrl + "gate/change_active_state/",
