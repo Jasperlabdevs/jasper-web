@@ -1,15 +1,15 @@
 import Button from "components/Button"
 import { useState } from "react"
 import SVGs from "helpers/SVGs"
-// import BankImage from "assets/images/bank.svg"
-// import PaymentImage from "assets/images/payment.svg"
+import BankImage from "assets/images/bank.svg"
+import PaymentImage from "assets/images/payment.svg"
 import SetupBankModal from "components/SetupBankModal"
-// import SuccessModal from "components/SuccessModal"
-// import Modal from "components/Modal"
-// import ErrorModal from "components/ErrorModal"
 import { TableHeader, TableColumn } from "components/Table"
 import { TableContent } from "helpers/data"
 import { useNavigate } from "react-router-dom"
+import ErrorModal from "components/ErrorModal"
+import Modal from "components/Modal"
+import SuccessModal from "components/SuccessModal"
 
 const CollectPayment = () => {
 
@@ -24,7 +24,7 @@ const CollectPayment = () => {
         "Due Date",
         "Action",
       ];
-    // const [ condition, setCondition ] = useState(true)
+    const [ condition, setCondition ] = useState(true)
       const navigate = useNavigate()
     const [ setupBank, setBank ] = useState(false)
 
@@ -60,7 +60,7 @@ const CollectPayment = () => {
             </div>
         </div>
 
-            {/* {
+            {
                 condition ? 
                 <div className="text-center mt-20">
                     <img src={BankImage} className="w-80 mx-auto lg:max-w-[300px] lg:w-auto" alt="bank" />
@@ -77,13 +77,13 @@ const CollectPayment = () => {
                     <h3 className="my-6" >Click the button below to create your <br /> first payment request</h3>
 
                     <div className="md:w-80 mx-auto " >
-                        <Button onClick={()=>{navigate('new_payment_request')} title={<span className="flex items-center justify-center gap-4 text-[#fff]">{SVGs.add_white}  New payment Request</span>} />
+                        <Button onClick={()=>{navigate('new_payment_request')}} title={<span className="flex items-center justify-center gap-4 text-[#fff]">{SVGs.add_white}  New payment Request</span>} />
                     </div>
                 </div>
-            } */}
+            }
         </div>
 
-      <div className=" py-10 pb-80" >
+      {/* <div className=" py-10 pb-80" >
         <table className="w-full py-20">
           <thead className="">
             <TableHeader headers={headers} />
@@ -113,7 +113,7 @@ const CollectPayment = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
       </div>
     )
 }

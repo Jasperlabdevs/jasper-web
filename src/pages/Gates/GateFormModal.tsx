@@ -2,7 +2,9 @@ import Button from "components/Button";
 import Input, { PhoneInput, Select } from "components/Input";
 import Modal from "components/Modal";
 import { dispatchStore } from "helpers/utils";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { readyToNest } from "services/gates";
 import { edit_gate, add_gate } from "store/actions/gates";
 
 const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: any) => {
@@ -13,6 +15,8 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: an
     reset,
   } = useForm();
 
+  const [gatesList, setGates] = useState([])
+
   let active = gates.filter((el: any) => el.id === editID);
   let newGates = [];
   if (edit) {
@@ -20,6 +24,15 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: an
   } else {
     newGates = gates;
   }
+
+  useEffect(()=>{
+    readyToNest().then(
+      res => {
+        console.log(res)
+        setGates(res.data.results)
+      }
+    )
+  },[])
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -77,7 +90,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: an
                   value={active[0]?.gate?.id || ""}
                   placeholder={gates.length === 0 ? "No Gate created" : "Select gate"}
                   register={register}
-                  list={newGates}
+                  list={gatesList}
                 />
             }
 

@@ -70,3 +70,9 @@ export const changePassword = (data: any) => {
   let config = configuration();
   return axios.post(URL.changePassword, data, config);
 };
+
+
+export const readyToNest = () => {
+  let config = configuration();
+  return axios.get(URL.unested_gate, config)
+}

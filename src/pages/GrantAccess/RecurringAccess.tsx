@@ -7,7 +7,6 @@ import Input, {
   Checkbox,
 } from "components/Input";
 import TextCodeModal from "components/TextCodeModal";
-import SVGs from "helpers/SVGs";
 import { formatDate } from "helpers/utils";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -32,10 +31,12 @@ const RecurringAccess = () => {
   const stateGates = useSelector((state: any) => state.gates);
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
-
+  const [allDay, setAllDay] = useState('false') 
   const [startDate, setStartDate] = useState(todayDate);
   const stateCommunity = useSelector((state: any) => state.community);
   const [accessRules, setAccessRules] = useState<any>({});
+
+  const [ startType, setStartType ] = useState('datetime-local')
   
   useEffect(() => {
     getCommunityWithID(stateCommunity.id || "")
@@ -61,6 +62,7 @@ const RecurringAccess = () => {
     setWhich("");
     data.access_type = "recurring";
     data.gates = [data.gates];
+    data.all_day = allDay
 
     createEventAccess(data)
       .then((res) => {
@@ -164,6 +166,7 @@ const RecurringAccess = () => {
         <div className="flex items-center">
           <div className="w-full">
             <DateInput
+              type={startType}
               name="valid_from"
               label="Valid From"
               placeholder="dd/mm/yy"
@@ -181,7 +184,18 @@ const RecurringAccess = () => {
           <div className="w-1/2">
             <Checkbox
               name="all_day"
-              register={register}
+              register={()=>{}}
+              onChange={(e:any)=>{
+                console.log(e.target.value)
+                if(allDay === 'false'){
+                  setStartType('date')
+                  setAllDay('true')
+                }else{
+                  setStartType('datetime-local')
+                  setAllDay('false')
+                }
+              }}
+              value={allDay}
               label="All day"
               options={{ required: false }}
             />

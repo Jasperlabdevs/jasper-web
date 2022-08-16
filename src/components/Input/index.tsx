@@ -10,7 +10,7 @@ type InputType = {
   placeholder?: string;
   error?: string;
   disabled?: boolean;
-  value?: String;
+  value?: string | boolean;
   min?: string;
   onChange?: any;
 };
@@ -210,11 +210,11 @@ export const Select = (
   </div>
 );
 
-export const Checkbox = ({ label, name, register }: InputType) => (
+export const Checkbox = ({ label, name, register, value, onChange }: InputType) => (
   <label className="checkbox_container lg:text-label_text">
     {' '}
     <div>{label}</div>
-    <input type="checkbox" {...register(name)} />
+    <input type="checkbox" value={value || ''} onChange={onChange} {...register(name)} />
     <span className="checkmark"></span>
   </label>
 );
@@ -227,6 +227,7 @@ export const DateInput = ({
   options,
   error = '',
   min,
+  type,
   onChange,
 }: InputType) => (
   <div className="relative">
@@ -237,7 +238,7 @@ export const DateInput = ({
       </>
     )}
     <input
-      type="date"
+      type={type || 'date'}
       className="p-4 mt-2 mb-8 border rounded-md w-full max-w-lg"
       placeholder={placeholder}
       min={min}
