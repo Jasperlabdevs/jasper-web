@@ -7,6 +7,7 @@ import Input, {
   Checkbox,
 } from "components/Input";
 import TextCodeModal from "components/TextCodeModal";
+import SVGs from "helpers/SVGs";
 import { formatDate } from "helpers/utils";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -23,6 +24,8 @@ const RecurringAccess = () => {
     formState: { errors },
   } = useForm();
 
+
+  const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
   const [accessCode, setAccessCode] = useState("");
@@ -50,12 +53,20 @@ const RecurringAccess = () => {
     // console.log('accessRules',accessRules);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const location =
-    stateCommunity.street_name +
-    ", " +
-    stateCommunity.city +
-    ", " +
-    stateCommunity.state;
+  useEffect(() => {
+    reset({
+      security_password: "",
+      license_plate: "",
+      visitor_id_card_name: "",
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showMore]);
+
+  const triggerShowMore = () => {
+    setShowMore(!showMore);
+  };
+
+  const location = stateCommunity.name
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -163,37 +174,44 @@ const RecurringAccess = () => {
           list={stateGates.filter((el: any) => el.is_active === true)}
         />
 
-        <div className="flex items-center">
-          <div className="w-full">
-            <DateInput
-              type={startType}
-              name="valid_from"
-              label="Valid From"
-              placeholder="dd/mm/yy"
-              register={register}
-              min={todayDate}
-              options={{
-                required: true,
-                onChange: () => {
-                  setStartDate(getValues("valid_from"));
-                },
-              }}
-              error={errors.valid_from && "Please select a date"}
-            />
+        <div className="flex items-center gap-5">
+          <div className="w-full flex gap-10">
+            <div className="w-full" >
+              <DateInput
+                type='date'
+                name="valid_from"
+                label="Valid From"
+                placeholder="dd/mm/yy"
+                register={register}
+                min={todayDate}
+                options={{
+                  required: true,
+                }}
+                error={errors.valid_from && "Please select a date"}
+              />
+              </div>
+              <div className="w-full" >
+              <DateInput
+                type='time'
+                name="time_from"
+                label="  "
+                placeholder="dd/mm/yy"
+                register={register}
+                min={todayDate}
+                options={{required: false}}
+                error={errors.time_from && "Please select a time"}
+                disabled={allDay === 'true' ? true : false}
+              />
+
+
+            </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-1/5">
             <Checkbox
               name="all_day"
               register={()=>{}}
               onChange={(e:any)=>{
-                console.log(e.target.value)
-                if(allDay === 'false'){
-                  setStartType('date')
-                  setAllDay('true')
-                }else{
-                  setStartType('datetime-local')
-                  setAllDay('false')
-                }
+                (allDay === 'false') ? setAllDay('true') : setAllDay('false')
               }}
               value={allDay}
               label="All day"
@@ -201,15 +219,46 @@ const RecurringAccess = () => {
             />
           </div>
         </div>
-        <DateInput
-          name="valid_to"
-          label="Valid To"
-          placeholder="dd/mm/yy"
-          register={register}
-          options={{ required: true }}
-          error={errors.valid_to && "Please select a valid date"}
-          min={startDate}
-        />
+        <div className="flex gap-5" >
+          <div className="w-full flex gap-10" >
+                <div className="w-full">
+                  <DateInput
+                    name="valid_to"
+                    label="Valid To"
+                    placeholder="dd/mm/yy"
+                    register={register}
+                    options={{ required: true }}
+                    error={errors.valid_to && "Please select a valid date"}
+                    min={startDate}
+                  />
+                </div>
+                <div className="w-full">
+                  <DateInput
+                    type='time'
+                    name="time_to"
+                    label="  "
+                    disabled={allDay === 'true' ? true : false}
+                    placeholder="dd/mm/yy"
+                    register={register}
+                    options={{ required: false }}
+                    error={errors.time_to && "Please select a valid time"}
+                    min={startDate}
+                  />
+                </div>
+          </div>
+          <div className="w-1/5"></div>
+
+        </div>
+
+        <p
+          onClick={triggerShowMore}
+          className="mb-8 text-peach flex items-center gap-4 cursor-pointer"
+        >
+          <span> {SVGs.add_red} </span> {showMore ? "Remove" : "Add"} additional
+          details
+        </p>
+        {showMore && (
+          <>
 
         {
             accessRules?.license_plate !== "" &&
@@ -248,6 +297,8 @@ const RecurringAccess = () => {
               register={register}
             />
           }
+            </>
+        )}
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">

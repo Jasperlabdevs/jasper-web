@@ -227,6 +227,7 @@ export const DateInput = ({
   options,
   error = '',
   min,
+  disabled,
   type,
   onChange,
 }: InputType) => (
@@ -242,6 +243,7 @@ export const DateInput = ({
       className="p-4 mt-2 mb-8 border rounded-md w-full max-w-lg"
       placeholder={placeholder}
       min={min}
+      disabled={disabled}
       onChange={onChange}
       {...register(name, { ...options })}
     />

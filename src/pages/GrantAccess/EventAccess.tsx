@@ -24,7 +24,7 @@ const EventAccess = () => {
   const [loading, setLoading] = useState(false);
 
   const stateCommunity = useSelector((state:any) => state.community)
-  const location = stateCommunity.street_name +", "+ stateCommunity.city +", "+ stateCommunity.state
+  const location = stateCommunity.name
 
   const resetFields = () => {
     reset({

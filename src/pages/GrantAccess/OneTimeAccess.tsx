@@ -2,6 +2,7 @@ import AccessCodeModal from "components/AccessCodeModal";
 import Button from "components/Button";
 import Input, { PhoneInput, Select } from "components/Input";
 import TextCodeModal from "components/TextCodeModal";
+import SVGs from "helpers/SVGs";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -11,7 +12,7 @@ import { getCommunityWithID } from "services/community";
 const OneTimeAccess = () => {
   const stateGates = useSelector((state: any) => state.gates);
 
-  // const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const {
     register,
     handleSubmit,
@@ -38,12 +39,7 @@ const OneTimeAccess = () => {
     // console.log('accessRules',accessRules);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const location =
-    stateCommunity.street_name +
-    ", " +
-    stateCommunity.city +
-    ", " +
-    stateCommunity.state;
+  const location = stateCommunity.name
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -81,18 +77,18 @@ const OneTimeAccess = () => {
     });
   };
 
-  // useEffect(() => {
-  //   reset({
-  //     security_password: "",
-  //     license_plate: "",
-  //     visitor_id_card_name: "",
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [showMore]);
+  useEffect(() => {
+    reset({
+      security_password: "",
+      license_plate: "",
+      visitor_id_card_name: "",
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showMore]);
 
-  // const triggerShowMore = () => {
-  //   setShowMore(!showMore);
-  // };
+  const triggerShowMore = () => {
+    setShowMore(!showMore);
+  };
 
   return (
     <div className="mt-10 max-w-4xl">
@@ -157,7 +153,7 @@ const OneTimeAccess = () => {
           value={location}
         />
 
-        {/* <p
+        <p
           onClick={triggerShowMore}
           className="mb-8 text-peach flex items-center gap-4 cursor-pointer"
         >
@@ -165,7 +161,7 @@ const OneTimeAccess = () => {
           details
         </p>
         {showMore && (
-          <> */}
+          <>
    
           {
             accessRules?.license_plate !== "" &&
@@ -204,8 +200,8 @@ const OneTimeAccess = () => {
               register={register}
             />
           }
-          {/* </>
-        )} */}
+          </>
+        )}
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">
           <div className="lg:max-w-lg w-full">
