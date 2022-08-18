@@ -111,7 +111,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
           placeholder="Enter your community name"
           name="name"
           label="Community Name"
-          value={stateCommunity.name}
+          value={stateCommunity?.name}
           register={register}
           options={{ required: true }}
           error={errors.name && "Please enter your community's name"}
@@ -123,7 +123,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
             placeholder="State/Province"
             name="state"
             label=""
-            value={stateCommunity.state}
+            value={stateCommunity?.state}
             list={stateProvince}
             register={register}
             options={{ required: true }}
@@ -132,7 +132,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
             placeholder="City"
             name="city"
             label=""
-            value={stateCommunity.city}
+            value={stateCommunity?.city}
             register={register}
             options={{ required: true }}
             error={errors.city && "Please enter the name of your city"}
@@ -141,7 +141,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
             placeholder="Street Name and number"
             name="street_name"
             label=""
-            value={stateCommunity.street_name}
+            value={stateCommunity?.street_name}
             register={register}
             options={{ required: true }}
             error={errors.street_name && "Please enter the street name"}
@@ -152,7 +152,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
           placeholder="Enter your security company's name"
           name="security_company_name"
           label="Security Company"
-          value={stateCommunity.security_company_name}
+          value={stateCommunity?.security_company_name}
           register={register}
           options={{ required: true }}
           error={
@@ -165,7 +165,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
           placeholder="Enter community phone number"
           name="community_contact_phone_number"
           label="Community Contact Phone Number"
-          value={stateCommunity.community_manager?.phone_number}
+          value={stateCommunity?.community_manager?.phone_number}
           type="tel"
           register={register}
           error={
@@ -186,7 +186,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
               placeholder="Enter your community's email address"
               name="community_email"
               label="Community Email address"
-              value={stateCommunity.community_manager.email}
+              value={stateCommunity?.community_manager.email}
               register={register}
               options={{
                 required: true,
@@ -199,7 +199,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
               placeholder="Enter your Bank name"
               name="bank_name"
               label="Bank Name"
-              value={stateCommunity.bank_name}
+              value={stateCommunity?.bank_name}
               register={register}
               options={{}}
             />
@@ -207,7 +207,7 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
               placeholder="Enter your account number"
               name="bank_account_number"
               label="Bank Account Number"
-              value={stateCommunity.bank_account_number}
+              value={stateCommunity?.bank_account_number}
               register={register}
               options={{
                 pattern: /[0-9]/,
@@ -225,43 +225,43 @@ const CommunityDetails = ({ forwardButton, forward }: any) => {
                 title="Discard"
                 type="button"
                 onClick={() => {
-                  setValue("name", stateCommunity.name, {
+                  setValue("name", stateCommunity?.name, {
                     shouldDirty: true,
                   });
-                  setValue("state", stateCommunity.state, {
+                  setValue("state", stateCommunity?.state, {
                     shouldDirty: true,
                   });
-                  setValue("city", stateCommunity.city, {
+                  setValue("city", stateCommunity?.city, {
                     shouldDirty: true,
                   });
-                  setValue("street_name", stateCommunity.street_name, {
+                  setValue("street_name", stateCommunity?.street_name, {
                     shouldDirty: true,
                   });
                   setValue(
                     "security_company_name",
-                    stateCommunity.security_company_name,
+                    stateCommunity?.security_company_name,
                     {
                       shouldDirty: true,
                     }
                   );
                   setValue(
                     "community_contact_phone_number",
-                    stateCommunity.community_manager.phone_number,
+                    stateCommunity?.community_manager.phone_number,
                     { shouldDirty: true }
                   );
                   setValue(
                     "community_email",
-                    stateCommunity.community_manager.email,
+                    stateCommunity?.community_manager.email,
                     {
                       shouldDirty: true,
                     }
                   );
                   setValue(
                     "bank_account_number",
-                    stateCommunity.bank_account_number,
+                    stateCommunity?.bank_account_number,
                     { shouldDirty: true }
                   );
-                  setValue("bank_name", stateCommunity.bank_name, {
+                  setValue("bank_name", stateCommunity?.bank_name, {
                     shouldDirty: true,
                   });
                 }}

@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Modal from "components/Modal";
 import DefaaultAvatar from "assets/images/AccountPhoto.png";
-import { NavLink } from "react-router-dom";
 
 import ChangePassword from "./ChangePassword";
 import UpdatePhoto from "./UpdatePhoto";
+import authentication from "services/authentication";
+import { useNavigate } from "react-router-dom";
 
 const Account = () => {
   const { register: registerPersonalInfo, setValue } = useForm();
@@ -23,6 +24,8 @@ const Account = () => {
     console.log(stateUser);
     setAvatar(stateUser.profile_picture);
   }, []);
+
+  const navigate = useNavigate()
 
   return (
     <div className="mt-14 max-w-4xl">
@@ -130,9 +133,9 @@ const Account = () => {
           </div>
 
           <div className="grow max-w-xs -mt-10">
-            <NavLink to="/login">
-              <Button title="Log Out" type="button" other />
-            </NavLink>
+              <Button title="Log Out" type="button" onClick={()=>{
+                authentication.Logout(navigate('/login'))
+              }} other />
           </div>
         </div>
 

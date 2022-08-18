@@ -1,16 +1,14 @@
-import Button from "components/Button";
 import Sidebar from "components/Sidebar";
 import { SideBarContext } from "helpers/context";
 import { headerData } from "helpers/data";
 import SVGs from "helpers/SVGs";
 import { useContext } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import authentication from "services/authentication";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const location = useLocation();
   const { sideBar, setSidebar } = useContext(SideBarContext);
-  const navigate = useNavigate();
   const toggleSideBar = () => {
     if (sideBar) {
       setSidebar(false);
@@ -19,9 +17,7 @@ const Header = () => {
     }
   };
 
-  const logout = () => {
-    authentication.Logout(() => navigate("/login"));
-  };
+  const stateCommunity = useSelector((state:any) => state.community)
 
   return (
     <>
@@ -63,7 +59,9 @@ const Header = () => {
             88 Message Credits
           </p>
           {SVGs.bell}
-          <Button title="Logout" red onClick={logout} />
+          <p className="text-sm bg-faded text-primary rounded-lg px-4 py-1.5 ">
+            PIN - {stateCommunity?.pin}
+          </p>
         </div>
       </div>
       <Sidebar />
