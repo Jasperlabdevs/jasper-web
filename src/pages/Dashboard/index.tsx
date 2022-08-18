@@ -46,7 +46,7 @@ const Dashboard = () => {
       setShowModal(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [stateUser]);
 
   useEffect(()=>{
     getOverview().then(
