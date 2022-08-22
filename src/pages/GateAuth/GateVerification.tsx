@@ -36,6 +36,7 @@ const GateVerification = () => {
   }, []);
 
   const onSubmit = () => {
+    setshowIdentityModal(false)
     setLoading(true);
     setShowExtra(false)
     setShow(false)
@@ -48,6 +49,7 @@ const GateVerification = () => {
 
     verifyGate(data)
       .then((res: any) => {
+        console.log(accessRules?.identity_verification)
         console.log(res.data);
         setVisitor(res.data?.result?.visitor)
         if( accessRules?.identity_verification 

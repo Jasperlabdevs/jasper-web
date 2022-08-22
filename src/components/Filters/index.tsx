@@ -6,7 +6,7 @@ const Filter = ({ handleChange }: any) => {
   const { register } = useForm();
 
   const access_types = ["All", "recurring", "event", "onetime", "multiple"];
-  const status = ["All", "generated", "Verified", "Expired", "Disabled"];
+  const status = ["All", "generated", "verified", "expired", "disabled"];
 
   const stateGates = useSelector((state: any) => state.gates);
 
