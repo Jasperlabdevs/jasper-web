@@ -39,7 +39,7 @@ const RecurringAccess = () => {
   const stateCommunity = useSelector((state: any) => state.community);
   const [accessRules, setAccessRules] = useState<any>({});
 
-  const [ startType, setStartType ] = useState('datetime-local')
+  const [showTime, toggleShowTime] = useState(true)
   
   useEffect(() => {
     getCommunityWithID(stateCommunity.id || "")
@@ -190,6 +190,8 @@ const RecurringAccess = () => {
                 error={errors.valid_from && "Please select a date"}
               />
               </div>
+
+              { showTime && 
               <div className="w-full" >
               <DateInput
                 type='time'
@@ -202,9 +204,7 @@ const RecurringAccess = () => {
                 error={errors.time_from && "Please select a time"}
                 disabled={allDay === 'true' ? true : false}
               />
-
-
-            </div>
+            </div> }
           </div>
           <div className="w-1/5">
             <Checkbox
@@ -212,6 +212,7 @@ const RecurringAccess = () => {
               register={()=>{}}
               onChange={(e:any)=>{
                 (allDay === 'false') ? setAllDay('true') : setAllDay('false')
+                toggleShowTime(!showTime)
               }}
               value={allDay}
               label="All day"
@@ -232,6 +233,7 @@ const RecurringAccess = () => {
                     min={startDate}
                   />
                 </div>
+                { showTime && 
                 <div className="w-full">
                   <DateInput
                     type='time'
@@ -244,7 +246,7 @@ const RecurringAccess = () => {
                     error={errors.time_to && "Please select a valid time"}
                     min={startDate}
                   />
-                </div>
+                </div>}
           </div>
           <div className="w-1/5"></div>
 
