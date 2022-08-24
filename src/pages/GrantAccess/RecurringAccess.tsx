@@ -138,13 +138,13 @@ const RecurringAccess = () => {
           error={errors.visitor_name && "Please enter a visitor's name"}
         />
         <PhoneInput
-          placeholder="Enter community phone number"
-          name="community_contact_phone_number"
+          placeholder="Enter phone number"
+          name="visitor_phone_number"
           label="Phone Number"
           type="tel"
           register={register}
           error={
-            errors.community_contact_phone_number &&
+            errors.visitor_phone_number &&
             "Please enter a correct phone number"
           }
           options={{

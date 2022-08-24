@@ -8,12 +8,20 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import img from "assets/images/AccountPhoto.png";
+import { makePaymentRequest } from "services/payment"
+import useFetch from "hooks/useFetch"
+import { getCommunityMembers } from "services/CommunityMembers"
 
 const NewPaymentRequest = () => {
-    const { register, reset } = useForm()
+    const { register, handleSubmit, formState: {errors}, reset } = useForm()
     const navigate = useNavigate()
     const [loading, setLoading] = useState()
     const [showModal, setShowModal] = useState(false)
+
+
+    const [ communityMembers, communityMenbersloading, CommunitymembersError ] = useFetch(getCommunityMembers)
+
+    console.log(communityMembers)
 
     const resetFields = () => {
       reset({
@@ -28,6 +36,19 @@ const NewPaymentRequest = () => {
       "Status",
     ];
   
+    const onSubmit = (data:any) => {
+      console.log(data)
+
+      // makePaymentRequest(data).then(
+      //   res => {
+      //     console.log(res.data.results)
+      //   }
+      // ).catch(err=> {
+      //   console.log(err)
+      // })
+
+
+    }
 
     return(
         <div className="mt-10 max-w-6xl">
@@ -63,23 +84,23 @@ const NewPaymentRequest = () => {
                         <TableHeader headers={headers} />
                       </thead>
                       <tbody >
-                        {TableContent.map((data) => (
-                          <tr className="border-b w-full border-[#C3C9DA] align-vertical">
+                        {!!communityMembers && communityMembers.map((data:any) => (
+                          <tr key={data?.id} className="border-b w-full border-[#C3C9DA] align-vertical">
                             <TableColumn td="" type="check" />
                             <TableColumn
                               td={
                                 <span>
-                                  Entry <br />
-                                  <span className="text-grey_text text-xs">Block 10</span>
+                                  {data?.myuser?.first_name + ' ' + data?.myuser?.last_name } <br />
+                                  <span className="text-grey_text text-xs">{data?.myuser?.email}</span>
                                 </span>
                               }
                               type="user"
                               image={img}
                             />
 
-                            <TableColumn td="Landlord" type="userType" />
-                            <TableColumn td="02454342534" />
-                            <TableColumn td="enable" type="status" />
+                            <TableColumn td={data?.occupancy_type?.name} type="userType" />
+                            <TableColumn td={data?.myuser?.phone_number}  />
+                            <TableColumn td={data?.is_active ? 'enabled' : 'disabled'} type="status" />
 
                           </tr>
                         ))}
@@ -107,7 +128,7 @@ const NewPaymentRequest = () => {
           </div>
   
         <div className="flex flex-col md:flex-row gap-[5rem] w-full items-center" >
-          <form className="w-full" >
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full" >
                 <Input
                   name="payment_name"
                   label="Payment Name*"

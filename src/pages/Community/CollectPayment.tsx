@@ -10,9 +10,12 @@ import { useNavigate } from "react-router-dom"
 import ErrorModal from "components/ErrorModal"
 import Modal from "components/Modal"
 import SuccessModal from "components/SuccessModal"
+import useToggle from "hooks/useToggle"
+import useFetch from "hooks/useFetch"
+import { getBanks } from "services/payment"
 
 const CollectPayment = () => {
-
+  
     const headers = [
         "Payment Request Name",
         "Totla Amount requested",
@@ -24,22 +27,25 @@ const CollectPayment = () => {
         "Due Date",
         "Action",
       ];
+
+    const [ showSetupBankModal, toggleSetUpBankModal ] = useToggle(false)
+      const [ bankCreationStatus, setBankCreationStatus ] = useState('')
     const [ condition, setCondition ] = useState(true)
-      const navigate = useNavigate()
-    const [ setupBank, setBank ] = useState(false)
+    const navigate = useNavigate()
 
     return(
         <div>
         <div className="mt-10 overflow-x-hidden">
-            {setupBank && <SetupBankModal show={setupBank} toggleClose={()=>setBank(!setupBank)} />}
-            {/* {condition ? 
-                <Modal show={condition} toggleClose={()=>setCondition(!condition)} >
-                    <SuccessModal body='Your bank details has been successfully validated' onHide={()=>setCondition(!condition)} />
-                </Modal> :
-                <Modal show={!condition} toggleClose={()=>setCondition(!condition)} >
-                    <ErrorModal body='Your bank details has not been successfully validated' onHide={()=>setCondition(!condition)} />
+            {showSetupBankModal && <SetupBankModal creationCondition={setBankCreationStatus} show={showSetupBankModal} toggleClose={()=>toggleSetUpBankModal(false)} />}
+            {bankCreationStatus === 'successful' && 
+                <Modal show={bankCreationStatus === 'successful'} toggleClose={()=>setBankCreationStatus('')} >
+                    <SuccessModal body='Your bank details has been successfully validated' onHide={()=>setBankCreationStatus('')} />
+                </Modal> }
+            { bankCreationStatus === 'failed' &&
+                <Modal show={bankCreationStatus === 'failed'} toggleClose={()=>setBankCreationStatus('')} >
+                    <ErrorModal body='Your bank details has not been successfully validated' onHide={()=>setBankCreationStatus('')} />
                 </Modal> 
-            } */}
+            }
             <div className="flex justify-between items-center">
           <h4>Collect Payments</h4>
           <div className="flex gap-4 items-center">
@@ -68,7 +74,7 @@ const CollectPayment = () => {
                     <h3 className="my-6" >Activate your bank account to start <br /> collecting payments</h3>
 
                     <div className="md:w-80 mx-auto " >
-                        <Button title="Set Up your bank account" />
+                        <Button title="Set Up your bank account" onClick={toggleSetUpBankModal}/>
                     </div>
                 </div> :
                 <div className="text-center mt-20">

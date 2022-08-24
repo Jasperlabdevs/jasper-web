@@ -54,7 +54,7 @@ const Input = ({
       )}
       <input
         disabled={disabled}
-        className="p-4 mt-2 mb-8 border rounded-md w-full"
+        className={`p-4 mt-2 mb-8 border rounded-md w-full ${error && `border-red outline-red`} `}
         placeholder={placeholder}
         defaultValue={value || ''}
         type={!visibility ? type : 'text'}
@@ -124,6 +124,7 @@ export const PhoneInput = ({
   label = '',
   register,
   name,
+  disabled,
   type = 'text',
   placeholder,
   options,
@@ -143,6 +144,7 @@ export const PhoneInput = ({
         <input
           className=" w-full py-4 pl-4 outline-none "
           placeholder={placeholder}
+          disabled={disabled}
           defaultValue={value || ''}
           type="tel"
           maxLength="11"

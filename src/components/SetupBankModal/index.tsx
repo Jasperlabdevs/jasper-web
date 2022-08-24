@@ -1,19 +1,34 @@
 import Button from "components/Button";
 import Input from "components/Input";
 import Modal from "components/Modal";
+import useFetch from "hooks/useFetch";
 import { useForm } from "react-hook-form";
+import { getBanks, submitBank } from "services/payment";
 
 
-const SetupBankModal = ({show, toggleClose}:any) => {
+const SetupBankModal = ({show, toggleClose, creationCondition}:any) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
+  // const [ banks, loadingBanks, bankError ] = useFetch(getBanks)
+
+  // console.log(banks)
 
   const onSubmit = (data: any) => {
     console.log(data);
+    toggleClose()
+    creationCondition('successful')
+
+    // submitBank(data).then(
+    //   (res:any) => {
+    //     console.log(res.data.results)
+    //   }
+    // ).catch(err => {
+    //   console.log('failed')
+    // })
 
   };
 
@@ -27,7 +42,7 @@ const SetupBankModal = ({show, toggleClose}:any) => {
           <Input
             name="bank"
             label="Bank*"
-            error={errors.name && "Please enter a bank"}
+            error={errors.bank && "Please enter a bank"}
             placeholder="Please enter your bank name"
             register={register}
             options={{ required: true, minLenght: 1 }}
@@ -38,7 +53,7 @@ const SetupBankModal = ({show, toggleClose}:any) => {
             placeholder="Please enter your account name"
             label="Account Name*"
             register={register}
-            error={errors.name && "Please enter an account Name"}
+            error={errors.account_name && "Please enter an account name"}
             options={{ required: true, minLenght: 1 }}
             />
           
@@ -48,8 +63,8 @@ const SetupBankModal = ({show, toggleClose}:any) => {
             label="Account Number*"
             register={register}
             type="number"
-            error={errors.name && "Please enter a correct account number"}
-            options={{ required: true, minLenght: 5 }}
+            error={errors.account_number && "Please enter a correct account number"}
+            options={{ required: true, minLength: 10, maxLength: 10 }}
           />
           
           <Input
@@ -58,13 +73,13 @@ const SetupBankModal = ({show, toggleClose}:any) => {
             label="Bank Verification Number (BVN)*"
             register={register}
             type="number"
-            error={errors.name && "Please enter a correct account number"}
-            options={{ required: true, minLenght: 4 }}
+            error={errors.bank_verification_number && "Please enter a correct BVN"}
+            options={{ required: true, minLenght: 3 }}
           />
 
           <div className="w-80 float-right pb-8 gap-4 flex">
             <Button type="submit" title="Save" />
-            <Button type="submit" title="Cancel" other />
+            <Button onClick={toggleClose} title="Cancel" other />
           </div>
         </form>
       </div>

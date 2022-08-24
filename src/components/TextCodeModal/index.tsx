@@ -5,7 +5,7 @@ import SVGs from "helpers/SVGs";
 import { copyText } from "helpers/utils";
 import { useForm } from "react-hook-form";
 
-const TextCodeModal = ({ showTextCode, accessCode, setShowTextCode }: any) => {
+const TextCodeModal = ({ showTextCode, accessCode, setShowTextCode, visitorData }: any) => {
   const {
     register,
     handleSubmit,
@@ -36,19 +36,23 @@ const TextCodeModal = ({ showTextCode, accessCode, setShowTextCode }: any) => {
           />
           <Input
             name="name"
+            disabled
+            value={visitorData?.visitor_name || ''}
             register={register}
             options={{ required: true }}
             error={errors.name && "Please enter a name"}
             label="Name"
           />
           <PhoneInput
-            placeholder="Enter community phone number"
-            name="community_contact_phone_number"
-            label="Community Contact Phone Number"
+            disabled
+            placeholder="Enter Phone number"
+            name="visitor_phone_number"
+            label="Phone Number"
+            value={visitorData?.visitor_phone_number || ''}
             type="tel"
             register={register}
             error={
-              errors.community_contact_phone_number &&
+              errors.visitor_phone_number &&
               "Please enter a correct phone number"
             }
             options={{

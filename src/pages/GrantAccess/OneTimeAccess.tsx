@@ -26,6 +26,8 @@ const OneTimeAccess = () => {
   const [accessCode, setAccessCode] = useState("");
   const stateCommunity = useSelector((state: any) => state.community);
   const [accessRules, setAccessRules] = useState<any>({});
+
+  const [ visitorData, setVisitorData] = useState()
   
   useEffect(() => {
     getCommunityWithID(stateCommunity.id || "")
@@ -49,6 +51,7 @@ const OneTimeAccess = () => {
 
     createEventAccess(data)
       .then((res) => {
+        setVisitorData(data)
         setLoading(false);
         if (which === "text") {
           setShowTextCode(true);
@@ -102,6 +105,7 @@ const OneTimeAccess = () => {
       <TextCodeModal
         showTextCode={showTextCode}
         accessCode={accessCode}
+        visitorData={visitorData}
         setShowTextCode={setShowTextCode}
       />
 
@@ -117,8 +121,8 @@ const OneTimeAccess = () => {
           error={errors.visitor_name && "Please enter a visitor's name"}
         />
         <PhoneInput
-          placeholder="Enter community phone number"
-          name="community_contact_phone_number"
+          placeholder="Phone number"
+          name="visitor_phone_number"
           label="Phone Number"
           type="tel"
           register={register}
@@ -209,7 +213,7 @@ const OneTimeAccess = () => {
               title="Text Code"
               type="submit"
               loading={loading}
-              onClick={() => setWhich("text")}
+              onClick={() => setWhich("generated")}
             />
           </div>
 
@@ -217,7 +221,7 @@ const OneTimeAccess = () => {
             title="Generate Code"
             loading={loading}
             type="submit"
-            onClick={() => setWhich("generated")}
+            onClick={() => setWhich("text")}
             other
           />
           <Button

@@ -48,7 +48,14 @@ const URL = {
 
 
   overview: baseUrl + "overview/",
-  notifications: baseUrl + "user_notifications/"
+  notifications: baseUrl + "user_notifications/",
+
+
+  banks: baseUrl + "banks/", 
+  submitBank: baseUrl + "community/submit_bank_account/",
+  payment: baseUrl + "payment_request/",
+
+  communityMembers: baseUrl + "community_member/",
 };
 
 export default URL;

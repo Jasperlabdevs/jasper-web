@@ -41,14 +41,17 @@ export const TableColumn = ({
     {type === "normal" && <td className="px-4 py-8 text-left">{td}</td>}
     {type === "check" && <td className="pl-4 py-8 text-left">{<input type="checkbox" name={td} />}</td>}
     {type === "status" && (
-      <td
-        className={`p-2 px-6 my-6 w-fit rounded-full flex justify-center 
-            ${(td.includes('generated') || td === 'in progress') && "bg-faded_yellow text-yellow"}
-            ${(td.includes('draft') ) && "bg-faded text-primary"}
-            ${(td === 'disabled' || td.includes("expired") || td === 'not paid') && "bg-faded_red text-red"}
-            ${(td === 'enable' || td === 'enabled' || td === 'verified' || td === 'completed' || td === 'paid')  && "bg-faded_green text-green"} `}
-      >
+      <td>
+        <span 
+           className={`p-2 px-6 w-fit h-fit rounded-full text-center items-center justify-center 
+           ${(td.includes('generated') || td === 'in progress') && "bg-faded_yellow text-yellow"}
+           ${(td.includes('draft') ) && "bg-faded text-primary"}
+           ${(td === 'disabled' || td.includes("expired") || td === 'not paid') && "bg-faded_red text-red"}
+           ${(td === 'enable' || td === 'enabled' || td === 'verified' || td === 'completed' || td === 'paid')  && "bg-faded_green text-green"} `}
+        >
         {td}
+
+        </span>
       </td>
     )}
     {type === "userType" && (
