@@ -490,21 +490,18 @@ tr.hide-table-padding td {
   content: "+";
 }
 
-
-.toaster-animation{
+.toaster-animation {
   animation-duration: 0.5s;
-  animation-name: slide ;
+  animation-name: slide;
   animation-timing-function: cubic-bezier(0.28, 0.81, 0.56, 1.28);
 }
 
-
-
 @keyframes slide {
-  0%{
+  0% {
     opacity: 0;
     transform: translateY(-100px);
   }
-  100%{
+  100% {
     opacity: 1;
     transform: translateY(0px);
   }

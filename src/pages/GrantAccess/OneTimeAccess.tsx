@@ -27,8 +27,8 @@ const OneTimeAccess = () => {
   const stateCommunity = useSelector((state: any) => state.community);
   const [accessRules, setAccessRules] = useState<any>({});
 
-  const [ visitorData, setVisitorData] = useState()
-  
+  const [visitorData, setVisitorData] = useState();
+
   useEffect(() => {
     getCommunityWithID(stateCommunity.id || "")
       .then((res) => {
@@ -39,9 +39,9 @@ const OneTimeAccess = () => {
       });
 
     // console.log('accessRules',accessRules);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const location = stateCommunity.name
+  const location = stateCommunity.name;
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -51,7 +51,7 @@ const OneTimeAccess = () => {
 
     createEventAccess(data)
       .then((res) => {
-        setVisitorData(data)
+        setVisitorData(data);
         setLoading(false);
         if (which === "text") {
           setShowTextCode(true);
@@ -166,44 +166,40 @@ const OneTimeAccess = () => {
         </p>
         {showMore && (
           <>
-   
-          {
-            accessRules?.license_plate !== "" &&
-            <Input
-              name="license_plate"
-              placeholder="Enter license plate to be confirmed"
-              label="License Plate"
-              options={{}}
-              register={register}
-              error={
-                errors.license_plate && "Please enter a license plate number"
-              }
-            />
-          }
-          {
-            accessRules?.security_password !== "" &&
-            <Input
-              name="security_password"
-              label="Security Password"
-              placeholder="Enter a password to be confirmed at the gate"
-              options={{}}
-              register={register}
-              type="password"
-              error={
-                errors.security_password && "Please enter a security password"
-              }
-            />
-          }
-          {
-             accessRules?.visitor_id_card_name !== "" &&
-            <Input
-              name="visitor_id_card_name"
-              label="Visitor's ID Card"
-              placeholder="Enter the name on Visitor's ID card"
-              options={{}}
-              register={register}
-            />
-          }
+            {accessRules?.license_plate !== "" && (
+              <Input
+                name="license_plate"
+                placeholder="Enter license plate to be confirmed"
+                label="License Plate"
+                options={{}}
+                register={register}
+                error={
+                  errors.license_plate && "Please enter a license plate number"
+                }
+              />
+            )}
+            {accessRules?.security_password !== "" && (
+              <Input
+                name="security_password"
+                label="Security Password"
+                placeholder="Enter a password to be confirmed at the gate"
+                options={{}}
+                register={register}
+                type="password"
+                error={
+                  errors.security_password && "Please enter a security password"
+                }
+              />
+            )}
+            {accessRules?.visitor_id_card_name !== "" && (
+              <Input
+                name="visitor_id_card_name"
+                label="Visitor's ID Card"
+                placeholder="Enter the name on Visitor's ID card"
+                options={{}}
+                register={register}
+              />
+            )}
           </>
         )}
         <hr className="relative -left-10 w-screen mt-16 " />

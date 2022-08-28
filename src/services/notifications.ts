@@ -10,8 +10,7 @@ const configuration = () => {
   return config;
 };
 
-
 export const getAllNotifications = () => {
-    let config = configuration()
-    return axios.get(URL.notifications, config)
-}
+  let config = configuration();
+  return axios.get(URL.notifications, config);
+};

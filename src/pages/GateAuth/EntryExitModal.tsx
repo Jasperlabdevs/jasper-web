@@ -39,18 +39,10 @@ const EntryExitModal = ({ showExtra, setShowExtra, code, gate }: any) => {
         <div className="w-fit float-right mb-8">
           <div className="flex w-full gap-10">
             <div className="w-[100px]">
-              <Button
-                type="button"
-                title="Entry"
-                onClick={handleEntry}
-              />
+              <Button type="button" title="Entry" onClick={handleEntry} />
             </div>
             <div className="w-[100px]">
-              <Button
-                type="button"
-                title="Exit"
-                onClick={handleExit}
-              />
+              <Button type="button" title="Exit" onClick={handleExit} />
             </div>
           </div>
         </div>

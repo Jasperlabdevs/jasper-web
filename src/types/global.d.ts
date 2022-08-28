@@ -5,9 +5,9 @@ declare namespace globalThis {
   }
 
   type NotificationType = {
-    type: 'error' | 'success' | 'info' | undefined,
-    title:string,
-    message:string,
-    autoDeleteTime?:number
-  }
+    type: "error" | "success" | "info" | undefined;
+    title: string;
+    message: string;
+    autoDeleteTime?: number;
+  };
 }

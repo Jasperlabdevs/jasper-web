@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import SVG from 'helpers/SVGs';
+import { useEffect, useState } from "react";
+import SVG from "helpers/SVGs";
 
 type InputType = {
   name: String;
@@ -27,19 +27,19 @@ type SelectType = {
   error?: string;
   onChange?: any;
   defaultValue?: any;
-  disabled?:boolean
+  disabled?: boolean;
 };
 
 const Input = ({
-  label = '',
+  label = "",
   register,
   name,
-  type = 'text',
+  type = "text",
   disabled = false,
   placeholder,
   options,
-  error = '',
-  value = '',
+  error = "",
+  value = "",
   min,
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
@@ -54,20 +54,22 @@ const Input = ({
       )}
       <input
         disabled={disabled}
-        className={`p-4 mt-2 mb-8 border rounded-md w-full ${error && `border-red outline-red`} `}
+        className={`p-4 mt-2 mb-8 border rounded-md w-full ${
+          error && `border-red outline-red`
+        } `}
         placeholder={placeholder}
-        defaultValue={value || ''}
-        type={!visibility ? type : 'text'}
+        defaultValue={value || ""}
+        type={!visibility ? type : "text"}
         min={min}
         step="1"
         {...register(name, { ...options })}
       />
-      {type === 'password' && (
+      {type === "password" && (
         <span
           className="cursor-pointer text-light_grey_text absolute top-12 right-4"
           onClick={() => setVisibility(!visibility)}
         >
-          {visibility ? 'Hide' : 'Show'}
+          {visibility ? "Hide" : "Show"}
         </span>
       )}
       <p className="text-red text-xs -mt-7">{error}</p>
@@ -76,15 +78,15 @@ const Input = ({
   );
 };
 export const TextArea = ({
-  label = '',
+  label = "",
   register,
   name,
-  type = '',
+  type = "",
   disabled = false,
   placeholder,
   options,
-  error = '',
-  value = '',
+  error = "",
+  value = "",
   min,
 }: InputType) => {
   const [visibility, setVisibility] = useState(false);
@@ -101,18 +103,18 @@ export const TextArea = ({
         disabled={disabled}
         className="p-4 mt-2 mb-8 border rounded-md w-full"
         placeholder={placeholder}
-        defaultValue={value || ''}
+        defaultValue={value || ""}
         type={type}
         min={min}
         step="1"
         {...register(name, { ...options })}
       />
-      {type === 'password' && (
+      {type === "password" && (
         <span
           className="cursor-pointer text-light_grey_text absolute top-12 right-4"
           onClick={() => setVisibility(!visibility)}
         >
-          {visibility ? 'Hide' : 'Show'}
+          {visibility ? "Hide" : "Show"}
         </span>
       )}
       <p className="text-red text-xs -mt-7">{error}</p>
@@ -121,15 +123,15 @@ export const TextArea = ({
   );
 };
 export const PhoneInput = ({
-  label = '',
+  label = "",
   register,
   name,
   disabled,
-  type = 'text',
+  type = "text",
   placeholder,
   options,
-  value = '',
-  error = '',
+  value = "",
+  error = "",
 }: InputType) => {
   return (
     <div className="relative">
@@ -145,7 +147,7 @@ export const PhoneInput = ({
           className=" w-full py-4 pl-4 outline-none "
           placeholder={placeholder}
           disabled={disabled}
-          defaultValue={value || ''}
+          defaultValue={value || ""}
           type="tel"
           maxLength="11"
           {...register(name, { ...options })}
@@ -158,22 +160,20 @@ export const PhoneInput = ({
   );
 };
 
-export const Select = (
-  {
-    onChange,
-    register,
-    options,
-    name,
-    label = '',
-    placeholder,
-    list,
-    value = '',
-    defaultValue = '',
-    noborder,
-    error,
-    disabled,
-  }: SelectType
-) => (
+export const Select = ({
+  onChange,
+  register,
+  options,
+  name,
+  label = "",
+  placeholder,
+  list,
+  value = "",
+  defaultValue = "",
+  noborder,
+  error,
+  disabled,
+}: SelectType) => (
   <div className="relative min-w-[160px]">
     {label.length > 1 && (
       <>
@@ -190,14 +190,14 @@ export const Select = (
     <select
       {...register(name, { ...options })}
       className={`bg-[transparent] relative p-4 text-text-icon_background mt-2 rounded-md w-full ${
-        noborder ? 'border-none my-0' : 'border'
+        noborder ? "border-none my-0" : "border"
       } `}
       disabled={disabled}
       name={name}
-      defaultValue={defaultValue || value || ''}
+      defaultValue={defaultValue || value || ""}
       onChange={onChange}
     >
-      {value === '' && (
+      {value === "" && (
         <option hidden value="">
           {placeholder}
         </option>
@@ -212,11 +212,22 @@ export const Select = (
   </div>
 );
 
-export const Checkbox = ({ label, name, register, value, onChange }: InputType) => (
+export const Checkbox = ({
+  label,
+  name,
+  register,
+  value,
+  onChange,
+}: InputType) => (
   <label className="checkbox_container lg:text-label_text">
-    {' '}
+    {" "}
     <div>{label}</div>
-    <input type="checkbox" value={value || ''} onChange={onChange} {...register(name)} />
+    <input
+      type="checkbox"
+      value={value || ""}
+      onChange={onChange}
+      {...register(name)}
+    />
     <span className="checkmark"></span>
   </label>
 );
@@ -227,7 +238,7 @@ export const DateInput = ({
   register,
   placeholder,
   options,
-  error = '',
+  error = "",
   min,
   disabled,
   type,
@@ -241,7 +252,7 @@ export const DateInput = ({
       </>
     )}
     <input
-      type={type || 'date'}
+      type={type || "date"}
       className="p-4 mt-2 mb-8 border rounded-md w-full max-w-lg"
       placeholder={placeholder}
       min={min}
@@ -253,5 +264,60 @@ export const DateInput = ({
     <br />
   </div>
 );
+
+export const InputDropdown = ({
+  label,
+  name,
+  placeholder,
+  error = "",
+  disabled,
+  onChange,
+  list=[],
+  showDropdown,
+  select,
+  onBlur, onFocus
+}: any) => {
+
+  const [value, setValue] = useState('')
+  const set= (va:string)=>{
+    select(va)
+    setValue(va)
+  }
+  return(
+  <div  className="relative w-full">
+    {label.length > 1 && (
+      <>
+        <label className="mb-4 lg:text-label_text ">{label}</label>
+        <br />
+      </>
+    )}
+    <input
+      // onBlur={onBlur}
+      onFocus={onFocus}
+      type={"text"}
+      name={name}
+      value={value}
+      className="p-4 mt-2 mb-8 border rounded-md w-full"
+      placeholder={placeholder}
+      disabled={disabled}
+      onChange={(e:any)=>{
+        setValue(e.target.value)
+        onChange(e.target.value)
+      }}
+    />
+    <p className="text-red text-xs -mt-7">{error}</p>
+    <br />
+    { showDropdown && 
+    <div className="absolute top-24 z-10 bg-[#fff] shadow-2xl h-60 overflow-y-auto w-full rounded-lg">
+      <ul>
+        {
+           list.map((data: any) => (
+            <li className="py-2 px-4 cursor-pointer hover:bg-faded" onClick={()=>set(data.name)} >{data.name}</li>
+           )
+        )}
+      </ul>
+    </div>}
+  </div>
+)};
 
 export default Input;

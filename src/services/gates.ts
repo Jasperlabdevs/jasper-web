@@ -71,8 +71,7 @@ export const changePassword = (data: any) => {
   return axios.post(URL.changePassword, data, config);
 };
 
-
 export const readyToNest = () => {
   let config = configuration();
-  return axios.get(URL.unested_gate, config)
-}
+  return axios.get(URL.unested_gate, config);
+};

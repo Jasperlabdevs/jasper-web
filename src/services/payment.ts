@@ -10,26 +10,25 @@ const configuration = () => {
   return config;
 };
 
-
 export const getBanks = () => {
-    let config = configuration()
-    return axios.get(URL.banks, config)
-}
+  let config = configuration();
+  return axios.get(URL.banks, config);
+};
 
-export const submitBank = (data:any) => {
-    let config = configuration()
+export const submitBank = (data: any) => {
+  let config = configuration();
 
-    return axios.post(URL.submitBank, data, config)
-}
+  return axios.post(URL.submitBank, data, config);
+};
 
-export const updateBank = (data:any) => {
-    let config = configuration()
+export const updateBank = (data: any) => {
+  let config = configuration();
 
-    return axios.put(URL.submitBank, data, config)
-}
+  return axios.put(URL.submitBank, data, config);
+};
 
-export const makePaymentRequest = (data:any) => {
-    let config = configuration()
+export const makePaymentRequest = (data: any) => {
+  let config = configuration();
 
-    return axios.post(URL.payment, data, config)
-}
+  return axios.post(URL.payment, data, config);
+};

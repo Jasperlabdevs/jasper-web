@@ -2,7 +2,14 @@ import Button from "components/Button";
 import SVGs from "helpers/SVGs";
 
 type tableColumnType = {
-  type?: "normal" | "status" | "userType" | "button" | "user" | "dropdown" | "check";
+  type?:
+    | "normal"
+    | "status"
+    | "userType"
+    | "button"
+    | "user"
+    | "dropdown"
+    | "check";
   buttonType?:
     | "smallPrimary"
     | "smallSecondary"
@@ -39,18 +46,36 @@ export const TableColumn = ({
 }: tableColumnType) => (
   <>
     {type === "normal" && <td className="px-4 py-8 text-left">{td}</td>}
-    {type === "check" && <td className="pl-4 py-8 text-left">{<input type="checkbox" name={td} />}</td>}
+    {type === "check" && (
+      <td className="pl-4 py-8 text-left">
+        {<input type="checkbox" name={td} />}
+      </td>
+    )}
     {type === "status" && (
       <td>
-        <span 
-           className={`p-2 px-6 w-fit h-fit rounded-full text-center items-center justify-center 
-           ${(td.includes('generated') || td === 'in progress') && "bg-faded_yellow text-yellow"}
-           ${(td.includes('draft') ) && "bg-faded text-primary"}
-           ${(td === 'disabled' || td.includes("expired") || td === 'not paid') && "bg-faded_red text-red"}
-           ${(td === 'enable' || td === 'enabled' || td === 'verified' || td === 'completed' || td === 'paid')  && "bg-faded_green text-green"} `}
+        <span
+          className={`p-2 px-6 w-fit h-fit rounded-full text-center items-center justify-center 
+           ${
+             (td.includes("generated") || td === "in progress") &&
+             "bg-faded_yellow text-yellow"
+           }
+           ${td.includes("draft") && "bg-faded text-primary"}
+           ${
+             (td === "disabled" ||
+               td.includes("expired") ||
+               td === "not paid") &&
+             "bg-faded_red text-red"
+           }
+           ${
+             (td === "enable" ||
+               td === "enabled" ||
+               td === "verified" ||
+               td === "completed" ||
+               td === "paid") &&
+             "bg-faded_green text-green"
+           } `}
         >
-        {td}
-
+          {td}
         </span>
       </td>
     )}
@@ -100,7 +125,12 @@ export const TableColumn = ({
           </button>
           <div className="dropdown-content absolute z-[1000]">
             {list?.map((data: any, index: number) => (
-              <p className="cursor-pointer hover:bg-faded" onClick={data.action} >{data.title}</p>
+              <p
+                className="cursor-pointer hover:bg-faded"
+                onClick={data.action}
+              >
+                {data.title}
+              </p>
             ))}
           </div>
         </div>

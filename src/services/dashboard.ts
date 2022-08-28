@@ -10,8 +10,7 @@ const configuration = () => {
   return config;
 };
 
-
 export const getOverview = () => {
-    let config = configuration()
-    return axios.get(URL.overview, config)
-}
+  let config = configuration();
+  return axios.get(URL.overview, config);
+};

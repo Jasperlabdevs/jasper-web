@@ -46,12 +46,10 @@ const URL = {
 
   userNotificationSettings: baseUrl + "user_notification_settings/",
 
-
   overview: baseUrl + "overview/",
   notifications: baseUrl + "user_notifications/",
 
-
-  banks: baseUrl + "banks/", 
+  banks: baseUrl + "banks/",
   submitBank: baseUrl + "community/submit_bank_account/",
   payment: baseUrl + "payment_request/",
 

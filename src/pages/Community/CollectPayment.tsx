@@ -1,93 +1,150 @@
-import Button from "components/Button"
-import { useState } from "react"
-import SVGs from "helpers/SVGs"
-import BankImage from "assets/images/bank.svg"
-import PaymentImage from "assets/images/payment.svg"
-import SetupBankModal from "components/SetupBankModal"
-import { TableHeader, TableColumn } from "components/Table"
-import { TableContent } from "helpers/data"
-import { useNavigate } from "react-router-dom"
-import ErrorModal from "components/ErrorModal"
-import Modal from "components/Modal"
-import SuccessModal from "components/SuccessModal"
-import useToggle from "hooks/useToggle"
-import useFetch from "hooks/useFetch"
-import { getBanks } from "services/payment"
+import Button from "components/Button";
+import { useState } from "react";
+import SVGs from "helpers/SVGs";
+import BankImage from "assets/images/bank.svg";
+import PaymentImage from "assets/images/payment.svg";
+import SetupBankModal from "components/SetupBankModal";
+import { useNavigate } from "react-router-dom";
+import ErrorModal from "components/ErrorModal";
+import Modal from "components/Modal";
+import SuccessModal from "components/SuccessModal";
+import useToggle from "hooks/useToggle";
 
 const CollectPayment = () => {
-  
-    const headers = [
-        "Payment Request Name",
-        "Totla Amount requested",
-        "Created By",
-        "Date Created",
-        "% Completion",
-        "Num of users",
-        "Status",
-        "Due Date",
-        "Action",
-      ];
+  const headers = [
+    "Payment Request Name",
+    "Totla Amount requested",
+    "Created By",
+    "Date Created",
+    "% Completion",
+    "Num of users",
+    "Status",
+    "Due Date",
+    "Action",
+  ];
 
-    const [ showSetupBankModal, toggleSetUpBankModal ] = useToggle(false)
-      const [ bankCreationStatus, setBankCreationStatus ] = useState('')
-    const [ condition, setCondition ] = useState(true)
-    const navigate = useNavigate()
+  const [showSetupBankModal, toggleSetUpBankModal] = useToggle(false);
+  const [bankCreationStatus, setBankCreationStatus] = useState("");
+  const [condition, setCondition] = useState(true);
+  const navigate = useNavigate();
 
-    return(
-        <div>
-        <div className="mt-10 overflow-x-hidden">
-            {showSetupBankModal && <SetupBankModal creationCondition={setBankCreationStatus} show={showSetupBankModal} toggleClose={()=>toggleSetUpBankModal(false)} />}
-            {bankCreationStatus === 'successful' && 
-                <Modal show={bankCreationStatus === 'successful'} toggleClose={()=>setBankCreationStatus('')} >
-                    <SuccessModal body='Your bank details has been successfully validated' onHide={()=>setBankCreationStatus('')} />
-                </Modal> }
-            { bankCreationStatus === 'failed' &&
-                <Modal show={bankCreationStatus === 'failed'} toggleClose={()=>setBankCreationStatus('')} >
-                    <ErrorModal body='Your bank details has not been successfully validated' onHide={()=>setBankCreationStatus('')} />
-                </Modal> 
-            }
-            <div className="flex justify-between items-center">
+  return (
+    <div>
+      <div className="mt-10 overflow-x-hidden">
+        {showSetupBankModal && (
+          <SetupBankModal
+            creationCondition={setBankCreationStatus}
+            show={showSetupBankModal}
+            toggleClose={() => toggleSetUpBankModal(false)}
+          />
+        )}
+        {bankCreationStatus === "successful" && (
+          <Modal
+            show={bankCreationStatus === "successful"}
+            toggleClose={() => setBankCreationStatus("")}
+          >
+            <SuccessModal
+              body="Your bank details has been successfully validated"
+              onHide={() => setBankCreationStatus("")}
+            />
+          </Modal>
+        )}
+        {bankCreationStatus === "failed" && (
+          <Modal
+            show={bankCreationStatus === "failed"}
+            toggleClose={() => setBankCreationStatus("")}
+          >
+            <ErrorModal
+              body="Your bank details has not been successfully validated"
+              onHide={() => setBankCreationStatus("")}
+            />
+          </Modal>
+        )}
+        <div className="flex justify-between items-center">
           <h4>Collect Payments</h4>
           <div className="flex gap-4 items-center">
-            <div className="fit -mt-10" >
-              <Button onClick={()=>{navigate('new_payment_request')}} title={<span className="flex items-center justify-center gap-4 text-[#fff]">{SVGs.add_white}  New payment Request</span>} />
+            <div className="fit -mt-10">
+              <Button
+                onClick={() => {
+                  navigate("new_payment_request");
+                }}
+                title={
+                  <span className="flex items-center justify-center gap-4 text-[#fff]">
+                    {SVGs.add_white} New payment Request
+                  </span>
+                }
+              />
             </div>
             <div className="relative">
-                <div className="dropdown absolute">
-                    <button className="border-primary border rounded-lg px-4 dropbtn">
-                        ...
-                    </button>
-                    <div className="dropdown-content absolute z-[1000]">
-                        <p className="cursor-pointer hover:bg-faded" onClick={()=>{}} >{'Update Bank Details'}</p>
-                        <p className="cursor-pointer hover:bg-faded" onClick={()=>{}} >{'View Transaction History'}</p>
-                    </div>
-                    </div>          
+              <div className="dropdown absolute">
+                <button className="border-primary border rounded-lg px-4 dropbtn">
+                  ...
+                </button>
+                <div className="dropdown-content absolute z-[1000]">
+                  <p
+                    className="cursor-pointer hover:bg-faded"
+                    onClick={() => {}}
+                  >
+                    {"Update Bank Details"}
+                  </p>
+                  <p
+                    className="cursor-pointer hover:bg-faded"
+                    onClick={() => {}}
+                  >
+                    {"View Transaction History"}
+                  </p>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
 
-            {
-                condition ? 
-                <div className="text-center mt-20">
-                    <img src={BankImage} className="w-80 mx-auto lg:max-w-[300px] lg:w-auto" alt="bank" />
+        {condition ? (
+          <div className="text-center mt-20">
+            <img
+              src={BankImage}
+              className="w-80 mx-auto lg:max-w-[300px] lg:w-auto"
+              alt="bank"
+            />
 
-                    <h3 className="my-6" >Activate your bank account to start <br /> collecting payments</h3>
+            <h3 className="my-6">
+              Activate your bank account to start <br /> collecting payments
+            </h3>
 
-                    <div className="md:w-80 mx-auto " >
-                        <Button title="Set Up your bank account" onClick={toggleSetUpBankModal}/>
-                    </div>
-                </div> :
-                <div className="text-center mt-20">
-                    <img src={PaymentImage} className="w-80 mx-auto lg:max-w-[300px] lg:w-auto" alt="payment" />
+            <div className="md:w-80 mx-auto ">
+              <Button
+                title="Set Up your bank account"
+                onClick={toggleSetUpBankModal}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="text-center mt-20">
+            <img
+              src={PaymentImage}
+              className="w-80 mx-auto lg:max-w-[300px] lg:w-auto"
+              alt="payment"
+            />
 
-                    <h3 className="my-6" >Click the button below to create your <br /> first payment request</h3>
+            <h3 className="my-6">
+              Click the button below to create your <br /> first payment request
+            </h3>
 
-                    <div className="md:w-80 mx-auto " >
-                        <Button onClick={()=>{navigate('new_payment_request')}} title={<span className="flex items-center justify-center gap-4 text-[#fff]">{SVGs.add_white}  New payment Request</span>} />
-                    </div>
-                </div>
-            }
-        </div>
+            <div className="md:w-80 mx-auto ">
+              <Button
+                onClick={() => {
+                  navigate("new_payment_request");
+                }}
+                title={
+                  <span className="flex items-center justify-center gap-4 text-[#fff]">
+                    {SVGs.add_white} New payment Request
+                  </span>
+                }
+              />
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* <div className=" py-10 pb-80" >
         <table className="w-full py-20">
@@ -120,8 +177,8 @@ const CollectPayment = () => {
           </tbody>
         </table>
       </div> */}
-      </div>
-    )
-}
+    </div>
+  );
+};
 
-export default CollectPayment
+export default CollectPayment;

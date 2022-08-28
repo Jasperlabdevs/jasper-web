@@ -17,7 +17,7 @@ const Header = () => {
     }
   };
 
-  const stateCommunity = useSelector((state:any) => state.community)
+  const stateCommunity = useSelector((state: any) => state.community);
 
   return (
     <>

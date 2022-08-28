@@ -229,9 +229,7 @@ function App() {
                     <Members />
                   </AuthGuard>
                 }
-              >
-                
-              </Route>
+              ></Route>
               <Route
                 path="collect_payments"
                 element={

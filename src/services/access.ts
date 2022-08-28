@@ -171,7 +171,7 @@ export const accessHistorySearchHistory = (data: any) => {
   return axios.post(URL.accessHistorySearchFilter, data, config);
 };
 
-export const disableAccessCode = (data:any) => {
-  let config = configuration()
-  return axios.post(URL.updateAccessCode, data, config)
-}
+export const disableAccessCode = (data: any) => {
+  let config = configuration();
+  return axios.post(URL.updateAccessCode, data, config);
+};

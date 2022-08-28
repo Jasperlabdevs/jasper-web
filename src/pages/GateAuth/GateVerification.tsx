@@ -32,15 +32,15 @@ const GateVerification = () => {
       });
 
     // console.log('accessRules',accessRules);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = () => {
-    setshowIdentityModal(false)
+    setshowIdentityModal(false);
     setLoading(true);
-    setShowExtra(false)
-    setShow(false)
-    setErr('')
+    setShowExtra(false);
+    setShow(false);
+    setErr("");
 
     let data = {
       gate_id: gate_id,
@@ -49,16 +49,17 @@ const GateVerification = () => {
 
     verifyGate(data)
       .then((res: any) => {
-        console.log(accessRules?.identity_verification)
+        console.log(accessRules?.identity_verification);
         console.log(res.data);
-        setVisitor(res.data?.result?.visitor)
-        if( accessRules?.identity_verification 
-          && (visitor.visitor_id_card_name !== "" 
-          || visitor?.security_password !== "" 
-          || visitor?.license_plate !== "")
-          ){
-          setshowIdentityModal(true)
-        }else if(accessRules?.capture_visitor_entry_exit){
+        setVisitor(res.data?.result?.visitor);
+        if (
+          accessRules?.identity_verification &&
+          (visitor.visitor_id_card_name !== "" ||
+            visitor?.security_password !== "" ||
+            visitor?.license_plate !== "")
+        ) {
+          setshowIdentityModal(true);
+        } else if (accessRules?.capture_visitor_entry_exit) {
           setShowExtra(true);
         } else {
           setShow(true);
@@ -72,13 +73,13 @@ const GateVerification = () => {
       });
   };
 
-  const closeShowIdentityModal = (stat:boolean) => {
-    setStatus(stat)
-    setshowIdentityModal(false)
-    if( stat && accessRules?.capture_visitor_entry_exit){
+  const closeShowIdentityModal = (stat: boolean) => {
+    setStatus(stat);
+    setshowIdentityModal(false);
+    if (stat && accessRules?.capture_visitor_entry_exit) {
       setShowExtra(true);
     } else {
-      setErr('Verification failed')
+      setErr("Verification failed");
       setShow(true);
     }
   };
@@ -123,7 +124,6 @@ const GateVerification = () => {
     }
   };
 
-
   const successComponent = (successful: any) => (
     <div>
       <div>
@@ -137,7 +137,7 @@ const GateVerification = () => {
         <h3 className="text-center mt-16">
           {!!successful ? "Access Granted" : "Access Denied"}
         </h3>
-        <p className="my-3">{!successful ? err : ''}</p>
+        <p className="my-3">{!successful ? err : ""}</p>
         <Button
           title="Ok"
           onClick={() => {
@@ -165,7 +165,7 @@ const GateVerification = () => {
           gate={gate_id}
           code={otp.join("")}
           showIdentity={showIdentityModal}
-          setShowIdentity={(closeShowIdentityModal)}
+          setShowIdentity={closeShowIdentityModal}
           visitor={visitor}
         />
       )}

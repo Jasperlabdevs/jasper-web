@@ -24,7 +24,6 @@ const RecurringAccess = () => {
     formState: { errors },
   } = useForm();
 
-
   const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showCodeGenerated, setShowCodeGenerated] = useState(false);
@@ -34,13 +33,13 @@ const RecurringAccess = () => {
   const stateGates = useSelector((state: any) => state.gates);
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
-  const [allDay, setAllDay] = useState('false') 
+  const [allDay, setAllDay] = useState("false");
   const [startDate, setStartDate] = useState(todayDate);
   const stateCommunity = useSelector((state: any) => state.community);
   const [accessRules, setAccessRules] = useState<any>({});
 
-  const [showTime, toggleShowTime] = useState(true)
-  
+  const [showTime, toggleShowTime] = useState(true);
+
   useEffect(() => {
     getCommunityWithID(stateCommunity.id || "")
       .then((res) => {
@@ -51,7 +50,7 @@ const RecurringAccess = () => {
       });
 
     // console.log('accessRules',accessRules);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     reset({
@@ -66,14 +65,14 @@ const RecurringAccess = () => {
     setShowMore(!showMore);
   };
 
-  const location = stateCommunity.name
+  const location = stateCommunity.name;
 
   const onSubmit = (data: any) => {
     setLoading(true);
     setWhich("");
     data.access_type = "recurring";
     data.gates = [data.gates];
-    data.all_day = allDay
+    data.all_day = allDay;
 
     createEventAccess(data)
       .then((res) => {
@@ -111,7 +110,6 @@ const RecurringAccess = () => {
     });
   };
 
-
   return (
     <div className="mt-10 max-w-4xl">
       <AccessCodeModal
@@ -144,8 +142,7 @@ const RecurringAccess = () => {
           type="tel"
           register={register}
           error={
-            errors.visitor_phone_number &&
-            "Please enter a correct phone number"
+            errors.visitor_phone_number && "Please enter a correct phone number"
           }
           options={{
             required: true,
@@ -176,9 +173,9 @@ const RecurringAccess = () => {
 
         <div className="flex items-center gap-5">
           <div className="w-full flex gap-10">
-            <div className="w-full" >
+            <div className="w-full">
               <DateInput
-                type='date'
+                type="date"
                 name="valid_from"
                 label="Valid From"
                 placeholder="dd/mm/yy"
@@ -189,30 +186,31 @@ const RecurringAccess = () => {
                 }}
                 error={errors.valid_from && "Please select a date"}
               />
-              </div>
+            </div>
 
-              { showTime && 
-              <div className="w-full" >
-              <DateInput
-                type='time'
-                name="time_from"
-                label="  "
-                placeholder="dd/mm/yy"
-                register={register}
-                min={todayDate}
-                options={{required: false}}
-                error={errors.time_from && "Please select a time"}
-                disabled={allDay === 'true' ? true : false}
-              />
-            </div> }
+            {showTime && (
+              <div className="w-full">
+                <DateInput
+                  type="time"
+                  name="time_from"
+                  label="  "
+                  placeholder="dd/mm/yy"
+                  register={register}
+                  min={todayDate}
+                  options={{ required: false }}
+                  error={errors.time_from && "Please select a time"}
+                  disabled={allDay === "true" ? true : false}
+                />
+              </div>
+            )}
           </div>
           <div className="w-1/5">
             <Checkbox
               name="all_day"
-              register={()=>{}}
-              onChange={(e:any)=>{
-                (allDay === 'false') ? setAllDay('true') : setAllDay('false')
-                toggleShowTime(!showTime)
+              register={() => {}}
+              onChange={(e: any) => {
+                allDay === "false" ? setAllDay("true") : setAllDay("false");
+                toggleShowTime(!showTime);
               }}
               value={allDay}
               label="All day"
@@ -220,36 +218,36 @@ const RecurringAccess = () => {
             />
           </div>
         </div>
-        <div className="flex gap-5" >
-          <div className="w-full flex gap-10" >
-                <div className="w-full">
-                  <DateInput
-                    name="valid_to"
-                    label="Valid To"
-                    placeholder="dd/mm/yy"
-                    register={register}
-                    options={{ required: true }}
-                    error={errors.valid_to && "Please select a valid date"}
-                    min={startDate}
-                  />
-                </div>
-                { showTime && 
-                <div className="w-full">
-                  <DateInput
-                    type='time'
-                    name="time_to"
-                    label="  "
-                    disabled={allDay === 'true' ? true : false}
-                    placeholder="dd/mm/yy"
-                    register={register}
-                    options={{ required: false }}
-                    error={errors.time_to && "Please select a valid time"}
-                    min={startDate}
-                  />
-                </div>}
+        <div className="flex gap-5">
+          <div className="w-full flex gap-10">
+            <div className="w-full">
+              <DateInput
+                name="valid_to"
+                label="Valid To"
+                placeholder="dd/mm/yy"
+                register={register}
+                options={{ required: true }}
+                error={errors.valid_to && "Please select a valid date"}
+                min={startDate}
+              />
+            </div>
+            {showTime && (
+              <div className="w-full">
+                <DateInput
+                  type="time"
+                  name="time_to"
+                  label="  "
+                  disabled={allDay === "true" ? true : false}
+                  placeholder="dd/mm/yy"
+                  register={register}
+                  options={{ required: false }}
+                  error={errors.time_to && "Please select a valid time"}
+                  min={startDate}
+                />
+              </div>
+            )}
           </div>
           <div className="w-1/5"></div>
-
         </div>
 
         <p
@@ -261,45 +259,41 @@ const RecurringAccess = () => {
         </p>
         {showMore && (
           <>
-
-        {
-            accessRules?.license_plate !== "" &&
-            <Input
-              name="license_plate"
-              placeholder="Enter license plate to be confirmed"
-              label="License Plate"
-              options={{}}
-              register={register}
-              error={
-                errors.license_plate && "Please enter a license plate number"
-              }
-            />
-          }
-          {
-            accessRules?.security_password !== "" &&
-            <Input
-              name="security_password"
-              label="Security Password"
-              placeholder="Enter a password to be confirmed at the gate"
-              options={{}}
-              register={register}
-              type="password"
-              error={
-                errors.security_password && "Please enter a security password"
-              }
-            />
-          }
-          {
-             accessRules?.visitor_id_card_name !== "" &&
-            <Input
-              name="visitor_id_card_name"
-              label="Visitor's ID Card"
-              placeholder="Enter the name on Visitor's ID card"
-              options={{}}
-              register={register}
-            />
-          }
-            </>
+            {accessRules?.license_plate !== "" && (
+              <Input
+                name="license_plate"
+                placeholder="Enter license plate to be confirmed"
+                label="License Plate"
+                options={{}}
+                register={register}
+                error={
+                  errors.license_plate && "Please enter a license plate number"
+                }
+              />
+            )}
+            {accessRules?.security_password !== "" && (
+              <Input
+                name="security_password"
+                label="Security Password"
+                placeholder="Enter a password to be confirmed at the gate"
+                options={{}}
+                register={register}
+                type="password"
+                error={
+                  errors.security_password && "Please enter a security password"
+                }
+              />
+            )}
+            {accessRules?.visitor_id_card_name !== "" && (
+              <Input
+                name="visitor_id_card_name"
+                label="Visitor's ID Card"
+                placeholder="Enter the name on Visitor's ID card"
+                options={{}}
+                register={register}
+              />
+            )}
+          </>
         )}
         <hr className="relative -left-10 w-screen mt-16 " />
         <div className="flex gap-4 lg:max-w-3xl mb-20 ">

@@ -25,7 +25,7 @@ const Account = () => {
     setAvatar(stateUser.profile_picture);
   }, []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="mt-14 max-w-4xl">
@@ -133,9 +133,14 @@ const Account = () => {
           </div>
 
           <div className="grow max-w-xs -mt-10">
-              <Button title="Log Out" type="button" onClick={()=>{
-                authentication.Logout(navigate('/login'))
-              }} other />
+            <Button
+              title="Log Out"
+              type="button"
+              onClick={() => {
+                authentication.Logout(navigate("/login"));
+              }}
+              other
+            />
           </div>
         </div>
 

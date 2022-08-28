@@ -29,16 +29,16 @@ export const dispatchStore = store.dispatch as
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  
+
   const [showModal, setShowModal] = useState(false);
   const stateUser = useSelector((state: any) => state.user);
-  const [overviewData, setOverviewData] = useState<any>({})
+  const [overviewData, setOverviewData] = useState<any>({});
 
   // Check if current user has created at least one community (onboarding flow completed check)
   useEffect(() => {
     const currentCommunity = stateUser?.community;
 
-    dispatchStore(set_community(currentCommunity))
+    dispatchStore(set_community(currentCommunity));
 
     if (currentCommunity) {
       console.log("Onborading was finished with community: ", currentCommunity);
@@ -48,17 +48,15 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stateUser]);
 
-  useEffect(()=>{
-    getOverview().then(
-      res => {
-        setOverviewData(res.data.results)
-      }
-    ).catch(err=> {
-      console.log(err)
-    })
-  },[])
-
-
+  useEffect(() => {
+    getOverview()
+      .then((res) => {
+        setOverviewData(res.data.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const stats = [
     {

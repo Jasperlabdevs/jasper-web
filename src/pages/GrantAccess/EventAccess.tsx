@@ -23,8 +23,8 @@ const EventAccess = () => {
   const todayDate = formatDate(today.toISOString(), "-");
   const [loading, setLoading] = useState(false);
 
-  const stateCommunity = useSelector((state:any) => state.community)
-  const location = stateCommunity.name
+  const stateCommunity = useSelector((state: any) => state.community);
+  const location = stateCommunity.name;
 
   const resetFields = () => {
     reset({
@@ -34,7 +34,6 @@ const EventAccess = () => {
       event_date: "",
     });
   };
-
 
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -109,7 +108,8 @@ const EventAccess = () => {
             max: 250,
           }}
           error={
-            errors.number_of_visitors && "Please number of visitors must be between 1 and 250"
+            errors.number_of_visitors &&
+            "Please number of visitors must be between 1 and 250"
           }
           register={register}
         />

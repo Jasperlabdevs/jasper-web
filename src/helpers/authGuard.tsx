@@ -7,27 +7,28 @@ import { getToken } from "./utils";
 
 const AuthGuard = ({ children }: any) => {
   const token = getToken();
-  
+
   let authenticated = false;
 
   const getUser = async () => {
     try {
-      const res = await axios.get(URL.getUser, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.get(URL.getUser, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       authenticated = true;
     } catch (err) {
-      authentication.Logout(() => { });
+      authentication.Logout(() => {});
       authenticated = false;
     }
-  }
+  };
 
-  useEffect(()=>{
-    getUser()
-  },[])
+  useEffect(() => {
+    getUser();
+  }, []);
 
   if (token.length !== 0) {
-    authenticated = true
-    }
-
+    authenticated = true;
+  }
 
   if (!authenticated) {
     return <Navigate to="/login" replace />;

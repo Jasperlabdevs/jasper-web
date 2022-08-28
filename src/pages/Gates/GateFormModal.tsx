@@ -7,7 +7,14 @@ import { useForm } from "react-hook-form";
 import { readyToNest } from "services/gates";
 import { edit_gate, add_gate } from "store/actions/gates";
 
-const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: any) => {
+const GateFormModal = ({
+  showGate,
+  closeModal,
+  edit,
+  gates,
+  editID,
+  nested,
+}: any) => {
   const {
     register,
     formState: { errors },
@@ -15,7 +22,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: an
     reset,
   } = useForm();
 
-  const [gatesList, setGates] = useState([])
+  const [gatesList, setGates] = useState([]);
 
   let active = gates.filter((el: any) => el.id === editID);
   let newGates = [];
@@ -25,14 +32,12 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: an
     newGates = gates;
   }
 
-  useEffect(()=>{
-    readyToNest().then(
-      res => {
-        console.log(res)
-        setGates(res.data.results)
-      }
-    )
-  },[])
+  useEffect(() => {
+    readyToNest().then((res) => {
+      console.log(res);
+      setGates(res.data.results);
+    });
+  }, []);
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -70,10 +75,7 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: an
             type="tel"
             register={register}
             value={active[0]?.phone_number || ""}
-            error={
-              errors.phone_number &&
-              "Please enter a correct phone number"
-            }
+            error={errors.phone_number && "Please enter a correct phone number"}
             options={{
               required: true,
               minLength: 7,
@@ -82,17 +84,19 @@ const GateFormModal = ({ showGate, closeModal, edit, gates, editID, nested }: an
             }}
           />
 
-            {!nested && 
-                <Select
-                  name="nest_gate_id"
-                  disabled={nested}
-                  label="Nest Gate"
-                  value={active[0]?.gate?.id || ""}
-                  placeholder={gates.length === 0 ? "No Gate created" : "Select gate"}
-                  register={register}
-                  list={gatesList}
-                />
-            }
+          {!nested && (
+            <Select
+              name="nest_gate_id"
+              disabled={nested}
+              label="Nest Gate"
+              value={active[0]?.gate?.id || ""}
+              placeholder={
+                gates.length === 0 ? "No Gate created" : "Select gate"
+              }
+              register={register}
+              list={gatesList}
+            />
+          )}
 
           <div className="w-fit float-right mb-8">
             <Button type="submit" title={edit ? "Edit Gate" : "Add Gate"} />

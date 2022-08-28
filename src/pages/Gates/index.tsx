@@ -27,13 +27,17 @@ const Gates = () => {
     "",
   ];
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const stateCommunity = useSelector((state: any) => state.community);
 
   const [loading, setLoading] = useState(true);
-  const [ notification, setNotification ] = useState<NotificationType>({type: undefined, title: '', message: ''})
-  const [nested, setNested] = useState(false)
+  const [notification, setNotification] = useState<NotificationType>({
+    type: undefined,
+    title: "",
+    message: "",
+  });
+  const [nested, setNested] = useState(false);
   const [gates, setGates] = useState([]);
   const [showGate, setShowGate] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -74,11 +78,10 @@ const Gates = () => {
   };
 
   const editGate = (id: any) => {
-
-    if(!gates.some((el:any) => el.id === id) ){
-      setNested(true)
-    }else{
-      setNested(false)
+    if (!gates.some((el: any) => el.id === id)) {
+      setNested(true);
+    } else {
+      setNested(false);
     }
     setShowGate(true);
     setEditID(id);
@@ -99,30 +102,30 @@ const Gates = () => {
     denestGate(data).then((res: any) => {
       setUpdate(!update);
       setNotification({
-        type: 'success',
-        title: 'Denesting Successful',
-        message: res.data.message 
-      })
+        type: "success",
+        title: "Denesting Successful",
+        message: res.data.message,
+      });
     });
   };
 
   useEffect(() => {
     setLoading(true);
     setGates([]);
-    getGate().then((res) => {
-      setGates(res.data.results);
-      setLoading(false);
-    }).catch(
-      error => {
+    getGate()
+      .then((res) => {
+        setGates(res.data.results);
+        setLoading(false);
+      })
+      .catch((error) => {
         setNotification({
-          type: 'error',
-          title: 'Kindly Sign In',
-          message: error.response.data.detail 
-        })
+          type: "error",
+          title: "Kindly Sign In",
+          message: error.response.data.detail,
+        });
 
-        navigate('/login')
-      }
-    );
+        navigate("/login");
+      });
   }, [update, navigate]);
 
   const [showURL, setShowURl] = useState(false);
@@ -274,7 +277,6 @@ const Gates = () => {
         title={notification?.title}
         message={notification?.message}
       />
-      
     </div>
   );
 };
