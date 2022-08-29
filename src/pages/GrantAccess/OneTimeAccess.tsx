@@ -209,7 +209,7 @@ const OneTimeAccess = () => {
               title="Text Code"
               type="submit"
               loading={loading}
-              onClick={() => setWhich("text")}
+              onClick={() => setWhich("generated")}
             />
           </div>
 
@@ -217,7 +217,7 @@ const OneTimeAccess = () => {
             title="Generate Code"
             loading={loading}
             type="submit"
-            onClick={() => setWhich("generated")}
+            onClick={() => setWhich("text")}
             other
           />
           <Button
