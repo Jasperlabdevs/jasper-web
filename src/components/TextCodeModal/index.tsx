@@ -17,6 +17,7 @@ const TextCodeModal = ({
     formState: { errors },
   } = useForm();
 
+  console.log(visitorData)
   const onSubmit = (data: any) => {
     console.log(data);
   };

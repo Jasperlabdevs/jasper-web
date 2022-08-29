@@ -127,7 +127,7 @@ const OneTimeAccess = () => {
           type="tel"
           register={register}
           error={
-            errors.community_contact_phone_number &&
+            errors.visitor_phone_number &&
             "Please enter a correct phone number"
           }
           options={{
@@ -209,7 +209,7 @@ const OneTimeAccess = () => {
               title="Text Code"
               type="submit"
               loading={loading}
-              onClick={() => setWhich("generated")}
+              onClick={() => setWhich("text")}
             />
           </div>
 
@@ -217,7 +217,7 @@ const OneTimeAccess = () => {
             title="Generate Code"
             loading={loading}
             type="submit"
-            onClick={() => setWhich("text")}
+            onClick={() => setWhich("generated")}
             other
           />
           <Button

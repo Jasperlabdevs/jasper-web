@@ -25,17 +25,16 @@ const GateFormModal = ({
   const [gatesList, setGates] = useState([]);
 
   let active = gates.filter((el: any) => el.id === editID);
-  let newGates = [];
-  if (edit) {
-    newGates = gates.filter((el: any) => el.id !== editID);
-  } else {
-    newGates = gates;
-  }
-
-  useEffect(() => {
-    readyToNest().then((res) => {
-      console.log(res);
-      setGates(res.data.results);
+      
+      useEffect(() => {
+        readyToNest().then((res) => {
+          console.log(res);
+          const tempGates = res.data.results
+          let newGates = tempGates;
+          if (edit) {
+            newGates = tempGates.filter((el: any) => el.id !== editID);
+          } 
+          setGates(newGates);
     });
   }, []);
 

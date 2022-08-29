@@ -49,14 +49,18 @@ const GateVerification = () => {
 
     verifyGate(data)
       .then((res: any) => {
-        console.log(accessRules?.identity_verification);
-        console.log(res.data);
-        setVisitor(res.data?.result?.visitor);
+        // console.log(accessRules?.identity_verification);
+        // console.log(res.data);
+        const tempVisitor = res.data?.result?.visitor
+        setVisitor(tempVisitor);
+        console.log(tempVisitor?.visitor_id_card_name !== "" ||
+        tempVisitor?.security_password !== "" ||
+        tempVisitor?.license_plate !== "");
         if (
           accessRules?.identity_verification &&
-          (visitor.visitor_id_card_name !== "" ||
-            visitor?.security_password !== "" ||
-            visitor?.license_plate !== "")
+          (tempVisitor?.visitor_id_card_name !== "" ||
+            tempVisitor?.security_password !== "" ||
+            tempVisitor?.license_plate !== "")
         ) {
           setshowIdentityModal(true);
         } else if (accessRules?.capture_visitor_entry_exit) {

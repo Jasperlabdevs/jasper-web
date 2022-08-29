@@ -125,12 +125,13 @@ export const TableColumn = ({
           </button>
           <div className="dropdown-content absolute z-[1000]">
             {list?.map((data: any, index: number) => (
-              <p
-                className="cursor-pointer hover:bg-faded"
-                onClick={data.action}
-              >
-                {data.title}
-              </p>
+              // <p
+              //   className="cursor-pointer hover:bg-faded"
+              //   onClick={data.action}
+              // >
+              //   {data.title}
+              // </p>
+              <p className="cursor-pointer text-black hover:bg-faded" onClick={data.action} >{data.title}</p>
             ))}
           </div>
         </div>
