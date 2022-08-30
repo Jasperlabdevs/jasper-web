@@ -1,5 +1,5 @@
 import Button from "components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SVGs from "helpers/SVGs";
 import BankImage from "assets/images/bank.svg";
 import PaymentImage from "assets/images/payment.svg";
@@ -9,6 +9,9 @@ import ErrorModal from "components/ErrorModal";
 import Modal from "components/Modal";
 import SuccessModal from "components/SuccessModal";
 import useToggle from "hooks/useToggle";
+import { dispatchStore } from "helpers/utils";
+import { edit_community, get_community } from "store/actions/community";
+import { useSelector } from "react-redux";
 
 const CollectPayment = () => {
   const headers = [
@@ -25,8 +28,17 @@ const CollectPayment = () => {
 
   const [showSetupBankModal, toggleSetUpBankModal] = useToggle(false);
   const [bankCreationStatus, setBankCreationStatus] = useState("");
-  const [condition, setCondition] = useState(true);
+  const [noBankExits, setBankCondition] = useState(true);
   const navigate = useNavigate();
+
+  const stateCommunity = useSelector((state:any) => state.community)
+
+
+  useEffect(()=>{
+    if(stateCommunity.account_name){
+      setBankCondition(false)
+    }
+  },[stateCommunity])
 
   return (
     <div>
@@ -62,6 +74,7 @@ const CollectPayment = () => {
         )}
         <div className="flex justify-between items-center">
           <h4>Collect Payments</h4>
+          { !noBankExits && 
           <div className="flex gap-4 items-center">
             <div className="fit -mt-10">
               <Button
@@ -82,13 +95,13 @@ const CollectPayment = () => {
                 </button>
                 <div className="dropdown-content absolute z-[1000]">
                   <p
-                    className="cursor-pointer hover:bg-faded"
-                    onClick={() => {}}
+                    className="cursor-pointer text-black hover:bg-faded"
+                    onClick={() => toggleSetUpBankModal(true)}
                   >
                     {"Update Bank Details"}
                   </p>
                   <p
-                    className="cursor-pointer hover:bg-faded"
+                    className="cursor-pointer text-black hover:bg-faded"
                     onClick={() => {}}
                   >
                     {"View Transaction History"}
@@ -96,10 +109,10 @@ const CollectPayment = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> }
         </div>
 
-        {condition ? (
+        {noBankExits ? (
           <div className="text-center mt-20">
             <img
               src={BankImage}

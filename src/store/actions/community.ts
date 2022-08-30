@@ -4,6 +4,7 @@ import {
   GET_COMMUNITY_FAILURE,
   SET_COMMUNITY_SUCCESS,
   GET_COMMUNITY_SUCCESS,
+  EDIT_COMMUNITY,
 } from "store/constants";
 
 export const add_community = (data: any) => {
@@ -19,6 +20,13 @@ export const set_community = (data: any) => {
     payload: data,
   };
 };
+
+export const edit_community = (data:any) => {
+  return {
+    type: EDIT_COMMUNITY,
+    payload: data
+  }
+}
 
 export const get_community = () => async (dispatch: any) => {
   return await getCommunity().then(

@@ -1,11 +1,14 @@
 import Button from "components/Button";
 import Input, { InputDropdown, Select } from "components/Input";
 import Modal from "components/Modal";
+import { dispatchStore } from "helpers/utils";
 import useFetch from "hooks/useFetch";
 import useToggle from "hooks/useToggle";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { getBanks, submitBank } from "services/payment";
+import { useSelector } from "react-redux";
+import { getBanks, submitBank, updateBank } from "services/payment";
+import { edit_community } from "store/actions/community";
 
 const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
   const {
@@ -13,6 +16,9 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+
+  const stateCommunity = useSelector((state:any) => state.community)
 
   const [ banks, loadingBanks, bankError ] = useFetch(getBanks)
   const [ filterText, setFilterText] = useState('')
@@ -43,17 +49,34 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
   const onSubmit = (data: any) => {
     console.log(data);
     data.bank_name = selectedBank
-    toggleClose();
+
+    if(stateCommunity.account_name){
+      data.bank_verification_number = stateCommunity.bank_verification_number
+      updateBank(data).then(
+        (res:any) => {
+          console.log(res.data.results)
+          dispatchStore(edit_community(res.data.results))
+        }
+        ).catch(err => {
+          console.log(err)
+        })
+        
+      }else{
+        submitBank(data).then(
+          (res:any) => {
+            creationCondition("successful");
+            dispatchStore(edit_community(res.data.results))
+          console.log(res.data.results)
+        }
+        ).catch(err => {
+          creationCondition("failed");
+          console.log('failed')
+        })
+    }
+
     
-    submitBank(data).then(
-      (res:any) => {
-        creationCondition("successful");
-        console.log(res.data.results)
-      }
-      ).catch(err => {
-      creationCondition("failed");
-      console.log('failed')
-    })
+
+      toggleClose();
   };
 
   return (
@@ -66,6 +89,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
           <InputDropdown
             name="bank"
             label="Bank*"
+            value={ stateCommunity.bank_name || '' }
             error={errors.bank && "Please enter a bank"}
             placeholder="Please enter your bank name"
             register={register}
@@ -88,6 +112,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
             name="account_name"
             placeholder="Please enter your account name"
             label="Account Name*"
+            value={stateCommunity.account_name || ''}
             register={register}
             error={errors.account_name && "Please enter an account name"}
             options={{ required: true, minLenght: 1 }}
@@ -98,6 +123,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
             placeholder="Please enter your account number"
             label="Account Number*"
             register={register}
+            value={stateCommunity.bank_account_number}
             type="number"
             error={
               errors.account_number && "Please enter a correct account number"
@@ -107,14 +133,15 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
 
           <Input
             name="bank_verification_number"
-            placeholder="Please enter your BVN"
+            placeholder={ stateCommunity.bank_verification_number ? "***" : "Please enter your BVN"}
             label="Bank Verification Number (BVN)*"
             register={register}
             type="number"
+            disabled={stateCommunity.bank_verification_number ? true : false}
             error={
               errors.bank_verification_number && "Please enter a correct BVN"
             }
-            options={{ required: true, minLenght: 3 }}
+            options={ !stateCommunity.bank_verification_number ? { required: true, minLenght: 3 } : {}}
           />
 
           <div className="w-80 float-right pb-8 gap-4 flex">

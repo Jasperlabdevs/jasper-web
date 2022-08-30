@@ -275,10 +275,11 @@ export const InputDropdown = ({
   list=[],
   showDropdown,
   select,
+  value,
   onBlur, onFocus
 }: any) => {
 
-  const [value, setValue] = useState('')
+  const [dvalue, setValue] = useState(value || '')
   const set= (va:string)=>{
     select(va)
     setValue(va)
@@ -296,7 +297,7 @@ export const InputDropdown = ({
       onFocus={onFocus}
       type={"text"}
       name={name}
-      value={value}
+      value={dvalue}
       className="p-4 mt-2 mb-8 border rounded-md w-full"
       placeholder={placeholder}
       disabled={disabled}
