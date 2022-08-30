@@ -61,6 +61,17 @@ const CollectPayment = () => {
             />
           </Modal>
         )}
+        {bankCreationStatus === "edited" && (
+          <Modal
+            show={bankCreationStatus === "edited"}
+            toggleClose={() => setBankCreationStatus("")}
+          >
+            <SuccessModal
+              body="Your bank details has been updated successfully"
+              onHide={() => setBankCreationStatus("")}
+            />
+          </Modal>
+        )}
         {bankCreationStatus === "failed" && (
           <Modal
             show={bankCreationStatus === "failed"}

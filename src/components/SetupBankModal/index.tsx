@@ -55,6 +55,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
       updateBank(data).then(
         (res:any) => {
           console.log(res.data.results)
+          creationCondition("edited");
           dispatchStore(edit_community(res.data.results))
         }
         ).catch(err => {
