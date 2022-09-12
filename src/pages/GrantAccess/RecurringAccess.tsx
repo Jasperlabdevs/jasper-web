@@ -33,11 +33,11 @@ const RecurringAccess = () => {
   const stateGates = useSelector((state: any) => state.gates);
   const today: any = new Date();
   const todayDate = formatDate(today.toISOString(), "-");
-  const [allDay, setAllDay] = useState("false");
+  const [allDay, setAllDay] = useState(false);
   const [startDate, setStartDate] = useState(todayDate);
   const stateCommunity = useSelector((state: any) => state.community);
   const [accessRules, setAccessRules] = useState<any>({});
-
+  const [ visitorData, setVisitorData ] = useState()
   const [showTime, toggleShowTime] = useState(true);
 
   useEffect(() => {
@@ -77,6 +77,7 @@ const RecurringAccess = () => {
     createEventAccess(data)
       .then((res) => {
         setLoading(false);
+        setVisitorData(data)
         if (which === "text") {
           setShowTextCode(true);
         } else {
@@ -122,6 +123,7 @@ const RecurringAccess = () => {
       <TextCodeModal
         showTextCode={showTextCode}
         accessCode={accessCode}
+        visitorData={visitorData}
         setShowTextCode={setShowTextCode}
       />
 
@@ -199,7 +201,7 @@ const RecurringAccess = () => {
                   min={todayDate}
                   options={{ required: false }}
                   error={errors.time_from && "Please select a time"}
-                  disabled={allDay === "true" ? true : false}
+                  disabled={allDay === true ? true : false}
                 />
               </div>
             )}
@@ -209,7 +211,7 @@ const RecurringAccess = () => {
               name="all_day"
               register={() => {}}
               onChange={(e: any) => {
-                allDay === "false" ? setAllDay("true") : setAllDay("false");
+                allDay === false ? setAllDay(true) : setAllDay(false);
                 toggleShowTime(!showTime);
               }}
               value={allDay}
@@ -237,7 +239,7 @@ const RecurringAccess = () => {
                   type="time"
                   name="time_to"
                   label="  "
-                  disabled={allDay === "true" ? true : false}
+                  disabled={allDay === true ? true : false}
                   placeholder="dd/mm/yy"
                   register={register}
                   options={{ required: false }}

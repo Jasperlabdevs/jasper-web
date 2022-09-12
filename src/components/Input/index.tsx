@@ -242,6 +242,7 @@ export const DateInput = ({
   min,
   disabled,
   type,
+  value,
   onChange,
 }: InputType) => (
   <div className="relative">
@@ -256,6 +257,7 @@ export const DateInput = ({
       className="p-4 mt-2 mb-8 border rounded-md w-full max-w-lg"
       placeholder={placeholder}
       min={min}
+      defaultValue={value}
       disabled={disabled}
       onChange={onChange}
       {...register(name, { ...options })}

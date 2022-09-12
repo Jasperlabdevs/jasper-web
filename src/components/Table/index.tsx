@@ -54,7 +54,7 @@ export const TableColumn = ({
     {type === "status" && (
       <td>
         <span
-          className={`p-2 px-6 w-fit h-fit rounded-full text-center items-center justify-center 
+          className={`whitespace-nowrap capitalize p-2 px-6 w-fit h-fit rounded-full text-center items-center justify-center 
            ${
              (td.includes("generated") || td === "in progress") &&
              "bg-faded_yellow text-yellow"

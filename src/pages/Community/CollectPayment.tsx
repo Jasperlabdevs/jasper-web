@@ -9,14 +9,16 @@ import ErrorModal from "components/ErrorModal";
 import Modal from "components/Modal";
 import SuccessModal from "components/SuccessModal";
 import useToggle from "hooks/useToggle";
-import { dispatchStore } from "helpers/utils";
-import { edit_community, get_community } from "store/actions/community";
 import { useSelector } from "react-redux";
+import { getPaymentRequests } from "services/payment";
+import useFetch from "hooks/useFetch";
+import { TableHeader, TableColumn } from "components/Table";
+import { formatDate, formatDateTime } from "helpers/utils";
 
 const CollectPayment = () => {
   const headers = [
     "Payment Request Name",
-    "Totla Amount requested",
+    "Amount requested",
     "Created By",
     "Date Created",
     "% Completion",
@@ -32,7 +34,9 @@ const CollectPayment = () => {
   const navigate = useNavigate();
 
   const stateCommunity = useSelector((state:any) => state.community)
+    const [ paymentRequests, requestLoading, requestError ] = useFetch(getPaymentRequests)
 
+    console.log(paymentRequests)
 
   useEffect(()=>{
     if(stateCommunity.account_name){
@@ -123,7 +127,7 @@ const CollectPayment = () => {
           </div> }
         </div>
 
-        {noBankExits ? (
+        {noBankExits && 
           <div className="text-center mt-20">
             <img
               src={BankImage}
@@ -142,7 +146,9 @@ const CollectPayment = () => {
               />
             </div>
           </div>
-        ) : (
+          }
+
+          { !paymentRequests &&
           <div className="text-center mt-20">
             <img
               src={PaymentImage}
@@ -167,31 +173,32 @@ const CollectPayment = () => {
               />
             </div>
           </div>
-        )}
+        }
       </div>
 
-      {/* <div className=" py-10 pb-80" >
+      { !!paymentRequests && 
+      <div className=" py-10 pb-80" >
         <table className="w-full py-20">
           <thead className="">
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {TableContent.map((data) => (
+            {paymentRequests.map((data:any) => (
               <tr className="border-b border-[#C3C9DA] align-vertical">
-                <TableColumn td="Electrticity"/>
+                <TableColumn td={data.name}/>
 
-                <TableColumn td="$200,000" />
-                <TableColumn td="Chidnma Ukaegbu" />
-                <TableColumn td="2nd March, 2022" />
-                <TableColumn td="10%" />
-                <TableColumn td="12" />
+                <TableColumn td={"₦ "+Intl.NumberFormat('en-US').format(data.amount)} />
+                <TableColumn td={data.created_by?.first_name + " " +data.created_by?.last_name} />
+                <TableColumn td={formatDateTime(data.created)} />
+                <TableColumn td={data.completion_percent+"%"} />
+                <TableColumn td={data.number_of_users} />
                 <TableColumn
-                  td="in progress"
+                  td={data.status}
                   type="status"
                 />
-                <TableColumn td="2nd March, 2022" />
+                <TableColumn td={formatDate(data.due_date)} />
                 <TableColumn td="More" type="dropdown" list={[
-                    {title: 'Edit', action:()=>{}},
+                    {title: 'Edit', action:()=>{ navigate('new_payment_request/'+data.id)} },
                     {title: 'View Payment Progress', action:()=>{}},
                     {title: 'Mark as Completed', action:()=>{}},
                     {title: 'Send Reminder', action:()=>{}},
@@ -200,7 +207,8 @@ const CollectPayment = () => {
             ))}
           </tbody>
         </table>
-      </div> */}
+      </div>}
+
     </div>
   );
 };

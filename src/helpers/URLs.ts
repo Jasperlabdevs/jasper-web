@@ -1,4 +1,4 @@
-const baseUrl = " https://jasper-api-staging.herokuapp.com/api/v1/";
+const baseUrl = " https://api-staging.calljasper.com/api/v1/";
 const URL = {
   registerManager: baseUrl + "community_manager_register/",
   login: baseUrl + "signin/",
@@ -52,6 +52,7 @@ const URL = {
   banks: baseUrl + "banks/",
   submitBank: baseUrl + "community/submit_bank_account/",
   payment: baseUrl + "payment_request/",
+  paymentDetails: baseUrl + "payment_request_details/",
 
   communityMembers: baseUrl + "community_member/",
 };

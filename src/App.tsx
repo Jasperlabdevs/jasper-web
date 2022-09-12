@@ -247,6 +247,14 @@ function App() {
                 }
               />
               <Route
+                path="collect_payments/new_payment_request/:request_id"
+                element={
+                  <AuthGuard>
+                    <NewPaymentRequest />
+                  </AuthGuard>
+                }
+              />
+              <Route
                 path="collect_payments/transaction_history"
                 element={
                   <AuthGuard>

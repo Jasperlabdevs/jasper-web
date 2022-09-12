@@ -30,7 +30,7 @@ const IdentityCheckModal = ({
     const conditionThree =
       !!visitor?.license_plate && data.hasOwnProperty("license_plate");
 
-    if (conditionOne && conditionTwo && conditionThree) {
+    if (conditionOne || conditionTwo || conditionThree) {
       checkID(data)
         .then((res: any) => {
           setShowIdentity(true);
