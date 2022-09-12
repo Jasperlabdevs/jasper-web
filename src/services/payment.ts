@@ -45,3 +45,11 @@ export const getPaymentRequestsDetails = (id:string) => {
 
   return axios.get(URL.paymentDetails+id+'/', config);
 }
+
+export const getTransactionHistory = () => {
+  let config = configuration();
+
+  return axios.get(URL.transactionHistory, config);
+}
+
+

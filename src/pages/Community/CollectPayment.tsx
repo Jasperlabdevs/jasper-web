@@ -14,6 +14,7 @@ import { getPaymentRequests } from "services/payment";
 import useFetch from "hooks/useFetch";
 import { TableHeader, TableColumn } from "components/Table";
 import { formatDate, formatDateTime } from "helpers/utils";
+import Loader from "components/Loader";
 
 const CollectPayment = () => {
   const headers = [
@@ -34,9 +35,7 @@ const CollectPayment = () => {
   const navigate = useNavigate();
 
   const stateCommunity = useSelector((state:any) => state.community)
-    const [ paymentRequests, requestLoading, requestError ] = useFetch(getPaymentRequests)
-
-    console.log(paymentRequests)
+  const [ paymentRequests, requestLoading, requestError ] = useFetch(getPaymentRequests)
 
   useEffect(()=>{
     if(stateCommunity.account_name){
@@ -47,6 +46,7 @@ const CollectPayment = () => {
   return (
     <div>
       <div className="mt-10 overflow-x-hidden">
+        {requestLoading && <Loader/> }
         {showSetupBankModal && (
           <SetupBankModal
             creationCondition={setBankCreationStatus}
@@ -87,9 +87,9 @@ const CollectPayment = () => {
             />
           </Modal>
         )}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between block h-16 items-center">
           <h4>Collect Payments</h4>
-          { !noBankExits && 
+          { !noBankExits &&
           <div className="flex gap-4 items-center">
             <div className="fit -mt-10">
               <Button
@@ -103,12 +103,12 @@ const CollectPayment = () => {
                 }
               />
             </div>
-            <div className="relative">
-              <div className="dropdown absolute">
+            <div className="h-inherit block">
+              <div className="dropdown">
                 <button className="border-primary border rounded-lg px-4 dropbtn">
                   ...
                 </button>
-                <div className="dropdown-content absolute z-[1000]">
+                <div className="dropdown-content z-10">
                   <p
                     className="cursor-pointer text-black hover:bg-faded"
                     onClick={() => toggleSetUpBankModal(true)}
@@ -148,7 +148,7 @@ const CollectPayment = () => {
           </div>
           }
 
-          { !paymentRequests &&
+          { !requestLoading && !paymentRequests &&
           <div className="text-center mt-20">
             <img
               src={PaymentImage}
@@ -184,7 +184,7 @@ const CollectPayment = () => {
           </thead>
           <tbody>
             {paymentRequests.map((data:any) => (
-              <tr className="border-b border-[#C3C9DA] align-vertical">
+              <tr key={data.id} className="border-b border-[#C3C9DA] align-vertical">
                 <TableColumn td={data.name}/>
 
                 <TableColumn td={"₦ "+Intl.NumberFormat('en-US').format(data.amount)} />

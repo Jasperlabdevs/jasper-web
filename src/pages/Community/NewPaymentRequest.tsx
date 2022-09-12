@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import CommunityMembersModal from "components/CommunityMembersModal";
 import { getPaymentRequestsDetails, makePaymentRequest } from "services/payment";
-import { formatDate } from "helpers/utils";
+import Loader from "components/Loader";
 
 const NewPaymentRequest = () => {
   const {
@@ -32,11 +32,14 @@ const NewPaymentRequest = () => {
   
   useEffect(()=>{
       if(request_id){
+        setLoading(true)
         getPaymentRequestsDetails(request_id).then(
           res => {
+            setLoading(false)
             setPaymentDetails(res.data.results)
           }
         ).catch(err=> {
+          setLoading(false)
           console.error(err)
         })
       }
@@ -47,13 +50,16 @@ const NewPaymentRequest = () => {
   };
 
   const makePaymentReq = (data:any) =>(
+    
     makePaymentRequest(data).then(
       res => {
         console.log(res.data.results)
+        setLoading(false)
       }
     ).catch(err=> {
       console.log(err)
-    }).then(()=> setLoading(false))
+      setLoading(false)
+    })
   )
 
   const createPayment = () => {
@@ -76,6 +82,7 @@ const NewPaymentRequest = () => {
 
   return (
     <div className="mt-10 max-w-6xl">
+      {loading && <Loader /> }
       <CommunityMembersModal
           show={showModal}
           toggleClose={() => {

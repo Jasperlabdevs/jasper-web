@@ -53,7 +53,8 @@ const URL = {
   submitBank: baseUrl + "community/submit_bank_account/",
   payment: baseUrl + "payment_request/",
   paymentDetails: baseUrl + "payment_request_details/",
-
+  transactionHistory: baseUrl + "transaction_history/",
+  
   communityMembers: baseUrl + "community_member/",
 };
 

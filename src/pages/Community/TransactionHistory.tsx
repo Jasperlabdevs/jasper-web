@@ -9,11 +9,18 @@ import SVGs from "helpers/SVGs";
 import { Select } from "components/Input";
 import ModalLarge from "components/ModalLarge";
 import { useState } from "react";
+import useFetch from "hooks/useFetch";
+import { getTransactionHistory } from "services/payment";
+import Loader from "components/Loader";
 
 const TransactionHistory = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
+
+  const [ transactions, requestLoading, requestError ] = useFetch(getTransactionHistory)
+
+  console.log(transactions)
 
   const headers = [
     "Payment Request Name",
@@ -36,6 +43,7 @@ const TransactionHistory = () => {
   return (
     <div>
       <div className="mt-10 overflow-x-hidden">
+        {requestLoading && <Loader />}
         <ModalLarge
           show={showModal}
           toggleClose={() => {
@@ -102,7 +110,7 @@ const TransactionHistory = () => {
               {" "}
               New Payment Request{" "}
               <span className="text-white bg-primary rounded-full px-3 text-xs">
-                30
+                {!!transactions && transactions.length}
               </span>
             </h5>
           </div>
@@ -115,7 +123,7 @@ const TransactionHistory = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {TableContent.map((data) => (
+            {!!transactions && transactions.map((data:any) => (
               <tr className="border-b border-[#C3C9DA] align-vertical">
                 <TableColumn td="Electricity" />
                 <TableColumn td="Chidnma Ukaegbu" />
