@@ -32,7 +32,7 @@ const CollectPayment = () => {
 
   const [showSetupBankModal, toggleSetUpBankModal] = useToggle(false);
   const [bankCreationStatus, setBankCreationStatus] = useState("");
-  const [noBankExits, setBankCondition] = useState(false);
+  const [noBankExits, setBankCondition] = useState(true);
   const navigate = useNavigate();
 
   
@@ -48,8 +48,8 @@ const CollectPayment = () => {
       setBankCondition(false)
     }
   },[stateCommunity])
-  
-  console.log(paymentRequests)
+
+
   return (
     <div>
       <div className="mt-10 overflow-x-hidden">
@@ -96,7 +96,7 @@ const CollectPayment = () => {
         )}
         <div className="flex justify-between block h-16 items-center">
           <h4>Collect Payments</h4>
-          { noBankExits && !paymentRequests &&
+          { !noBankExits && (!!paymentRequests && paymentRequests.length > 0) &&
           <div className="flex gap-4 items-center">
             <div className="fit -mt-10">
               <Button
@@ -134,7 +134,7 @@ const CollectPayment = () => {
           </div> }
         </div>
 
-        {!noBankExits && 
+        {noBankExits && 
           <div className="text-center mt-20">
             <img
               src={BankImage}
@@ -155,7 +155,7 @@ const CollectPayment = () => {
           </div>
           }
 
-          { !requestLoading  &&
+          { !requestLoading  && paymentRequests.length < 0 &&
           <div className="text-center mt-20">
             <img
               src={PaymentImage}
@@ -183,7 +183,7 @@ const CollectPayment = () => {
         }
       </div>
 
-      { (!!paymentRequests && paymentRequests.lenght > 0) && 
+      { (!!paymentRequests && paymentRequests.length > 0) && 
       <div className=" py-10 pb-80" >
         <table className="w-full py-20">
           <thead className="">
