@@ -71,7 +71,7 @@ export const TableColumn = ({
                td === "enabled" ||
                td === "verified" ||
                td === "completed" ||
-               td === "paid") &&
+               td === "paid"  ) &&
              "bg-faded_green text-green"
            } `}
         >
@@ -131,7 +131,7 @@ export const TableColumn = ({
               // >
               //   {data.title}
               // </p>
-              <p className="cursor-pointer text-black hover:bg-faded" onClick={data.action} >{data.title}</p>
+              <p key={data.title} className="cursor-pointer text-black hover:bg-faded" onClick={data.action} >{data.title}</p>
             ))}
           </div>
         </div>

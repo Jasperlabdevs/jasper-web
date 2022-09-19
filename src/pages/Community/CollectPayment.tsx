@@ -31,7 +31,7 @@ const CollectPayment = () => {
 
   const [showSetupBankModal, toggleSetUpBankModal] = useToggle(false);
   const [bankCreationStatus, setBankCreationStatus] = useState("");
-  const [noBankExits, setBankCondition] = useState(true);
+  const [noBankExits, setBankCondition] = useState(false);
   const navigate = useNavigate();
 
   const stateCommunity = useSelector((state:any) => state.community)

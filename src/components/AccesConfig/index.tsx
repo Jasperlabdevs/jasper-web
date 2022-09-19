@@ -75,23 +75,23 @@ any) => {
     data.additional_information = [
       {
         additional_information: "Visitor Company",
-        make_required: data.VisitorCompany_make_required,
-        selected: data.VisitorCompany_selected,
+        make_required: data.VisitorCompany_make_required || "",
+        selected: data.VisitorCompany_selected || false,
       },
       {
         additional_information: "Visitor Type",
-        make_required: data.VisitorType_make_required,
-        selected: data.VisitorType_selected,
+        make_required: data.VisitorType_make_required || "",
+        selected: data.VisitorType_selected || false,
       },
       {
         additional_information: "Reason for visiting",
-        make_required: data.Reasonforvisiting_make_required,
-        selected: data.Reasonforvisiting_selected,
+        make_required: data.Reasonforvisiting_make_required || "",
+        selected: data.Reasonforvisiting_selected || false,
       },
       {
         additional_information: "Requesting Department",
-        make_required: data.RequestingDepartment_make_required,
-        selected: data.RequestingDepartment_selected,
+        make_required: data.RequestingDepartment_make_required || "",
+        selected: data.RequestingDepartment_selected || false,
       },
     ];
 

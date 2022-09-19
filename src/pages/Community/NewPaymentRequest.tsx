@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CommunityMembersModal from "components/CommunityMembersModal";
 import { getPaymentRequestsDetails, makePaymentRequest } from "services/payment";
 import Loader from "components/Loader";
+import { formatDate } from "helpers/utils";
 
 const NewPaymentRequest = () => {
   const {
@@ -62,19 +63,31 @@ const NewPaymentRequest = () => {
     })
   )
 
+  const getValue = () => {
+    let data:any = {}
+
+    data.name = getValues('name') || paymentDetails.name
+    data.description = getValues('description') || paymentDetails.description
+    data.due_date = getValues('due_date') || formatDate(paymentDetails.due_date, '-')
+
+    data.amount = parseInt(getValues('amount') ||  paymentDetails.amount )
+    
+    return data
+  }
+  
   const createPayment = () => {
     setLoading(true)
-    let data = getValues()
+    
+    let data = getValue()
     data.state = 'create'
-    data.amount = parseInt(data.amount)
     
     makePaymentReq(data)
   };
   
   const saveDraft = () => {
     setLoading(true)
-    let data = getValues()
-    data.amount = parseInt(data.amount)
+    let data = getValue()
+
     data.state = 'draft'
 
    makePaymentReq(data)
@@ -116,7 +129,7 @@ const NewPaymentRequest = () => {
             name="amount"
             value={ paymentDetails.amount || ''}
             label="Amount*"
-            type={'number'}
+            type='number'
             placeholder="Enter Amount"
             options={{require: true, min: 1, }}
             register={register}
@@ -164,9 +177,9 @@ const NewPaymentRequest = () => {
       <hr className="relative -left-10 w-screen mt-16 " />
       <div className="flex gap-4 lg:max-w-lg mb-20 ">
         <div className="lg:max-w-lg w-full">
-          <Button title={ !!request_id ? "Edit" : "Create"} loading={loading}  onClick={createPayment} />
+          <Button title={ !!request_id && paymentDetails?.status === 'in progress' ? "Edit" : "Create"} loading={loading}  onClick={createPayment} />
         </div>
-        <Button title="Save as draft" type="button" loading={loading} onClick={saveDraft}  other />
+        { paymentDetails?.status !== 'in progress' && <Button title="Save as draft" type="button" loading={loading} onClick={saveDraft}  other />}
         <Button title="Clear" type="button" onClick={resetFields} secondary />
       </div>
     </div>

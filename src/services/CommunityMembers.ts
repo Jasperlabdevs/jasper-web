@@ -10,7 +10,7 @@ const configuration = () => {
   return config;
 };
 
-export const getCommunityMembers = (data: any) => {
+export const getCommunityMembers = () => {
   let config = configuration();
-  return axios.post(URL.communityMembers, data, config);
+  return axios.get(URL.communityMembers, config);
 };

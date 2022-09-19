@@ -55,7 +55,7 @@ const URL = {
   paymentDetails: baseUrl + "payment_request_details/",
   transactionHistory: baseUrl + "transaction_history/",
   
-  communityMembers: baseUrl + "community_member/",
+  communityMembers: baseUrl + "community/member/",
 };
 
 export default URL;

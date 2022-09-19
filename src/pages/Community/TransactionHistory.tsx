@@ -73,7 +73,7 @@ const TransactionHistory = () => {
                 </thead>
                 <tbody>
                   {TableContent.map((data) => (
-                    <tr className="border-b w-full border-[#C3C9DA] align-vertical">
+                    <tr key={data.id} className="border-b w-full border-[#C3C9DA] align-vertical">
                       <TableColumn td="" type="check" />
                       <TableColumn
                         td={<span>Kianna Durant</span>}

@@ -7,6 +7,7 @@ import userReducer from "./userReducer";
 import communityReducer from "./communityReducer";
 import occupancyTypesReducer from "./occupancyTypesReeducer";
 import gatesReducer from "./gatesReducer";
+import communityMembersReducer from "./communityMembersReducer";
 
 const persistConfig = {
   key: "root",
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   community: communityReducer,
   gates: gatesReducer,
   user: userReducer,
+  members: communityMembersReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
