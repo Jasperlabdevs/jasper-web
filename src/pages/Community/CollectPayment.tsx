@@ -155,7 +155,7 @@ const CollectPayment = () => {
           </div>
           }
 
-          { !requestLoading && paymentRequests.lenght === 0 &&
+          { !requestLoading  &&
           <div className="text-center mt-20">
             <img
               src={PaymentImage}
@@ -183,7 +183,7 @@ const CollectPayment = () => {
         }
       </div>
 
-      { paymentRequests.lenght > 0 && 
+      { (!!paymentRequests && paymentRequests.lenght > 0) && 
       <div className=" py-10 pb-80" >
         <table className="w-full py-20">
           <thead className="">
