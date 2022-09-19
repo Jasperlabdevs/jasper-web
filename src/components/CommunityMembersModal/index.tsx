@@ -14,15 +14,44 @@ import { getOccupancyTypes } from "services/helperServices";
 import { get_community_members } from "store/actions/communityMembers";
 import { dispatchStore } from "helpers/utils";
 
-const CommunityMembersModal = ({show, toggleClose}:any) => {
+const CommunityMembersModal = ({show, toggleClose, selectedMembers, setSelectedMembers}:any) => {
 
   const [ communityMembers, setCommunityMembers ] = useState([])
   const [ occupancyTypes, setOccupancyTypes ]= useState<any>()
   const [ searchText, setSearchText ] = useState('')
+  const [ checkedMembers, addCheckedMembers ] = useState<Array<string>>([...selectedMembers])
 
   const [ loading, setLoading  ] = useState(false)
+
+  const checked =(e:any) => {
+    const value = e.target.value
+    let temp = [...checkedMembers]
+
+    const valueIndex = temp.indexOf(value)
+    console.log(valueIndex)
+    if(valueIndex !== -1){
+      addCheckedMembers(temp.splice(valueIndex,1))
+      console.log(addCheckedMembers(temp.splice(valueIndex,1)))
+    }else{
+      addCheckedMembers((prev:any)=> {
+        return [...prev, e.target.value]
+      })
+    }
+    
+    console.log(checkedMembers)
+  }
+
+  const allCheck = () => {
+    if(checkedMembers.length > 0){
+      addCheckedMembers([])
+    }else{
+      addCheckedMembers(communityMembers.map((el:any) => el.id))
+    }
+
+    console.log(checkedMembers)
+  }
     const headers = [
-        <input type="checkbox" />,
+        <input type="checkbox" onChange={allCheck} />,
         "Member",
         "User Type",
         "Phone Number",
@@ -57,6 +86,12 @@ const CommunityMembersModal = ({show, toggleClose}:any) => {
         }
       )
     }
+
+    const saveSelected = () => {
+      setSelectedMembers([...checkedMembers])
+      toggleClose()
+    }
+
 
     const search = () => {
       let data = { search_text : searchText }
@@ -149,7 +184,7 @@ const CommunityMembersModal = ({show, toggleClose}:any) => {
                       key={data?.id}
                       className="border-b w-full border-[#C3C9DA] align-vertical"
                     >
-                      <TableColumn td="" type="check" />
+                      <TableColumn td={data.id} handleChange={checked} checked={checkedMembers?.includes(data?.id)} type="check"  />
                       <TableColumn
                         td={
                           <span>
@@ -181,7 +216,7 @@ const CommunityMembersModal = ({show, toggleClose}:any) => {
             </table>
           </div>
           <div className="w-80 flex mt-5 float-right mb-8">
-            <Button type="submit" title="Save" />
+            <Button type="submit" onClick={saveSelected} title="Save" />
             <Button type="submit" onClick={toggleClose} title="Cancel" secondary />
           </div>
         </div>

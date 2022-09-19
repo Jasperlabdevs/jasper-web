@@ -23,6 +23,8 @@ type tableColumnType = {
   onClick?: any;
   list?: any;
   status_type?: Boolean;
+  handleChange?:any,
+  checked?:boolean
 };
 
 export const TableHeader = ({ headers }: any) => (
@@ -43,12 +45,14 @@ export const TableColumn = ({
   onClick,
   list = [],
   status_type,
+  handleChange,
+  checked
 }: tableColumnType) => (
   <>
     {type === "normal" && <td className="px-4 py-8 text-left">{td}</td>}
     {type === "check" && (
       <td className="pl-4 py-8 text-left">
-        {<input type="checkbox" name={td} />}
+        {<input type="checkbox" defaultChecked={checked} onChange={handleChange} value={td} name={td} />}
       </td>
     )}
     {type === "status" && (

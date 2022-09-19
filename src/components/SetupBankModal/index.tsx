@@ -109,15 +109,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
             }}  
             />
 
-          <Input
-            name="account_name"
-            placeholder="Please enter your account name"
-            label="Account Name*"
-            value={stateCommunity.account_name || ''}
-            register={register}
-            error={errors.account_name && "Please enter an account name"}
-            options={{ required: true, minLenght: 1 }}
-          />
+          
 
           <Input
             name="account_number"
@@ -131,6 +123,16 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
             }
             options={{ required: true, minLength: 10, maxLength: 10 }}
           />
+
+          <Input
+            name="account_name"
+            placeholder="Please enter your account name"
+            label="Account Name*"
+            value={stateCommunity.account_name || ''}
+            register={register}
+            error={errors.account_name && "Please enter an account name"}
+            options={{ required: true, minLenght: 1 }}
+            />
 
           {/* <Input
             name="bank_verification_number"

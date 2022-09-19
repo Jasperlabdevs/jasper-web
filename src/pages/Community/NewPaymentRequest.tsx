@@ -22,6 +22,8 @@ const NewPaymentRequest = () => {
   const [date, setDate] = useState<string>()
   const [ paymentDetails, setPaymentDetails ] = useState<any>({})
 
+  const [ selecteMembers, setSeletedMembers ] = useState<Array<string>>([])
+
   const { request_id } = useParams()
 
   useEffect(()=>{
@@ -101,6 +103,8 @@ const NewPaymentRequest = () => {
           toggleClose={() => {
             setShowModal(!showModal);
           }}
+          selectedMembers={selecteMembers}
+          setSelectedMembers={setSeletedMembers}
       />
 
       <div className="flex gap-4">
@@ -158,7 +162,8 @@ const NewPaymentRequest = () => {
           <div className="mx-auto">
             {SVGs.add_receipients}
           </div>
-          <h5>Receipients</h5>
+
+          <h5> {selecteMembers?.length + " Recipients"}</h5>
           <p>Who do you want to send this payment request to?</p>
           <div className="w-fit mx-auto">
             <Button
@@ -166,7 +171,7 @@ const NewPaymentRequest = () => {
               onClick={() => setShowModal(!showModal)}
               title={
                 <span className="flex items-center justify-center gap-4 text-primary">
-                  {SVGs.add_blue} Add Receipient
+                  {SVGs.add_blue} { selecteMembers?.length > 0 ? 'Update' : 'Add' } Receipient
                 </span>
               }
             />
