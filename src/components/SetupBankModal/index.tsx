@@ -35,7 +35,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
     console.log(filterText)
     if((banks !== undefined)){
       toggleShowDropdown(true)
-      const filtered  = banks.filter((el:any) => (el.name).includes(filterText))
+      const filtered  = banks.filter((el:any) => ((el.name).toLowerCase()).includes(filterText.toLocaleLowerCase))
       setFilteredBanks(filtered)
     }
   },[filterText])
@@ -142,7 +142,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
             error={
               errors.bank_verification_number && "Please enter a correct BVN"
             }
-            options={ !stateCommunity.bank_verification_number ? { required: true, minLenght: 3 } : {}}
+            options={ !stateCommunity.bank_verification_number ? { required: true, minLenght: 3, maxLenght: 3 } : {}}
           />
 
           <div className="w-80 float-right pb-8 gap-4 flex">

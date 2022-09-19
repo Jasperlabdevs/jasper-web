@@ -47,7 +47,7 @@ const CommunityMembersModal = ({show, toggleClose}:any) => {
       console.log(selected)
 
       let data = {
-        occupancy_type : selected.map((el:any) => el.value)
+        occupancy_type_id : selected.map((el:any) => el.value)
       }
       setLoading(true)
       searchFilterCommunityMembers(data).then(
