@@ -14,3 +14,10 @@ export const getCommunityMembers = () => {
   let config = configuration();
   return axios.get(URL.communityMembers, config);
 };
+
+
+export const searchFilterCommunityMembers = (data:any) => {
+  let config = configuration();
+  return axios.post(URL.communityMemberSearchFilter, {...data}, config);
+  
+}

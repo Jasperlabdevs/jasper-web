@@ -4,11 +4,23 @@ import { TableHeader, TableColumn } from "components/Table";
 import SVGs from "helpers/SVGs";
 import { Select } from "components/Input";
 import img from "assets/images/AccountPhoto.png";
-import { getCommunityMembers } from "services/CommunityMembers";
+import { getCommunityMembers, searchFilterCommunityMembers } from "services/CommunityMembers";
 import useFetch from "hooks/useFetch";
+import { useSelector } from "react-redux";
+import ReactSelect from "react-select";
+import Option from "components/MultipleSelect/Options";
+import { useEffect, useState } from "react";
+import { getOccupancyTypes } from "services/helperServices";
+import { get_community_members } from "store/actions/communityMembers";
+import { dispatchStore } from "helpers/utils";
 
 const CommunityMembersModal = ({show, toggleClose}:any) => {
 
+  const [ communityMembers, setCommunityMembers ] = useState([])
+  const [ occupancyTypes, setOccupancyTypes ]= useState<any>()
+  const [ searchText, setSearchText ] = useState('')
+
+  const [ loading, setLoading  ] = useState(false)
     const headers = [
         <input type="checkbox" />,
         "Member",
@@ -17,10 +29,62 @@ const CommunityMembersModal = ({show, toggleClose}:any) => {
         "Status",
       ];
 
-      const [communityMembers, communityMenbersloading, CommunitymembersError] =
-      useFetch(getCommunityMembers);
-  
-    console.log(communityMembers);
+      // const [communityMembers, communityMenbersloading, CommunitymembersError] =
+      // useFetch(getCommunityMembers);
+
+      const stateCommunityMembers = useSelector((state:any) => state.members)
+      
+    // console.log(communityMembers);
+
+    useEffect(()=> {
+      setCommunityMembers(stateCommunityMembers)
+    },[stateCommunityMembers])
+
+    const [ options, selectOption ] = useState<any>()
+
+    const handleChange =(selected:any)=> {
+      selectOption(selected)
+      console.log(selected)
+
+      let data = {
+        occupancy_type : selected.map((el:any) => el.value)
+      }
+      setLoading(true)
+      searchFilterCommunityMembers(data).then(
+        res => {
+          setLoading(false)
+          setCommunityMembers(res.data.results)
+        }
+      )
+    }
+
+    const search = () => {
+      let data = { search_text : searchText }
+      setLoading(true)
+      searchFilterCommunityMembers(data).then(
+        res => {
+          setLoading(false)
+          setCommunityMembers(res.data.results)
+        }
+      )
+    }
+
+    useEffect(()=> {
+      getOccupancyTypes().then(
+        res => {
+          setOccupancyTypes(res.data.results)
+          let data = res.data.results
+          for( let i =0; i< data.length; i++){
+            let test = { value: data[i].id, label: data[i].name }
+            setOccupancyTypes((prev:any) => {
+              return [...prev, test]
+            })
+            
+          }
+        }
+      )
+    },[])
+
 
 
     return(
@@ -34,20 +98,38 @@ const CommunityMembersModal = ({show, toggleClose}:any) => {
 
           <div className=" mt-12 mb-8 flex justify-between ">
             <div className="w-80">
-              <Select
+              
+              {/* <Select
                 name={undefined}
-                list={[]}
+                list={[
+                  'Tenant', 'Landloard', 'Facility Mananger', 'Developer', 'Property Owner', 'Staff'
+                ]}
                 label={""}
                 placeholder="Select Member Type"
                 register={() => {}}
-              />
+              /> */}
+
+                <ReactSelect
+                          options={occupancyTypes}
+                          isMulti
+                          closeMenuOnSelect={false}
+                          hideSelectedOptions={false}
+                          components={{
+                            Option
+                          }}
+                          onChange={handleChange}
+                          value={options}
+                          // allowSelectAll={true}
+                        />
             </div>
             <form className="bg-[#F9F9FB] flex w-3xl h-fit py-2 px-4 rounded-lg">
-              <button type="button" onClick={() => {}}>
+              <button type="button" onClick={search}>
                 {SVGs.search}
               </button>
               <input
                 type="text"
+                value={searchText}
+                onChange={(e:any)=>setSearchText(e.target.value)}
                 className="outline-none px-2 w-3xl bg-[#F9F9FB] py-3"
                 placeholder="Search"
               />
@@ -60,7 +142,8 @@ const CommunityMembersModal = ({show, toggleClose}:any) => {
                 <TableHeader headers={headers} />
               </thead>
               <tbody>
-                {!!communityMembers &&
+                {loading && 'Loading results...'}
+                {!loading && communityMembers.length > 0 ?
                   communityMembers.map((data: any) => (
                     <tr
                       key={data?.id}
@@ -93,13 +176,13 @@ const CommunityMembersModal = ({show, toggleClose}:any) => {
                         type="status"
                       />
                     </tr>
-                  ))}
+                  )) : !loading && 'No Results found'}
               </tbody>
             </table>
           </div>
           <div className="w-80 flex mt-5 float-right mb-8">
             <Button type="submit" title="Save" />
-            <Button type="submit" title="Cancel" secondary />
+            <Button type="submit" onClick={toggleClose} title="Cancel" secondary />
           </div>
         </div>
       </ModalLarge>

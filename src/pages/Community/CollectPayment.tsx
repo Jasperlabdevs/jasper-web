@@ -13,8 +13,9 @@ import { useSelector } from "react-redux";
 import { getPaymentRequests } from "services/payment";
 import useFetch from "hooks/useFetch";
 import { TableHeader, TableColumn } from "components/Table";
-import { formatDate, formatDateTime } from "helpers/utils";
+import { dispatchStore, formatDate, formatDateTime } from "helpers/utils";
 import Loader from "components/Loader";
+import { get_community_members } from "store/actions/communityMembers";
 
 const CollectPayment = () => {
   const headers = [
@@ -34,6 +35,10 @@ const CollectPayment = () => {
   const [noBankExits, setBankCondition] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(()=> {
+    dispatchStore(get_community_members())
+  },[])
+  
   const stateCommunity = useSelector((state:any) => state.community)
   const [ paymentRequests, requestLoading, requestError ] = useFetch(getPaymentRequests)
 

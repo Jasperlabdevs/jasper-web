@@ -56,6 +56,8 @@ const URL = {
   transactionHistory: baseUrl + "transaction_history/",
   
   communityMembers: baseUrl + "community/member/",
+
+  communityMemberSearchFilter: baseUrl + "community_member/?",
 };
 
 export default URL;
