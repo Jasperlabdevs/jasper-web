@@ -51,9 +51,11 @@ const URL = {
 
   banks: baseUrl + "banks/",
   submitBank: baseUrl + "community/submit_bank_account/",
+  verifyAccount: baseUrl + "verify_account/",
   payment: baseUrl + "payment_request/",
   paymentDetails: baseUrl + "payment_request_details/",
   transactionHistory: baseUrl + "transaction_history/",
+  addRemoveRecepients: baseUrl + "add_or_remove_payment_recipients/",
   
   communityMembers: baseUrl + "community/member/",
 

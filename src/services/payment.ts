@@ -52,4 +52,17 @@ export const getTransactionHistory = () => {
   return axios.get(URL.transactionHistory, config);
 }
 
+export const verifyAccount = (data:any) => {
+  let config = configuration();
+
+  return axios.post(URL.verifyAccount, {...data}, config);
+}
+
+
+export const addRemoveRecepients = (data:any) => {
+  let config = configuration();
+
+  return axios.post(URL.addRemoveRecepients, {...data}, config);
+}
+
 

@@ -1,13 +1,13 @@
 import Button from "components/Button";
 import Input, { InputDropdown, Select } from "components/Input";
 import Modal from "components/Modal";
-import { dispatchStore } from "helpers/utils";
+import { debounce, dispatchStore } from "helpers/utils";
 import useFetch from "hooks/useFetch";
 import useToggle from "hooks/useToggle";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { getBanks, submitBank, updateBank } from "services/payment";
+import { getBanks, submitBank, updateBank, verifyAccount } from "services/payment";
 import { edit_community } from "store/actions/community";
 
 const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
@@ -15,8 +15,9 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
     register,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm();
-
+  const [ error, setError ] = useState('')
 
   const stateCommunity = useSelector((state:any) => state.community)
 
@@ -27,12 +28,14 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
   const [showDropdown, toggleShowDropdown] = useToggle(false);
   const [ selectedBank, setSelectedBank ] = useState('')
 
+  const [ accountName, setAccountName ] = useState('')
+  const [ bankUUID, setBankUUID ] = useState('')
+
   useEffect(()=>{
     setFilteredBanks(banks)
   }, [banks])
 
   useEffect(()=> {
-    console.log(filterText)
     if((banks !== undefined)){
       toggleShowDropdown(true)
       const filtered  = banks.filter((el:any) => ((el.name).toLowerCase()).includes(filterText.toLowerCase()))
@@ -43,11 +46,46 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
 
   const select =(value:string)=>{
     setSelectedBank(value)
+    let temp = banks.filter((el:any)=>el.name === value)
+    setBankUUID(temp[0].uuid)
     toggleShowDropdown(false)
   }
 
+  const verifyBankAccount = (account_number:any) => {
+    setError('')
+    console.log(account_number)
+    const data = {destination_bank_acct_number: account_number, destination_bank_uuid: bankUUID}
+    verifyAccount(data).then(
+      res => {
+        const name = res.data.results.destinationAccountHolderNameAtBank
+        if(name === null){
+          setError('Bank Account details invalid')
+          return 
+        }
+        setAccountName(name)
+        console.log(name)
+      }
+      ).catch(
+        (err) =>{
+        setError('Bank Account details invalid')
+        console.log(err)
+      }
+    )
+  }
+
+  useEffect(()=>{
+    watch((value) => {
+      verifyBankAccount(value.account_number)
+      // debounce(()=>verifyBankAccount(value.account_number), 300)
+  })
+
+  },[watch, bankUUID])
+
   const onSubmit = (data: any) => {
     console.log(data);
+
+    if(data.account_name === '') return null
+    
     data.bank_name = selectedBank
 
     if(stateCommunity.account_name){
@@ -74,9 +112,6 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
           console.log('failed')
         })
     }
-
-    
-
       toggleClose();
   };
 
@@ -87,6 +122,9 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
         <hr className="my-6 absolute w-full left-0" />
 
         <form className="mt-16" onSubmit={handleSubmit(onSubmit)}>
+          {
+            error && <span className="text-red my-2" >{error}</span>
+          }
           <InputDropdown
             name="bank"
             label="Bank*"
@@ -128,7 +166,8 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
             name="account_name"
             placeholder="Please enter your account name"
             label="Account Name*"
-            value={stateCommunity.account_name || ''}
+            disabled
+            value={stateCommunity.account_name || accountName}
             register={register}
             error={errors.account_name && "Please enter an account name"}
             options={{ required: true, minLenght: 1 }}

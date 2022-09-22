@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import CommunityMembersModal from "components/CommunityMembersModal";
-import { getPaymentRequestsDetails, makePaymentRequest } from "services/payment";
+import { addRemoveRecepients, getPaymentRequestsDetails, makePaymentRequest } from "services/payment";
 import Loader from "components/Loader";
 import { formatDate } from "helpers/utils";
 
@@ -56,8 +56,22 @@ const NewPaymentRequest = () => {
     
     makePaymentRequest(data).then(
       res => {
-        console.log(res.data.results)
-        setLoading(false)
+        const payment_data = res.data.results
+
+        let recepient_data = { action: "add",
+        payment_request_id: payment_data.id,
+        recipients : [...selecteMembers] }
+
+        addRemoveRecepients(recepient_data).then(
+          results => {
+            console.log(results)
+            setLoading(false)
+          }
+        ).catch(err=>{
+          console.log(err)
+          setLoading(false)
+        })
+
       }
     ).catch(err=> {
       console.log(err)

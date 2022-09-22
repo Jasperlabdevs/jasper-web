@@ -315,7 +315,7 @@ export const InputDropdown = ({
       <ul>
         {
            list.map((data: any) => (
-            <li className="py-2 px-4 cursor-pointer hover:bg-faded" onClick={()=>set(data.name)} >{data.name}</li>
+            <li key={data.name} className="py-2 px-4 cursor-pointer hover:bg-faded" onClick={()=>set(data.name)} >{data.name}</li>
            )
         )}
       </ul>

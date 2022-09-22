@@ -52,7 +52,7 @@ const CollectPayment = () => {
 
   return (
     <div>
-      <div className="mt-10 overflow-x-hidden">
+      <div className="mt-10 relative overflow-x-hidden">
         {requestLoading && <Loader/> }
         {showSetupBankModal && (
           <SetupBankModal
