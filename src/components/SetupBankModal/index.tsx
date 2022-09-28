@@ -83,6 +83,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
   },[watch, bankUUID])
 
   const onSubmit = (data: any) => {
+    data.account_name = accountName
     console.log(data);
 
     if(data.account_name === '') return null
