@@ -21,7 +21,7 @@ const NewPaymentRequest = () => {
   const [showModal, setShowModal] = useState(false);
   const [date, setDate] = useState<string>()
   const [ paymentDetails, setPaymentDetails ] = useState<any>({})
-
+  const [ error, setError ] = useState('')
   const [ selecteMembers, setSeletedMembers ] = useState<Array<string>>([])
 
   const { request_id } = useParams()
@@ -53,26 +53,32 @@ const NewPaymentRequest = () => {
   };
 
   const makePaymentReq = (data:any) =>{
+
+    if(selecteMembers.length === 0){
+      setError('Please select Recipients')
+      setLoading(false)
+      return null
+    }
     data.recipients = [...selecteMembers]
     makePaymentRequest(data).then(
       res => {
         const payment_data = res.data.results
 
         console.log(payment_data)
-        // let recepient_data = { action: "add",
-        // payment_request_id: payment_data.id,
-        // recipients : [...selecteMembers] }
+        let recepient_data = { action: "add",
+        payment_request_id: payment_data.id,
+        recipients : [...selecteMembers] }
 
-        // addRemoveRecepients(recepient_data).then(
-        //   results => {
-        //     console.log(results)
-        //     setLoading(false)
-        //   }
-        // ).catch(err=>{
-        //   console.log(err)
-        //   setLoading(false)
-        // })
-
+        addRemoveRecepients(recepient_data).then(
+          results => {
+            setLoading(false)
+            console.log(results)
+          }
+        ).catch(err=>{
+            console.log(err)
+            setLoading(false)
+          })
+          
       }
     ).catch(err=> {
       console.log(err)
@@ -135,6 +141,11 @@ const NewPaymentRequest = () => {
 
       <div className="flex flex-col md:flex-row gap-[5rem] w-full items-center">
         <form className="w-full">
+          {!!error && (
+            <div className="bg-faded_red w-full text-center p-4 mb-4 rounded-md">
+              <p className="text-red text-xs ">{error}</p>
+            </div>
+          )}
           <Input
             name="name"
             value={paymentDetails.name || ''}
@@ -200,7 +211,7 @@ const NewPaymentRequest = () => {
           <Button title={ !!request_id && paymentDetails?.status === 'in progress' ? "Edit" : "Create"} loading={loading}  onClick={createPayment} />
         </div>
         { paymentDetails?.status !== 'in progress' && <Button title="Save as draft" type="button" loading={loading} onClick={saveDraft}  other />}
-        <Button title="Clear" type="button" onClick={resetFields} secondary />
+        <Button title="Clear" disable={ paymentDetails?.status ? true : false } type="button" onClick={resetFields} secondary />
       </div>
     </div>
   );

@@ -34,6 +34,7 @@ const CollectPayment = () => {
   const [bankCreationStatus, setBankCreationStatus] = useState("");
   const [noBankExits, setBankCondition] = useState(true);
   const navigate = useNavigate();
+  const [ paymentRequest, setPaymentRequest ] = useState<Array<any>>([])
 
   
   useEffect(()=> {
@@ -42,6 +43,10 @@ const CollectPayment = () => {
   
   const stateCommunity = useSelector((state:any) => state.community)
   const [ paymentRequests, requestLoading, requestError ] = useFetch(getPaymentRequests)
+
+  useEffect(()=>{
+    setPaymentRequest(paymentRequests)
+  },[paymentRequests])
   
   useEffect(()=>{
     if(stateCommunity.account_name){
@@ -96,7 +101,7 @@ const CollectPayment = () => {
         )}
         <div className="flex justify-between block h-16 items-center">
           <h4>Collect Payments</h4>
-          { !noBankExits && (!!paymentRequests && paymentRequests.length > 0) &&
+          { !noBankExits && ( !!paymentRequest && paymentRequest.length > 0) &&
           <div className="flex gap-4 items-center">
             <div className="fit -mt-10">
               <Button
@@ -155,7 +160,7 @@ const CollectPayment = () => {
           </div>
           }
 
-          { !requestLoading  && paymentRequests.length < 0 &&
+          { (!noBankExits && !!paymentRequest && paymentRequest.length === 0) &&
           <div className="text-center mt-20">
             <img
               src={PaymentImage}
@@ -183,7 +188,7 @@ const CollectPayment = () => {
         }
       </div>
 
-      { (!!paymentRequests && paymentRequests.length > 0) && 
+      { (!!paymentRequest && paymentRequest.length > 0) && 
       <div className=" py-10 pb-80" >
         <table className="w-full py-20">
           <thead className="">

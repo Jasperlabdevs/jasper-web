@@ -12,7 +12,7 @@ import communityMembersReducer from "./communityMembersReducer";
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["user", "community"], // which reducer want to store
+  whitelist: ["user", "community", "members"], // which reducer want to store
 };
 
 const rootReducer = combineReducers({

@@ -25,6 +25,7 @@ const CommunityMembersModal = ({show, toggleClose, selectedMembers, setSelectedM
 
   const checked =(e:any) => {
     const value = e.target.value
+    console.log(value)
     let temp = [...checkedMembers]
 
     const valueIndex = temp.indexOf(value)
