@@ -131,7 +131,7 @@ const OneTimeAccess = () => {
             "Please enter a correct phone number"
           }
           options={{
-            required: true,
+            required: false,
             minLength: 7,
             maxLenght: 8,
             pattern: /[0-9]/,

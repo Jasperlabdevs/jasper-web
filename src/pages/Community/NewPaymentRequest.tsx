@@ -52,32 +52,33 @@ const NewPaymentRequest = () => {
     reset({});
   };
 
-  const makePaymentReq = (data:any) =>(
-    
+  const makePaymentReq = (data:any) =>{
+    data.recipients = [...selecteMembers]
     makePaymentRequest(data).then(
       res => {
         const payment_data = res.data.results
 
-        let recepient_data = { action: "add",
-        payment_request_id: payment_data.id,
-        recipients : [...selecteMembers] }
+        console.log(payment_data)
+        // let recepient_data = { action: "add",
+        // payment_request_id: payment_data.id,
+        // recipients : [...selecteMembers] }
 
-        addRemoveRecepients(recepient_data).then(
-          results => {
-            console.log(results)
-            setLoading(false)
-          }
-        ).catch(err=>{
-          console.log(err)
-          setLoading(false)
-        })
+        // addRemoveRecepients(recepient_data).then(
+        //   results => {
+        //     console.log(results)
+        //     setLoading(false)
+        //   }
+        // ).catch(err=>{
+        //   console.log(err)
+        //   setLoading(false)
+        // })
 
       }
     ).catch(err=> {
       console.log(err)
       setLoading(false)
     })
-  )
+  }
 
   const getValue = () => {
     let data:any = {}

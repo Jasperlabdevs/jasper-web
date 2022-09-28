@@ -76,7 +76,7 @@ export const communityHeaderData: HeaderDataType[] = [
   {
     id: 5,
     title: "Community Access History",
-    link: "community_access_history",
+    link: "access_history",
   },
   {
     id: 6,

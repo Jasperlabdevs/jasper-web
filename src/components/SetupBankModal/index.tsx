@@ -63,6 +63,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
           return 
         }
         setAccountName(name)
+        setError('')
         console.log(name)
       }
       ).catch(
@@ -170,7 +171,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
             value={stateCommunity.account_name || accountName}
             register={register}
             error={errors.account_name && "Please enter an account name"}
-            options={{ required: true, minLenght: 1 }}
+            options={{ required: false, minLenght: 1 }}
             />
 
           {/* <Input

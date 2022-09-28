@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import {
   accessHistorySearchHistory,
   disableAccessCode,
-  getCommunityAccessHistory,
+  getUserAccessHistory,
 } from "services/access";
 
 const AccessHistory = () => {
@@ -27,7 +27,7 @@ const AccessHistory = () => {
   const [params, setParams] = useState<any>({});
 
   const getHistory = async () => {
-    await getCommunityAccessHistory().then((res) => {
+    await getUserAccessHistory().then((res) => {
       setLoading(false);
       console.log(res.data.results);
       setCommunityHistory(res.data.results);

@@ -29,3 +29,9 @@ export const getCommunityWithID = (id: string) => {
   let config = configuration();
   return axios.get(URL.community + id + "/", config);
 };
+
+
+export const getCommunityAccessHistory = () => {
+  let config = configuration();
+  return axios.get(URL.communityAccessHistory, config);
+};

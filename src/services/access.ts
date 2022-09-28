@@ -161,9 +161,9 @@ export const createEventAccess = (data: any) => {
   return axios.post(URL.access, { ...data }, config);
 };
 
-export const getCommunityAccessHistory = () => {
+export const getUserAccessHistory = () => {
   let config = configuration();
-  return axios.get(URL.communityAccessHistory, config);
+  return axios.get(URL.userAccessHistory, config);
 };
 
 export const accessHistorySearchHistory = (data: any) => {

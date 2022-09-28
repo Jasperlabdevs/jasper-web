@@ -39,6 +39,7 @@ import { setUser } from "store/actions/user";
 import CollectPayment from "pages/Community/CollectPayment";
 import NewPaymentRequest from "pages/Community/NewPaymentRequest";
 import TransactionHistory from "pages/Community/TransactionHistory";
+import CommunityAccessHistory from "pages/Community/CommunityAccessHistory";
 
 function App() {
   const [sideBar, setSidebar] = useState<any>(false);
@@ -262,6 +263,14 @@ function App() {
                   </AuthGuard>
                 }
               />
+              <Route
+                path="access_history"
+                element={
+                  <AuthGuard>
+                    <CommunityAccessHistory />
+                  </AuthGuard>
+                }
+              ></Route>
             </Route>
 
             <Route
