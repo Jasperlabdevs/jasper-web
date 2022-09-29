@@ -175,9 +175,9 @@ const CommunityMembersModal = ({
                       className="border-b w-full border-[#C3C9DA] align-vertical"
                     >
                       <TableColumn
-                        td={data.id}
+                        td={data?.myuser.id}
                         handleChange={checked}
-                        checked={memberIDs?.includes(data?.id)}
+                        checked={memberIDs?.includes(data?.myuser.id)}
                         type="check"
                       />
                       <TableColumn
