@@ -9,12 +9,12 @@ const useFetch = (getMethod: Function) => {
     getMethod()
       .then((res: any) => {
         setData(res.data.results);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((err: any) => {
         setError(err.data?.details);
-        setLoading(false)
-      })
+        setLoading(false);
+      });
   }, [getMethod]);
 
   return [data, loading, error];

@@ -12,10 +12,9 @@ import { useNavigate } from "react-router-dom";
 //   disableAccessCode,
 //   getCommunityAccessHistory,
 // } from "services/access";
-import { getCommunityAccessHistory } from "services/community"
+import { getCommunityAccessHistory } from "services/community";
 
 const CommunityAccessHistory = () => {
-
   const [communityHistory, setCommunityHistory] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [activeAllList, setActiveAllList] = useState([]);
@@ -36,7 +35,6 @@ const CommunityAccessHistory = () => {
     });
   };
 
-
   useEffect(() => {
     getHistory();
   }, []);
@@ -51,7 +49,6 @@ const CommunityAccessHistory = () => {
     "Phone Number",
     "Date/Time Generated",
   ];
-
 
   const toggleFilter = () => {
     setShowFilter(!showFilter);
@@ -90,7 +87,6 @@ const CommunityAccessHistory = () => {
     // });
   };
 
-
   return (
     <div className="mt-10 pb-40">
       <div className="flex justify-between items-center">
@@ -105,46 +101,39 @@ const CommunityAccessHistory = () => {
 
       {showFilter && <Filter handleChange={handleChange} />}
 
-        <table className="w-full ">
-          <thead className="">
-            <TableHeader headers={headersAll} />
-          </thead>
-          <tbody>
-            {loading && "Loading..."}
-            {!loading && activeAllList.length === 0 && "No Access History"}
-            {activeAllList?.map((data: any) => (
-              <tr
-                key={data.id}
-                className="border-b capitalize border-[#C3C9DA]"
-              >
-                <TableColumn td={data.visitors[0]?.name || "N/A"} />
-                <TableColumn td={data?.event_name || "N/A"} />
-                <TableColumn
-                  td={
-                    data?.status +
-                    (data?.access_type === "event"
-                      ? " - " +
-                        data?.number_of_visitors_countdown +
-                        "/" +
-                        data?.number_of_visitors
-                      : "")
-                  }
-                  type="status"
-                  status_type={data?.status === "generated" ? true : false}
-                />
-                <TableColumn td={data?.access_type} />
-                <TableColumn td={data?.gate[0]?.name} />
-                <TableColumn
-                  td={data?.code || data.visitors[0]?.code || "N/A"}
-                />
-                <TableColumn td={data.visitors[0]?.phone_number || "N/A"} />
-                <TableColumn td={formatDateTime(data?.created)} />
-                
-              </tr>
-            ))}
-          </tbody>
-        </table>
-     
+      <table className="w-full ">
+        <thead className="">
+          <TableHeader headers={headersAll} />
+        </thead>
+        <tbody>
+          {loading && "Loading..."}
+          {!loading && activeAllList.length === 0 && "No Access History"}
+          {activeAllList?.map((data: any) => (
+            <tr key={data.id} className="border-b capitalize border-[#C3C9DA]">
+              <TableColumn td={data.visitors[0]?.name || "N/A"} />
+              <TableColumn td={data?.event_name || "N/A"} />
+              <TableColumn
+                td={
+                  data?.status +
+                  (data?.access_type === "event"
+                    ? " - " +
+                      data?.number_of_visitors_countdown +
+                      "/" +
+                      data?.number_of_visitors
+                    : "")
+                }
+                type="status"
+                status_type={data?.status === "generated" ? true : false}
+              />
+              <TableColumn td={data?.access_type} />
+              <TableColumn td={data?.gate[0]?.name} />
+              <TableColumn td={data?.code || data.visitors[0]?.code || "N/A"} />
+              <TableColumn td={data.visitors[0]?.phone_number || "N/A"} />
+              <TableColumn td={formatDateTime(data?.created)} />
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   community: communityReducer,
   gates: gatesReducer,
   user: userReducer,
-  members: communityMembersReducer
+  members: communityMembersReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

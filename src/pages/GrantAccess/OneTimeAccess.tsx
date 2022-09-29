@@ -127,8 +127,7 @@ const OneTimeAccess = () => {
           type="tel"
           register={register}
           error={
-            errors.visitor_phone_number &&
-            "Please enter a correct phone number"
+            errors.visitor_phone_number && "Please enter a correct phone number"
           }
           options={{
             required: false,

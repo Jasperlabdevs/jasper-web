@@ -51,11 +51,13 @@ const GateVerification = () => {
       .then((res: any) => {
         // console.log(accessRules?.identity_verification);
         // console.log(res.data);
-        const tempVisitor = res.data?.result?.visitor
+        const tempVisitor = res.data?.result?.visitor;
         setVisitor(tempVisitor);
-        console.log(tempVisitor?.visitor_id_card_name !== "" ||
-        tempVisitor?.security_password !== "" ||
-        tempVisitor?.license_plate !== "");
+        console.log(
+          tempVisitor?.visitor_id_card_name !== "" ||
+            tempVisitor?.security_password !== "" ||
+            tempVisitor?.license_plate !== ""
+        );
         if (
           accessRules?.identity_verification &&
           (tempVisitor?.visitor_id_card_name !== "" ||

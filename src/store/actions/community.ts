@@ -21,12 +21,12 @@ export const set_community = (data: any) => {
   };
 };
 
-export const edit_community = (data:any) => {
+export const edit_community = (data: any) => {
   return {
     type: EDIT_COMMUNITY,
-    payload: data
-  }
-}
+    payload: data,
+  };
+};
 
 export const get_community = () => async (dispatch: any) => {
   return await getCommunity().then(

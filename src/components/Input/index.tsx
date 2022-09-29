@@ -274,53 +274,59 @@ export const InputDropdown = ({
   error = "",
   disabled,
   onChange,
-  list=[],
+  list = [],
   showDropdown,
   select,
   value,
-  onBlur, onFocus
+  onBlur,
+  onFocus,
 }: any) => {
-
-  const [dvalue, setValue] = useState(value || '')
-  const set= (va:string)=>{
-    select(va)
-    setValue(va)
-  }
-  return(
-  <div  className="relative w-full">
-    {label.length > 1 && (
-      <>
-        <label className="mb-4 lg:text-label_text ">{label}</label>
-        <br />
-      </>
-    )}
-    <input
-      // onBlur={onBlur}
-      onFocus={onFocus}
-      type={"text"}
-      name={name}
-      value={dvalue}
-      className="p-4 mt-2 mb-8 border rounded-md w-full"
-      placeholder={placeholder}
-      disabled={disabled}
-      onChange={(e:any)=>{
-        setValue(e.target.value)
-        onChange(e.target.value)
-      }}
-    />
-    <p className="text-red text-xs -mt-7">{error}</p>
-    <br />
-    { showDropdown && 
-    <div className="absolute top-24 z-10 bg-[#fff] shadow-2xl h-60 overflow-y-auto w-full rounded-lg">
-      <ul>
-        {
-           list.map((data: any) => (
-            <li key={data.name} className="py-2 px-4 cursor-pointer hover:bg-faded" onClick={()=>set(data.name)} >{data.name}</li>
-           )
-        )}
-      </ul>
-    </div>}
-  </div>
-)};
+  const [dvalue, setValue] = useState(value || "");
+  const set = (va: string) => {
+    select(va);
+    setValue(va);
+  };
+  return (
+    <div className="relative w-full">
+      {label.length > 1 && (
+        <>
+          <label className="mb-4 lg:text-label_text ">{label}</label>
+          <br />
+        </>
+      )}
+      <input
+        // onBlur={onBlur}
+        onFocus={onFocus}
+        type={"text"}
+        name={name}
+        value={dvalue}
+        className="p-4 mt-2 mb-8 border rounded-md w-full"
+        placeholder={placeholder}
+        disabled={disabled}
+        onChange={(e: any) => {
+          setValue(e.target.value);
+          onChange(e.target.value);
+        }}
+      />
+      <p className="text-red text-xs -mt-7">{error}</p>
+      <br />
+      {showDropdown && (
+        <div className="absolute top-24 z-10 bg-[#fff] shadow-2xl h-60 overflow-y-auto w-full rounded-lg">
+          <ul>
+            {list.map((data: any) => (
+              <li
+                key={data.name}
+                className="py-2 px-4 cursor-pointer hover:bg-faded"
+                onClick={() => set(data.name)}
+              >
+                {data.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Input;

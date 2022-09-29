@@ -57,7 +57,10 @@ const URL = {
   paymentDetails: baseUrl + "payment_request_details/",
   transactionHistory: baseUrl + "transaction_history/",
   addRemoveRecepients: baseUrl + "add_or_remove_payment_recipients/",
-  
+
+  markPaymentComplete: baseUrl + "mark_payment_complete/",
+  sendPaymentReminder: baseUrl + "send_payment_reminder/",
+
   communityMembers: baseUrl + "community/member/",
 
   communityMemberSearchFilter: baseUrl + "community_member/?",

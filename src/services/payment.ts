@@ -33,36 +33,42 @@ export const makePaymentRequest = (data: any) => {
   return axios.post(URL.payment, data, config);
 };
 
-
 export const getPaymentRequests = () => {
   let config = configuration();
 
   return axios.get(URL.payment, config);
-}
+};
 
-export const getPaymentRequestsDetails = (id:string) => {
+export const getPaymentRequestsDetails = (id: string) => {
   let config = configuration();
 
-  return axios.get(URL.paymentDetails+id+'/', config);
-}
+  return axios.get(URL.paymentDetails + id + "/", config);
+};
 
 export const getTransactionHistory = () => {
   let config = configuration();
 
   return axios.get(URL.transactionHistory, config);
-}
+};
 
-export const verifyAccount = (data:any) => {
+export const verifyAccount = (data: any) => {
   let config = configuration();
 
-  return axios.post(URL.verifyAccount, {...data}, config);
-}
+  return axios.post(URL.verifyAccount, { ...data }, config);
+};
 
-
-export const addRemoveRecepients = (data:any) => {
+export const addRemoveRecepients = (data: any) => {
   let config = configuration();
 
-  return axios.post(URL.addRemoveRecepients, {...data}, config);
-}
+  return axios.post(URL.addRemoveRecepients, { ...data }, config);
+};
+export const markPaymentComplete = (data: any) => {
+  let config = configuration();
 
+  return axios.post(URL.markPaymentComplete, { ...data }, config);
+};
+export const sendPaymentReminder = (data: any) => {
+  let config = configuration();
 
+  return axios.post(URL.sendPaymentReminder, { ...data }, config);
+};

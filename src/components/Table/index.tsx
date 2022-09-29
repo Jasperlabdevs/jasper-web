@@ -23,8 +23,8 @@ type tableColumnType = {
   onClick?: any;
   list?: any;
   status_type?: Boolean;
-  handleChange?:any,
-  checked?:boolean
+  handleChange?: any;
+  checked?: boolean;
 };
 
 export const TableHeader = ({ headers }: any) => (
@@ -46,13 +46,21 @@ export const TableColumn = ({
   list = [],
   status_type,
   handleChange,
-  checked
+  checked,
 }: tableColumnType) => (
   <>
     {type === "normal" && <td className="px-4 py-8 text-left">{td}</td>}
     {type === "check" && (
       <td className="pl-4 py-8 text-left">
-        { <input type="checkbox" defaultChecked={checked} onChange={handleChange} value={td} name={td} />}
+        {
+          <input
+            type="checkbox"
+            defaultChecked={checked}
+            onChange={handleChange}
+            value={td}
+            name={td}
+          />
+        }
       </td>
     )}
     {type === "status" && (
@@ -75,7 +83,7 @@ export const TableColumn = ({
                td === "enabled" ||
                td === "verified" ||
                td === "completed" ||
-               td === "paid"  ) &&
+               td === "paid") &&
              "bg-faded_green text-green"
            } `}
         >
@@ -135,7 +143,13 @@ export const TableColumn = ({
               // >
               //   {data.title}
               // </p>
-              <p key={data.title} className="cursor-pointer text-black hover:bg-faded" onClick={data.action} >{data.title}</p>
+              <p
+                key={data.title}
+                className="cursor-pointer text-black hover:bg-faded"
+                onClick={data.action}
+              >
+                {data.title}
+              </p>
             ))}
           </div>
         </div>

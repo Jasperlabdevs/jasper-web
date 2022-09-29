@@ -20,21 +20,19 @@ const Members = () => {
     "More",
   ];
 
+  const [members, setMembers] = useState([]);
 
+  const communityMembers = useSelector((state: any) => state.members);
 
-  const [ members, setMembers ] = useState([])
-
-  const communityMembers = useSelector((state:any) => state.members)
-
-  useEffect(()=>{
-    if(communityMembers){
-      setMembers(communityMembers)
+  useEffect(() => {
+    if (communityMembers) {
+      setMembers(communityMembers);
     }
-  },[communityMembers])
+  }, [communityMembers]);
 
-  useEffect(()=> {
-    dispatchStore(get_community_members())
-  },[])
+  useEffect(() => {
+    dispatchStore(get_community_members());
+  }, []);
 
   return (
     <div>
@@ -63,33 +61,52 @@ const Members = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {(members.length > 0) && members.map((data:any) => (
-              <tr key={data.id} className="border-b border-[#C3C9DA] align-vertical">
-                <TableColumn
-                  td={
-                    <span>
-                      {data?.myuser?.first_name +
-                              " " +
-                              data?.myuser?.last_name}{" "} <br />
-                      <span className="text-grey_text text-xs">{data?.myuser?.email}</span>
-                    </span>
-                  }
-                  type="user"
-                  image={ data.myuser?.profile_picture || img}
-                />
+            {members.length > 0 &&
+              members.map((data: any) => (
+                <tr
+                  key={data.id}
+                  className="border-b border-[#C3C9DA] align-vertical"
+                >
+                  <TableColumn
+                    td={
+                      <span>
+                        {data?.myuser?.first_name +
+                          " " +
+                          data?.myuser?.last_name}{" "}
+                        <br />
+                        <span className="text-grey_text text-xs">
+                          {data?.myuser?.email}
+                        </span>
+                      </span>
+                    }
+                    type="user"
+                    image={data.myuser?.profile_picture || img}
+                  />
 
-                <TableColumn td={data?.occupancy_type?.name} type="userType" />
-                <TableColumn td={ data.tenancy_end_date ? formatDate(data.tenancy_end_date) : 'N/A'} />
-                <TableColumn td={data?.myuser?.phone_number} />
-                <TableColumn td={formatDate(data?.date_joined)} />
-                <TableColumn  td={data?.is_active ? "enabled" : "disabled"} type="status" />
-                <TableColumn
-                  td="Manage Access"
-                  type="button"
-                  buttonType="tertiary"
-                />
-              </tr>
-            ))}
+                  <TableColumn
+                    td={data?.occupancy_type?.name}
+                    type="userType"
+                  />
+                  <TableColumn
+                    td={
+                      data.tenancy_end_date
+                        ? formatDate(data.tenancy_end_date)
+                        : "N/A"
+                    }
+                  />
+                  <TableColumn td={data?.myuser?.phone_number} />
+                  <TableColumn td={formatDate(data?.date_joined)} />
+                  <TableColumn
+                    td={data?.is_active ? "enabled" : "disabled"}
+                    type="status"
+                  />
+                  <TableColumn
+                    td="Manage Access"
+                    type="button"
+                    buttonType="tertiary"
+                  />
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

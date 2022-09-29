@@ -37,7 +37,7 @@ const RecurringAccess = () => {
   const [startDate, setStartDate] = useState(todayDate);
   const stateCommunity = useSelector((state: any) => state.community);
   const [accessRules, setAccessRules] = useState<any>({});
-  const [ visitorData, setVisitorData ] = useState()
+  const [visitorData, setVisitorData] = useState();
   const [showTime, toggleShowTime] = useState(true);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const RecurringAccess = () => {
     createEventAccess(data)
       .then((res) => {
         setLoading(false);
-        setVisitorData(data)
+        setVisitorData(data);
         if (which === "text") {
           setShowTextCode(true);
         } else {
