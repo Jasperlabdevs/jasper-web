@@ -9,6 +9,7 @@ import {
   addRemoveRecepients,
   getPaymentRequestsDetails,
   makePaymentRequest,
+  updatePaymentRequest,
 } from "services/payment";
 import Loader from "components/Loader";
 import { formatDate } from "helpers/utils";
@@ -27,7 +28,7 @@ const NewPaymentRequest = () => {
   const [paymentDetails, setPaymentDetails] = useState<any>({});
   const [error, setError] = useState("");
   const [selecteMembers, setSeletedMembers] = useState<Array<string>>([]);
-
+  const [ createDraft, setCreateDraft ] = useState(false)
   const { request_id } = useParams();
 
   useEffect(() => {
@@ -59,11 +60,7 @@ const NewPaymentRequest = () => {
   };
 
   const makePaymentReq = (data: any) => {
-    if (selecteMembers.length === 0) {
-      setError("Please select Recipients");
-      setLoading(false);
-      return null;
-    }
+    setError('')
     data.recipients = [...selecteMembers];
     makePaymentRequest(data)
       .then((res) => {
@@ -80,9 +77,11 @@ const NewPaymentRequest = () => {
           .then((results) => {
             setLoading(false);
             console.log(results);
+            navigate(-1)
           })
           .catch((err) => {
             console.log(err);
+            setError('Adding recipients failed!')
             setLoading(false);
           });
       })
@@ -91,6 +90,42 @@ const NewPaymentRequest = () => {
         setLoading(false);
       });
   };
+
+  const updatePaymentRequ = (data:any) => {
+    setError('')
+
+    console.log(data)
+
+    updatePaymentRequest(data).then(
+      res => {
+        setLoading(false);
+            console.log(res);
+            
+              let recepient_data = {
+                action: "add",
+                payment_request_id: request_id,
+                recipients: [...selecteMembers],
+              }
+              addRemoveRecepients(recepient_data)
+                .then((results) => {
+                  setLoading(false);
+                  console.log(results);
+                  navigate(-1)
+                })
+                .catch((err) => {
+                  console.log(err);
+                  setError('Adding recipients failed!')
+                  setLoading(false);
+                });
+      }
+    ).catch(
+      err => {
+        console.log(err);
+            setError('Update failed!')
+            setLoading(false);
+      }
+    )
+  }
 
   const getValue = () => {
     let data: any = {};
@@ -111,16 +146,31 @@ const NewPaymentRequest = () => {
     let data = getValue();
     data.state = "create";
 
-    makePaymentReq(data);
+    if (selecteMembers.length === 0) {
+      setError("Please select Recipients");
+      setLoading(false);
+      return null;
+    }
+    if(!!request_id){
+      setCreateDraft(true)
+      data.payment_request_id = request_id
+      updatePaymentRequ(data)
+    }else{
+      makePaymentReq(data);
+    }
   };
 
   const saveDraft = () => {
+    setCreateDraft(false)
     setLoading(true);
     let data = getValue();
-
     data.state = "draft";
-
-    makePaymentReq(data);
+    if(!!request_id){
+      data.payment_request_id = request_id
+      updatePaymentRequ(data)
+    }else{
+      makePaymentReq(data);
+    }
   };
 
   return (
