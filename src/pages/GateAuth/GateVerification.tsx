@@ -8,6 +8,8 @@ import EntryExitModal from "./EntryExitModal";
 import IdentityCheckModal from "./IdentityCheckModal";
 import { getCommunityWithID } from "services/community";
 
+
+let currentOTPIndex:number = 0
 const GateVerification = () => {
   const [loading, setLoading] = useState(false);
 
@@ -106,16 +108,15 @@ const GateVerification = () => {
   }, [activeOtpIndex]);
 
   const handleChange = (
-    { target }: React.ChangeEvent<HTMLInputElement>,
-    index: number
+    { target }: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const { value } = target;
     const newOTP: string[] = [...otp];
 
-    newOTP[index] = value.substring(value.length - 1);
+    newOTP[currentOTPIndex] = value.substring(value.length - 1);
 
-    if (!value) setActiveOtpIndex(index - 1);
-    else setActiveOtpIndex(index + 1);
+    if (!value) setActiveOtpIndex(currentOTPIndex - 1);
+    else setActiveOtpIndex(currentOTPIndex + 1);
 
     setOtp(newOTP);
   };
@@ -124,8 +125,8 @@ const GateVerification = () => {
     { key }: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    // console.log(key);
-    if (key === "Backspace") {
+    currentOTPIndex = index
+    if (key === "Backspace" || key=== "Delete") {
       setActiveOtpIndex(index - 1);
     }
   };
@@ -191,7 +192,7 @@ const GateVerification = () => {
                     ref={index === activeOtpIndex ? inputRef : null}
                     type="number"
                     className="w-14 px-4 flex justify-center items-center p-4 h-14 border rounded-lg text-xl"
-                    onChange={(e) => handleChange(e, index)}
+                    onChange={handleChange}
                     value={otp[index]}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                   />
