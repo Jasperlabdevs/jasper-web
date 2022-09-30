@@ -61,7 +61,7 @@ const CollectPayment = () => {
 
   return (
     <div>
-      <div className="mt-10 relative overflow-x-hidden">
+      <div className="mt-10 relative">
         {requestLoading && <Loader />}
         {showSetupBankModal && (
           <SetupBankModal
@@ -124,12 +124,12 @@ const CollectPayment = () => {
                   }
                 />
               </div>
-              <div className="h-inherit block">
+              <div className=" z-[1000] top-0">
                 <div className="dropdown">
                   <button className="border-primary border rounded-lg px-4 dropbtn">
                     ...
                   </button>
-                  <div className="dropdown-content z-10">
+                  <div className="dropdown-content z-[100] absolute">
                     <p
                       className="cursor-pointer text-black hover:bg-faded"
                       onClick={() => toggleSetUpBankModal(true)}
@@ -138,7 +138,7 @@ const CollectPayment = () => {
                     </p>
                     <p
                       className="cursor-pointer text-black hover:bg-faded"
-                      onClick={() => {}}
+                      onClick={() => {navigate('transaction_history')}}
                     >
                       {"View Transaction History"}
                     </p>

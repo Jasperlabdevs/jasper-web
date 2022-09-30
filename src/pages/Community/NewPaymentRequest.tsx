@@ -193,7 +193,7 @@ const NewPaymentRequest = () => {
           <span>{SVGs.arrow_left}</span>
           {"  "}
         </p>
-        <h5 className="my-6"> New Payment Request</h5>
+        <h5 className="my-6">{ !!request_id ? paymentDetails.name : 'New Payment Request'}</h5>
       </div>
 
       <div className="flex flex-col md:flex-row gap-[5rem] w-full items-center">

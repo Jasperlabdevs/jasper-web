@@ -76,6 +76,7 @@ const TransactionHistory = () => {
                     td="View Payment Request"
                     type="button"
                     buttonType="tertiary"
+                    onClick={()=>navigate('/community/collect_payments/new_payment_request/'+data?.payment?.id)}
                   />
                 </tr>
               ))}
