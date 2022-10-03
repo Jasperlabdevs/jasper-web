@@ -28,7 +28,7 @@ const NewPaymentRequest = () => {
   const [paymentDetails, setPaymentDetails] = useState<any>({});
   const [error, setError] = useState("");
   const [selecteMembers, setSeletedMembers] = useState<Array<string>>([]);
-  const [ createDraft, setCreateDraft ] = useState(false)
+  const [createDraft, setCreateDraft] = useState(false);
   const { request_id } = useParams();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const NewPaymentRequest = () => {
   };
 
   const makePaymentReq = (data: any) => {
-    setError('')
+    setError("");
     data.recipients = [...selecteMembers];
     makePaymentRequest(data)
       .then((res) => {
@@ -77,11 +77,11 @@ const NewPaymentRequest = () => {
           .then((results) => {
             setLoading(false);
             console.log(results);
-            navigate(-1)
+            navigate(-1);
           })
           .catch((err) => {
             console.log(err);
-            setError('Adding recipients failed!')
+            setError("Adding recipients failed!");
             setLoading(false);
           });
       })
@@ -91,41 +91,39 @@ const NewPaymentRequest = () => {
       });
   };
 
-  const updatePaymentRequ = (data:any) => {
-    setError('')
+  const updatePaymentRequ = (data: any) => {
+    setError("");
 
-    console.log(data)
+    console.log(data);
 
-    updatePaymentRequest(data).then(
-      res => {
+    updatePaymentRequest(data)
+      .then((res) => {
         setLoading(false);
-            console.log(res);
-            
-              let recepient_data = {
-                action: "add",
-                payment_request_id: request_id,
-                recipients: [...selecteMembers],
-              }
-              addRemoveRecepients(recepient_data)
-                .then((results) => {
-                  setLoading(false);
-                  console.log(results);
-                  navigate(-1)
-                })
-                .catch((err) => {
-                  console.log(err);
-                  setError('Adding recipients failed!')
-                  setLoading(false);
-                });
-      }
-    ).catch(
-      err => {
-        console.log(err);
-            setError('Update failed!')
+        console.log(res);
+
+        let recepient_data = {
+          action: "add",
+          payment_request_id: request_id,
+          recipients: [...selecteMembers],
+        };
+        addRemoveRecepients(recepient_data)
+          .then((results) => {
             setLoading(false);
-      }
-    )
-  }
+            console.log(results);
+            navigate(-1);
+          })
+          .catch((err) => {
+            console.log(err);
+            setError("Adding recipients failed!");
+            setLoading(false);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Update failed!");
+        setLoading(false);
+      });
+  };
 
   const getValue = () => {
     let data: any = {};
@@ -151,24 +149,24 @@ const NewPaymentRequest = () => {
       setLoading(false);
       return null;
     }
-    if(!!request_id){
-      setCreateDraft(true)
-      data.payment_request_id = request_id
-      updatePaymentRequ(data)
-    }else{
+    if (!!request_id) {
+      setCreateDraft(true);
+      data.payment_request_id = request_id;
+      updatePaymentRequ(data);
+    } else {
       makePaymentReq(data);
     }
   };
 
   const saveDraft = () => {
-    setCreateDraft(false)
+    setCreateDraft(false);
     setLoading(true);
     let data = getValue();
     data.state = "draft";
-    if(!!request_id){
-      data.payment_request_id = request_id
-      updatePaymentRequ(data)
-    }else{
+    if (!!request_id) {
+      data.payment_request_id = request_id;
+      updatePaymentRequ(data);
+    } else {
       makePaymentReq(data);
     }
   };
@@ -193,7 +191,9 @@ const NewPaymentRequest = () => {
           <span>{SVGs.arrow_left}</span>
           {"  "}
         </p>
-        <h5 className="my-6">{ !!request_id ? paymentDetails.name : 'New Payment Request'}</h5>
+        <h5 className="my-6">
+          {!!request_id ? paymentDetails.name : "New Payment Request"}
+        </h5>
       </div>
 
       <div className="flex flex-col md:flex-row gap-[5rem] w-full items-center">

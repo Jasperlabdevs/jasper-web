@@ -101,7 +101,7 @@ const CommunityAccessHistory = () => {
 
       {showFilter && <Filter handleChange={handleChange} />}
 
-      <table className="w-full ">
+      <table className="w-full mt-10">
         <thead className="">
           <TableHeader headers={headersAll} />
         </thead>

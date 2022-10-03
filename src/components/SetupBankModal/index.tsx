@@ -28,7 +28,7 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
 
   const [banks, loadingBanks, bankError] = useFetch(getBanks);
   const [filterText, setFilterText] = useState("");
-  const [ selectedBank, selectBank ] = useState<any>({})
+  const [selectedBank, selectBank] = useState<any>({});
 
   const [filteredBanks, setFilteredBanks] = useState(banks || []);
   const [showDropdown, toggleShowDropdown] = useToggle(false);
@@ -52,8 +52,8 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
 
   const select = (value: string) => {
     let temp = banks.filter((el: any) => el.name === value);
-    console.log(temp[0])
-    selectBank(temp[0])
+    console.log(temp[0]);
+    selectBank(temp[0]);
     setBankUUID(temp[0].uuid);
     toggleShowDropdown(false);
   };
@@ -91,13 +91,13 @@ const SetupBankModal = ({ show, toggleClose, creationCondition }: any) => {
 
   const onSubmit = (data: any) => {
     data.account_name = accountName;
-    data.bank_uuid = selectedBank.uuid
-    data.bank_inter_institution_code = selectedBank?.interInstitutionCode
-    data.bank_sort_code= selectedBank?.sortCode
-    data.bank_ussd_code= selectedBank?.ussdCode
-    
+    data.bank_uuid = selectedBank.uuid;
+    data.bank_inter_institution_code = selectedBank?.interInstitutionCode;
+    data.bank_sort_code = selectedBank?.sortCode;
+    data.bank_ussd_code = selectedBank?.ussdCode;
+
     if (data.account_name === "") return null;
-    
+
     data.bank_name = selectedBank.name;
     console.log(data);
 

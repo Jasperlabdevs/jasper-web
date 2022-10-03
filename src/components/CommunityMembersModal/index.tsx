@@ -17,7 +17,7 @@ const CommunityMembersModal = ({
   setSelectedMembers,
 }: any) => {
   const [communityMembers, setCommunityMembers] = useState([]);
-  const [occupancyTypes, setOccupancyTypes] = useState<any>();
+  const [occupancyTypes, setOccupancyTypes] = useState<any>([]);
   const [searchText, setSearchText] = useState("");
   const [checkedMembers, addCheckedMembers] = useState<Array<string>>([
     ...selectedMembers,
@@ -111,19 +111,21 @@ const CommunityMembersModal = ({
     });
   };
 
+
+
   useEffect(() => {
     getOccupancyTypes().then((res) => {
-      setOccupancyTypes(res.data.results);
       let data = res.data.results;
       for (let i = 0; i < data.length; i++) {
         let test = { value: data[i].id, label: data[i].name };
-        if (test.label !== "") {
+        if ( occupancyTypes.indexOf((el:any) => el.label === test.label) === -1) {
           setOccupancyTypes((prev: any) => {
             return [...prev, test];
           });
         }
       }
     });
+
   }, []);
 
   return (

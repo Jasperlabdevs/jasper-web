@@ -38,7 +38,6 @@ export const updatePaymentRequest = (data: any) => {
   return axios.put(URL.payment, data, config);
 };
 
-
 export const getPaymentRequests = () => {
   let config = configuration();
 

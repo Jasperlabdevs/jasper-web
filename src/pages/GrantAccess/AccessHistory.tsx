@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import {
-  accessHistorySearchHistory,
+  accessHistorySearchFilter,
   disableAccessCode,
   getUserAccessHistory,
 } from "services/access";
@@ -106,7 +106,7 @@ const AccessHistory = () => {
     const data = {
       search_text: text,
     };
-    accessHistorySearchHistory(data).then((res) => {
+    accessHistorySearchFilter(data).then((res) => {
       const data = res.data.results;
       setActiveAllList(data);
     });
@@ -127,7 +127,7 @@ const AccessHistory = () => {
 
     setParams(temp);
 
-    accessHistorySearchHistory(temp).then((res) => {
+    accessHistorySearchFilter(temp).then((res) => {
       setLoading(false);
       const data = res.data.results;
       setActiveAllList(data);

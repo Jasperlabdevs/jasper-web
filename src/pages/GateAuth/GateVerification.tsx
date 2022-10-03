@@ -8,8 +8,7 @@ import EntryExitModal from "./EntryExitModal";
 import IdentityCheckModal from "./IdentityCheckModal";
 import { getCommunityWithID } from "services/community";
 
-
-let currentOTPIndex:number = 0
+let currentOTPIndex: number = 0;
 const GateVerification = () => {
   const [loading, setLoading] = useState(false);
 
@@ -107,9 +106,9 @@ const GateVerification = () => {
     inputRef?.current?.focus();
   }, [activeOtpIndex]);
 
-  const handleChange = (
-    { target }: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const handleChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = target;
     const newOTP: string[] = [...otp];
 
@@ -125,8 +124,8 @@ const GateVerification = () => {
     { key }: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    currentOTPIndex = index
-    if (key === "Backspace" || key=== "Delete") {
+    currentOTPIndex = index;
+    if (key === "Backspace" || key === "Delete") {
       setActiveOtpIndex(index - 1);
     }
   };

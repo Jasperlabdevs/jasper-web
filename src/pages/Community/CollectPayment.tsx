@@ -138,7 +138,9 @@ const CollectPayment = () => {
                     </p>
                     <p
                       className="cursor-pointer text-black hover:bg-faded"
-                      onClick={() => {navigate('transaction_history')}}
+                      onClick={() => {
+                        navigate("transaction_history");
+                      }}
                     >
                       {"View Transaction History"}
                     </p>

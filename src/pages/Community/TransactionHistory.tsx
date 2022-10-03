@@ -68,15 +68,20 @@ const TransactionHistory = () => {
               transactions.map((data: any) => (
                 <tr className="border-b border-[#C3C9DA] align-vertical">
                   <TableColumn td={data?.payment?.name} />
-                  <TableColumn td="Chidnma Ukaegbu" />
-                  <TableColumn td={"$ " + data?.payment?.amount} />
+                  <TableColumn td={data?.member?.first_name + ' ' + data?.member?.last_name} />
+                  <TableColumn td={"₦" + data?.payment?.amount} />
                   <TableColumn td={formatDate(data?.payment?.due_date)} />
                   <TableColumn td={data?.ref_number} />
                   <TableColumn
                     td="View Payment Request"
                     type="button"
                     buttonType="tertiary"
-                    onClick={()=>navigate('/community/collect_payments/new_payment_request/'+data?.payment?.id)}
+                    onClick={() =>
+                      navigate(
+                        "/community/collect_payments/new_payment_request/" +
+                          data?.payment?.id
+                      )
+                    }
                   />
                 </tr>
               ))}

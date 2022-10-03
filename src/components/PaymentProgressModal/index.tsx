@@ -96,7 +96,7 @@ const PaymentProgressModal = ({ show, toggleClose, paymentRequest }: any) => {
 
                   <TableColumn td={data.member.user_type} type="userType" />
                   <TableColumn td={data.status} type="status" />
-                  <TableColumn td={"$ " + paymentRequest.amount} />
+                  <TableColumn td={"₦ " + paymentRequest.amount} />
                   <TableColumn td={data.data_paid || "--"} />
                   <TableColumn
                     td={"..."}

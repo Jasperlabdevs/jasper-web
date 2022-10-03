@@ -166,7 +166,7 @@ export const getUserAccessHistory = () => {
   return axios.get(URL.userAccessHistory, config);
 };
 
-export const accessHistorySearchHistory = (data: any) => {
+export const accessHistorySearchFilter = (data: any) => {
   let config = configuration();
   return axios.post(URL.accessHistorySearchFilter, data, config);
 };
