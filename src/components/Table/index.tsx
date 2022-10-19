@@ -143,13 +143,16 @@ export const TableColumn = ({
               // >
               //   {data.title}
               // </p>
-              <p
-                key={data.title}
-                className="cursor-pointer text-black hover:bg-faded"
-                onClick={data.action}
-              >
-                {data.title}
-              </p>
+              <>
+                <button
+                  key={data.title}
+                  className={` hover:bg-faded p-4 w-full text-left ${data.disabled ? 'text-light_grey_text cursor-not-allowed' : 'cursor-pointer text-black'} `}
+                  onClick={data.action}
+                  disabled={data.disabled || false}
+                >
+                  {data.title}
+                </button><br />
+              </>
             ))}
           </div>
         </div>

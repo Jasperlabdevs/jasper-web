@@ -233,11 +233,12 @@ const CollectPayment = () => {
                     td="More"
                     type="dropdown"
                     list={[
-                      {
+                      { 
                         title: "Edit",
                         action: () => {
                           navigate("new_payment_request/" + data.id);
                         },
+                        disabled: ((data.status === 'in progress' || data.status === 'completed') ? true : false )
                       },
                       {
                         title: "View Payment Progress",

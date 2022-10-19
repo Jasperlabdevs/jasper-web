@@ -1,28 +1,34 @@
-import Button from "components/Button";
-import { TableContent } from "helpers/data";
-import img from "assets/images/AccountPhoto.png";
-import SearchFilter from "components/SearchFilter";
-import Filter from "components/Filters";
 import { TableColumn, TableHeader } from "components/Table";
 import { useNavigate } from "react-router-dom";
 import SVGs from "helpers/SVGs";
-import { Select } from "components/Input";
-import ModalLarge from "components/ModalLarge";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "hooks/useFetch";
-import { getTransactionHistory } from "services/payment";
+import { getTransactionHistory, getTransactionHistorySearch } from "services/payment";
 import Loader from "components/Loader";
 import { formatDate } from "helpers/utils";
 
 const TransactionHistory = () => {
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
-
-  const [transactions, requestLoading, requestError] = useFetch(
+  const [ searchText, setSearchText ] = useState('')
+  const [transactions, requestLoading, ] = useFetch(
     getTransactionHistory
   );
 
-  console.log(transactions);
+  const [ transactionList, setTransactionList ] = useState(transactions)
+
+  const handleSearch = (searchText:string) => {
+      const data = {
+        search_text: searchText,
+      };
+      getTransactionHistorySearch(data).then((res) => {
+        const data = res.data.results;
+        setTransactionList(data);
+      });
+  }
+
+  useEffect(()=>{
+    setTransactionList(transactions)
+  },[transactions])
 
   const headers = [
     "Payment Request Name",
@@ -51,9 +57,23 @@ const TransactionHistory = () => {
               {" "}
               Transaction History{" "}
               <span className="text-white bg-primary rounded-full px-3 text-xs">
-                {!!transactions && transactions.length}
+                {!!transactionList && transactionList.length}
               </span>
             </h5>
+          </div>
+          <div>
+          <form className="bg-[#F9F9FB] flex w-5xl py-2 px-4 rounded-lg">
+          <button type="button" onClick={() => handleSearch(searchText)}>
+            {SVGs.search}
+          </button>
+          <input
+            type="text"
+            className="ml-2 outline-none px-2 w-5xl bg-[#F9F9FB] py-3"
+            placeholder="Search"
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+          />
+        </form>
           </div>
         </div>
       </div>
@@ -64,8 +84,8 @@ const TransactionHistory = () => {
             <TableHeader headers={headers} />
           </thead>
           <tbody>
-            {!!transactions &&
-              transactions.map((data: any) => (
+            {!!transactionList &&
+              transactionList.map((data: any) => (
                 <tr className="border-b border-[#C3C9DA] align-vertical">
                   <TableColumn td={data?.payment?.name} />
                   <TableColumn td={data?.member?.first_name + ' ' + data?.member?.last_name} />

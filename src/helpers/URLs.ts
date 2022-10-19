@@ -56,6 +56,8 @@ const URL = {
   payment: baseUrl + "payment_request/",
   paymentDetails: baseUrl + "payment_request_details/",
   transactionHistory: baseUrl + "transaction_history/",
+  transactionHistorySearch: baseUrl + "transaction_history_search/",
+
   addRemoveRecepients: baseUrl + "add_or_remove_payment_recipients/",
 
   markPaymentComplete: baseUrl + "mark_payment_complete/",

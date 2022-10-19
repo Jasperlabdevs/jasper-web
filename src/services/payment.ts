@@ -56,6 +56,12 @@ export const getTransactionHistory = () => {
   return axios.get(URL.transactionHistory, config);
 };
 
+export const getTransactionHistorySearch = (data:any) => {
+  let config = configuration();
+
+  return axios.post(URL.transactionHistorySearch, data, config);
+};
+
 export const verifyAccount = (data: any) => {
   let config = configuration();
 

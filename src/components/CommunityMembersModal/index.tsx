@@ -213,14 +213,18 @@ const CommunityMembersModal = ({
             </tbody>
           </table>
         </div>
-        <div className="w-80 flex mt-5 float-right mb-8">
-          <Button type="submit" onClick={saveSelected} title="Save" />
-          <Button
-            type="submit"
-            onClick={toggleClose}
-            title="Cancel"
-            secondary
-          />
+        <div className="flex justify-between items-center">
+            
+            <p>Unique Participants: {communityMembers.length}</p>
+          <div className="w-80 flex mt-5 mb-8">
+            <Button type="submit" onClick={saveSelected} title="Save" />
+            <Button
+              type="submit"
+              onClick={toggleClose}
+              title="Cancel"
+              secondary
+            />
+          </div>
         </div>
       </div>
     </ModalLarge>

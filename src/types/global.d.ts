@@ -9,5 +9,7 @@ declare namespace globalThis {
     title: string;
     message: string;
     autoDeleteTime?: number;
+    show?:boolean;
+    toggleShow?:any
   };
 }

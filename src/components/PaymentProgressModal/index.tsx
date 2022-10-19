@@ -3,10 +3,13 @@ import { TableHeader, TableColumn } from "components/Table";
 import { useState } from "react";
 import img from "assets/images/AccountPhoto.png";
 import Button from "components/Button";
-import Filter from "components/Filters";
-import SearchFilter from "components/SearchFilter";
+
 import { markPaymentComplete, sendPaymentReminder } from "services/payment";
 import Loader from "components/Loader";
+import useToggle from "hooks/useToggle";
+import Toaster from "components/Toaster";
+
+
 
 const PaymentProgressModal = ({ show, toggleClose, paymentRequest }: any) => {
   const headers = [
@@ -17,8 +20,9 @@ const PaymentProgressModal = ({ show, toggleClose, paymentRequest }: any) => {
     "Date Paid",
     "...",
   ];
-  const [showFilter, setShowFilter] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ showToast, toggleToast ] = useToggle(false)
+  const [ toast, setToast ] = useState<NotificationType>({type: undefined, message: '', title: ''})
 
   const markComplete = (id: string) => {
     setLoading(true);
@@ -30,9 +34,21 @@ const PaymentProgressModal = ({ show, toggleClose, paymentRequest }: any) => {
       .then((res) => {
         console.log(res);
         setLoading(false);
+        toggleToast(true)
+        setToast({
+          type: 'success',
+          title: 'Payment Progress',
+          message: res.data.message
+        })
       })
       .catch((err) => {
         console.log(err);
+        toggleToast(true)
+        setToast({
+          type: 'success',
+          title: 'Payment Progress',
+          message: err.response.data.message
+        })
         setLoading(false);
       });
   };
@@ -46,10 +62,22 @@ const PaymentProgressModal = ({ show, toggleClose, paymentRequest }: any) => {
       .then((res) => {
         console.log(res);
         setLoading(false);
+        toggleToast(true)
+        setToast({
+          type: 'success',
+          title: 'Payment Progress',
+          message: res.data.message
+        })
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        toggleToast(true)
+        setToast({
+          type: 'success',
+          title: 'Payment Progress',
+          message: err.response.data.message
+        })
       });
   };
 
@@ -57,22 +85,23 @@ const PaymentProgressModal = ({ show, toggleClose, paymentRequest }: any) => {
   return (
     <ModalLarge show={show} toggleClose={toggleClose}>
       {loading && <Loader />}
+      { showToast && <Toaster type={toast.type} title={toast.title} message={toast.message} />}
       <div className="p-8">
         <h4>Payment Progress</h4>
         <hr className="my-6 absolute w-full left-0" />
 
         <div className=" mt-12 mb-8 flex justify-between items-center">
           <h5 className="w-80">{paymentRequest.name}</h5>
-          <div>
+          {/* <div>
             <SearchFilter
               handleSearch={() => {}}
               toggleFilter={() => {
                 setShowFilter(!showFilter);
               }}
             />
-          </div>
+          </div> */}
         </div>
-        {showFilter && <Filter />}
+        {/* {showFilter && <Filter />} */}
         <div className="overflow-auto h-[350px] border-b border-faded">
           <table className="w-full ">
             <thead className="">
