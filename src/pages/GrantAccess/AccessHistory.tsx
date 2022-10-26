@@ -1,7 +1,7 @@
 import AccessCodeModal from "components/AccessCodeModal";
 import Filter from "components/Filters";
 import SearchFilter from "components/SearchFilter";
-import { TableColumn, TableHeader } from "components/Table";
+import { TableColumn, TableFooter, TableHeader } from "components/Table";
 import SVGs from "helpers/SVGs";
 import { formatDate, formatDateTime } from "helpers/utils";
 import { useEffect, useState } from "react";
@@ -25,12 +25,14 @@ const AccessHistory = () => {
 
   const { register } = useForm();
   const [params, setParams] = useState<any>({});
-
+  const [ tableData, setTableData ] = useState<any>({})
+  
   const getHistory = async () => {
     await getUserAccessHistory().then((res) => {
       setLoading(false);
       console.log(res.data.results);
       setCommunityHistory(res.data.results);
+      setTableData(res.data)
       // const all = communityHistory.filter(
       //   (el: any) => el.access_type !== "multiple"
       // );
@@ -260,6 +262,8 @@ const AccessHistory = () => {
                 </tr>
               ))}
             </tbody>
+            
+            <TableFooter count={tableData?.count} previous={tableData.previous} next={tableData.next} />
           </table>
         </>
       )}

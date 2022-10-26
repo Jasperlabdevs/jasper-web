@@ -168,3 +168,26 @@ export const TableColumn = ({
     )}
   </>
 );
+
+
+export const TableFooter = ({ next, previous, count, perPage=25 }:any) => {
+
+  const slices = Math.ceil(count/perPage)
+  const slicesArray = []
+
+  for( let i = 1; i <= slices; i++){
+    slicesArray.push(i)
+  }
+
+  console.log(slices)
+
+  return(
+    <div className="flex gap-5 w-fit py-10 max-auto">
+      <button onClick={previous} className={`underline hover:text-primary ${previous === null ? 'hidden' : ''} `}  >Previous</button>
+        { slicesArray.map(num => (
+          <button className="underline hover:text-primary" onClick={()=>{}} >{num}</button>
+          ))}
+          <button className={`underline hover:text-primary ${next === null ? 'hidden' : ''} `}  onClick={next} >Next</button>
+    </div>
+  )
+}

@@ -8,7 +8,7 @@ const SearchFilter = ({ handleSearch, toggleFilter }: any) => {
   return (
     <div className="flex items-center gap-4">
       <form className="bg-[#F9F9FB] flex w-3xl py-2 px-4 rounded-lg">
-        <button type="button" onClick={() => handleSearch(searchText)}>
+        <button type="submit" onClick={() => handleSearch(searchText)}>
           {SVGs.search}
         </button>
         <input

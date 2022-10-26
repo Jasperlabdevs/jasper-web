@@ -1,17 +1,13 @@
 import AccessCodeModal from "components/AccessCodeModal";
 import Filter from "components/Filters";
 import SearchFilter from "components/SearchFilter";
-import { TableColumn, TableHeader } from "components/Table";
-import SVGs from "helpers/SVGs";
-import { formatDate, formatDateTime } from "helpers/utils";
+import { TableColumn, TableFooter, TableHeader } from "components/Table";
+
+import { formatDateTime } from "helpers/utils";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-// import {
-//   accessHistorySearchHistory,
-//   disableAccessCode,
-//   getCommunityAccessHistory,
-// } from "services/access";
+import { accessHistorySearchFilter } from "services/access";
+
 import { getCommunityAccessHistory } from "services/community";
 
 const CommunityAccessHistory = () => {
@@ -19,6 +15,7 @@ const CommunityAccessHistory = () => {
   const [loading, setLoading] = useState(true);
   const [activeAllList, setActiveAllList] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
+  const [ tableData, setTableData ] = useState<any>({})
 
   const { register } = useForm();
   const [params, setParams] = useState<any>({});
@@ -28,6 +25,7 @@ const CommunityAccessHistory = () => {
       setLoading(false);
       console.log(res.data.results);
       setCommunityHistory(res.data.results);
+      setTableData(res.data)
       // const all = communityHistory.filter(
       //   (el: any) => el.access_type !== "multiple"
       // );
@@ -55,14 +53,14 @@ const CommunityAccessHistory = () => {
   };
 
   const handleSearch = (text: string) => {
-    // setShowFilter(false);
-    // const data = {
-    //   search_text: text,
-    // };
-    // accessHistorySearchHistory(data).then((res) => {
-    //   const data = res.data.results;
-    //   setActiveAllList(data);
-    // });
+    setShowFilter(false);
+    const data = {
+      search_text: text,
+    };
+    accessHistorySearchFilter(data).then((res) => {
+      const data = res.data.results;
+      setActiveAllList(data);
+    });
   };
 
   const handleChange = (event: any) => {
@@ -80,16 +78,16 @@ const CommunityAccessHistory = () => {
 
     setParams(temp);
 
-    // accessHistorySearchHistory(temp).then((res) => {
-    //   setLoading(false);
-    //   const data = res.data.results;
-    //   setActiveAllList(data);
-    // });
+    accessHistorySearchFilter(temp).then((res) => {
+      setLoading(false);
+      const data = res.data.results;
+      setActiveAllList(data);
+    });
   };
 
   return (
     <div className="mt-10 pb-40">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-10">
         <h4>
           Access History{" "}
           <span className="text-white bg-primary rounded-full px-3 text-xs">
@@ -101,7 +99,7 @@ const CommunityAccessHistory = () => {
 
       {showFilter && <Filter handleChange={handleChange} />}
 
-      <table className="w-full mt-10">
+      <table className="w-full">
         <thead className="">
           <TableHeader headers={headersAll} />
         </thead>
@@ -133,6 +131,7 @@ const CommunityAccessHistory = () => {
             </tr>
           ))}
         </tbody>
+        <TableFooter count={tableData?.count} previous={tableData.previous} next={tableData.next} />
       </table>
     </div>
   );
